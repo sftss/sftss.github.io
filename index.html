@@ -142,7 +142,7 @@
         </h2>
         <div class="about__content">
           <div class="about__content-main">
-            <h3 class="about__content-title">Faites ma connaissance !</h3>
+            <h3 class="about__content-title">Meet me !</h3>
             <div class="about__content-details">
               <p class="about__content-details-para">
                 As a <strong>passionate developer</strong>, I specialize in
@@ -330,27 +330,6 @@
               >
             </div>
           </div>
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/img/Portfolio/Menu.png"
-                alt="Portfolio Screenshot"
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-              <h3 class="projects__row-content-title">Portfolio</h3>
-              <p class="projects__row-content-desc">
-                Le site web que vous consultez en ce moment.
-              </p>
-              <a
-                href="projets/projet-5.html"
-                class="btn btn--med btn--theme dynamicBgClr"
-                blanck="self"
-                >Voir Plus</a
-              >
-            </div>
           </div>
         </div>
       </div>
@@ -360,17 +339,26 @@
         <h2 class="heading heading-sec heading-sec__mb-med">
           <span class="heading-sec__main heading-sec__main--lt">Contact</span>
           <span class="heading-sec__sub">
-            N'hésitez pas à me joindre via le formulaire ci-dessous, je vous
-            donnerai une réponse dès que possible.
-          </span>
+            Do not hesitate to contact me via the form below, I will give you an answer as soon as possible.          </span>
         </h2>
         <div class="contact__form-container">
           <form action="contact.php" method="POST" class="contact__form">
             <div class="contact__form-field">
-              <label class="contact__form-label" for="name">Nom</label>
+              <label class="contact__form-label" for="firstName">First name</label>
               <input
                 required
-                placeholder="Entrez votre nom"
+                placeholder="Enter your first name"
+                type="text"
+                class="contact__form-input"
+                name="firstName"
+                id="firstName"
+              />
+            </div>
+            <div class="contact__form-field">
+              <label class="contact__form-label" for="name">Name</label>
+              <input
+                required
+                placeholder="Enter your name"
                 type="text"
                 class="contact__form-input"
                 name="name"
@@ -381,7 +369,7 @@
               <label class="contact__form-label" for="email">Email</label>
               <input
                 required
-                placeholder="Entrez votre email"
+                placeholder="Enter your email"
                 type="email"
                 class="contact__form-input"
                 name="email"
@@ -395,7 +383,7 @@
                 cols="30"
                 rows="10"
                 class="contact__form-input"
-                placeholder="Votre message"
+                placeholder="Your message"
                 name="message"
                 id="message"
               ></textarea>
