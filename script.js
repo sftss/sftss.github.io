@@ -1,4 +1,4 @@
-// Dépliage du hamburger
+// hamburger
 const hamMenuBtn = document.querySelector(".header__main-ham-menu-cont");
 const smallMenu = document.querySelector(".header__sm-menu");
 const headerHamMenuBtn = document.querySelector(".header__main-ham-menu");
@@ -30,14 +30,13 @@ for (let i = 0; i < headerSmallMenuLinks.length; i++) {
   });
 }
 
-// Retour au début lors de l'appuie sur le logo
+// Back main page after click on logo
 const headerLogoContainer = document.querySelector(".header__logo-container");
 
 headerLogoContainer.addEventListener("click", () => {
   location.href = "../";
 });
 
-//Bonjour en differentes langues
 const translations = [
   "Yo",
   "Hola",
@@ -68,7 +67,7 @@ function changeLanguage() {
 
 setInterval(changeLanguage, 2000);
 
-// Serveur php
+// requete php
 document
   .querySelector(".contact__form")
   .addEventListener("submit", function (event) {
