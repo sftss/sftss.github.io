@@ -1,4 +1,4 @@
-// hamburger
+//#region hamburger
 const hamMenuBtn = document.querySelector(".header__main-ham-menu-cont");
 const smallMenu = document.querySelector(".header__sm-menu");
 const headerHamMenuBtn = document.querySelector(".header__main-ham-menu");
@@ -21,7 +21,7 @@ hamMenuBtn.addEventListener("click", () => {
     headerHamMenuCloseBtn.classList.remove("d-none");
   }
 });
-//
+
 for (let i = 0; i < headerSmallMenuLinks.length; i++) {
   headerSmallMenuLinks[i].addEventListener("click", () => {
     smallMenu.classList.remove("header__sm-menu--active");
@@ -29,25 +29,30 @@ for (let i = 0; i < headerSmallMenuLinks.length; i++) {
     headerHamMenuCloseBtn.classList.add("d-none");
   });
 }
+//#endregion
 
-// Back main page after click on logo
+//#region Back main page after click on logo
 const headerLogoContainer = document.querySelector(".header__logo-container");
 
 headerLogoContainer.addEventListener("click", () => {
   location.href = "../";
 });
+//#endregion
 
+//#region Hello in different languages
 const translations = [
   "Yo",
-  "Hola",
-  "Ciao",
-  "Hallo",
-  "Merhaba",
-  "Привет",
+  "Hello",
+  "السلام عليكم",
   "こんにちは",
+  "Καλημέρα",
+  "Привет",
+  "בוקר טוב",
+  "Bon maten",
   "안녕하세요",
   "欢迎",
-  "Olá",
+  "Subag jàmm",
+  "Merhaba",
 ];
 
 let currentIndex = 0;
@@ -66,8 +71,9 @@ function changeLanguage() {
 }
 
 setInterval(changeLanguage, 2000);
+//#endregion
 
-// requete php
+//#region contact form
 document
   .querySelector(".contact__form")
   .addEventListener("submit", function (event) {
@@ -80,3 +86,4 @@ document
       event.preventDefault();
     }
   });
+//#endregion

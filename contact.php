@@ -4,13 +4,13 @@
     $email = htmlspecialchars($_POST['email']);
     $message = htmlspecialchars($_POST['message']);
 
-    $to = "melih.cetinkaya.32@gmail.com";
-    $subject = "Nouveau message de votre site";
+    $to = "tasdemir.sefer74@gmail.com";
+    $subject = "NEW message du portfolio";
     $body = "Nom: $name\nEmail: $email\nMessage:\n$message";
     $headers = "From: $email";
 
     if (mail($to, $subject, $body, $headers)) {
-      echo "Message envoyé avec succès!";
+      echo "Message envoyé 📧";
     } else {
       echo "Erreur lors de l'envoi du message.";
     }
