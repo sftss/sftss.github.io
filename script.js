@@ -41,8 +41,7 @@ headerLogoContainer.addEventListener("click", () => {
 
 //#region Hello in different languages
 const translations = [
-  "Yo",
-  "Hello",
+  "Bonjour",
   "السلام عليكم",
   "こんにちは",
   "Καλημέρα",
