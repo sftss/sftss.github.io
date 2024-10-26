@@ -364,6 +364,7 @@ textarea {
 
 .projects__row-img {
   width: 100%;
+  height: 95%;
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
