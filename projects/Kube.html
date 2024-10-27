@@ -8,17 +8,12 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
     />
-    <script
-      defer
-      src="https://cloud.umami.is/script.js"
-      data-website-id="1a5d9935-363b-4cf3-8064-c2d9e9edfc79"
-    ></script>
-    <link rel="icon" href="..\assets\style.css" type="image/png" />
+    <link rel="icon" href="..\assets\img\logo.png" type="image/png" />
     <title>Sefer - Kube</title>
   </head>
 
   <body>
-    <header class="header">
+    <header id="header" class="header">
       <div class="header__content">
         <div class="header__logo-container">
           <div class="header__logo-img-cont">
@@ -33,7 +28,7 @@
         <div class="header__main">
           <ul class="header__links">
             <li class="header__link-wrapper">
-              <a href="../" class="header__link">Home page</a>
+              <a href="../#home" class="header__link">Home page</a>
             </li>
             <li class="header__link-wrapper">
               <a href="../#about" class="header__link">About me</a>
@@ -41,9 +36,9 @@
             <li class="header__link-wrapper">
               <a href="../#projects" class="header__link">Projects</a>
             </li>
-            <li class="header__link-wrapper">
-              <a href="../#contact" class="header__link">Contact</a>
-            </li>
+            <!-- <li class="header__link-wrapper">
+              <a href="./#contact" class="header__link">Contact</a>
+            </li> -->
           </ul>
           <div class="header__main-ham-menu-cont">
             <img
@@ -63,7 +58,7 @@
         <div class="header__sm-menu-content">
           <ul class="header__sm-menu-links">
             <li class="header__sm-menu-link">
-              <a href="../">Home page</a>
+              <a href="../#home">Home page</a>
             </li>
 
             <li class="header__sm-menu-link">
@@ -74,9 +69,9 @@
               <a href="../#projects">Projects</a>
             </li>
 
-            <li class="header__sm-menu-link">
-              <a href="../#contact">Contact</a>
-            </li>
+            <!-- <li class="header__sm-menu-link">
+              <a href="./#contact">Contact</a>
+            </li> -->
           </ul>
         </div>
       </div>
@@ -240,12 +235,18 @@
             <h2 class="heading heading-sm text-lt">Sefer Tasdemir</h2>
             <p class="main-footer__short-desc">Not like us</p>
             <a
-              href="..\assets\CV Sefer Tasdemir international.pdf"
-              download
+              href="..\assets\EN Sefer Tasdemir CV.pdf" download
               class="main-footer__link"
-              >Download my CV</a
+              >Download my international CV</a
+            > <br>
+            <a
+              href="..\assets\FR Sefer Tasdemir CV.pdf" download
+              class="main-footer__link"
+              >Download my French CV</a
             >
           </div>
+        </div>
+
         </div>
 
         <div class="main-footer__lower">
@@ -258,6 +259,6 @@
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="..\script.js" defer></script>
   </body>
 </html>

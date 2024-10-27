@@ -908,7 +908,7 @@ button {
 
 .rocket {
   position: absolute;
-  top: 100%;
+  top: 110%;
   left: 50%;
   transform: translate(-50%, 20px); /* position verticale */
   width: 50px; /*taille globale fusée */
