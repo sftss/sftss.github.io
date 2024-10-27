@@ -648,9 +648,15 @@ button {
 .header {
   position: fixed;
   width: 100%;
+  top: 0px;
   z-index: 1000;
   background: #fff;
   box-shadow: 0 10px 100px rgba(0, 0, 0, 0.1);
+  transition: top 0.3s;
+}
+
+.hidden {
+  top: -100px;
 }
 
 .header__content {

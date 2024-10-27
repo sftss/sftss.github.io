@@ -70,6 +70,22 @@ function changeLanguage() {
 setInterval(changeLanguage, 2000);
 //#endregion
 
+//#region
+let dernierPoint = 0;
+const header = document.getElementById("header");
+
+window.addEventListener("scroll", () => {
+  const pointActuelle = window.scrollY;
+
+  if (pointActuelle > dernierPoint) {
+    header.classList.add("hidden");
+  } else {
+    header.classList.remove("hidden");
+  }
+  dernierPoint = pointActuelle;
+});
+//#endregion
+
 //#region contact form
 document
   .querySelector(".contact__form")
