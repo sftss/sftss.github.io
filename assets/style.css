@@ -200,12 +200,7 @@ button {
   display: none;
 }
 .home-hero {
-  background: linear-gradient(
-      to right,
-      rgba(245, 245, 245, 0.5),
-      rgba(245, 245, 245, 0.5)
-    ),
-    url(assets\svg\common-bg.svg);
+  background: url("svg\\endless-constellation.svg");
   background-position: center;
   height: 100vh;
   min-height: 80rem;
@@ -222,24 +217,13 @@ button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: #fff;
+  background: #f5f5dc;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 0px 15px 15px 0px;
   padding: 0.5rem;
 }
 @media only screen and (max-width: 56.25em) {
   .home-hero__socials {
-    display: none;
-  }
-}
-.home-hero__mouse-scroll-cont {
-  position: absolute;
-  bottom: 3%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-@media only screen and (max-width: 37.5em) {
-  .home-hero__mouse-scroll-cont {
     display: none;
   }
 }
@@ -281,6 +265,7 @@ button {
 .home-hero__info {
   margin: 3rem auto 0 auto;
   max-width: 80rem;
+  font-weight: bold;
 }
 .home-hero__cta {
   margin-top: 5rem;
@@ -901,28 +886,6 @@ button {
   font-weight: 600;
   color: #666;
 }
-.mouse {
-  width: 25px;
-  height: 40px;
-  border: 2px solid black;
-  border-radius: 60px;
-  position: relative;
-  overflow: hidden;
-}
-.mouse::before {
-  content: "";
-  width: 5px;
-  height: 5px;
-  position: absolute;
-  top: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: black;
-  border-radius: 50%;
-  opacity: 1;
-  animation: wheel 1.3s infinite;
-  -webkit-animation: wheel 1.3s infinite;
-}
 @keyframes wheel {
   to {
     opacity: 0;
@@ -947,12 +910,7 @@ button {
     background: #1d1d1d;
   }
   .home-hero {
-    background: linear-gradient(
-        to right,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8)
-      ),
-      url(assets\svg\common-bg.svg);
+    background: url("svg\\endless-constellation-dark.svg");
   }
   .contact {
     background: linear-gradient(
@@ -975,5 +933,15 @@ button {
         rgba(0, 0, 0, 0.8)
       ),
       url(assets\svg\common-bg.svg);
+  }
+  /* .heading-primary {
+    stroke: 50px, #000;
+  } */
+  .heading-primary {
+    text-shadow: 1px 0 #9932cc, -1px 0 #9932cc, 0 1px #9932cc, 0 -1px #9932cc,
+      1px 1px #9932cc, -1px -1px #9932cc, 1px -1px #9932cc, -1px 1px #9932cc;
+  }
+  .home-hero__info {
+    font-weight: bold;
   }
 }

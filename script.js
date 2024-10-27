@@ -46,10 +46,8 @@ const translations = [
   "こんにちは",
   "Καλημέρα",
   "Привет",
-  "בוקר טוב",
   "Bon maten",
   "안녕하세요",
-  "欢迎",
   "Subag jàmm",
   "Merhaba",
 ];
