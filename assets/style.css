@@ -883,6 +883,14 @@ button {
   }
 }
 
+@media only screen and (max-width: 56.25em) {
+  .rocket,
+  .rocket-body,
+  .fin {
+    visibility: hidden;
+  }
+}
+
 .skills {
   display: flex;
   flex-wrap: wrap;
