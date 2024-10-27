@@ -36,6 +36,7 @@ body {
   overflow-y: scroll;
   font-family: "Source Sans Pro", sans-serif;
   transition: all 0.3s ease-in-out;
+  cursor: url("svg\\arrowhead-rounded-outline.svg"), auto;
 }
 a {
   text-decoration: none;
@@ -44,18 +45,10 @@ a {
 li {
   list-style: none;
 }
-input:focus,
-button:focus,
-a:focus,
-textarea:focus {
-  outline: none;
-}
+
 button {
   border: none;
   cursor: pointer;
-}
-textarea {
-  resize: none;
 }
 .heading-primary {
   font-size: 6rem;
@@ -690,7 +683,7 @@ textarea {
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0.1s;
 }
 
 .header__logo-container:hover {
