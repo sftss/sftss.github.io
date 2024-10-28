@@ -94,17 +94,4 @@ grecaptcha.enterprise.ready(function () {
       document.getElementById("captchaResponse").value = token;
     });
 });
-
-document
-  .querySelector(".contact__form")
-  .addEventListener("submit", function (event) {
-    const name = document.querySelector("#name").value.trim();
-    const email = document.querySelector("#email").value.trim();
-    const message = document.querySelector("#message").value.trim();
-
-    if (!name || !email || !message) {
-      alert("Veuillez remplir tous les champs.");
-      event.preventDefault();
-    }
-  });
 //#endregion

@@ -395,7 +395,7 @@ button {
       rgba(245, 245, 245, 0.5),
       rgba(245, 245, 245, 0.5)
     ),
-    url(assets\svg\common-bg.svg);
+    url("svg\\common-bg.svg");
   background-size: cover;
   background-position: center;
 }
@@ -519,7 +519,7 @@ button {
       rgba(245, 245, 245, 0.5),
       rgba(245, 245, 245, 0.5)
     ),
-    url(assets\svg\common-bg.svg);
+    url("svg\\common-bg.svg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -1027,7 +1027,7 @@ button {
         rgba(0, 0, 0, 0.8),
         rgba(0, 0, 0, 0.8)
       ),
-      url(assets\svg\common-bg.svg);
+      url("svg\\common-bg.svg");
   }
   .contact__form-container {
     background-color: #181a1b;
@@ -1041,7 +1041,7 @@ button {
         rgba(0, 0, 0, 0.8),
         rgba(0, 0, 0, 0.8)
       ),
-      url(assets\svg\common-bg.svg);
+      url("svg\\common-bg.svg");
   }
   .window,
   .fin {

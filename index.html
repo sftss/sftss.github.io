@@ -378,13 +378,7 @@
 
     <!-- //////////////////////////////////////CONTACT////////////////////////////////////// -->
 
-    <script>
-      grecaptcha.ready(function() {
-          grecaptcha.execute("6LejqG4qAAAAABlIzVJGqdeXY1jM40vidOhODuit", {action: "submit"}).then(function(token) {
-            document.getElementById('g-recaptcha-response').value = token;
-          });
-      });
-    </script>
+    
     <section id="contact" class="contact sec-pad dynamicBg">
       <div class="main-container">
         <h2 class="heading heading-sec heading-sec__mb-med">
@@ -415,7 +409,7 @@
 
             <input type="hidden" name="subject" value="NEW mail - Portfolio" />
             <input type="hidden" name="replyTo" value="tasdemir.sefer74@gmail.com">
-            <input type="hidden" name="redirectTo" value="https://sftss.github.io\#contact">
+            <input type="hidden" name="redirectTo" value="https://sftss.github.io">
 
 
             <button type="submit" class="btn btn--theme contact__btn" id="submitBtn">
@@ -498,7 +492,7 @@
         </div>
       </div>
     </footer>
-    
+
     <script src="script.js" defer></script>
   </body>
 </html>
