@@ -70,8 +70,8 @@ function changeLanguage() {
 setInterval(changeLanguage, 2000);
 //#endregion
 
-//#region
-let dernierPoint = 0;
+//#region Header hide
+let dernierPoint = 1;
 const header = document.getElementById("header");
 
 window.addEventListener("scroll", () => {

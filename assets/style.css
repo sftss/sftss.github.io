@@ -6,6 +6,7 @@
   box-sizing: inherit;
   font-family: inherit;
   transition: all 0.3s ease-in-out;
+  cursor: url("svg\\arrowhead-rounded-outline.svg"), auto;
 }
 html {
   font-size: 62.5%;
@@ -36,7 +37,6 @@ body {
   overflow-y: scroll;
   font-family: "Source Sans Pro", sans-serif;
   transition: all 0.3s ease-in-out;
-  cursor: url("svg\\arrowhead-rounded-outline.svg"), auto;
 }
 a {
   text-decoration: none;
@@ -48,7 +48,6 @@ li {
 
 button {
   border: none;
-  cursor: pointer;
 }
 .heading-primary {
   font-size: 6rem;
@@ -200,9 +199,12 @@ button {
   display: none;
 }
 .home-hero {
-  /* background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
-    url("svg\\endless-constellation.svg"); */
-  background: url("svg\\endless-constellation.svg");
+  background: linear-gradient(
+      to right,
+      rgba(182, 182, 182, 0.4),
+      rgba(194, 194, 194, 0.4)
+    ),
+    url("svg\\endless-constellation.svg");
   background-position: center;
   height: 100vh;
   min-height: 80rem;
@@ -576,11 +578,20 @@ button {
 
 .project-details__showcase-img-cont {
   width: 100%;
-  margin-bottom: 6rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .project-details__showcase-img {
   width: 100%;
+}
+
+.project-details__showcase-img-small {
+  width: 45%;
+  display: inline-block;
+  transform: translateX(10%);
 }
 
 .project-details__content-main {
@@ -675,7 +686,6 @@ button {
 .header__logo-container {
   display: flex;
   align-items: center;
-  cursor: pointer;
   transition: color 0.1s;
 }
 
@@ -1000,12 +1010,12 @@ button {
   .home-hero {
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8)
+        rgba(61, 61, 61, 0.5),
+        rgba(0, 0, 0, 0.3)
       ),
       url("svg\\endless-constellation-dark.svg");
 
-    background: url("svg\\endless-constellation-dark.svg");
+    /* background: url("svg\\endless-constellation-dark.svg"); */
   }
   .contact {
     background: linear-gradient(
