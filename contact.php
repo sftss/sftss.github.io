@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ]);
 
     // URL API reCAPTCHA
-    $url = "https://recaptchaenterprise.googleapis.com/v1/projects/YOUR_PROJECT_ID/assessments?key=$apiKey";
+    $url = "https://recaptchaenterprise.googleapis.com/v1/projects/$siteKey/assessments?key=$apiKey";
 
     // Options de la requête HTTP POST
     $options = [
