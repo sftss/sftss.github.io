@@ -1,6 +1,6 @@
 <?php
 $siteKey = "6LejqG4qAAAAABlIzVJGqdeXY1jM40vidOhODuit";
-$apiKey = "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"; 
+$apiKey = "AIzaSyBAZuV1ZNBzs3A_HYyHEsGbuW1zW2c86M8"; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifier jeton
     if (isset($responseData['tokenProperties']['valid']) && $responseData['tokenProperties']['valid']) {
         $score = $responseData['riskAnalysis']['score'];
-
+    }
         // Vérification score
         if ($score >= 0.5) {
             $to = "tasdemir.sefer74@gmail.com";
