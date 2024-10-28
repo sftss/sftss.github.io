@@ -394,7 +394,8 @@
           </span>
         </h2>
         <div class="contact__form-container">
-          <form action="https://getform.io/f/bjjjenzb" method="POST" class="contact__form" id="contactForm">
+          <form action="https://api.staticforms.xyz/submit" method="POST" class="contact__form" id="contactForm">
+            <input type="hidden" name="accessKey" value="0ebaf301-be2e-4489-aded-6b868ac9da92">
             <div class="contact__form-field">
               <label class="contact__form-label" for="name">Full name</label>
               <input required placeholder="Enter your full name" type="text" class="contact__form-input" name="name" id="name"/>
@@ -407,7 +408,16 @@
               <label class="contact__form-label" for="message">Message</label>
               <textarea required cols="30" rows="10" class="contact__form-input" placeholder="Your message" name="message" id="message"></textarea>
             </div>
+
+            
             <input type="hidden" id="captchaResponse" name="g-recaptcha-response">
+
+
+            <input type="hidden" name="subject" value="NEW mail - Portfolio" />
+            <input type="hidden" name="replyTo" value="tasdemir.sefer74@gmail.com">
+            <input type="hidden" name="redirectTo" value="https://sftss.github.io">
+
+
             <button type="submit" class="btn btn--theme contact__btn" id="submitBtn">
               Send
             </button>
