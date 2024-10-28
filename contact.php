@@ -1,6 +1,9 @@
 <?php
-$siteKey = "6LejqG4qAAAAABlIzVJGqdeXY1jM40vidOhODuit";
-$apiKey = "AIzaSyBAZuV1ZNBzs3A_HYyHEsGbuW1zW2c86M8"; 
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$siteKey = getenv('SITE_KEY');
+$apiKey = getenv('API_KEY'); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
