@@ -49,6 +49,12 @@ li {
 button {
   border: none;
 }
+a,
+button,
+.header__logo-sub,
+.main-footer__icon {
+  cursor: pointer;
+}
 .heading-primary {
   font-size: 6rem;
   text-transform: uppercase;
