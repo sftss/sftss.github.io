@@ -56,14 +56,14 @@ let currentIndex = 0;
 
 function changeLanguage() {
   const langElement = document.getElementById("dynamic-lang");
-  langElement.classList.remove("fade-in");
-  langElement.classList.add("fade-out");
+  langElement.classList.remove("slide-in");
+  langElement.classList.add("slide-out");
 
   setTimeout(() => {
     langElement.textContent = translations[currentIndex];
     currentIndex = (currentIndex + 1) % translations.length;
-    langElement.classList.remove("fade-out");
-    langElement.classList.add("fade-in");
+    langElement.classList.remove("slide-out");
+    langElement.classList.add("slide-in");
   }, 500);
 }
 
