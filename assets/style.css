@@ -6,7 +6,7 @@
   box-sizing: inherit;
   font-family: inherit;
   transition: all 0.3s ease-in-out;
-  cursor: url("svg\\arrowhead-rounded-outline.svg"), auto;
+  cursor: url("svg\\arrowhead-rounded-outline.svg") 1 1, auto;
 }
 html {
   font-size: 62.5%;
@@ -871,6 +871,11 @@ button {
 .main-footer__social-cont {
   margin-top: 2rem;
 }
+.main-footer__social-cont a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 .main-footer__icon {
   margin-right: 1rem;
   width: 3rem;
@@ -909,6 +914,7 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+
 .skills__skill {
   padding: 1rem 2rem;
   margin-bottom: 1.5rem;
@@ -918,6 +924,130 @@ button {
   border-radius: 5px;
   font-weight: 600;
   color: #666;
+  transition: background-color 0.3s ease;
+}
+
+.skills__skill:hover {
+  color: white;
+}
+
+/* color personnalisées */
+.skill-html:hover {
+  background-color: #ff5722;
+}
+.skill-css:hover {
+  background-color: #264de4;
+}
+.skill-javascript:hover {
+  background-color: #f7df1e;
+  color: #000;
+}
+.skill-php:hover {
+  background-color: #4f5b93;
+}
+.skill-csharp:hover {
+  background-color: #9b4f96;
+}
+.skill-python:hover {
+  background-color: #306998;
+}
+.skill-postgresql:hover {
+  background-color: #336791;
+}
+.skill-pgadmin4:hover {
+  background-color: #a44b9e;
+}
+.skill-phpmyadmin:hover {
+  background-color: #8892bf;
+}
+.skill-sql-server:hover {
+  background-color: #cc2927;
+}
+.skill-mariadb:hover {
+  background-color: #00758f;
+}
+.skill-jquery:hover {
+  background-color: #0769ad;
+}
+.skill-laravel:hover {
+  background-color: #fb503b;
+}
+.skill-nodejs:hover {
+  background-color: #3c873a;
+}
+.skill-git:hover {
+  background-color: #f34f29;
+}
+.skill-github:hover {
+  background-color: #181717;
+}
+.skill-visual-studio:hover {
+  background-color: #5c2d91;
+}
+.skill-vscode:hover {
+  background-color: #0078d7;
+}
+.skill-unity:hover {
+  background-color: #222c37;
+}
+.skill-terminal:hover {
+  background-color: #1d1f21;
+}
+.skill-bash:hover {
+  background-color: #4eaa25;
+}
+.skill-linux:hover {
+  background-color: #fcc624;
+  color: #000;
+}
+.skill-raspberry-pi:hover {
+  background-color: #c51a4a;
+}
+.skill-wordpress:hover {
+  background-color: #21759b;
+}
+.skill-teams:hover {
+  background-color: #464eb8;
+}
+.skill-canva:hover {
+  background-color: #00c4cc;
+}
+.skill-ux:hover {
+  background-color: #ff9f1c;
+}
+.skill-ui:hover {
+  background-color: #32a852;
+}
+.skill-figma:hover {
+  background-color: #f24e1e;
+}
+.skill-powerbi:hover {
+  background-color: #f2c811;
+  color: #000;
+}
+.skill-excel:hover {
+  background-color: #217346;
+}
+.skill-uml:hover {
+  background-color: #ffb74d;
+}
+.skill-illustrator:hover {
+  background-color: #ff9a00;
+}
+.skill-photoshop:hover {
+  background-color: #001e36;
+}
+.skill-nodemon:hover {
+  background-color: #76d04b;
+}
+.skill-express:hover {
+  background-color: #000000;
+}
+.skill-socket:hover {
+  background-color: #4d4d4d;
+}
+.skill-phaser:hover {
+  background-color: #007acb;
 }
 
 .rocket {
