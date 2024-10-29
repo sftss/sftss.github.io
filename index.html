@@ -388,7 +388,9 @@
           </span>
         </h2>
         <div class="contact__form-container">
-          <form action="contact.php" method="POST" class="contact__form" id="contactForm">
+          <!-- PROBLEM: GITHUB DON'T ALLOW POST (SO CAPTCHA = IMPOSSIBLE) SO => USE OF A API, ELSE => USE CONTACT.PHP-->
+          <form action="https://api.staticforms.xyz/submit" method="POST" class="contact__form" id="contactForm">
+          <!-- <form action="contact.php" method="POST" class="contact__form" id="contactForm"> -->
             <input type="hidden" name="accessKey" value="0ebaf301-be2e-4489-aded-6b868ac9da92">
             <div class="contact__form-field">
               <label class="contact__form-label" for="name">Full name</label>

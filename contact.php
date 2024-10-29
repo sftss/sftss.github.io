@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $apiUrl = "https://recaptchaenterprise.googleapis.com/v1/projects/portfolio-1730133266651/assessments?key=$apiKey";
 
-    // request.json
+    // request.json equivalent
     $requestBody = json_encode([
         "event" => [
             "token" => $token,
@@ -33,11 +33,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response = file_get_contents($apiUrl, false, $context);
     $responseData = json_decode($response, true);
 
-    // Vérifier jeton
+    // check jeton
     if (isset($responseData['tokenProperties']['valid']) && $responseData['tokenProperties']['valid']) {
         $score = $responseData['riskAnalysis']['score'];
     }
-        // Vérification score
+        // check score
         if ($score >= 0.5) {
             $to = "tasdemir.sefer74@gmail.com";
             $subject = "Nouveau message du portfolio";
