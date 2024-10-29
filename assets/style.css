@@ -12,6 +12,7 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
   transition: font-size 0.3s ease-in-out;
+  overscroll-behavior: none;
 }
 @media only screen and (max-width: 75em) {
   html {
@@ -29,6 +30,7 @@ html {
   }
 }
 body {
+  overscroll-behavior: none;
   box-sizing: border-box;
   position: relative;
   line-height: 1.5;
