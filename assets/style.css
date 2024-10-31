@@ -380,6 +380,7 @@ button,
 .projects__row-img-cont {
   overflow: hidden;
   flex: 1;
+  border-radius: 5px;
 }
 
 .projects__row-img {
@@ -627,6 +628,7 @@ button,
 
 .project-details__showcase-img {
   width: 100%;
+  border-radius: 5px;
 }
 
 .project-details__showcase-img-small {
