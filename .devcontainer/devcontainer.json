@@ -1,0 +1,10 @@
+{
+    "name": "Portfolio Sefer Tasdemir",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot"
+            ]
+        }
+    }
+}
