@@ -57,7 +57,7 @@ a,
 button,
 .header__logo-sub,
 .main-footer__icon {
-  cursor: pointer;
+  cursor: url("svg\\hand-pointer.svg") 1 1, auto;
 }
 .heading-primary {
   font-size: 6rem;
