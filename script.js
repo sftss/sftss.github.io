@@ -44,11 +44,8 @@ const translations = [
   "Bonjour",
   "السلام عليكم",
   "こんにちは",
-  "Καλημέρα",
   "Привет",
-  "Bon maten",
   "안녕하세요",
-  "Subag jàmm",
   "Merhaba",
 ];
 
@@ -96,7 +93,9 @@ grecaptcha.enterprise.ready(function () {
 });
 //#endregion
 
+//#region Rocket
 function launchRocket() {
-  const rocket = document.querySelector('.rocket');
-  rocket.style.animation = 'launch 3s ease-in-out forwards'; 
+  const rocket = document.querySelector(".rocket");
+  rocket.style.animation = "launch 3s ease-in-out forwards";
 }
+//#endregion
