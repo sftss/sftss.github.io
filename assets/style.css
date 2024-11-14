@@ -470,7 +470,6 @@ button,
   margin-bottom: 3rem;
 }
 
-/*///////////////////////////////////////////////////////////////////////////////////////////////////////// */
 .project-details__showcase-img-cont {
   width: 100%;
   margin-bottom: 2rem;
@@ -931,14 +930,15 @@ button,
 }
 /*#endregion Color skill*/
 
-/*#region Dark*/
+/*#region Rocket*/
 
 .rocket {
   position: absolute;
   top: 110%;
   left: 50%;
-  transform: translate(-50%, 20px); /* position verticale */
-  width: 50px; /*taille globale fusée */
+  transform: translateX(-50%) translateY(20px); 
+  width: 50px; /*taille fusée*/
+  transition: top 2s ease-in-out; /*anim*/
 }
 
 .rocket-body {
@@ -947,7 +947,7 @@ button,
 }
 
 .rocket-body .body {
-  height: 120px; /* hauteur */
+  height: 120px; /*hauteur*/
   background-color: #dadada;
   border-top: 4px solid #f5f5f5;
   border-radius: 50% 50% 20% 20%;
@@ -958,7 +958,7 @@ button,
   position: absolute;
   bottom: -10px;
   left: 50%;
-  width: 30px; /*  largeur */
+  width: 30px; /*largeur*/
   height: 10px;
   background-color: #554842;
   transform: translateX(-50%);
@@ -967,9 +967,9 @@ button,
 
 .window {
   position: absolute;
-  top: 30px; /* position */
+  top: 30px;
   left: 50%;
-  width: 25px; /*  taille */
+  width: 25px;
   height: 25px;
   background-color: #ca2e55;
   border: 3px solid #b4b2b2;
@@ -980,19 +980,20 @@ button,
 .fin {
   position: absolute;
   z-index: -1;
-  width: 30px; /* largeur ailes */
-  height: 40px; /*  hauteur ailes */
+  width: 30px; 
+  height: 40px;
   background-color: #ca2e55;
   top: calc(100% - 40px);
+}
 
-  &.fin-left {
-    left: -20px;
-    border-radius: 80% 0 20% 0;
-  }
-  &.fin-right {
-    right: -20px;
-    border-radius: 0 80% 0 20%;
-  }
+.fin-left {
+  left: -20px;
+  border-radius: 80% 0 20% 0;
+}
+
+.fin-right {
+  right: -20px;
+  border-radius: 0 80% 0 20%;
 }
 
 @keyframes bounce {
@@ -1001,21 +1002,26 @@ button,
   }
 }
 
-@keyframes wheel {
-  to {
-    opacity: 0;
-    top: 27px;
+@keyframes launch {
+  0% {
+    transform: translateX(-50%) translateY(0); 
+  }
+  100% {
+    transform: translateX(-50%) translateY(-200vh);
   }
 }
-@-webkit-keyframes wheel {
-  to {
-    opacity: 0;
-    top: 27px;
+
+@-webkit-keyframes launch {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-200vh);
   }
 }
 /*#endregion Rocket*/
 
-/*#region Form*/
+/*#region Dark*/
 
 @media (prefers-color-scheme: dark) {
   body {

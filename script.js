@@ -95,3 +95,8 @@ grecaptcha.enterprise.ready(function () {
     });
 });
 //#endregion
+
+function launchRocket() {
+  const rocket = document.querySelector('.rocket');
+  rocket.style.animation = 'launch 3s ease-in-out forwards'; 
+}
