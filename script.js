@@ -39,34 +39,6 @@ headerLogoContainer.addEventListener("click", () => {
 });
 //#endregion
 
-//#region Hello in different languages
-const translations = [
-  "Bonjour",
-  "السلام عليكم",
-  "こんにちは",
-  "Привет",
-  "안녕하세요",
-  "Merhaba",
-];
-
-let currentIndex = 0;
-
-function changeLanguage() {
-  const langElement = document.getElementById("dynamic-lang");
-  langElement.classList.remove("slide-in");
-  langElement.classList.add("slide-out");
-
-  setTimeout(() => {
-    langElement.textContent = translations[currentIndex];
-    currentIndex = (currentIndex + 1) % translations.length;
-    langElement.classList.remove("slide-out");
-    langElement.classList.add("slide-in");
-  }, 500);
-}
-
-setInterval(changeLanguage, 2000);
-//#endregion
-
 //#region Header hide
 let dernierPoint = 1;
 const header = document.getElementById("header");

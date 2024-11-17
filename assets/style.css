@@ -876,146 +876,203 @@ button,
 }
 /*#endregion Responsive*/
 
-/*#region Color skill*/
+/*#region skill*/
 .skills {
   display: flex;
   flex-wrap: wrap;
+  padding: 20px;
+  gap: 1.2rem;
 }
-
 .skills_skill {
-  padding: 1rem 2rem;
-  margin-bottom: 1.5rem;
-  margin-right: 1.5rem;
+  position: relative;
+  padding: 1rem 1rem;
   font-size: 1.6rem;
+  text-align: center;
   background: rgb(153 153 153 / 0.2);
   border-radius: 5px;
   font-weight: 600;
   color: #666;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  min-width: 90px; /*TAILLE DU BLOC*/
+}
+.skills_skill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  z-index: 1;
+  transition: width 0.8s ease;
+}
+.skills_skill::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: black;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+.skills_skill:hover {
+  transform: scale(1.1);
+}
+.skills_skill:hover::before {
+  width: var(--level, 100%);
+}
+.skills_skill:hover::after {
+  opacity: 1;
+}
+.skills_skill:hover .skill-name {
+  opacity: 0;
+}
+.skill-name {
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.3s ease;
 }
 
-.skills_skill:hover {
-  color: #fff;
+/*#region couleurs personnalisées*/
+/* EXPERT = 100% ADVANCED = 75% INTERMEDIATE = 50% BEGINNER = 25% */
+.skill-html::before {
+  background: #ff5722;
+  --level: 100%;
 }
-/* coulor personnalisées */
-.skill-html:hover {
-  background-color: #ff5722;
+.skill-css::before {
+  background: #264de4;
+  --level: 100%;
 }
-.skill-css:hover {
-  background-color: #264de4;
+.skill-javascript::before {
+  background: #f7df1e;
+  --level: 75%;
 }
-.skill-javascript:hover {
-  background-color: #f7df1e;
-  color: #000;
+.skill-php::before {
+  background: #4f5b93;
+  --level: 50%;
 }
-.skill-php:hover {
-  background-color: #4f5b93;
+.skill-csharp::before {
+  background: #9b4f96;
+  --level: 75%;
 }
-.skill-csharp:hover {
-  background-color: #9b4f96;
+.skill-python::before {
+  background: #306998;
+  --level: 50%;
 }
-.skill-python:hover {
-  background-color: #306998;
+.skill-nodemon::before {
+  background: #76d04b;
+  --level: 50%;
 }
-.skill-postgresql:hover {
-  background-color: #336791;
+.skill-express::before {
+  background: #000000;
+  --level: 75%;
 }
-.skill-pgadmin4:hover {
-  background-color: #a44b9e;
+.skill-socket::before {
+  background: #4d4d4d;
+  --level: 50%;
 }
-.skill-phpmyadmin:hover {
-  background-color: #8892bf;
+.skill-phaser::before {
+  background: #007acb;
+  --level: 75%;
 }
-.skill-sql-server:hover {
-  background-color: #cc2927;
+.skill-postgresql::before {
+  background: #336791;
+  --level: 75%;
 }
-.skill-mariadb:hover {
-  background-color: #00758f;
+.skill-pgadmin4::before {
+  background: #a44b9e;
+  --level: 100%;
 }
-.skill-jquery:hover {
-  background-color: #0769ad;
+.skill-phpmyadmin::before {
+  background: #8892bf;
+  --level: 100%;
 }
-.skill-laravel:hover {
-  background-color: #fb503b;
+.skill-sql-server::before {
+  background: #cc2927;
+  --level: 50%;
 }
-.skill-nodejs:hover {
-  background-color: #3c873a;
+.skill-mariadb::before {
+  background: #00758f;
+  --level: 50%;
 }
-.skill-git:hover {
-  background-color: #f34f29;
+.skill-jquery::before {
+  background: #0769ad;
+  --level: 25%;
 }
-.skill-github:hover {
-  background-color: #181717;
+.skill-laravel::before {
+  background: #fb503b;
+  --level: 50%;
 }
-.skill-visual-studio:hover {
-  background-color: #5c2d91;
+.skill-nodejs::before {
+  background: #3c873a;
+  --level: 50%;
 }
-.skill-vscode:hover {
-  background-color: #0078d7;
+.skill-git::before {
+  background: #f34f29;
+  --level: 100%;
 }
-.skill-unity:hover {
-  background-color: #222c37;
+.skill-github::before {
+  background: #181717;
+  --level: 100%;
 }
-.skill-terminal:hover {
-  background-color: #1d1f21;
+.skill-visual-studio::before {
+  background: #5c2d91;
+  --level: 100%;
 }
-.skill-bash:hover {
-  background-color: #4eaa25;
+.skill-vscode::before {
+  background: #0078d7;
+  --level: 100%;
 }
-.skill-linux:hover {
-  background-color: #fcc624;
-  color: #000;
+.skill-unity::before {
+  background: #222c37;
+  --level: 50%;
 }
-.skill-raspberry-pi:hover {
-  background-color: #c51a4a;
+.skill-powershell::before {
+  background: #1d1f21;
+  --level: 50%;
 }
-.skill-wordpress:hover {
-  background-color: #21759b;
+.skill-bash::before {
+  background: #4eaa25;
+  --level: 75%;
 }
-.skill-teams:hover {
-  background-color: #464eb8;
+.skill-ux::before {
+  background: #ff9f1c;
+  --level: 50%;
 }
-.skill-canva:hover {
-  background-color: #00c4cc;
+.skill-ui::before {
+  background: #32a852;
+  --level: 75%;
 }
-.skill-ux:hover {
-  background-color: #ff9f1c;
+.skill-modeling::before {
+  background: #ea7600;
+  --level: 25%;
 }
-.skill-ui:hover {
-  background-color: #32a852;
+.skill-figma::before {
+  background: #f24e1e;
+  --level: 75%;
 }
-.skill-figma:hover {
-  background-color: #f24e1e;
+.skill-powerbi::before {
+  background: #f2c811;
+  --level: 75%;
 }
-.skill-powerbi:hover {
-  background-color: #f2c811;
-  color: #000;
+.skill-excel::before {
+  background: #217346;
+  --level: 25%;
 }
-.skill-excel:hover {
-  background-color: #217346;
+.skill-uml::before {
+  background: #ffb74d;
+  --level: 50%;
 }
-.skill-uml:hover {
-  background-color: #ffb74d;
+.skill-adobe::before {
+  background: #ff0000;
+  --level: 50%;
 }
-.skill-illustrator:hover {
-  background-color: #ff9a00;
-}
-.skill-photoshop:hover {
-  background-color: #001e36;
-}
-.skill-nodemon:hover {
-  background-color: #76d04b;
-}
-.skill-express:hover {
-  background-color: #000000;
-}
-.skill-socket:hover {
-  background-color: #4d4d4d;
-}
-.skill-phaser:hover {
-  background-color: #007acb;
-}
-/*#endregion Color skill*/
+/*#endregion couleur personnalisées*/
+
+/*#endregion skill*/
 
 /*#region Rocket*/
 
@@ -1152,6 +1209,9 @@ button,
         rgba(0, 0, 0, 0.8)
       ),
       url("svg\\common-bg.svg");
+  }
+  .skills_skill::after {
+    color: white;
   }
   .window,
   .fin {
