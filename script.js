@@ -12,9 +12,7 @@ const toggleMenu = () => {
   headerHamMenuBtn.classList.toggle("d-none");
   headerHamMenuCloseBtn.classList.toggle("d-none");
 };
-
 hamMenuBtn.addEventListener("click", toggleMenu);
-
 headerSmallMenuLinks.forEach((link) => {
   link.addEventListener("click", toggleMenu);
 });
@@ -22,7 +20,6 @@ headerSmallMenuLinks.forEach((link) => {
 
 //#region Back main page after click on logo
 const headerLogoContainer = document.querySelector(".header_logo-container");
-
 headerLogoContainer.addEventListener("click", () => {
   location.href = "../";
 });
@@ -59,4 +56,15 @@ function launchRocket() {
   const rocket = document.querySelector(".rocket");
   rocket.style.animation = "launch 3s ease-in-out forwards";
 }
+(function (d) {
+  "use strict";
+  const shakeButton = d.querySelector("#shake");
+  const shakeElement = d.querySelector("body");
+  shakeButton.addEventListener("click", () => {
+    shakeElement.classList.add("animate");
+    setTimeout(function () {
+      shakeElement.classList.remove("animate");
+    }, 1000);
+  });
+})(document);
 //#endregion

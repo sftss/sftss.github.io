@@ -52,11 +52,8 @@ button,
   text-align: center;
   font-weight: 800;
 }
-#dynamic-lang {
-  display: inline-block;
-  position: relative;
-}
 
+/*#region typewriter*/
 .typewriter {
   display: flex;
   justify-content: center;
@@ -64,27 +61,23 @@ button,
   height: 10vh;
   overflow: hidden;
 }
-
 .typewriter h1 {
   white-space: nowrap;
-  margin: 0;
   border-right: 0.15em solid blue;
   font-size: 5em;
   letter-spacing: 0.15em;
   overflow: hidden;
-  width: fit-content;
+  /* width: 100%; */
   animation: typing 4s steps(30, end), blink-caret 0.5s step-end infinite;
 }
-
 @keyframes typing {
   from {
     width: 0;
   }
   to {
-    width: 30ch; /*longueur*/
+    width: 100%;
   }
 }
-
 @keyframes blink-caret {
   from,
   to {
@@ -94,38 +87,8 @@ button,
     border-color: blue;
   }
 }
+/*#endregion typewriter*/
 
-.slide-in {
-  animation: slideIn 1s cubic-bezier(0.6, -0.28, 0.74, 0.05) forwards;
-}
-
-.slide-out {
-  animation: slideOut 0.8s cubic-bezier(0.15, 0.85, 0.6, 1) forwards;
-}
-
-@keyframes slideIn {
-  0% {
-    transform: translateY(-80%);
-    opacity: 0;
-  }
-  70% {
-    transform: translateY(3%); /* pour reculer un ptit peu */
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-@keyframes slideOut {
-  from {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  to {
-    transform: translateY(35%);
-    opacity: 0;
-  }
-}
 .heading-sec_main {
   display: block;
   font-size: 4rem;
@@ -235,8 +198,6 @@ button,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 90rem;
-  width: 92%;
 }
 .home-main_info {
   margin: 3rem auto 0 auto;
@@ -735,7 +696,7 @@ button,
 }
 
 /*#region Responsive*/
-@media only screen and (max-width: 56.25em) {
+@media only screen and (max-width: 57em) {
   html {
     font-size: 55%;
   }
@@ -785,7 +746,7 @@ button,
   }
 }
 
-@media only screen and (max-width: 37.5em) {
+@media only screen and (max-width: 40em) {
   .heading-primary {
     font-size: 4.5rem;
   }
@@ -1074,6 +1035,40 @@ button,
 /*#endregion skill*/
 
 /*#region Rocket*/
+body.animate {
+  overflow: hidden;
+}
+.animate #shake {
+  transform: scale(1.2);
+}
+body.animate {
+  animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 2px, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 5px, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 10px, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 
 .rocket {
   position: absolute;
