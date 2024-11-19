@@ -1176,7 +1176,6 @@ button,
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #181a1b;
-    color: white;
   }
   .header {
     background: #121212;
