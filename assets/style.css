@@ -879,7 +879,7 @@ button,
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  color: black;
+  color: ivory;
   opacity: 0;
   transition: opacity 0.3s ease;
   white-space: nowrap;
