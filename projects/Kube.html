@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
     />
+    <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="..\assets\img\logo.png" type="image/png" />
     <title>Sefer - Kube</title>
   </head>
@@ -18,7 +19,7 @@
         <div class="header_logo-container">
           <div class="header_logo-img-cont">
             <img
-              src="..\assets\img\pp.webp"
+              src="\assets\img\pp.webp"
               alt="Picture Sefer Tasdemir"
               class="header_logo-img"
             />
@@ -28,49 +29,61 @@
         <div class="header_main">
           <ul class="header_links">
             <li class="header_link-wrapper">
-              <a href="../#home" class="header_link">Home</a>
+              <a href="../#home" class="header_link" data-i18n="header.home"
+                >Home</a
+              >
             </li>
             <li class="header_link-wrapper">
-              <a href="../#about" class="header_link">About me</a>
+              <a
+                href="../#projects"
+                class="header_link"
+                data-i18n="header.projects"
+                >Projects</a
+              >
             </li>
             <li class="header_link-wrapper">
-              <a href="../#projects" class="header_link">Projects</a>
+              <a
+                href="../#contact"
+                class="header_link"
+                data-i18n="header.contact"
+                >Contact</a
+              >
             </li>
             <li class="header_link-wrapper">
-              <a href="../#contact" class="header_link">Contact</a>
+              <a href="#CV" class="header_link">CV</a>
             </li>
           </ul>
-          <div class="header_main-ham-menu-cont">
-            <img
-              src="..\assets\svg\ham-menu.svg"
-              alt="hamburger menu"
-              class="header_main-ham-menu"
-            />
-            <img
-              src="..\assets\svg\ham-menu-close.svg"
-              alt="hamburger menu close"
-              class="header_main-ham-menu-close d-none"
-            />
-          </div>
+        </div>
+        <div class="header_main-ham-menu-cont">
+          <img
+            src="..\assets\svg\ham-menu.svg"
+            alt="hamburger menu"
+            class="header_main-ham-menu"
+          />
+          <img
+            src="..\assets\svg\ham-menu-close.svg"
+            alt="hamburger menu close"
+            class="header_main-ham-menu-close d-none"
+          />
         </div>
       </div>
       <div class="header_sm-menu">
-        <div class="header_sm-menu-content">
+        <div class="header_sm-menu-cont">
           <ul class="header_sm-menu-links">
             <li class="header_sm-menu-link">
-              <a href="../#home">Home</a>
+              <a href="../#home" data-i18n="header.home">Home</a>
             </li>
-
             <li class="header_sm-menu-link">
-              <a href="../#about">About me</a>
+              <a href="../#about" data-i18n="header.about">About me</a>
             </li>
-
             <li class="header_sm-menu-link">
-              <a href="../#projects">Projects</a>
+              <a href="../#projects" data-i18n="header.projects">Projects</a>
             </li>
-
             <li class="header_sm-menu-link">
-              <a href="../#contact">Contact</a>
+              <a href="../#contact" data-i18n="header.contact">Contact</a>
+            </li>
+            <li class="header_sm-menu-link">
+              <a href="#CV">CV</a>
             </li>
           </ul>
         </div>
@@ -195,7 +208,7 @@
       </div>
     </section>
 
-    <footer class="main-footer">
+    <footer id="CV" class="main-footer">
       <div class="main-container">
         <div class="main-footer_upper">
           <div class="main-footer_row main-footer_row-1">
@@ -284,6 +297,7 @@
       </div>
     </footer>
 
+    <script src="..\js/i18n.js"></script>
     <script src="..\js\script.js" defer></script>
   </body>
 </html>
