@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
     />
+    <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="..\assets\img\logo.png" type="image/png" />
     <title>Sefer - Scodoc</title>
   </head>
@@ -18,7 +19,7 @@
         <div class="header_logo-container">
           <div class="header_logo-img-cont">
             <img
-              src="..\assets\img\pp.webp"
+              src="\assets\img\pp.webp"
               alt="Picture Sefer Tasdemir"
               class="header_logo-img"
             />
@@ -28,49 +29,61 @@
         <div class="header_main">
           <ul class="header_links">
             <li class="header_link-wrapper">
-              <a href="../#home" class="header_link">Home</a>
+              <a href="../#home" class="header_link" data-i18n="header.home"
+                >Home</a
+              >
             </li>
             <li class="header_link-wrapper">
-              <a href="../#about" class="header_link">About me</a>
+              <a
+                href="../#projects"
+                class="header_link"
+                data-i18n="header.projects"
+                >Projects</a
+              >
             </li>
             <li class="header_link-wrapper">
-              <a href="../#projects" class="header_link">Projects</a>
+              <a
+                href="../#contact"
+                class="header_link"
+                data-i18n="header.contact"
+                >Contact</a
+              >
             </li>
             <li class="header_link-wrapper">
-              <a href="./#contact" class="header_link">Contact</a>
+              <a href="#CV" class="header_link">CV</a>
             </li>
           </ul>
-          <div class="header_main-ham-menu-cont">
-            <img
-              src="..\assets\svg\ham-menu.svg"
-              alt="hamburger menu"
-              class="header_main-ham-menu"
-            />
-            <img
-              src="..\assets\svg\ham-menu-close.svg"
-              alt="hamburger menu close"
-              class="header_main-ham-menu-close d-none"
-            />
-          </div>
+        </div>
+        <div class="header_main-ham-menu-cont">
+          <img
+            src="..\assets\svg\ham-menu.svg"
+            alt="hamburger menu"
+            class="header_main-ham-menu"
+          />
+          <img
+            src="..\assets\svg\ham-menu-close.svg"
+            alt="hamburger menu close"
+            class="header_main-ham-menu-close d-none"
+          />
         </div>
       </div>
       <div class="header_sm-menu">
-        <div class="header_sm-menu-content">
+        <div class="header_sm-menu-cont">
           <ul class="header_sm-menu-links">
             <li class="header_sm-menu-link">
-              <a href="../#home">Home</a>
+              <a href="../#home" data-i18n="header.home">Home</a>
             </li>
-
             <li class="header_sm-menu-link">
-              <a href="../#about">About me</a>
+              <a href="../#about" data-i18n="header.about">About me</a>
             </li>
-
             <li class="header_sm-menu-link">
-              <a href="../#projects">Projects</a>
+              <a href="../#projects" data-i18n="header.projects">Projects</a>
             </li>
-
             <li class="header_sm-menu-link">
-              <a href="./#contact">Contact</a>
+              <a href="../#contact" data-i18n="header.contact">Contact</a>
+            </li>
+            <li class="header_sm-menu-link">
+              <a href="#CV">CV</a>
             </li>
           </ul>
         </div>
@@ -194,78 +207,89 @@
       </div>
     </section>
 
-    <footer class="main-footer">
+    <footer id="CV" class="main-footer">
       <div class="main-container">
         <div class="main-footer_upper">
           <div class="main-footer_row main-footer_row-1">
-            <h2 class="heading heading-sm main-footer_heading-sm">
-              <span>See me on my socials</span>
+            <h2
+              class="heading heading-sm main-footer_heading-sm"
+              data-i18n="footer.seeMe"
+            >
+              <span></span>
             </h2>
             <div class="main-footer_social-cont">
               <a
                 target="_blank"
-                rel="noreferrer"
                 href="https://www.linkedin.com/in/sefertasdemir/"
               >
                 <img
                   class="main-footer_icon"
-                  src="..\assets\img\linkedin-ico.png"
+                  src="assets\img\linkedin-ico.png"
                   alt="Sefer Tasdemir Linkedin"
                 />
               </a>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/sftss"
-              >
+              <a target="_blank" href="https://github.com/sftss">
                 <img
                   class="main-footer_icon"
-                  src="..\assets\img\github-ico.png"
+                  src="assets\img\github-ico.png"
                   alt="Sefer Tasdemir Github"
                 />
               </a>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://www.instagram.com/sf_tsd/"
-              >
+              <a target="_blank" href="https://www.instagram.com/sf_tsd/">
                 <img
                   class="main-footer_icon"
-                  src="..\assets\img\instagram-ico.png"
+                  src="assets\img\instagram-ico.png"
                   alt="Sefer Tasdemir Instagram"
                 />
               </a>
+              <div class="switch-language">
+                <button
+                  id="selectLang"
+                  class="selectLang-option"
+                  onclick="changeLanguage('en')"
+                >
+                  English
+                </button>
+                <button
+                  id="selectLang"
+                  class="selectLang-option"
+                  onclick="changeLanguage('fr')"
+                >
+                  Français
+                </button>
+              </div>
             </div>
           </div>
           <div class="main-footer_row main-footer_row-2">
             <h2 class="heading heading-sm text-lt">Sefer Tasdemir</h2>
             <p class="main-footer_short-desc">Not like us</p>
             <a
-              href="..\assets\EN Sefer Tasdemir CV.pdf"
-              download
+              href="assets\EN Sefer Tasdemir CV.pdf"
+              target="_blank"
               class="main-footer_link"
-              >Download my international CV</a
-            >
+              data-i18n="footer.seeMeCvEn"
+            ></a>
             <br />
             <a
-              href="..\assets\FR Sefer Tasdemir CV.pdf"
-              download
+              href="assets\FR Sefer Tasdemir CV.pdf"
+              target="_blank"
               class="main-footer_link"
-              >Download my French CV</a
-            >
+              data-i18n="footer.seeMeCvFr"
+            ></a>
           </div>
         </div>
       </div>
 
       <div class="main-footer_lower">
-        &copy; Copyright
+        &copy; All rights reserved
         <script>
           document.write(new Date().getFullYear());
         </script>
-        . Made by SFR
+        . Made by Sefer
       </div>
     </footer>
 
+    <script src="..\js/i18n.js"></script>
     <script src="..\js\script.js" defer></script>
   </body>
 </html>
