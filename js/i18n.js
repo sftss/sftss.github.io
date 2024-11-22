@@ -155,16 +155,13 @@ i18next.init(
     updateContent();
   }
 );
-
 function changeLanguage(lang) {
   i18next.changeLanguage(lang, updateContent);
 }
-
 function detectUserLanguage() {
   const userLang = navigator.language || navigator.languages[0];
   return userLang.startsWith("fr") ? "fr" : "en";
 }
-
 function updateContent() {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const keys = el.getAttribute("data-i18n");
