@@ -12,7 +12,6 @@ i18next.init(
             about: "Me",
             projects: "Projects",
             contact: "Contact",
-            cv: "CV",
           },
           home: {
             title: "Developing your future",
@@ -84,7 +83,6 @@ i18next.init(
             about: "Moi",
             projects: "Projets",
             contact: "Contact",
-            cv: "CV",
           },
           home: {
             title: "Développer votre avenir",
@@ -147,9 +145,6 @@ i18next.init(
             seeMeCvFr: "Voir mon CV français",
           },
         },
-      },
-      interpolation: {
-        escapeValue: false,
       },
       interpolation: {
         escapeValue: false,
