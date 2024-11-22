@@ -9,6 +9,7 @@ i18next.init(
           header: {
             home: "Home",
             about: "Me",
+            about: "Me",
             projects: "Projects",
             contact: "Contact",
             cv: "CV",
@@ -22,6 +23,14 @@ i18next.init(
             subheading:
               "Find out who I am, my current programming skills, and the projects I have completed.",
             title: "Meet me !",
+            details: {
+              para1:
+                "As a <strong>passionate developer</strong>, I specialize in creating modern and functate developernal software. Check out my achievements in the <strong>Projects</strong> section.",
+              para2:
+                "I like to share my acquired knowledge in <strong>development</strong> in order to help the developer community. Feel free to follow me on <a href='https://linkedin.com/in/SeferTasdemir' target='_blank'>Linkedin</a> and <a href='https://www.instagram.com/sf_tsd/' target='_blank'>Instagram</a> for more content.",
+              para3:
+                "I am open to professional opportunities. If you have an offer that matches my skills, <strong>contact me</strong>.",
+            },
             details: {
               para1:
                 "As a <strong>passionate developer</strong>, I specialize in creating modern and functate developernal software. Check out my achievements in the <strong>Projects</strong> section.",
@@ -72,6 +81,7 @@ i18next.init(
           header: {
             home: "Accueil",
             about: "Moi",
+            about: "Moi",
             projects: "Projets",
             contact: "Contact",
             cv: "CV",
@@ -85,6 +95,14 @@ i18next.init(
             subheading:
               "Découvrez qui je suis, mes compétences actuelles en programmation et les projets que j'ai réalisés.",
             title: "Rencontrez-moi !",
+            details: {
+              para1:
+                "En tant que <strong>développeur passionné</strong>, je me spécialise dans la création de logiciels modernes et fonctionnels. Consultez mes réalisations dans la section <strong>Projets</strong>.",
+              para2:
+                "J'aime partager mes connaissances acquises en <strong>développement</strong> afin d'aider la communauté de développeurs. N'hésitez pas à me suivre sur <a href='https://linkedin.com/in/SeferTasdemir' target='_blank'>Linkedin</a> et <a href='https://www.instagram.com/sf_tsd/' target='_blank'>Instagram</a> pour plus de contenu.",
+              para3:
+                "Je suis ouvert aux opportunités professionnelles. Si vous avez une offre qui correspond à mes compétences, <strong>contactez-moi</strong>.",
+            },
             details: {
               para1:
                 "En tant que <strong>développeur passionné</strong>, je me spécialise dans la création de logiciels modernes et fonctionnels. Consultez mes réalisations dans la section <strong>Projets</strong>.",
@@ -129,6 +147,9 @@ i18next.init(
             seeMeCvFr: "Voir mon CV français",
           },
         },
+      },
+      interpolation: {
+        escapeValue: false,
       },
       interpolation: {
         escapeValue: false,

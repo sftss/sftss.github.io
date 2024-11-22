@@ -437,6 +437,7 @@ button,
   font-weight: 700;
   font-size: 2.8rem;
   margin-bottom: 1.5rem;
+  margin-top: 3rem;
 }
 
 .project-details_showcase-img-cont {
@@ -1301,6 +1302,7 @@ body.animate {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #181a1b;
+    color: whitesmoke;
   }
   .header {
     background: #121212;
