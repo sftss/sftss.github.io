@@ -1,0 +1,49 @@
+{
+  "header": {
+    "home": "Accueil",
+    "about": "Moi",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Développer votre avenir",
+    "projects_button": "Projets"
+  },
+  "about": {
+    "heading": "À propos de moi",
+    "subheading": "Découvrez qui je suis, mes compétences actuelles en programmation et les projets que j'ai réalisés.",
+    "title": "Rencontrez-moi !",
+    "details": {
+      "para1": "En tant que <strong>développeur passionné</strong>, je me spécialise dans la création de logiciels modernes et fonctionnels. Consultez mes réalisations dans la section <strong>Projets</strong>.",
+      "para2": "J'aime partager mes connaissances acquises en <strong>développement</strong> afin d'aider la communauté de développeurs. N'hésitez pas à me suivre sur <a href='https://linkedin.com/in/SeferTasdemir' target='_blank'>Linkedin</a> et <a href='https://www.instagram.com/sf_tsd/' target='_blank'>Instagram</a> pour plus de contenu.",
+      "para3": "Je suis ouvert aux opportunités professionnelles. Si vous avez une offre qui correspond à mes compétences, <strong>contactez-moi</strong>."
+    },
+    "contact_button": "Contactez-moi"
+  },
+  "projects": {
+    "heading": "Projets",
+    "subheading": "Découvrez une sélection de projets personnels et académiques que j'ai réalisés.",
+    "galaxyRushContent": "Galaxy Rush est un jeu WPF que j'ai développé avec mon équipe, en C# sur Visual Studio. Ce projet a été réalisé lors de ma première année en BUT Informatique.",
+    "phaserContent": "Voici plusieurs jeux fonctionnant sur le web, développés avec JavaScript à l'aide du framework Phaser.",
+    "kubeContent": "Kube est un jeu réalisé via Unity en C#. C'est un jeux de plateforme au style minimaliste avec plusieurs mondes et niveau.",
+    "botanicContent": "Botanic est un logiciel réalisé en C# en lien avec une base de données relationnelle. L'application a été créée pour la création de commandes et de produits pour une entreprise de décoration.",
+    "scodocContent": "ScoDoc est un logiciel fictif, développé pour suivre la formation des étudiants universitaires. Ce projet se concentre sur la création et la visualisation de données créées à partir de zéro.",
+    "butSeeMore": "Voir plus"
+  },
+  "contact": {
+    "heading": "Contact",
+    "subheading": "Vous avez une question ou un projet ? N'hésitez pas à me contacter, je vous répondrai dans les plus brefs délais.",
+    "form": {
+      "name": "Prénom",
+      "email": "Email",
+      "subject": "Objet",
+      "message": "Message",
+      "send": "Envoyer"
+    }
+  },
+  "footer": {
+    "seeMe": "Voir mes réseaux",
+    "seeMeCvEn": "Voir mon CV internaltional",
+    "seeMeCvFr": "Voir mon CV français"
+  }
+}
