@@ -77,6 +77,36 @@ i18next.init(
               pDetail3:
                 "For those curious about the game's ultimate challenge, an invincibility key allows a sneak peek at what lies further into the game.",
             },
+            kube: {
+              pPrimary:
+                "The Kube project case study is presented on this page, including an overview of the project as well as the tools used.",
+              pDetail1:
+                "Kube is a 3D obstacle game developed with Unity. The player must navigate through different levels avoiding various obstacles, with increasing challenges at each stage. This project aims to offer an immersive and captivating gaming experience with a modern and dynamic graphic interface.",
+              pDetail2:
+                "Since its launch, Kube has been well-received for its innovative game mechanics and attractive visual design Kube aims to entertain and challenge players by providing them with a fluid and engaging gaming experience. This project is part of my portfolio of games developed with Unity.",
+              pDetail3:
+                "Among its features, Kube offers advanced 3D graphics and immersive sound effects for an enriching gaming experience.",
+            },
+            phaser: {
+              pPrimary:
+                "The Phaser project case study is presented on this page, including an overview of the project as well as the tools used.",
+              pDetail1:
+                "The first game is a platformer where players aim to collect as many coins as possible. Every time the score increases by 100 points, a new bouncing obstacle appears, making it increasingly challenging to gather coins.",
+              pDetail2:
+                "The second game is another platformer designed as a course. Players must collect all coins, locate a hidden door, avoid floor spikes, and keep an eye on their health bar to prevent it from reaching zero.",
+              pDetail3:
+                "The third game is an endless runner inspired by Jetpack Joyride. In this game, players press the space bar to ascend and release it to descend, navigating through an ever-evolving environment filled with obstacles.",
+              pDetail4:
+                "The fourth and final game is a multiplayer star-collecting competition that operates on a Node.js server. Players compete to collect the most stars, with the winner being the one who accumulates the highest number. Each of these games introduces unique mechanics for a varied and engaging experience.",
+            },
+            scodoc: {
+              pPrimary:
+                "The ScoDoc project case study is presented on this page, including an overview of the project as well as the tools used.",
+              pDetail1:
+                "Scodoc is a WPF based platform developed for teachers to efficiently manage student records and school administration tasks. As part of a collaborative project, our team drafted a comprehensive requirements document to ensure alignment with specific functionality and usability goals. We designed both a Conceptual Data Model (CDM) and a Logical Data Model (LDM) in UML, implemented a PostgreSQL database with a structured SQL script, and developed custom queries for streamlined data management.",
+              pDetail2:
+                "To enhance data accessibility, we imported a database view into Excel, enabling calculations and graphical analysis, and created two Power BI dashboards that visually represent key information from the same data view. This end-to-end project demonstrates robust data visualization to simplify administrative workflows in educational settings.",
+            },
           },
           contact: {
             heading: "Contact",
@@ -169,6 +199,36 @@ i18next.init(
                 "Au fur et à mesure que le gameplay progresse, les obstacles - allant des astéroïdes aux OVNI - deviennent plus fréquents et difficiles, poussant les joueurs à survivre le plus longtemps possible.",
               pDetail3:
                 "Pour ceux qui sont curieux du défi ultime du jeu, une touche d'invincibilité permet de jeter un coup d'œil à ce qui se trouve plus loin dans le jeu.",
+            },
+            kube: {
+              pPrimary:
+                "L'étude de cas du projet Kube est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
+              pDetail1:
+                "Kube est un jeu d'obstacles en 3D développé avec Unity. Le joueur doit naviguer à travers différents niveaux en évitant divers obstacles, avec des défis croissants à chaque étape. Ce projet vise à offrir une expérience de jeu immersive et captivante avec une interface graphique moderne et dynamique.",
+              pDetail2:
+                "Depuis son lancement, Kube a été bien accueilli pour ses mécanismes de jeu innovants et son design visuel attrayant. Kube vise à divertir et à défier les joueurs en leur offrant une expérience de jeu fluide et engageante. Ce projet fait partie de mon portefeuille de jeux développés avec Unity.",
+              pDetail3:
+                "Parmi ses fonctionnalités, Kube offre des graphismes 3D avancés et des effets sonores immersifs pour une expérience de jeu enrichissante.",
+            },
+            phaser: {
+              pPrimary:
+                "L'étude de cas du projet Phaser est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
+              pDetail1:
+                "Le premier jeu est un jeu de plateforme où les joueurs visent à collecter autant de pièces que possible. Chaque fois que le score augmente de 100 points, un nouvel obstacle rebondissant apparaît, rendant de plus en plus difficile la collecte des pièces.",
+              pDetail2:
+                "Le deuxième jeu est un autre jeu de plateforme conçu comme un parcours. Les joueurs doivent collecter toutes les pièces, localiser une porte cachée, éviter les pointes de sol et surveiller leur barre de santé pour éviter qu'elle n'atteigne zéro.",
+              pDetail3:
+                "Le troisième jeu est un runner infini inspiré de Jetpack Joyride. Dans ce jeu, les joueurs appuient sur la barre d'espace pour monter et la relâchent pour descendre, naviguant à travers un environnement en constante évolution rempli d'obstacles.",
+              pDetail4:
+                "Le quatrième et dernier jeu est une compétition multijoueur de collecte d'étoiles qui fonctionne sur un serveur Node.js. Les joueurs s'affrontent pour collecter le plus d'étoiles, le vainqueur étant celui qui accumule le plus grand nombre. Chacun de ces jeux introduit des mécanismes uniques pour une expérience variée et engageante.",
+            },
+            scodoc: {
+              pPrimary:
+                "L'étude de cas du projet ScoDoc est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
+              pDetail1:
+                "Scodoc est une plateforme basée sur WPF développée pour permettre aux enseignants de gérer efficacement les dossiers des étudiants et les tâches administratives scolaires. Dans le cadre d'un projet collaboratif, notre équipe a rédigé un document de spécifications complet pour garantir l'alignement avec des objectifs de fonctionnalité et d'utilisabilité spécifiques. Nous avons conçu un Modèle de Données Conceptuel (MDC) et un Modèle de Données Logique (MDL) en UML, implémenté une base de données PostgreSQL avec un script SQL structuré, et développé des requêtes personnalisées pour une gestion de données simplifiée.",
+              pDetail2:
+                "Pour améliorer l'accessibilité des données, nous avons importé une vue de base de données dans Excel, permettant des calculs et une analyse graphique, et créé deux tableaux de bord Power BI qui représentent visuellement des informations clés à partir de la même vue de données. Ce projet de bout en bout démontre une visualisation de données robuste pour simplifier les flux de travail administratifs dans les environnements éducatifs.",
             },
           },
           contact: {
