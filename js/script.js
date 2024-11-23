@@ -69,31 +69,3 @@ function launchRocket() {
 })(document);
 //#endregion
 
-function getProjectIdFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get("project");
-}
-document.addEventListener("DOMContentLoaded", () => {
-  const projectId = getProjectIdFromURL(); //prends id projet
-
-  if (!projectId) {
-    console.error("No project ID provided in the URL.");
-    return;
-  }
-
-  //charge namespace projects
-  i18next.loadNamespaces("projects", () => {
-    const projectData = i18next.getResourceBundle(i18next.language, "projects")
-      .projects[projectId];
-
-    if (!projectData) {
-      console.error(`No data found for project ID: ${projectId}`);
-      return;
-    }
-
-    //maj contenu page
-    document.getElementById("project-title").textContent = projectData.title;
-    document.getElementById("project-description").textContent =
-      projectData.description;
-  });
-});
