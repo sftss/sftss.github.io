@@ -1,8 +1,8 @@
 i18next.init(
   {
-    lng: "en", // default
-    // lng: detectUserLanguage(), // auto detect pour après
-    debug: true, // DEBUG
+    // lng: "en", // default
+    lng: detectUserLanguage(), // auto detect pour après
+    debug: false, // DEBUG
     resources: {
       en: {
         translation: {
@@ -29,6 +29,7 @@ i18next.init(
               para3:
                 "I am open to professional opportunities. If you have an offer that matches my skills, <strong>contact me</strong>.",
             },
+            skills: "My skills",
             contact_button: "Contact me",
           },
           projects: {
@@ -152,6 +153,7 @@ i18next.init(
               para3:
                 "Je suis ouvert aux opportunités professionnelles. Si vous avez une offre qui correspond à mes compétences, <strong>contactez-moi</strong>.",
             },
+            skills: "Mes compétences",
             contact_button: "Contactez-moi",
           },
           projects: {
@@ -260,22 +262,28 @@ i18next.init(
   }
 );
 
-function changeLanguage(lang) {
-  i18next.changeLanguage(lang, updateContent);
-}
 function detectUserLanguage() {
+  const savedLanguage = localStorage.getItem("preferredLanguage");
+  if (savedLanguage) return savedLanguage; //lang sauvg.
   const userLang = navigator.language || navigator.languages[0];
-  return userLang.startsWith("fr") ? "fr" : "en";
+  return userLang.startsWith("fr") ? "fr" : "en"; //Langue par défaut détectée
 }
+
+function changeLanguage(lang) {
+  localStorage.setItem("preferredLanguage", lang); //sauvg dans localStorage
+  i18next.changeLanguage(lang, () => updateContent()); //switch langue
+}
+
 function updateContent() {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const keys = el.getAttribute("data-i18n");
-    // pour afficher HTML spécial
     const translation = i18next.t(keys);
+
+    //html spécial
     if (el.hasAttribute("data-i18n-html")) {
       el.innerHTML = translation;
     } else {
-      el.textContent = translation; //brut sinon
+      el.textContent = translation;
     }
   });
 }

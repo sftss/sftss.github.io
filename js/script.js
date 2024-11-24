@@ -68,4 +68,3 @@ function launchRocket() {
   });
 })(document);
 //#endregion
-
