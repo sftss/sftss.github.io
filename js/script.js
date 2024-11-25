@@ -42,13 +42,13 @@ window.addEventListener("scroll", () => {
 //#endregion
 
 //#region contact form
-grecaptcha.enterprise.ready(function () {
-  grecaptcha.enterprise
-    .execute("6LejqG4qAAAAABlIzVJGqdeXY1jM40vidOhODuit", { action: "submit" })
-    .then(function (token) {
-      document.getElementById("captchaResponse").value = token;
-    });
-});
+// grecaptcha.enterprise.ready(function () {
+//   grecaptcha.enterprise
+//     .execute("6LejqG4qAAAAABlIzVJGqdeXY1jM40vidOhODuit", { action: "submit" })
+//     .then(function (token) {
+//       document.getElementById("captchaResponse").value = token;
+//     });
+// });
 //#endregion
 
 //#region Rocket
@@ -68,4 +68,3 @@ function launchRocket() {
   });
 })(document);
 //#endregion
-
