@@ -660,15 +660,10 @@ button,
   margin-top: 1rem;
 }
 
-.main-footer_social-cont a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .main-footer_icon {
   margin-right: 1rem;
   width: 3rem;
+  margin-bottom: 1rem;
 }
 
 .main-footer_icon--mr-none {
@@ -698,15 +693,28 @@ button,
 }
 
 .switch-language {
-  margin-top: 0.5rem;
+  display: flex;
+  gap: 10px;
 }
-#selectLang {
-  background-color: transparent;
-  color: white;
-  border: none;
+
+.selectLang-option {
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
   font-weight: 600;
-  margin-right: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
+
+.selectLang-option:hover {
+  transform: scale(1.2);
+}
+#LangFr {
+  background: linear-gradient(135deg, #00bfff, #1e90ff);
+}
+#LangEn {
+  background: linear-gradient(135deg, #ff6347, #ff4500);
+}
+
 /*#region Responsive*/
 @media only screen and (max-width: 57em) {
   html {
