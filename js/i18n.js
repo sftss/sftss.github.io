@@ -59,8 +59,6 @@ i18next.init(
                 "Feel free to check out the project by visiting the GitHub link.",
             },
             botanic: {
-              pPrimary:
-                "The Botanic project case study is presented on this page, including an overview of the project as well as the tools used.",
               pDetail1:
                 "Botanic is a software solution developed to streamline the purchase order management process for a garden center. Built with a focus on user-friendly navigation, this application select transportation modes, and view detailed order information and delivery dates.",
               pDetail2:
@@ -69,8 +67,6 @@ i18next.init(
                 "Among its key features, Botanic provides streamlined order creation with customizable filtering options, making it easy for users to locate and manage products efficiently.",
             },
             galaxyRush: {
-              pPrimary:
-                "The Galaxy Rush project case study is presented on this page, including an overview of the project as well as the tools used.",
               pDetail1:
                 "Galaxy Rush is a WPF game coded in C# with Visual Studio, designed as an endless runner where players navigate a spaceshipto dodge evolving obstacles. Inspired by Flappy Bird, players press the spacebar to change direction while collecting power-ups that grant temporary invincibility.",
               pDetail2:
@@ -79,8 +75,6 @@ i18next.init(
                 "For those curious about the game's ultimate challenge, an invincibility key allows a sneak peek at what lies further into the game.",
             },
             kube: {
-              pPrimary:
-                "The Kube project case study is presented on this page, including an overview of the project as well as the tools used.",
               pDetail1:
                 "Kube is a 3D obstacle game developed with Unity. The player must navigate through different levels avoiding various obstacles, with increasing challenges at each stage. This project aims to offer an immersive and captivating gaming experience with a modern and dynamic graphic interface.",
               pDetail2:
@@ -89,8 +83,6 @@ i18next.init(
                 "Among its features, Kube offers advanced 3D graphics and immersive sound effects for an enriching gaming experience.",
             },
             phaser: {
-              pPrimary:
-                "The Phaser project case study is presented on this page, including an overview of the project as well as the tools used.",
               pDetail1:
                 "The first game is a platformer where players aim to collect as many coins as possible. Every time the score increases by 100 points, a new bouncing obstacle appears, making it increasingly challenging to gather coins.",
               pDetail2:
@@ -101,8 +93,6 @@ i18next.init(
                 "The fourth and final game is a multiplayer star-collecting competition that operates on a Node.js server. Players compete to collect the most stars, with the winner being the one who accumulates the highest number. Each of these games introduces unique mechanics for a varied and engaging experience.",
             },
             scodoc: {
-              pPrimary:
-                "The ScoDoc project case study is presented on this page, including an overview of the project as well as the tools used.",
               pDetail1:
                 "Scodoc is a WPF based platform developed for teachers to efficiently manage student records and school administration tasks. As part of a collaborative project, our team drafted a comprehensive requirements document to ensure alignment with specific functionality and usability goals. We designed both a Conceptual Data Model (CDM) and a Logical Data Model (LDM) in UML, implemented a PostgreSQL database with a structured SQL script, and developed custom queries for streamlined data management.",
               pDetail2:
@@ -183,8 +173,6 @@ i18next.init(
                 "N'hésitez pas à consulter le projet en visitant le lien GitHub.",
             },
             botanic: {
-              pPrimary:
-                "L'étude de cas du projet Botanic est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
               pDetail1:
                 "Botanic est une solution logicielle développée pour rationaliser le processus de gestion des commandes d'achat pour une jardinerie. Construite avec un accent sur la navigation conviviale, cette application permet de sélectionner les modes de transport, et de visualiser les informations détaillées de la commande et les dates de livraison.",
               pDetail2:
@@ -193,8 +181,6 @@ i18next.init(
                 "Parmi ses principales fonctionnalités, Botanic offre une création de commande simplifiée avec des options de filtrage personnalisables, facilitant la localisation et la gestion efficace des produits par les utilisateurs.",
             },
             galaxyRush: {
-              pPrimary:
-                "L'étude de cas du projet Galaxy Rush est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
               pDetail1:
                 "Galaxy Rush est un jeu WPF codé en C# avec Visual Studio, conçu comme un runner infini où les joueurs naviguent dans un vaisseau spatial pour éviter des obstacles évolutifs. Inspiré de Flappy Bird, les joueurs appuient sur la barre d'espace pour changer de direction tout en collectant des power-ups qui accordent une invincibilité temporaire.",
               pDetail2:
@@ -203,8 +189,6 @@ i18next.init(
                 "Pour ceux qui sont curieux du défi ultime du jeu, une touche d'invincibilité permet de jeter un coup d'œil à ce qui se trouve plus loin dans le jeu.",
             },
             kube: {
-              pPrimary:
-                "L'étude de cas du projet Kube est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
               pDetail1:
                 "Kube est un jeu d'obstacles en 3D développé avec Unity. Le joueur doit naviguer à travers différents niveaux en évitant divers obstacles, avec des défis croissants à chaque étape. Ce projet vise à offrir une expérience de jeu immersive et captivante avec une interface graphique moderne et dynamique.",
               pDetail2:
@@ -213,8 +197,6 @@ i18next.init(
                 "Parmi ses fonctionnalités, Kube offre des graphismes 3D avancés et des effets sonores immersifs pour une expérience de jeu enrichissante.",
             },
             phaser: {
-              pPrimary:
-                "L'étude de cas du projet Phaser est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
               pDetail1:
                 "Le premier jeu est un jeu de plateforme où les joueurs visent à collecter autant de pièces que possible. Chaque fois que le score augmente de 100 points, un nouvel obstacle rebondissant apparaît, rendant de plus en plus difficile la collecte des pièces.",
               pDetail2:
@@ -225,8 +207,6 @@ i18next.init(
                 "Le quatrième et dernier jeu est une compétition multijoueur de collecte d'étoiles qui fonctionne sur un serveur Node.js. Les joueurs s'affrontent pour collecter le plus d'étoiles, le vainqueur étant celui qui accumule le plus grand nombre. Chacun de ces jeux introduit des mécanismes uniques pour une expérience variée et engageante.",
             },
             scodoc: {
-              pPrimary:
-                "L'étude de cas du projet ScoDoc est présentée sur cette page, comprenant un aperçu du projet ainsi que les outils utilisés.",
               pDetail1:
                 "Scodoc est une plateforme basée sur WPF développée pour permettre aux enseignants de gérer efficacement les dossiers des étudiants et les tâches administratives scolaires. Dans le cadre d'un projet collaboratif, notre équipe a rédigé un document de spécifications complet pour garantir l'alignement avec des objectifs de fonctionnalité et d'utilisabilité spécifiques. Nous avons conçu un Modèle de Données Conceptuel (MDC) et un Modèle de Données Logique (MDL) en UML, implémenté une base de données PostgreSQL avec un script SQL structuré, et développé des requêtes personnalisées pour une gestion de données simplifiée.",
               pDetail2:

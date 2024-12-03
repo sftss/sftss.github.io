@@ -105,7 +105,7 @@ button,
 }
 .heading-sec_main--lt::after {
   content: "";
-  background: #7843e9 !important;
+  background: #008080;
 }
 .heading-sec_main::after {
   content: "";
@@ -113,7 +113,7 @@ button,
   top: calc(100% + 1.5rem);
   height: 5px;
   width: 3rem;
-  background: #7843e9;
+  background: #008080;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 5px;
@@ -138,7 +138,7 @@ button,
   width: 92%;
 }
 .btn {
-  background: #7843e9;
+  background: #008080;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -150,7 +150,7 @@ button,
 }
 .btn:hover {
   transform: translateY(-3px);
-  background: #6741c1;
+  background: #40b5ad;
 }
 .btn--bg {
   padding: 1.5rem 8rem;
@@ -161,22 +161,16 @@ button,
   font-size: 1.6rem;
 }
 .btn--theme {
-  background: #7843e9;
+  background: #008080;
   color: #fff;
 }
 .btn--theme-inv {
-  border: 2px solid #7843e9;
+  border: 2px solid #008080;
   box-shadow: none;
   padding: calc(1.5rem - 2px) calc(5rem - 2px);
 }
 .sec-pad {
   padding: 12rem 0;
-}
-.text-primary {
-  font-size: 2.2rem;
-  text-align: center;
-  width: 100%;
-  line-height: 1.6;
 }
 .d-none {
   display: none;
@@ -237,7 +231,7 @@ button,
 .about_content-details-para a {
   text-decoration: underline;
   font-weight: 700;
-  color: #7843e9;
+  color: #008080;
   margin: 0 3px;
 }
 
@@ -396,7 +390,7 @@ button,
 }
 
 .main-footer_link:hover {
-  color: #7843e9;
+  color: #008080;
 }
 
 .project-cs-hero {
@@ -416,10 +410,6 @@ button,
   max-width: 90rem;
   width: 92%;
   margin: auto;
-}
-.project-cs-hero_info {
-  margin: 3rem auto 0 auto;
-  max-width: 80rem;
 }
 
 .project-cs-hero_cta {
@@ -536,7 +526,7 @@ button,
 }
 
 .header_logo-container:hover {
-  color: #7843e9;
+  color: #008080;
   transition: color 0.3s ease;
 }
 
@@ -546,7 +536,7 @@ button,
   border-radius: 50px;
   overflow: hidden;
   margin-right: 1.5rem;
-  background: #7843e9;
+  background: #008080;
 }
 
 .header_logo-img {
@@ -579,7 +569,7 @@ button,
 }
 
 .header_link:hover {
-  color: #7843e9;
+  color: #008080;
 }
 
 .header_main-ham-menu-cont {
@@ -619,7 +609,7 @@ button,
 }
 
 .header_sm-menu-link a:hover {
-  color: #7843e9;
+  color: #008080;
 }
 
 .header_sm-menu-link:first-child a {
@@ -775,9 +765,6 @@ button,
   }
   .heading-sec_main::after {
     top: calc(100% + 1.2rem);
-  }
-  .text-primary {
-    font-size: 2rem;
   }
   .home-main {
     height: unset;
