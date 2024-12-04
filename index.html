@@ -21,41 +21,41 @@
     <!-- //////////////////////////////////////HEADER////////////////////////////////////// -->
 
     <header id="header" class="header">
-      <div class="header_content">
-        <div class="header_logo-container">
-          <div class="header_logo-img-cont">
+      <div class="header-content">
+        <div class="header-logo-container">
+          <div class="header-logo-img-container">
             <img
               src="\assets\img\pp.webp"
               alt="Picture Sefer Tasdemir"
-              class="header_logo-img"
+              class="header-logo-img"
             />
           </div>
-          <span class="header_logo-sub">Sefer Tasdemir</span>
+          <span class="header-logo-sub">Sefer Tasdemir</span>
         </div>
-        <div class="header_main">
-          <ul class="header_links">
-            <li class="header_link-wrapper">
-              <a href="#home" class="header_link" data-i18n="header.home"></a>
+        <div class="header-main">
+          <ul class="header-liens">
+            <li>
+              <a href="#home" class="header-link" data-i18n="header.home"></a>
             </li>
-            <li class="header_link-wrapper">
-              <a href="#about" class="header_link" data-i18n="header.about"></a>
+            <li>
+              <a href="#about" class="header-link" data-i18n="header.about"></a>
             </li>
-            <li class="header_link-wrapper">
+            <li>
               <a
                 href="#projects"
-                class="header_link"
+                class="header-link"
                 data-i18n="header.projects"
               ></a>
             </li>
-            <li class="header_link-wrapper">
+            <li>
               <a
                 href="#contact"
-                class="header_link"
+                class="header-link"
                 data-i18n="header.contact"
               ></a>
             </li>
-            <li class="header_link-wrapper">
-              <a href="#CV" class="header_link">CV</a>
+            <li>
+              <a href="#CV" class="header-link">CV</a>
             </li>
           </ul>
         </div>
@@ -65,14 +65,14 @@
     <!-- //////////////////////////////////////MAIN PAGE////////////////////////////////////// -->
 
     <section id="home" class="home-main">
-      <div class="home-main_content">
+      <div class="home-main-txt">
         <div class="typewriter">
           <h1 data-i18n="home.title"></h1>
         </div>
-        <div class="home-main_cta">
+        <div class="home-main_categ">
           <a
             href="./#projects"
-            class="btn btn--bg"
+            class="btn btn-project"
             data-i18n="home.projects_button"
           ></a>
           <div class="rocket" id="shake" onclick="launchRocket()">
@@ -97,28 +97,28 @@
 
     <!-- //////////////////////////////////////ABOUT////////////////////////////////////// -->
 
-    <section id="about" class="about sec-pad">
+    <section id="about" class="about second-padin">
       <div class="main-container">
-        <h2 class="heading heading-sec heading-sec_mb-med">
-          <span class="heading-sec_main" data-i18n="about.heading"></span>
-          <span class="heading-sec_sub" data-i18n="about.subheading"></span>
+        <h2 class="heading texte-css texte-css-about">
+          <span class="texte-css-main" data-i18n="about.heading"></span>
+          <span class="texte-css-sub" data-i18n="about.subheading"></span>
         </h2>
-        <div class="about_content">
-          <div class="about_content-main">
-            <h3 class="about_content-title" data-i18n="about.title"></h3>
-            <div class="about_content-details">
+        <div class="about-content">
+          <div class="about-content-main">
+            <h3 class="about-content-title" data-i18n="about.title"></h3>
+            <div class="about-content-details">
               <p
-                class="about_content-details-para"
+                class="about-content-details-para"
                 data-i18n="about.details.para1"
                 data-i18n-html
               ></p>
               <p
-                class="about_content-details-para"
+                class="about-content-details-para"
                 data-i18n="about.details.para2"
                 data-i18n-html
               ></p>
               <p
-                class="about_content-details-para"
+                class="about-content-details-para"
                 data-i18n="about.details.para3"
                 data-i18n-html
               ></p>
@@ -126,15 +126,15 @@
             <a
               data-i18n="about.contact_button"
               href="./#contact"
-              class="btn btn--med btn--theme dynamicBgClr"
+              class="btn btn-sub-contact btn-theme"
               data-i18n="about.contact_button"
             ></a>
           </div>
 
           <!-- //////////////////////////////////////SKILLS////////////////////////////////////// -->
 
-          <div class="about_content-skills">
-            <h3 class="about_content-title" data-i18n="about.skills"></h3>
+          <div class="about-content-skills">
+            <h3 class="about-content-title" data-i18n="about.skills"></h3>
             <div class="skills">
               <div class="skills_skill skill-html" data-text="Expert">
                 <span class="skill-name">HTML</span>
@@ -244,134 +244,131 @@
 
     <!-- //////////////////////////////////////PROJECTS////////////////////////////////////// -->
 
-    <section id="projects" class="projects sec-pad">
+    <section id="projects" class="projects second-padin">
       <div class="main-container">
-        <h2 class="heading heading-sec heading-sec_mb-bg">
+        <h2 class="heading texte-css texte-css-backG">
+          <span class="texte-css-main" data-i18n="projects.home.heading"></span>
           <span
-            class="heading-sec_main"
-            data-i18n="projects.home.heading"
-          ></span>
-          <span
-            class="heading-sec_sub"
+            class="texte-css-sub"
             data-i18n="projects.home.subheading"
           ></span>
         </h2>
 
-        <div class="projects_content">
-          <div class="projects_row">
-            <div class="projects_row-img-cont">
+        <div>
+          <div class="projects-colon">
+            <div class="projects-colon-img-cont">
               <img
                 src="assets\img\GalaxyRush\MenuGalaxyRush.webp"
                 alt="Galaxy Rush main screenshot"
-                class="projects_row-img"
+                class="projects-colon-img"
                 loading="lazy"
               />
             </div>
-            <div class="projects_row-content">
-              <h3 class="projects_row-content-title">Galaxy Rush</h3>
+            <div class="projects-colon-content">
+              <h3 class="projects-colon-content-title">Galaxy Rush</h3>
               <p
-                class="projects_row-content-desc"
+                class="projects-colon-content-desc"
                 data-i18n="projects.home.galaxyRushContent"
               ></p>
               <a
                 href="projects/GalaxyRush.html"
-                class="btn btn--med btn--theme dynamicBgClr"
+                class="btn btn-sub-contact btn-theme"
                 blanck="_self"
                 data-i18n="projects.home.butSeeMore"
               ></a>
             </div>
           </div>
 
-          <div class="projects_row projects_row--inverse">
-            <div class="projects_row-img-cont">
+          <div class="projects-colon projects-colon--inverse">
+            <div class="projects-colon-img-cont">
               <img
                 src="assets\img\Phaser\Phaser_Logo.webp"
                 alt="Phaser Screenshot"
-                class="projects_row-img"
+                class="projects-colon-img"
                 loading="lazy"
               />
             </div>
-            <div class="projects_row-content">
-              <h3 class="projects_row-content-title">Phaser</h3>
+            <div class="projects-colon-content">
+              <h3 class="projects-colon-content-title">Phaser</h3>
               <p
                 data-i18n="projects.home.phaserContent"
-                class="projects_row-content-desc"
+                class="projects-colon-content-desc"
               ></p>
               <a
                 href="projects/Phaser.html"
-                class="btn btn--med btn--theme dynamicBgClr"
+                class="btn btn-sub-contact btn-theme"
                 blanck="_self"
                 data-i18n="projects.home.butSeeMore"
               ></a>
             </div>
           </div>
 
-          <div class="projects_row">
-            <div class="projects_row-img-cont">
+          <div class="projects-colon">
+            <div class="projects-colon-img-cont">
               <img
                 src="assets\img\Kube\MenuKube.webp"
                 alt="Kube Screenshot"
-                class="projects_row-img"
+                class="projects-colon-img"
                 loading="lazy"
               />
             </div>
-            <div class="projects_row-content">
-              <h3 class="projects_row-content-title">Kube</h3>
+            <div class="projects-colon-content">
+              <h3 class="projects-colon-content-title">Kube</h3>
               <p
                 data-i18n="projects.home.kubeContent"
-                class="projects_row-content-desc"
+                class="projects-colon-content-desc"
               ></p>
               <a
                 href="projects/Kube.html"
-                class="btn btn--med btn--theme dynamicBgClr"
+                class="btn btn-sub-contact btn-theme"
                 blanck="_self"
                 data-i18n="projects.home.butSeeMore"
               ></a>
             </div>
           </div>
 
-          <div class="projects_row projects_row--inverse">
-            <div class="projects_row-img-cont">
+          <div class="projects-colon projects-colon--inverse">
+            <div class="projects-colon-img-cont">
               <img
                 src="assets\img\Botanic\ConnexionBotanic.webp"
                 alt="Botanic Screenshot"
-                class="projects_row-img"
+                class="projects-colon-img"
                 loading="lazy"
               />
             </div>
-            <div class="projects_row-content">
-              <h3 class="projects_row-content-title">Botanic</h3>
+            <div class="projects-colon-content">
+              <h3 class="projects-colon-content-title">Botanic</h3>
               <p
                 data-i18n="projects.home.botanicContent"
-                class="projects_row-content-desc"
+                class="projects-colon-content-desc"
               ></p>
               <a
                 href="projects/Botanic.html"
-                class="btn btn--med btn--theme dynamicBgClr"
+                class="btn btn-sub-contact btn-theme"
                 blanck="_self"
                 data-i18n="projects.home.butSeeMore"
               ></a>
             </div>
           </div>
 
-          <div class="projects_row">
-            <div class="projects_row-img-cont">
+          <div class="projects-colon">
+            <div class="projects-colon-img-cont">
               <img
                 src="assets\img\Scodoc\ScodocLogo.webp"
                 alt="Scodoc Screenshot"
-                class="projects_row-img"
+                class="projects-colon-img"
                 loading="lazy"
               />
             </div>
-            <div class="projects_row-content">
-              <h3 class="projects_row-content-title">Scodoc</h3>
+            <div class="projects-colon-content">
+              <h3 class="projects-colon-content-title">Scodoc</h3>
               <p
                 data-i18n="projects.home.scodocContent"
-                class="projects_row-content-desc"
+                class="projects-colon-content-desc"
               ></p>
               <a
                 href="projects/Scodoc.html"
-                class="btn btn--med btn--theme dynamicBgClr"
+                class="btn btn-sub-contact btn-theme"
                 blanck="_self"
                 data-i18n="projects.home.butSeeMore"
               ></a>
@@ -383,28 +380,28 @@
 
     <!-- //////////////////////////////////////CONTACT////////////////////////////////////// -->
 
-    <section id="contact" class="contact sec-pad dynamicBg">
+    <section id="contact" class="contact second-padin">
       <div class="main-container">
-        <h2 class="heading heading-sec heading-sec_mb-med">
-          <span class="heading-sec_main heading-sec_main-ctt">Contact</span>
+        <h2 class="heading texte-css texte-css-about">
+          <span class="texte-css-main texte-css-main-ctt">Contact</span>
         </h2>
-        <div class="contact_form-container">
+        <div class="contact-form-container">
           <!-- PROBLEM: GITHUB DON'T ALLOW POST (SO CAPTCHA = IMPOSSIBLE) SO => USE OF A API, ELSE => USE CONTACT.PHP-->
           <form
             action="https://api.staticforms.xyz/submit"
             method="POST"
-            class="contact_form"
+            class="contact--form"
             id="contactForm"
           >
-            <!-- <form action="contact.php" method="POST" class="contact_form" id="contactForm"> -->
+            <!-- <form action="contact.php" method="POST" class="contact--form" id="contactForm"> -->
             <input
               type="hidden"
               name="accessKey"
               value="0ebaf301-be2e-4489-aded-6b868ac9da92"
             />
-            <div class="contact_form-field">
+            <div class="contact--form-field">
               <label
-                class="contact_form-label"
+                class="contact--form-label"
                 for="name"
                 data-i18n="contact.form.name"
               ></label>
@@ -412,14 +409,14 @@
                 required
                 placeholder="Thomas Shelby"
                 type="text"
-                class="contact_form-input"
+                class="contact--form-input"
                 name="name"
                 id="name"
               />
             </div>
-            <div class="contact_form-field">
+            <div class="contact--form-field">
               <label
-                class="contact_form-label"
+                class="contact--form-label"
                 for="email"
                 data-i18n="contact.form.email"
               ></label>
@@ -427,14 +424,14 @@
                 required
                 placeholder="email@gmail.com"
                 type="email"
-                class="contact_form-input"
+                class="contact--form-input"
                 name="email"
                 id="email"
               />
             </div>
-            <div class="contact_form-field">
+            <div class="contact--form-field">
               <label
-                class="contact_form-label"
+                class="contact--form-label"
                 for="message"
                 data-i18n="contact.form.message"
               ></label>
@@ -442,7 +439,7 @@
                 required
                 cols="30"
                 rows="10"
-                class="contact_form-input"
+                class="contact--form-input"
                 placeholder="Lorem ipsum dolor sit amet..."
                 name="message"
                 id="message"
@@ -468,7 +465,7 @@
             />
             <button
               type="submit"
-              class="btn btn--theme contact_btn"
+              class="btn btn-theme contact_btn"
               id="submitBtn"
               data-i18n="contact.form.send"
             ></button>
@@ -481,35 +478,32 @@
 
     <footer id="CV" class="main-footer">
       <div class="main-container">
-        <div class="main-footer_upper">
-          <div class="main-footer_row main-footer_row-1">
-            <h2
-              class="heading heading-sm main-footer_heading-sm"
-              data-i18n="footer.seeMe"
-            >
+        <div class="main-footer-haut">
+          <div class="main-footer-col main-footer-col-1">
+            <h2 class="heading headin-blaze" data-i18n="footer.seeMe">
               <span></span>
             </h2>
-            <div class="main-footer_social-cont">
+            <div class="main-footer-social-stock">
               <a
                 target="_blank"
                 href="https://www.linkedin.com/in/sefertasdemir/"
               >
                 <img
-                  class="main-footer_icon"
+                  class="main-footer-icone"
                   src="assets/svg/linkedin.svg"
                   alt="Sefer Tasdemir Linkedin"
                 />
               </a>
               <a target="_blank" href="https://github.com/sftss">
                 <img
-                  class="main-footer_icon"
+                  class="main-footer-icone"
                   src="assets/svg/github.svg"
                   alt="Sefer Tasdemir Github"
                 />
               </a>
               <a target="_blank" href="https://www.instagram.com/sf_tsd/">
                 <img
-                  class="main-footer_icon"
+                  class="main-footer-icone"
                   src="assets/svg/instagram.svg"
                   alt="Sefer Tasdemir Instagram"
                 />
@@ -532,27 +526,27 @@
               </div>
             </div>
           </div>
-          <div class="main-footer_row main-footer_row-2">
-            <h2 class="heading heading-sm text-lt">Sefer Tasdemir</h2>
+          <div class="main-footer-col main-footer-col-2">
+            <h2 class="heading headin-blaze">Sefer Tasdemir</h2>
             <p class="main-footer_short-desc">Not like us</p>
             <a
               href="assets\EN Sefer Tasdemir CV.pdf"
               target="_blank"
-              class="main-footer_link"
+              class="main-footer-liens"
               data-i18n="footer.seeMeCvEn"
             ></a>
             <br />
             <a
               href="assets\FR Sefer Tasdemir CV.pdf"
               target="_blank"
-              class="main-footer_link"
+              class="main-footer-liens"
               data-i18n="footer.seeMeCvFr"
             ></a>
           </div>
         </div>
       </div>
 
-      <div class="main-footer_lower">
+      <div class="main-footer-bas">
         &copy; All rights reserved
         <script>
           document.write(new Date().getFullYear());

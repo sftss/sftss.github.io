@@ -1,9 +1,9 @@
 //#region hamburger
-const hamMenuBtn = document.querySelector(".header_main-ham-menu-cont");
+const hamMenuBtn = document.querySelector(".header-main-ham-menu-cont");
 const smallMenu = document.querySelector(".header_sm-menu");
-const headerHamMenuBtn = document.querySelector(".header_main-ham-menu");
+const headerHamMenuBtn = document.querySelector(".header-main-ham-menu");
 const headerHamMenuCloseBtn = document.querySelector(
-  ".header_main-ham-menu-close"
+  ".header-main-ham-menu-close"
 );
 const headerSmallMenuLinks = document.querySelectorAll(".header_sm-menu-link");
 
@@ -19,7 +19,7 @@ headerSmallMenuLinks.forEach((link) => {
 //#endregion
 
 //#region Back main page after click on logo
-const headerLogoContainer = document.querySelector(".header_logo-container");
+const headerLogoContainer = document.querySelector(".header-logo-container");
 headerLogoContainer.addEventListener("click", () => {
   location.href = "../";
 });
