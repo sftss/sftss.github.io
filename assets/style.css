@@ -100,23 +100,8 @@ button,
   margin-bottom: 3.5rem;
   position: relative;
 }
-.heading-sec_main--lt {
+.heading-sec_main-ctt {
   font-weight: 800;
-}
-.heading-sec_main--lt::after {
-  content: "";
-  background: #008080;
-}
-.heading-sec_main::after {
-  content: "";
-  position: absolute;
-  top: calc(100% + 1.5rem);
-  height: 5px;
-  width: 3rem;
-  background: #008080;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px;
 }
 .heading-sec_sub {
   display: block;
@@ -215,7 +200,7 @@ button,
 }
 .about_content-details-para {
   font-size: 1.8rem;
-  color: #a7a7a7;
+  color: #666666;
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 1rem;
@@ -279,7 +264,7 @@ button,
 
 .projects_row-content-desc {
   font-size: 1.8rem;
-  color: #a7a7a7;
+  color: #666666;
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 3rem;
@@ -312,7 +297,7 @@ button,
 }
 
 .contact_form-label {
-  color: #a7a7a7;
+  color: #666666;
   font-size: 1.4rem;
   letter-spacing: 1px;
   font-weight: 700;
@@ -467,7 +452,7 @@ button,
 .project-details_desc-para {
   font-size: 1.8rem;
   line-height: 1.7;
-  color: #a7a7a7;
+  color: #666666;
   margin-bottom: 2rem;
 }
 .project-details_tools-used-list {
@@ -722,7 +707,7 @@ button,
     padding: 8rem 0;
   }
   .header_content {
-    padding: 0 2rem;
+    padding: 1rem 2rem;
   }
   .header_logo-img-cont {
     width: 4.5rem;
@@ -788,9 +773,6 @@ button,
   .projects_row-content-desc {
     font-size: 1.7rem;
   }
-  .skills_skill {
-    align-items: center;
-  }
   .contact_form-container {
     padding: 3rem;
   }
@@ -849,13 +831,14 @@ button,
 }
 .skills_skill {
   position: relative;
+  align-items: center;
   padding: 1rem 1rem;
   font-size: 1.6rem;
   text-align: center;
   background: rgb(153 153 153 / 0.2);
   border-radius: 5px;
   font-weight: 600;
-  color: #a7a7a7;
+  color: #666666;
   transition: all 0.3s ease;
   overflow: hidden;
   min-width: 90px; /*TAILLE DU BLOC*/
@@ -877,11 +860,22 @@ button,
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  color: ivory;
+  color: rgb(36, 36, 36);
   opacity: 0;
   transition: opacity 0.3s ease;
   white-space: nowrap;
 }
+.skill-github::after,
+.skill-powershell::after,
+.skill-figma::after,
+.skill-css::after,
+.skill-net::after,
+.skill-express::after,
+.skill-unity::after,
+.skill-visual-studio::after {
+  color: ivory;
+}
+
 .skills_skill:hover {
   transform: scale(1.1);
 }
@@ -918,16 +912,16 @@ button,
   background: #4f5b93;
   --level: 50%;
 }
-.skill-csharp::before {
-  background: #9b4f96;
-  --level: 75%;
-}
 .skill-python::before {
   background: #306998;
   --level: 50%;
 }
 .skill-net::before {
   background: #512bd4;
+  --level: 75%;
+}
+.skill-azure::before {
+  background: #008ad7;
   --level: 75%;
 }
 .skill-nodemon::before {
@@ -960,10 +954,6 @@ button,
 }
 .skill-sql-server::before {
   background: #cc2927;
-  --level: 50%;
-}
-.skill-mariadb::before {
-  background: #00758f;
   --level: 50%;
 }
 .skill-jquery::before {
@@ -1014,10 +1004,6 @@ button,
   background: #32a852;
   --level: 75%;
 }
-.skill-modeling::before {
-  background: #ea7600;
-  --level: 25%;
-}
 .skill-figma::before {
   background: #f24e1e;
   --level: 75%;
@@ -1038,6 +1024,7 @@ button,
   background: #ff0000;
   --level: 50%;
 }
+
 /*#endregion couleur personnalisées*/
 
 /*#endregion skill*/

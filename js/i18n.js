@@ -2,7 +2,7 @@ i18next.init(
   {
     lng: "en", // default
     // lng: detectUserLanguage(), // auto detect pour après
-    debug: false, // DEBUG
+    debug: false,
     resources: {
       en: {
         translation: {
@@ -20,17 +20,14 @@ i18next.init(
             heading: "About me",
             subheading:
               "Find out who I am, my current programming skills, and the projects I have completed.",
-            title: "Meet me !",
+            title: "Meet me!",
             details: {
-              //  As a passionate developer, I strive to continuously improve both personally
-              // and technically. I am confident working as part of your team while maintaining autonomy. My
-              // motivation, and love for challenges make me the ideal candidate to contribute to your projects.
               para1:
-                "I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France).",
+                "I am Sefer Tasdemir, a 19 years old developer, I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France).",
               para2:
-                "I like to share my acquired knowledge in <strong>development</strong> in order to help the developer community. Feel free to follow me on <a href='https://linkedin.com/in/SeferTasdemir' target='_blank'>Linkedin</a> and <a href='https://www.instagram.com/sf_tsd/' target='_blank'>Instagram</a> for more content.",
+                "I am a native speaker of <strong>french</strong> and <strong>turkish</strong>, a B2 level in <strong>english</strong> and a bit of <strong>spanish</strong>. Aside from coding, I am passionate about <strong>chess</strong> (1200 Elo) and sport, I play <strong>football</strong>, <strong>basketball</strong>, <strong>athletics</strong> and <strong>bodybuilding</strong>.",
               para3:
-                "I am open to professional opportunities. If you have an offer that matches my skills, <strong>contact me</strong>.",
+                "I am open to professional opportunities. If you have an offer that matches my skills, <strong>contact me below</strong>.",
             },
             skills: "My skills",
             contact_button: "Contact me",
@@ -104,8 +101,6 @@ i18next.init(
           },
           contact: {
             heading: "Contact",
-            subheading:
-              "Do you have a question or a project? Do not hesitate to contact me, I will give you an answer as soon as possible.",
             form: {
               name: "Name",
               email: "Email",
@@ -140,11 +135,11 @@ i18next.init(
             title: "Rencontrez-moi !",
             details: {
               para1:
-                "En tant que <strong>développeur passionné</strong>, je me spécialise dans la création de logiciels modernes et fonctionnels. Consultez mes réalisations dans la section <strong>Projets</strong>.",
+                "Je suis Sefer Tasdemir, un développeur de 19 ans, je termine actuellement ma <strong>deuxième année de BUT Informatique</strong> à l'IUT d'Annecy (France).",
               para2:
-                "J'aime partager mes connaissances acquises en <strong>développement</strong> afin d'aider la communauté de développeurs. N'hésitez pas à me suivre sur <a href='https://linkedin.com/in/SeferTasdemir' target='_blank'>Linkedin</a> et <a href='https://www.instagram.com/sf_tsd/' target='_blank'>Instagram</a> pour plus de contenu.",
+                "Je parle couramment <strong>français</strong> et <strong>turc</strong>, j'ai un niveau B2 en <strong>anglais</strong> et un niveau scolaire d'<strong>espagnol</strong>. En dehors du codage, je suis passionné par les <strong>échecs</strong> (1200 Elo) et le sport, je pratique le <strong>football</strong>, le <strong>basketball</strong>, l'<strong>athlétisme</strong> et la <strong>musculation</strong>.",
               para3:
-                "Je suis ouvert aux opportunités professionnelles. Si vous avez une offre qui correspond à mes compétences, <strong>contactez-moi</strong>.",
+                "Je suis ouvert aux opportunités professionnelles. Si vous avez une offre qui correspond à mes compétences, <strong>contactez-moi en dessous</strong>.",
             },
             skills: "Mes compétences",
             contact_button: "Contactez-moi",
@@ -218,8 +213,6 @@ i18next.init(
           },
           contact: {
             heading: "Contact",
-            subheading:
-              "Vous avez une question ou un projet ? N'hésitez pas à me contacter, je vous répondrai dans les plus brefs délais.",
             form: {
               name: "Prénom",
               email: "Email",
