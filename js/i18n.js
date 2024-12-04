@@ -1,7 +1,7 @@
 i18next.init(
   {
-    // lng: "en", // default
-    lng: detectUserLanguage(), // auto detect pour après
+    lng: "en", // default
+    // lng: detectUserLanguage(), // auto detect pour après
     debug: false, // DEBUG
     resources: {
       en: {
@@ -22,8 +22,11 @@ i18next.init(
               "Find out who I am, my current programming skills, and the projects I have completed.",
             title: "Meet me !",
             details: {
+              //  As a passionate developer, I strive to continuously improve both personally
+              // and technically. I am confident working as part of your team while maintaining autonomy. My
+              // motivation, and love for challenges make me the ideal candidate to contribute to your projects.
               para1:
-                "As a <strong>passionate developer</strong>, I specialize in creating modern and functate developernal software. Check out my achievements in the <strong>Projects</strong> section.",
+                "I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France).",
               para2:
                 "I like to share my acquired knowledge in <strong>development</strong> in order to help the developer community. Feel free to follow me on <a href='https://linkedin.com/in/SeferTasdemir' target='_blank'>Linkedin</a> and <a href='https://www.instagram.com/sf_tsd/' target='_blank'>Instagram</a> for more content.",
               para3:
