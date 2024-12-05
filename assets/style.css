@@ -60,11 +60,10 @@ button,
 }
 .typewriter h1 {
   white-space: nowrap;
-  border-right: 0.15em solid blue;
+  border-right: 0.15em solid #008080;
   font-size: 5em;
   letter-spacing: 0.15em;
   overflow: hidden;
-  /* width: 100%; */
   animation: typing 4s steps(30, end), blink-caret 0.5s step-end infinite;
 }
 @keyframes typing {
@@ -81,7 +80,7 @@ button,
     border-color: transparent;
   }
   50% {
-    border-color: blue;
+    border-color: #008080;
   }
 }
 /*#endregion typewriter*/
@@ -442,26 +441,9 @@ button,
   color: #666666;
   margin-bottom: 2rem;
 }
-/* .project-details-skills-used-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.project-details-skills-used-item {
-  padding: 1rem 2rem;
-  margin-bottom: 1.5rem;
-  margin-right: 1.5rem;
-  font-size: 1.6rem;
-  background: rgb(153 153 153 / 0.2);
-  border-radius: 5px;
-  font-weight: 600;
-  color: #777;
-} */
-
 .project-details-lienss {
   margin: 0 0;
 }
-
 .project-details-lienss-btn {
   margin-right: 2rem;
 }
@@ -581,21 +563,6 @@ button,
 
 .main-footer-icone--mr-none {
   margin-right: 0;
-}
-
-.main-footer-bas {
-  padding: 4rem 0;
-  border-top: 1px solid #444;
-  color: #eee;
-  font-size: 1.2rem;
-  text-align: left;
-  text-align: center;
-}
-
-.main-footer-bas a {
-  text-decoration: underline;
-  font-weight: 700;
-  margin-left: 2px;
 }
 
 .texte-css-backG {
@@ -1228,8 +1195,6 @@ body.animate {
         rgba(0, 0, 0, 0.3)
       ),
       url("svg\\endless-constellation-dark.svg");
-
-    /* background: url("svg\\endless-constellation-dark.svg"); */
   }
   .contact {
     background: linear-gradient(

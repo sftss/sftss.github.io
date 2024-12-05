@@ -47,6 +47,8 @@ i18next.init(
                 "Botanic est un logiciel créé en C# lié à une base de données relationnelle. L'application a été créée pour la création de commandes et de produits pour une entreprise de décoration.",
               scodocContent:
                 "ScoDoc is a free software created to track the education of university students. This project focuses on the creation and visualization of data created from scratch.",
+              uberContent:
+                "Uber is a university project where the framework Laravel is used. We tried to make it identical to the real site, including Uber Eats.",
               butSeeMore: "See more",
             },
             common: {
@@ -159,6 +161,8 @@ i18next.init(
                 "Botanic est un logiciel réalisé en C# en lien avec une base de données relationnelle. L'application a été créée pour la création de commandes et de produits pour une entreprise de décoration.",
               scodocContent:
                 "ScoDoc est un logiciel fictif, développé pour suivre la formation des étudiants universitaires. Ce projet se concentre sur la création et la visualisation de données créées à partir de zéro.",
+              uberContent:
+                "Uber est un projet universitaire avec le framework Laravel. Nous avons essayé de le rendre identique au site réel, y compris Uber Eats.",
               butSeeMore: "Voir plus",
             },
             common: {
