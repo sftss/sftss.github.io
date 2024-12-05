@@ -1,23 +1,3 @@
-//#region hamburger
-const hamMenuBtn = document.querySelector(".header-main-ham-menu-cont");
-const smallMenu = document.querySelector(".header_sm-menu");
-const headerHamMenuBtn = document.querySelector(".header-main-ham-menu");
-const headerHamMenuCloseBtn = document.querySelector(
-  ".header-main-ham-menu-close"
-);
-const headerSmallMenuLinks = document.querySelectorAll(".header_sm-menu-link");
-
-const toggleMenu = () => {
-  smallMenu.classList.toggle("header_sm-menu--active");
-  headerHamMenuBtn.classList.toggle("d-none");
-  headerHamMenuCloseBtn.classList.toggle("d-none");
-};
-hamMenuBtn.addEventListener("click", toggleMenu);
-headerSmallMenuLinks.forEach((link) => {
-  link.addEventListener("click", toggleMenu);
-});
-//#endregion
-
 //#region Back main page after click on logo
 const headerLogoContainer = document.querySelector(".header-logo-container");
 headerLogoContainer.addEventListener("click", () => {
