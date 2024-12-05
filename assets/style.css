@@ -260,19 +260,15 @@ button,
 .contact {
   background: linear-gradient(
       to right,
-      rgba(245, 245, 245, 0.5),
-      rgba(245, 245, 245, 0.5)
+      rgba(219, 152, 152, 0.5),
+      rgba(58, 192, 233, 0.5)
     ),
     url("svg\\common-bg.svg");
   background-size: cover;
   background-position: center;
 }
 .contact-form-container {
-  box-shadow: rgba(100, 100, 100, 0.2) 0px 7px 29px 0px;
-  background: white;
   padding: 4rem;
-  margin-top: 6rem;
-  max-width: 80rem;
   text-align: right;
   width: 95%;
   border-radius: 5px;
@@ -352,6 +348,7 @@ button,
   width: 30%;
   padding: 2rem 4rem;
   font-size: 1.6rem;
+  transform: translateX(-100%);
 }
 .main-footer-liens {
   display: inline-block;
@@ -368,8 +365,8 @@ button,
 .project-css {
   background: linear-gradient(
       to right,
-      rgba(245, 245, 245, 0.5),
-      rgba(245, 245, 245, 0.5)
+      rgba(96, 86, 184, 0.5),
+      rgba(165, 69, 69, 0.5)
     ),
     url("svg\\common-bg.svg");
   background-size: cover;
@@ -1191,7 +1188,7 @@ body.animate {
   .home-main {
     background: linear-gradient(
         to right,
-        rgba(61, 61, 61, 0.5),
+        rgba(73, 101, 124, 0.5),
         rgba(0, 0, 0, 0.3)
       ),
       url("svg\\endless-constellation-dark.svg");
@@ -1199,8 +1196,8 @@ body.animate {
   .contact {
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8)
+        rgba(54, 33, 33, 0.8),
+        rgba(42, 50, 66, 0.8)
       ),
       url("svg\\common-bg.svg");
   }
@@ -1213,8 +1210,8 @@ body.animate {
   .project-css {
     background: linear-gradient(
         to right,
-        rgba(0, 0, 0, 0.8),
-        rgba(0, 0, 0, 0.8)
+        rgba(49, 39, 75, 0.8),
+        rgba(73, 34, 34, 0.8)
       ),
       url("svg\\common-bg.svg");
   }
