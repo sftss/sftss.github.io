@@ -23,7 +23,7 @@ i18next.init(
             title: "Meet me!",
             details: {
               para1:
-                "I am Sefer Tasdemir, a 19 years old developer, I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France).",
+                "I am Sefer Tasdemir, a 19 years old developer, I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France). I had my <strong>French Baccalaureate, specializing in mathematics with honors</strong>, and if you want to know more about my <strong>educational and professional background</strong>, I invite you to look at <strong>my CV</strong> at the <strong>bottom of the page</strong>.",
               para2:
                 "I am a native speaker of <strong>french</strong> and <strong>turkish</strong>, a B2 level in <strong>english</strong> and a bit of <strong>spanish</strong>. Aside from coding, I am passionate about <strong>chess</strong> (1200 Elo) and sport, I play <strong>football</strong>, <strong>basketball</strong>, <strong>athletics</strong> and <strong>bodybuilding</strong>.",
               para3:
@@ -137,7 +137,7 @@ i18next.init(
             title: "Rencontrez-moi !",
             details: {
               para1:
-                "Je suis Sefer Tasdemir, un développeur de 19 ans, je termine actuellement ma <strong>deuxième année de BUT Informatique</strong> à l'IUT d'Annecy (France).",
+                "Je suis Sefer Tasdemir, un développeur de 19 ans, je termine actuellement ma <strong>deuxième année de BUT Informatique</strong> à l'IUT d'Annecy (France). J'ai eu mon <strong>baccalauréat général, spécialisé en mathématiques avec mention</strong>, et si vous voulez en savoir plus sur mon <strong>parcours scolaire et professionnel</strong>, je vous invite à <strong>consulter mon CV en bas de la page</strong>.",
               para2:
                 "Je parle couramment <strong>français</strong> et <strong>turc</strong>, j'ai un niveau B2 en <strong>anglais</strong> et un niveau scolaire d'<strong>espagnol</strong>. En dehors du codage, je suis passionné par les <strong>échecs</strong> (1200 Elo) et le sport, je pratique le <strong>football</strong>, le <strong>basketball</strong>, l'<strong>athlétisme</strong> et la <strong>musculation</strong>.",
               para3:
