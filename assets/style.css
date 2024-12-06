@@ -439,10 +439,9 @@ button,
   margin-bottom: 2rem;
 }
 .project-details-lienss {
-  margin: 0 0;
-}
-.project-details-lienss-btn {
-  margin-right: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10%;
 }
 
 .project-details-lienss-btn:last-child {
@@ -699,6 +698,10 @@ textarea {
   }
   .project-details-content-title {
     font-size: 2.4rem;
+  }
+  .project-details-lienss {
+    flex-direction: column;
+    align-items: center;
   }
   .project-details-lienss-btn {
     margin-right: 0;
