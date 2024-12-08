@@ -109,6 +109,8 @@ i18next.init(
               subject: "Subject",
               message: "Message",
               send: "Send",
+              messConf:
+                "Thank you! Your message has been sent successfully.  😊",
             },
           },
           footer: {
@@ -223,6 +225,7 @@ i18next.init(
               subject: "Objet",
               message: "Message",
               send: "Envoyer",
+              messConf: "Merci ! Votre message a bien été envoyé. 😊",
             },
           },
           footer: {

@@ -29,6 +29,18 @@ window.addEventListener("scroll", () => {
 //       document.getElementById("captchaResponse").value = token;
 //     });
 // });
+const form = document.getElementById("contactForm");
+const confirmationMessage = document.getElementById("confirmationMessage");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  setTimeout(() => {
+    confirmationMessage.style.display = "block";
+    form.reset();
+  }, 300);
+});
+
 //#endregion
 
 //#region Rocket
