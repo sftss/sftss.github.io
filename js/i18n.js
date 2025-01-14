@@ -1,7 +1,7 @@
 i18next.init(
   {
-    lng: "en", // default
-    // lng: detectUserLanguage(), // auto detect pour après
+    // lng: "en", // default
+    lng: detectUserLanguage(), // auto detect pour après
     debug: false,
     resources: {
       en: {

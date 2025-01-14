@@ -187,7 +187,7 @@ button,
 }
 .about-content-details-para {
   font-size: 1.8rem;
-  color: #999999;
+  color: #bdbdbd;
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 1rem;
@@ -251,7 +251,7 @@ button,
 
 .projects-colon-content-desc {
   font-size: 1.8rem;
-  color: #999999;
+  color: #bdbdbd;
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 3rem;
@@ -280,7 +280,7 @@ button,
 }
 
 .contact--form-label {
-  color: #999999;
+  color: #bdbdbd;
   font-size: 1.4rem;
   letter-spacing: 1px;
   font-weight: 700;
@@ -435,7 +435,7 @@ button,
 .project-details-description-para {
   font-size: 1.8rem;
   line-height: 1.7;
-  color: #999999;
+  color: #bdbdbd;
   margin-bottom: 2rem;
 }
 .project-details-lienss {
@@ -585,7 +585,9 @@ textarea {
   width: 3rem;
   margin-bottom: 1rem;
 }
-
+.main-footer-icone:hover {
+  transform: scale(1.2);
+}
 .main-footer-icone--mr-none {
   margin-right: 0;
 }
@@ -768,7 +770,7 @@ textarea {
   background: rgb(153 153 153 / 0.2);
   border-radius: 5px;
   font-weight: 600;
-  color: #999999;
+  color: #bdbdbd;
   transition: all 0.3s ease;
   overflow: hidden;
   min-width: 90px; /*TAILLE DU BLOC*/
