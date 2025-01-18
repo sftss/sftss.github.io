@@ -624,6 +624,7 @@ textarea {
 textarea {
   resize: none;
 }
+
 /*#region Responsive*/
 @media only screen and (max-width: 57em) {
   html {
