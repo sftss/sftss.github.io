@@ -100,6 +100,16 @@ i18next.init(
               pDetail2:
                 "To enhance data accessibility, we imported a database view into Excel, enabling calculations and graphical analysis, and created two Power BI dashboards that visually represent key information from the same data view. This end-to-end project demonstrates robust data visualization to simplify administrative workflows in educational settings.",
             },
+            uber: {
+              pDetail1:
+                "Uber is a project developed as part of a development with Laravel, aiming to replicate the essential features of the original application. The main goal was to design a web solution to connect passengers and drivers, allowing real-time ride booking.",
+              pDetail2:
+                "The project includes features such as user registration and authentication, profile management for drivers and passengers, and ride booking with precise tracking via Google Maps. Particular attention was paid to user experience and interaction fluidity.",
+              pDetail3:
+                "From a technical perspective, this project implements a robust architecture based on Laravel, with efficient database management using migrations and Eloquent models. The system also ensures data security through secure authentication and rigorous user input validation.",
+              pDetail4:
+                "This project reflects my skills in backend development, API integration (such as Google Maps), as well as database management. It also demonstrates my ability to lead a comprehensive project, from initial design to final deployment.",
+            },
           },
           contact: {
             heading: "Contact",
@@ -215,6 +225,16 @@ i18next.init(
                 "Scodoc est une plateforme basée sur WPF développée pour permettre aux enseignants de gérer efficacement les dossiers des étudiants et les tâches administratives scolaires. Dans le cadre d'un projet collaboratif, notre équipe a rédigé un document de spécifications complet pour garantir l'alignement avec des objectifs de fonctionnalité et d'utilisabilité spécifiques. Nous avons conçu un Modèle de Données Conceptuel (MDC) et un Modèle de Données Logique (MDL) en UML, implémenté une base de données PostgreSQL avec un script SQL structuré, et développé des requêtes personnalisées pour une gestion de données simplifiée.",
               pDetail2:
                 "Pour améliorer l'accessibilité des données, nous avons importé une vue de base de données dans Excel, permettant des calculs et une analyse graphique, et créé deux tableaux de bord Power BI qui représentent visuellement des informations clés à partir de la même vue de données. Ce projet de bout en bout démontre une visualisation de données robuste pour simplifier les flux de travail administratifs dans les environnements éducatifs.",
+            },
+            uber: {
+              pDetail1:
+                "Uber est un projet réalisé dans le cadre d’un développement avec Laravel, visant à reproduire les fonctionnalités essentielles de l'application originale. L’objectif principal était de concevoir une solution web pour connecter les passagers et les chauffeurs, permettant de réserver des trajets en temps réel.",
+              pDetail2:
+                "Le projet comprend des fonctionnalités telles que l'inscription et l'authentification des utilisateurs, la gestion des profils pour les chauffeurs et les passagers, et la réservation des courses avec un suivi précis via Google Maps. Une attention particulière a été portée à l'expérience utilisateur et à la fluidité des interactions.",
+              pDetail3:
+                "D'un point de vue technique, ce projet met en œuvre une architecture robuste basée sur Laravel, avec une gestion efficace de la base de données à l'aide de migrations et de modèles Eloquent. Le système garantit également la sécurité des données grâce à une authentification sécurisée et une validation rigoureuse des entrées utilisateur.",
+              pDetail4:
+                "Ce projet reflète mes compétences en développement backend, en intégration d'API (comme Google Maps), ainsi qu'en gestion de bases de données. Il démontre également ma capacité à mener un projet complet, de la conception initiale au déploiement final.",
             },
           },
           contact: {

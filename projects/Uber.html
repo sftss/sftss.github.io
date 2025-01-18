@@ -3,7 +3,239 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Uber</title>
+    <link rel="stylesheet" href="../assets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
+    <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
+    <title>Sefer - Uber</title>
   </head>
-  <body></body>
+
+  <body>
+    <header id="header" class="header">
+      <div class="header-content">
+        <div class="header-logo-container">
+          <div class="header-logo-img-container">
+            <img
+              src="../assets/img/pp.webp"
+              alt="Picture Sefer Tasdemir"
+              class="header-logo-img"
+            />
+          </div>
+          <span class="header-logo-sub">Sefer Tasdemir</span>
+        </div>
+        <div class="header-main">
+          <ul class="header-liens">
+            <li>
+              <a
+                href="../#home"
+                class="header-link"
+                data-i18n="header.home"
+              ></a>
+            </li>
+            <li>
+              <a
+                href="../#projects"
+                class="header-link"
+                data-i18n="header.projects"
+              ></a>
+            </li>
+            <li>
+              <a
+                href="../#contact"
+                class="header-link"
+                data-i18n="header.contact"
+              ></a>
+            </li>
+            <li>
+              <a href="#CV" class="header-link">CV</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <section class="project-css">
+      <div class="project-css-content">
+        <h1 class="heading-primary">Uber</h1>
+        <div class="project-css-catega">
+          <a
+            href="https://github.com/sftss/Uber"
+            class="btn btn-project"
+            target="_blank"
+            rel="noreferrer"
+            data-i18n="projects.common.butProjectLink"
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="project-details">
+      <div class="main-container">
+        <div class="project-details-content">
+          <div class="project-details-afficher-img-contient">
+            <img class="project-details-afficher-img uberImg" />
+          </div>
+          <div class="project-details-content-main">
+            <div class="project-details-description">
+              <h2
+                class="project-details-content-title"
+                data-i18n="projects.common.projectsPresentaion"
+              ></h2>
+              <p
+                class="project-details-description-para"
+                data-i18n="projects.uber.pDetail1"
+              ></p>
+              <div class="project-details-afficher-img-contient">
+                <img
+                  src="..\assets\img\Scodoc\ScodocExcel.webp"
+                  class="project-details-afficher-img"
+                />
+                <p
+                  class="project-details-description-para"
+                  data-i18n="projects.uber.pDetail2"
+                ></p>
+                <div class="project-details-afficher-img-contient">
+                  <img
+                    src="..\assets\img\Scodoc\PowerBi1.webp"
+                    class="project-details-afficher-img"
+                  />
+                </div>
+                <p
+                  class="project-details-description-para"
+                  data-i18n="projects.uber.pDetail3"
+                ></p>
+                <p
+                  class="project-details-description-para"
+                  data-i18n="projects.uber.pDetail4"
+                ></p>
+                <div class="project-details-afficher-img-contient">
+                  <img
+                    src="..\assets\img\Scodoc\PowerBi2.webp"
+                    class="project-details-afficher-img"
+                  />
+                </div>
+                <p
+                  class="project-details-description-para"
+                  data-i18n="projects.common.feelFree"
+                ></p>
+              </div>
+            </div>
+            <div class="project-details-lienss">
+              <a
+                href="https://github.com/sftss/Uber"
+                class="btn btn-sub-contact btn-theme project-details-lienss-btn"
+                target="_blank"
+                rel="noreferrer"
+                data-i18n="projects.common.butProjectLink"
+              ></a>
+              <a
+                href="../#projects"
+                class="btn btn-sub-contact btn-theme-inv project-details-lienss-btn"
+                data-i18n="projects.common.butBack"
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="CV" class="main-footer">
+      <div class="main-container">
+        <div class="main-footer-haut">
+          <div class="main-footer-col main-footer-col-1">
+            <h2 class="heading headin-blaze" data-i18n="footer.seeMe">
+              <span></span>
+            </h2>
+            <div class="main-footer-social-stock">
+              <a
+                target="_blank"
+                href="https://www.linkedin.com/in/sefertasdemir/"
+              >
+                <img
+                  class="main-footer-icone"
+                  src="../assets/svg/linkedin.svg"
+                  alt="Sefer Tasdemir Linkedin"
+                />
+              </a>
+              <a target="_blank" href="https://github.com/sftss">
+                <img
+                  class="main-footer-icone"
+                  src="../assets/svg/github.svg"
+                  alt="Sefer Tasdemir Github"
+                />
+              </a>
+              <a target="_blank" href="https://www.instagram.com/sf_tsd/">
+                <img
+                  class="main-footer-icone"
+                  src="../assets/svg/instagram.svg"
+                  alt="Sefer Tasdemir Instagram"
+                />
+              </a>
+              <div class="switch-language">
+                <button
+                  id="selectLang"
+                  class="selectLang-option"
+                  onclick="changeLanguage('en')"
+                >
+                  English
+                </button>
+                <button
+                  id="selectLang"
+                  class="selectLang-option"
+                  onclick="changeLanguage('fr')"
+                >
+                  Français
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="main-footer-col main-footer-col-2">
+            <h2 class="heading headin-blaze">Sefer Tasdemir</h2>
+            <p class="main-footer-short-description">Not like us</p>
+            <a
+              href="assets/EN Sefer Tasdemir CV.pdf"
+              target="_blank"
+              class="main-footer-liens"
+              data-i18n="footer.seeMeCvEn"
+            ></a>
+            <br />
+            <a
+              href="assets/FR Sefer Tasdemir CV.pdf"
+              target="_blank"
+              class="main-footer-liens"
+              data-i18n="footer.seeMeCvFr"
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="main-footer-bas">
+        &copy; All rights reserved
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        . Made by Sefer
+      </div>
+    </footer>
+
+    <script src="../js/i18n.js"></script>
+    <script src="../js/script.js" defer></script>
+  </body>
 </html>
+
+<style>
+  .project-details-afficher-img-contient .uberImg {
+    width: 75%;
+    margin: 0 auto;
+    content: url("https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png");
+  }
+  @media (prefers-color-scheme: dark) {
+    .project-details-afficher-img-contient .uberImg {
+      content: url("https://www.edigitalagency.com.au/wp-content/uploads/Uber-logo-white-png-900x313.png");
+    }
+  }
+</style>
