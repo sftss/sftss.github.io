@@ -104,11 +104,13 @@ i18next.init(
               pDetail1:
                 "Uber is a project developed as part of a development with Laravel, aiming to replicate the essential features of the original application. The main goal was to design a web solution to connect passengers and drivers, allowing real-time ride booking.",
               pDetail2:
-                "The project includes features such as user registration and authentication, profile management for drivers and passengers, and ride booking with precise tracking via Google Maps. Particular attention was paid to user experience and interaction fluidity.",
+                "The project includes features such as user registration and authentication, profile management for drivers and passengers, and ride booking with precise tracking via Leaflet. Particular attention was paid to user experience and interaction fluidity.",
               pDetail3:
                 "From a technical perspective, this project implements a robust architecture based on Laravel, with efficient database management using migrations and Eloquent models. The system also ensures data security through secure authentication and rigorous user input validation.",
               pDetail4:
-                "This project reflects my skills in backend development, API integration (such as Google Maps), as well as database management. It also demonstrates my ability to lead a comprehensive project, from initial design to final deployment.",
+                "This project reflects my skills in backend development, API integration (such as Leaflet), as well as database management. It also demonstrates my ability to lead a comprehensive project, from initial design to final deployment.",
+              pDetail5:
+                "This chatbot, built using Dialogflow, leverages advanced natural language processing capabilities to provide efficient and accurate responses to user queries. Designed with user experience in mind, the chatbot offers seamless interaction and contextual understanding, making it an effective tool for communication and support.",
             },
           },
           contact: {
@@ -230,11 +232,13 @@ i18next.init(
               pDetail1:
                 "Uber est un projet réalisé dans le cadre d’un développement avec Laravel, visant à reproduire les fonctionnalités essentielles de l'application originale. L’objectif principal était de concevoir une solution web pour connecter les passagers et les chauffeurs, permettant de réserver des trajets en temps réel.",
               pDetail2:
-                "Le projet comprend des fonctionnalités telles que l'inscription et l'authentification des utilisateurs, la gestion des profils pour les chauffeurs et les passagers, et la réservation des courses avec un suivi précis via Google Maps. Une attention particulière a été portée à l'expérience utilisateur et à la fluidité des interactions.",
+                "Le projet comprend des fonctionnalités telles que l'inscription et l'authentification des utilisateurs, la gestion des profils pour les chauffeurs et les passagers, et la réservation des courses avec un suivi précis via Leaflet. Une attention particulière a été portée à l'expérience utilisateur et à la fluidité des interactions.",
               pDetail3:
                 "D'un point de vue technique, ce projet met en œuvre une architecture robuste basée sur Laravel, avec une gestion efficace de la base de données à l'aide de migrations et de modèles Eloquent. Le système garantit également la sécurité des données grâce à une authentification sécurisée et une validation rigoureuse des entrées utilisateur.",
               pDetail4:
-                "Ce projet reflète mes compétences en développement backend, en intégration d'API (comme Google Maps), ainsi qu'en gestion de bases de données. Il démontre également ma capacité à mener un projet complet, de la conception initiale au déploiement final.",
+                "Ce projet reflète mes compétences en développement backend, en intégration d'API (comme Leaflet), ainsi qu'en gestion de bases de données. Il démontre également ma capacité à mener un projet complet, de la conception initiale au déploiement final.",
+              pDetail5:
+                "Ce chatbot, construit avec Dialogflow, exploite des capacités avancées de traitement du langage naturel pour fournir des réponses efficaces et précises aux requêtes des utilisateurs. Conçu avec l'expérience utilisateur à l'esprit, le chatbot offre une interaction fluide et une compréhension contextuelle, en faisant un outil efficace pour la communication et le support.",
             },
           },
           contact: {
