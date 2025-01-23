@@ -104,11 +104,11 @@ i18next.init(
               pDetail1:
                 "Uber is a project developed as part of a development with Laravel, aiming to replicate the essential features of the original application. The main goal was to design a web solution to connect passengers and drivers, allowing real-time ride booking.",
               pDetail2:
-                "The project includes features such as user registration and authentication, profile management for drivers and passengers, and ride booking with precise tracking via Leaflet. Particular attention was paid to user experience and interaction fluidity.",
+                "The project includes features such as user registration and authentication, profile management for drivers and passengers, and ride booking with precise tracking via Leaflet. The design of the site was designed to offer a well user experience for both customers and drivers.",
               pDetail3:
-                "From a technical perspective, this project implements a robust architecture based on Laravel, with efficient database management using migrations and Eloquent models. The system also ensures data security through secure authentication and rigorous user input validation.",
+                "From a technical point, this project implements a robust architecture based on Laravel, with efficient database management using Eloquent migrations and templates. The system also ensures data security through secure authentication and user input validation. Here is a list of the APIs that we were able to integrate: Nominatim and LocationIQ (address suggestion and auto-completion), Leaflet (map), PayPal (payment), Google Analytics and Cookie-script (cookie analysis).",
               pDetail4:
-                "This project reflects my skills in backend development, API integration (such as Leaflet), as well as database management. It also demonstrates my ability to lead a comprehensive project, from initial design to final deployment.",
+                "We also created a data visualization to track the number of races, the amounts of races according to the years or the type of vehicle reserved. With also a visualization of the amounts on a map in order to see the most dynamic areas. The data was imported via views from the database.",
               pDetail5:
                 "This chatbot, built using Dialogflow, leverages advanced natural language processing capabilities to provide efficient and accurate responses to user queries. Designed with user experience in mind, the chatbot offers seamless interaction and contextual understanding, making it an effective tool for communication and support.",
             },
@@ -232,11 +232,11 @@ i18next.init(
               pDetail1:
                 "Uber est un projet réalisé dans le cadre d’un développement avec Laravel, visant à reproduire les fonctionnalités essentielles de l'application originale. L’objectif principal était de concevoir une solution web pour connecter les passagers et les chauffeurs, permettant de réserver des trajets en temps réel.",
               pDetail2:
-                "Le projet comprend des fonctionnalités telles que l'inscription et l'authentification des utilisateurs, la gestion des profils pour les chauffeurs et les passagers, et la réservation des courses avec un suivi précis via Leaflet. Une attention particulière a été portée à l'expérience utilisateur et à la fluidité des interactions.",
+                "Le projet comprend des fonctionnalités telles que l'inscription et l'authentification des utilisateurs, la gestion des profils pour les chauffeurs et les passagers, et la réservation des courses avec un suivi précis via Leaflet. Le design du site a été pensée pour offrir une expérience utilisateur à la fois pour les clients mais aussi les chauffeurs.",
               pDetail3:
-                "D'un point de vue technique, ce projet met en œuvre une architecture robuste basée sur Laravel, avec une gestion efficace de la base de données à l'aide de migrations et de modèles Eloquent. Le système garantit également la sécurité des données grâce à une authentification sécurisée et une validation rigoureuse des entrées utilisateur.",
+                "D'un point de vue technique, ce projet met en œuvre une architecture robuste basée sur Laravel, avec une gestion efficace de la base de données à l'aide de migrations et de modèles Eloquent. Le système garantit également la sécurité des données grâce à une authentification sécurisée et une validation des entrées utilisateur. Voici une liste des API qu'on a pu intégrer : Nominatim et LocationIQ (proposition et auto-complétion des adresses), Leaflet (carte), PayPal (règlement), Google Analytics et Cookie-script (analyse des cookies).",
               pDetail4:
-                "Ce projet reflète mes compétences en développement backend, en intégration d'API (comme Leaflet), ainsi qu'en gestion de bases de données. Il démontre également ma capacité à mener un projet complet, de la conception initiale au déploiement final.",
+                "On a aussi réalisé une visualisation de données pour suivre le nombre de course, les montants des courses selon les années ou le type de véhicule réservé. Avec également une visualisation des montants sur une carte afin de voir les zones les plus dynamiques. Les données ont été importées via des vues depuis la base de données.",
               pDetail5:
                 "Ce chatbot, construit avec Dialogflow, exploite des capacités avancées de traitement du langage naturel pour fournir des réponses efficaces et précises aux requêtes des utilisateurs. Conçu avec l'expérience utilisateur à l'esprit, le chatbot offre une interaction fluide et une compréhension contextuelle, en faisant un outil efficace pour la communication et le support.",
             },

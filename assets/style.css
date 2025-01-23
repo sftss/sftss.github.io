@@ -435,7 +435,7 @@ button,
 .project-details-description-para {
   font-size: 1.8rem;
   line-height: 1.7;
-  color: #bdbdbd;
+  color: #000000;
   margin-bottom: 2rem;
 }
 .project-details-lienss {
@@ -1243,7 +1243,8 @@ body.animate {
   .contact-form-container {
     background-color: #181a1b;
   }
-  .contact--form-label {
+  .contact--form-label,
+  .project-details-description-para {
     color: #dbdbdb;
   }
   .project-css {
