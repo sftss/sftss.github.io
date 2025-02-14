@@ -268,6 +268,7 @@ button,
   background-position: center;
 }
 .contact-form-container {
+  background-color: #ebebeb;
   padding: 4rem;
   text-align: right;
   width: 95%;
