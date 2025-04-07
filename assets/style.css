@@ -8,6 +8,10 @@
   transition: all 0.3s ease-in-out;
   cursor: url("svg\\arrowhead-rounded-outline.svg") 1 1, auto;
 }
+::selection {
+  background: #008080;
+  color: #fff;
+}
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -858,29 +862,25 @@ textarea {
   background: #008ad7;
   --level: 75%;
 }
-.skill-nodemon::before {
-  background: #76d04b;
-  --level: 50%;
-}
-.skill-express::before {
-  background: #000000;
-  --level: 75%;
-}
 .skill-socket::before {
   background: #4d4d4d;
   --level: 50%;
-}
-.skill-phaser::before {
-  background: #007acb;
-  --level: 75%;
 }
 .skill-postgresql::before {
   background: #336791;
   --level: 75%;
 }
+.skill-mongodb::before {
+  background: #4db33d;
+  --level: 50%;
+}
 .skill-pgadmin4::before {
-  background: #a44b9e;
+  background: #326690;
   --level: 100%;
+}
+.skill-knime::before {
+  background: #f0a500;
+  --level: 50%;
 }
 .skill-phpmyadmin::before {
   background: #8892bf;
