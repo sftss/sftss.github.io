@@ -32,31 +32,66 @@ window.addEventListener("scroll", () => {
 const form = document.getElementById("contactForm");
 const confirmationMessage = document.getElementById("confirmationMessage");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  setTimeout(() => {
-    confirmationMessage.style.display = "block";
-    form.reset();
-  }, 300);
-});
+    setTimeout(() => {
+      if (confirmationMessage) {
+        confirmationMessage.style.display = "block";
+      }
+      form.reset();
+    }, 300);
+  });
+}
 
-//#endregion
+//#endregion contact form
+
+//#region Rocket
 
 //#region Rocket
 function launchRocket() {
   const rocket = document.querySelector(".rocket");
-  rocket.style.animation = "launch 3s ease-in-out forwards";
+  if (rocket) {
+    rocket.style.animation = "launch 3s ease-in-out forwards";
+  }
 }
 (function (d) {
   "use strict";
   const shakeButton = d.querySelector("#shake");
   const shakeElement = d.querySelector("body");
-  shakeButton.addEventListener("click", () => {
-    shakeElement.classList.add("animate");
-    setTimeout(function () {
-      shakeElement.classList.remove("animate");
-    }, 1000);
-  });
+
+  if (shakeButton && shakeElement) {
+    shakeButton.addEventListener("click", () => {
+      shakeElement.classList.add("animate");
+      setTimeout(() => {
+        shakeElement.classList.remove("animate");
+      }, 1000);
+    });
+  }
 })(document);
+
 //#endregion
+
+//#region Theme toggle
+const themeToggle = document.getElementById("themeToggle");
+const isDarkModeEnabled = window.matchMedia(
+  "(prefers-color-scheme: dark)"
+).matches;
+
+const themeChoosed =
+  localStorage.getItem("preferredTheme") ||
+  (isDarkModeEnabled ? "dark" : "light");
+document.documentElement.setAttribute("data-theme", themeChoosed);
+if (themeChoosed === "dark")
+  themeToggle?.classList.add("theme-toggle--toggled");
+
+themeToggle?.addEventListener("click", () => {
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  const nvTheme = isDark ? "light" : "dark";
+
+  document.documentElement.setAttribute("data-theme", nvTheme);
+  localStorage.setItem("preferredTheme", nvTheme);
+  themeToggle.classList.toggle("theme-toggle--toggled");
+});
+//#endregion Theme toggle

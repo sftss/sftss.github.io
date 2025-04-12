@@ -1,3 +1,51 @@
+:root {
+  --background-color: whitesmoke;
+  --background-dark-color: whitesmoke;
+  --text-color: #181a1b;
+  --text-color-light: #bdbdbd;
+  --text-color-para: #4f4f4f;
+  --text-color-title: whitesmoke;
+  --img-main: linear-gradient(
+    to right,
+    rgba(182, 182, 182, 0.4),
+    rgba(194, 194, 194, 0.4)
+  );
+  --img-contact: linear-gradient(
+    to right,
+    rgba(219, 152, 152, 0.5),
+    rgba(58, 192, 233, 0.5)
+  );
+  --img-project: linear-gradient(
+    to right,
+    rgba(124, 115, 201, 0.5),
+    rgba(168, 102, 102, 0.5)
+  );
+  --theme-toggle-color: #000;
+  --theme-toggle-color-hover: #fb8500;
+}
+[data-theme="dark"] {
+  --background-dark-color: #000000;
+  --background-color: #181a1b;
+  --text-color: whitesmoke;
+  --text-color-para: whitesmoke;
+  --img-main: linear-gradient(
+    to right,
+    rgba(73, 101, 124, 0.5),
+    rgba(0, 0, 0, 0.3)
+  );
+  --img-contact: linear-gradient(
+    to right,
+    rgba(54, 33, 33, 0.8),
+    rgba(42, 50, 66, 0.8)
+  );
+  --img-project: linear-gradient(
+    to right,
+    rgba(49, 39, 75, 0.8),
+    rgba(73, 34, 34, 0.8)
+  );
+  --theme-toggle-color: #fff;
+  --theme-toggle-color-hover: #778da9;
+}
 *,
 *::after,
 *::before {
@@ -34,7 +82,9 @@ a {
 li {
   list-style: none;
 }
-
+section {
+  background-color: var(--background-color);
+}
 button {
   border: none;
 }
@@ -45,8 +95,21 @@ button,
 .selectLang-option {
   cursor: url("svg\\hand-pointer.svg") 1 1, auto;
 }
-
+.theme-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 999;
+  font-size: 5rem;
+  display: flex;
+  color: var(--theme-toggle-color);
+}
+.theme-toggle:hover {
+  transition: color 0.3s ease;
+  color: var(--theme-toggle-color-hover);
+}
 .heading-primary {
+  color: var(--text-color);
   font-size: 6rem;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -65,10 +128,12 @@ button,
 .typewriter h1 {
   white-space: nowrap;
   border-right: 0.15em solid #008080;
+  color: var(--background-color);
   font-size: 5em;
   letter-spacing: 0.15em;
   overflow: hidden;
   animation: typing 4s steps(30, end), blink-caret 0.5s step-end infinite;
+  color: var(--text-color);
 }
 @keyframes typing {
   from {
@@ -98,12 +163,14 @@ button,
   text-align: center;
   margin-bottom: 3.5rem;
   position: relative;
+  color: var(--text-color);
 }
 .texte-css-main-ctt {
   font-weight: 800;
 }
 .texte-css-sub {
   display: block;
+  color: var(--text-color-para);
   text-align: center;
   font-size: 2rem;
   font-weight: 500;
@@ -157,12 +224,7 @@ button,
   padding: 12rem 0;
 }
 .home-main {
-  background: linear-gradient(
-      to right,
-      rgba(182, 182, 182, 0.4),
-      rgba(194, 194, 194, 0.4)
-    ),
-    url("svg\\endless-constellation.svg");
+  background: var(--img-main), url("svg\\endless-constellation.svg");
   background-position: center;
   height: 100vh;
   min-height: 80rem;
@@ -188,10 +250,11 @@ button,
   font-weight: 700;
   font-size: 2.8rem;
   margin-bottom: 3rem;
+  color: var(--text-color);
 }
 .about-content-details-para {
   font-size: 1.8rem;
-  color: #bdbdbd;
+  color: var(--text-color-para);
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 1rem;
@@ -249,30 +312,26 @@ button,
 
 .projects-colon-content-title {
   font-weight: 700;
+  color: var(--text-color);
   font-size: 2.8rem;
   margin-bottom: 2rem;
 }
 
 .projects-colon-content-desc {
   font-size: 1.8rem;
-  color: #bdbdbd;
+  color: var(--text-color-para);
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 3rem;
 }
 
 .contact {
-  background: linear-gradient(
-      to right,
-      rgba(219, 152, 152, 0.5),
-      rgba(58, 192, 233, 0.5)
-    ),
-    url("svg\\common-bg.svg");
+  background: var(--img-contact), url("svg\\common-bg.svg");
   background-size: cover;
   background-position: center;
 }
 .contact-form-container {
-  background-color: #ebebeb;
+  background-color: var(--background-color);
   padding: 4rem;
   text-align: right;
   width: 95%;
@@ -285,7 +344,7 @@ button,
 }
 
 .contact--form-label {
-  color: #bdbdbd;
+  color: var(--text-color-para);
   font-size: 1.4rem;
   letter-spacing: 1px;
   font-weight: 700;
@@ -368,12 +427,7 @@ button,
 }
 
 .project-css {
-  background: linear-gradient(
-      to right,
-      rgba(96, 86, 184, 0.5),
-      rgba(165, 69, 69, 0.5)
-    ),
-    url("svg\\common-bg.svg");
+  background: var(--img-project), url("svg\\common-bg.svg");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -398,6 +452,7 @@ button,
 
 .project-details-content-title {
   font-weight: 700;
+  color: var(--text-color);
   font-size: 2.8rem;
   margin-bottom: 1.5rem;
   margin-top: 3rem;
@@ -440,7 +495,7 @@ button,
 .project-details-description-para {
   font-size: 1.8rem;
   line-height: 1.7;
-  color: #000000;
+  color: var(--text-color);
   margin-bottom: 2rem;
 }
 .project-details-lienss {
@@ -472,6 +527,7 @@ button,
   align-items: center;
   justify-content: space-between;
   padding: 1rem 5rem;
+  background-color: var(--background-color);
 }
 
 .header-logo-container {
@@ -507,6 +563,7 @@ button,
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 1px;
+  color: var(--text-color);
 }
 
 .header-liens {
@@ -520,6 +577,7 @@ button,
   letter-spacing: 1px;
   font-weight: 700;
   transition: color 0.3s ease;
+  color: var(--text-color);
 }
 
 .header-link:hover {
@@ -776,7 +834,7 @@ textarea {
   background: rgb(153 153 153 / 0.2);
   border-radius: 5px;
   font-weight: 600;
-  color: #bdbdbd;
+  color: var(--text-color-para);
   transition: all 0.3s ease;
   overflow: hidden;
   min-width: 90px; /*TAILLE DU BLOC*/
@@ -798,7 +856,7 @@ textarea {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  color: rgb(36, 36, 36);
+  color: var(--text-color);
   opacity: 0;
   transition: opacity 0.3s ease;
   white-space: nowrap;
@@ -808,10 +866,9 @@ textarea {
 .skill-figma::after,
 .skill-css::after,
 .skill-net::after,
-.skill-express::after,
 .skill-unity::after,
 .skill-visual-studio::after {
-  color: ivory;
+  color: var(--text-color-title);
 }
 
 .skills-skill:hover {
@@ -1214,54 +1271,3 @@ body.animate {
   }
 }
 /*#endregion Rocket*/
-
-/*#region Dark*/
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #181a1b;
-    color: whitesmoke;
-  }
-  .header {
-    background: #121212;
-  }
-  .home-main {
-    background: linear-gradient(
-        to right,
-        rgba(73, 101, 124, 0.5),
-        rgba(0, 0, 0, 0.3)
-      ),
-      url("svg\\endless-constellation-dark.svg");
-  }
-  .contact {
-    background: linear-gradient(
-        to right,
-        rgba(54, 33, 33, 0.8),
-        rgba(42, 50, 66, 0.8)
-      ),
-      url("svg\\common-bg.svg");
-  }
-  .contact-form-container {
-    background-color: #181a1b;
-  }
-  .contact--form-label,
-  .project-details-description-para {
-    color: #dbdbdb;
-  }
-  .project-css {
-    background: linear-gradient(
-        to right,
-        rgba(49, 39, 75, 0.8),
-        rgba(73, 34, 34, 0.8)
-      ),
-      url("svg\\common-bg.svg");
-  }
-  .skills-skill::after {
-    color: white;
-  }
-  .window,
-  .fin {
-    background-color: #832161;
-  }
-}
-/*#endregion Dark*/
