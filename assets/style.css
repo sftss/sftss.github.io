@@ -98,7 +98,7 @@ button,
 .theme-toggle {
   position: fixed;
   bottom: 1rem;
-  right: 1rem;
+  right: 9rem;
   z-index: 999;
   font-size: 5rem;
   display: flex;
@@ -445,7 +445,7 @@ button,
 }
 
 .project-details-content {
-  padding: 8rem 0;
+  padding: 2rem 0;
   max-width: 90rem;
   margin: auto;
 }

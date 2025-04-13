@@ -39,8 +39,8 @@ i18next.init(
                 "Discover a selection of personal and academic projects that I have carried out.",
               galaxyRushContent:
                 "Galaxy Rush is a WPF game that I created with my team, in C# on Visual Studio. This project was carried out during my first year of BUT Informatique.",
-              phaserContent:
-                "Here are several games running on the web, developed in JavaScript using the framework Phaser.",
+              offContent:
+                "It is a project to analyze and enhance nutritional and commercial data from the Open Food Facts database using an OLTP/OLAP architecture, Power BI visualizations, and artificial intelligence models on Knime.",
               kubeContent:
                 "Kube is a game made via Unity in C#. It is a minimalist style platform game with several worlds and levels.",
               botanicContent:
@@ -84,15 +84,17 @@ i18next.init(
               pDetail3:
                 "Among its features, Kube offers advanced 3D graphics and immersive sound effects for an enriching gaming experience.",
             },
-            phaser: {
+            openFoodFact: {
               pDetail1:
-                "The first game is a platformer where players aim to collect as many coins as possible. Every time the score increases by 100 points, a new bouncing obstacle appears, making it increasingly challenging to gather coins.",
+                "As part of a school project, I worked on the Open Food Facts database with the aim of structuring, transforming, and enhancing nutritional and sales data related to food products. The main goal was to make this data exploitable in a decision-making context through a PostgreSQL OLAP database, clear visualizations, and AI-driven analysis.",
               pDetail2:
-                "The second game is another platformer designed as a course. Players must collect all coins, locate a hidden door, avoid floor spikes, and keep an eye on their health bar to prevent it from reaching zero.",
+                "The project had several objectives. First, we designed a normalized relational database (OLTP), then built a multidimensional OLAP database to facilitate analysis. Our team implemented a complete customized data migration pipeline between the OLTP and OLAP using Azure Data Factory and Knime. At the same time, we created Power BI dashboards and developed two artificial intelligence models: one to predict the NutriScore and another to calculate a new environmental-nutritional score called the 'Open Food Facts Score' (OOFS).",
               pDetail3:
-                "The third game is an endless runner inspired by Jetpack Joyride. In this game, players press the space bar to ascend and release it to descend, navigating through an ever-evolving environment filled with obstacles.",
+                "From a technical standpoint, we first modeled and deployed a complete OLTP database on Azure PostgreSQL, including all entities (products, ingredients, brands, sales, additives, etc.), their relationships, and integrity constraints. Then, we built a star-schema OLAP database with dimensions derived from the OLTP and two fact tables—one for composition and another for sales. To ensure key consistency between the two databases hosted on different Azure servers, I wrote custom SQL scripts and used Knime to manage joins, ID matching, and required transformations.",
               pDetail4:
-                "The fourth and final game is a multiplayer star-collecting competition that operates on a Node.js server. Players compete to collect the most stars, with the winner being the one who accumulates the highest number. Each of these games introduces unique mechanics for a varied and engaging experience.",
+                "Thanks to Knime, our team processed and transformed the data in several steps. We designed workflows to connect nutritional and contextual data to their identifiers in the decision model, performed clustering on products based on their nutritional profile, and trained machine learning models (regression, decision tree, neural network) to automatically predict the NutriScore of incomplete products. Another AI model was developed to predict a new composite score integrating nutrition, degree of processing (Nova score), ecoscore, and data completeness.",
+              pDetail5:
+                "Finally, we designed Power BI dashboards to track the distribution of NutriScores, explore PNNS food categories, and monitor sales by geographical area, brand, or nutritional score. The project resulted in a complete and operational analytical platform that enables visualization, prediction, and decision-making around the nutritional and financial quality of food products.",
             },
             scodoc: {
               pDetail1:
@@ -167,8 +169,8 @@ i18next.init(
                 "Découvrez une sélection de projets personnels et académiques que j'ai réalisés.",
               galaxyRushContent:
                 "Galaxy Rush est un jeu WPF que j'ai développé avec mon équipe, en C# sur Visual Studio. Ce projet a été réalisé lors de ma première année en BUT Informatique.",
-              phaserContent:
-                "Voici plusieurs jeux fonctionnant sur le web, développés avec JavaScript à l'aide du framework Phaser.",
+              offContent:
+                "C'est un projet d’analyse et de valorisation des données nutritionnelles et commerciales de la base Open Food Facts à travers une architecture OLTP/OLAP, des visualisations Power BI et des modèles d’intelligence artificielle sur Knime.",
               kubeContent:
                 "Kube est un jeu réalisé via Unity en C#. C'est un jeux de plateforme au style minimaliste avec plusieurs mondes et niveau.",
               botanicContent:
@@ -212,15 +214,17 @@ i18next.init(
               pDetail3:
                 "Parmi ses fonctionnalités, Kube offre des graphismes 3D avancés et des effets sonores immersifs pour une expérience de jeu enrichissante.",
             },
-            phaser: {
+            openFoodFact: {
               pDetail1:
-                "Le premier jeu est un jeu de plateforme où les joueurs visent à collecter autant de pièces que possible. Chaque fois que le score augmente de 100 points, un nouvel obstacle rebondissant apparaît, rendant de plus en plus difficile la collecte des pièces.",
+                "Dans le cadre d’un projet scolaire, j’ai travaillé sur la base Open Food Facts dans le but de structurer, transformer et valoriser les données nutritionnelles et de ventes des produits alimentaires. L’objectif principal était de rendre ces données exploitables dans un contexte décisionnel via une base de données PostgreSQL OLAP, des visualisations claires, et des analyses basées sur l’intelligence artificielle.",
               pDetail2:
-                "Le deuxième jeu est un autre jeu de plateforme conçu comme un parcours. Les joueurs doivent collecter toutes les pièces, localiser une porte cachée, éviter les pointes de sol et surveiller leur barre de santé pour éviter qu'elle n'atteigne zéro.",
+                'Le projet avait plusieurs objectifs. Il s’agissait tout d’abord de concevoir une base relationnelle normalisée (OLTP), puis de créer une base multidimensionnelle (OLAP) afin d’en faciliter l’analyse. Notre groupe a mis en place une chaîne complète de migration personnalisée des données entre OLTP et OLAP, Azure Data Factory et Knime. En parallèle, on a produit des visualisations Power BI et développé deux intelligences artificielles, l’une pour prédire le NutriScore et l’autre pour calculer un nouveau score environnemental-nutritionnel appelé "Open Food Facts Score" (OOFS).',
               pDetail3:
-                "Le troisième jeu est un runner infini inspiré de Jetpack Joyride. Dans ce jeu, les joueurs appuient sur la barre d'espace pour monter et la relâchent pour descendre, naviguant à travers un environnement en constante évolution rempli d'obstacles.",
+                "Sur le plan technique, on a d’abord modélisé et déployé une base OLTP complète sur PostgreSQL Azure, avec toutes les entités (produits, ingrédients, marques, ventes, additifs, etc.), leurs relations et les contraintes d’intégrité. Ensuite, nous avons créé une base OLAP en étoile avec les dimensions qu'on a déduit de la base OLTP et deux tables de faits, l'un pour la composition et le second pour les ventes. Pour assurer la cohérence des clés entre les deux bases hébergées sur des serveurs Azure distincts, j’ai réalisé des scripts SQL personnalisés et utilisé Knime pour réalisé les jointures, les correspondances d’identifiants et les transformations nécessaires.",
               pDetail4:
-                "Le quatrième et dernier jeu est une compétition multijoueur de collecte d'étoiles qui fonctionne sur un serveur Node.js. Les joueurs s'affrontent pour collecter le plus d'étoiles, le vainqueur étant celui qui accumule le plus grand nombre. Chacun de ces jeux introduit des mécanismes uniques pour une expérience variée et engageante.",
+                "Grâce à Knime, notre équipe a manipulé et transformé les données en plusieurs étapes. on a conçu des workflows pour relier les données nutritionnelles et contextuelles à leurs identifiants dans le modèle décisionnel, effectué de la clusterisation sur les produits selon leur profil nutritionnel, et entraîné des modèles de machine learning (régression, arbre de décision, réseau de neurones) pour prédire automatiquement le NutriScore des produits incomplets. Une autre IA a été développée pour prédire un nouveau score composite intégrant à la fois la nutrition, le degré de transformation (score Nova), l’écoscore, et la complétude des données.",
+              pDetail5:
+                "Enfin, nous avons conçu des dashboards sous Power BI permettant de suivre la répartition des NutriScores, explorer les catégories alimentaires PNNS, surveiller les ventes par zone géographique, marque ou score nutritionnel. Le projet aboutit à une plateforme analytique complète et exploitable, permettant la visualisation, la prédiction et la décision autour de la qualité nutritionnelle et financière des produits alimentaires.",
             },
             scodoc: {
               pDetail1:
