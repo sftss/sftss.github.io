@@ -88,6 +88,9 @@ section {
 button {
   border: none;
 }
+textarea {
+  resize: none;
+}
 a,
 button,
 .header-logo-sub,
@@ -96,10 +99,6 @@ button,
   cursor: url("svg\\hand-pointer.svg") 1 1, auto;
 }
 .theme-toggle {
-  position: fixed;
-  bottom: 1rem;
-  right: 9rem;
-  z-index: 999;
   font-size: 5rem;
   display: flex;
   color: var(--theme-toggle-color);
@@ -108,6 +107,14 @@ button,
   transition: color 0.3s ease;
   color: var(--theme-toggle-color-hover);
 }
+#div_theme_bot {
+  position: fixed;
+  bottom: 1rem;
+  right: 9rem;
+  z-index: 999;
+  display: flex;
+}
+
 .heading-primary {
   color: var(--text-color);
   font-size: 6rem;
@@ -684,9 +691,6 @@ textarea {
 #LangEn:hover {
   background-color: #d6a69e;
 }
-textarea {
-  resize: none;
-}
 
 /*#region Responsive*/
 @media only screen and (max-width: 57em) {
@@ -739,6 +743,9 @@ textarea {
   .about-content {
     grid-template-columns: 1fr;
     grid-gap: 8rem;
+  }
+  #div_theme_bot {
+    margin: auto auto;
   }
 }
 
@@ -815,6 +822,9 @@ textarea {
   }
   .rocket {
     visibility: hidden;
+  }
+  #div_theme_bot {
+    margin: auto auto;
   }
 }
 /*#endregion Responsive*/
