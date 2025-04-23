@@ -1055,64 +1055,64 @@
       O();
       const d = document.createElement("style"),
         T = `
-    .bpFab {
-      z-index: 9998;
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.4rem;
-      height: 6.4rem;
-      width: 6.4rem;
-      border-radius: 100%;
-      background: linear-gradient(135deg, var(--fab-color-1), var(--fab-color-2));
-      transition: all 0.3s ease;
-      animation: pulseGlow 3s infinite ease-in-out;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+        .bpFab {
+          z-index: 9998;
+          position: fixed;
+          bottom: 1.5rem;
+          right: 1.4rem;
+          height: 6.4rem;
+          width: 6.4rem;
+          border-radius: 100%;
+          background: linear-gradient(135deg, var(--fab-color-1), var(--fab-color-2));
+          transition: all 0.3s ease;
+          animation: pulseGlow 3s infinite ease-in-out;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
 
-    .bpFab::before {
-      content: '';
-      position: absolute;
-      width: 120%;
-      height: 120%;
-      background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 60%);
-      animation: ripple 2s infinite;
-      border-radius: 100%;
-    }
+        .bpFab::before {
+          content: '';
+          position: absolute;
+          width: 120%;
+          height: 120%;
+          background: radial-gradient(circle, rgba(255,255,255,0.3) 10%, transparent 60%);
+          animation: ripple 2s infinite;
+          border-radius: 100%;
+        }
 
-    .bpFab:hover {
-      transform: scale(1.1);
-    }
+        .bpFab:hover {
+          transform: scale(1.1);
+        }
 
-    .bpFab:active {
-      transform: scale(0.9);
-    }
+        .bpFab:active {
+          transform: scale(0.9);
+        }
 
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow:
-          0 0 20px var(--fab-color-1),
-          0 0 40px var(--fab-color-2);
-      }
-      50% {
-        box-shadow:
-          0 0 30px var(--fab-color-1),
-          0 0 60px var(--fab-color-2);
-      }
-    }
+        @keyframes pulseGlow {
+          0%, 100% {
+            box-shadow:
+              0 0 20px var(--fab-color-1),
+              0 0 40px var(--fab-color-2);
+          }
+          50% {
+            box-shadow:
+              0 0 30px var(--fab-color-1),
+              0 0 60px var(--fab-color-2);
+          }
+        }
 
-    @keyframes ripple {
-      0% {
-        transform: scale(0.8);
-        opacity: 0.6;
-      }
-      100% {
-        transform: scale(1.5);
-        opacity: 0;
-      }
-    }
+        @keyframes ripple {
+          0% {
+            transform: scale(0.8);
+            opacity: 0.6;
+          }
+          100% {
+            transform: scale(1.5);
+            opacity: 0;
+          }
+        }
 
         .bpWebchat {
           width: 100%;
@@ -1268,16 +1268,14 @@ function randomHexColor() {
   );
 }
 
-// Variables pour l'interpolation des couleurs
 let currentColor1 = randomHexColor();
 let currentColor2 = randomHexColor();
 let targetColor1 = randomHexColor();
 let targetColor2 = randomHexColor();
 let transitionProgress = 0;
-const transitionDuration = 1000; // Durée de transition en ms
+const transitionDuration = 2500; // time
 let lastUpdateTime = Date.now();
 
-// Convertit une couleur hex en valeurs RGB
 function hexToRgb(hex) {
   const r = parseInt(hex.substring(1, 3), 16);
   const g = parseInt(hex.substring(3, 5), 16);
@@ -1285,7 +1283,6 @@ function hexToRgb(hex) {
   return { r, g, b };
 }
 
-// Interpole entre deux couleurs RGB selon un facteur t (0-1)
 function interpolateColor(color1, color2, t) {
   const r1 = parseInt(color1.substring(1, 3), 16);
   const g1 = parseInt(color1.substring(3, 5), 16);
@@ -1304,7 +1301,6 @@ function interpolateColor(color1, color2, t) {
     .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
 
-// Animation fluide des couleurs
 function animateColors() {
   const fab = document.querySelector(".bpFab");
   if (!fab) return;
@@ -1313,10 +1309,8 @@ function animateColors() {
   const deltaTime = now - lastUpdateTime;
   lastUpdateTime = now;
 
-  // Augmenter le progrès de la transition
   transitionProgress += deltaTime / transitionDuration;
 
-  // Si la transition est terminée, définir de nouvelles couleurs cibles
   if (transitionProgress >= 1) {
     currentColor1 = targetColor1;
     currentColor2 = targetColor2;
@@ -1324,8 +1318,6 @@ function animateColors() {
     targetColor2 = randomHexColor();
     transitionProgress = 0;
   }
-
-  // Interpoler les couleurs actuelles
   const color1 = interpolateColor(
     currentColor1,
     targetColor1,
@@ -1337,24 +1329,17 @@ function animateColors() {
     transitionProgress
   );
 
-  // Appliquer les couleurs
   fab.style.setProperty("--fab-color-1", color1);
   fab.style.setProperty("--fab-color-2", color2);
-
-  // Continuer l'animation
   requestAnimationFrame(animateColors);
 }
 
-// Initialiser les couleurs et démarrer l'animation
+// init
 document.addEventListener("DOMContentLoaded", () => {
   const fab = document.querySelector(".bpFab");
   if (!fab) return;
-
-  // Définir les couleurs initiales
   fab.style.setProperty("--fab-color-1", currentColor1);
   fab.style.setProperty("--fab-color-2", currentColor2);
-
-  // Démarrer l'animation avec requestAnimationFrame pour une transition fluide
   lastUpdateTime = Date.now();
   requestAnimationFrame(animateColors);
 });
