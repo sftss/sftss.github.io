@@ -1147,6 +1147,10 @@
                 border-radius: 0;      
                 box-shadow: none;
             }
+            .bpFabContainer {
+              witdh:0;
+              height:0;
+            }
         }
 
         .bpOpen {
