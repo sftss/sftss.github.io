@@ -1140,7 +1140,7 @@
             overflow: hidden;
           }
         }
-        @media only screen and (max-width: 40em) {
+        @media only screen and (max-width: 20em) {
             .bpWebchat {
                 width: 100vw;
                 height: 100vh;
@@ -1150,6 +1150,10 @@
             .bpFabContainer {
               witdh:0;
               height:0;
+            }
+            .bpFab {
+              width: 7rem;
+              height: 7rem;
             }
         }
 
