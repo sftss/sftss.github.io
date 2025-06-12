@@ -108,9 +108,7 @@ button,
   border-radius: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(
-    --background-dark-color
-  );
+  background: var(--background-dark-color);
 }
 .theme-toggle {
   font-size: 5rem;
@@ -959,6 +957,10 @@ textarea {
   background: #326690;
   --level: 100%;
 }
+.skill-powerquery::before {
+  background: #217346;
+  --level: 100%;
+}
 .skill-knime::before {
   background: #f0a500;
   --level: 50%;
@@ -1023,13 +1025,14 @@ textarea {
   background: #f24e1e;
   --level: 75%;
 }
-.skill-powerbi::before {
+.skill-powerbi::before,
+.skill-dax::before {
   background: #f2c811;
   --level: 75%;
 }
 .skill-excel::before {
   background: #217346;
-  --level: 25%;
+  --level: 50%;
 }
 .skill-uml::before {
   background: #ffb74d;
