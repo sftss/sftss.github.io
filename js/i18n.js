@@ -1,7 +1,7 @@
 i18next.init(
   {
     // lng: "en", // default
-    lng: detectUserLanguage(), // auto detect pour après
+    lng: detectUserLanguage(), // auto detect
     debug: false,
     resources: {
       en: {
@@ -277,7 +277,7 @@ function detectUserLanguage() {
   const savedLanguage = localStorage.getItem("preferredLanguage");
   if (savedLanguage) return savedLanguage; //lang sauvg.
   const userLang = navigator.language || navigator.languages[0];
-  return userLang.startsWith("fr") ? "fr" : "en"; //Langue par défaut détectée
+  return userLang.startsWith("fr") ? "fr" : "en"; //langue par défaut détectée
 }
 
 function changeLanguage(lang) {
