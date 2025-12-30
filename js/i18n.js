@@ -9,6 +9,7 @@ i18next.init(
           header: {
             home: "Home",
             about: "Me",
+            competences: "Competencies",
             projects: "Projects",
             contact: "Contact",
           },
@@ -25,24 +26,73 @@ i18next.init(
               para1:
                 "I am Sefer Tasdemir, a 19 years old developer, I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France). I had my <strong>French Baccalaureate, specializing in mathematics with honors</strong>, and if you want to know more about my <strong>educational and professional background</strong>, I invite you to look at <strong>my CV</strong> at the <strong>bottom of the page</strong>.",
               para2:
-                "I am a native speaker of <strong>french</strong> and <strong>turkish</strong>, a B2 level in <strong>english</strong> and a bit of <strong>spanish</strong>. Aside from coding, I am passionate about <strong>chess</strong> (1200 Elo) and sport, I play <strong>football</strong>, <strong>basketball</strong>, <strong>athletics</strong> and <strong>bodybuilding</strong>.",
+                "I am a native speaker of <strong>french</strong> and <strong>turkish</strong>, a B2 level in <strong>english</strong> (TOEIC 900 pts) and a bit of <strong>spanish</strong>. Aside from coding, I am passionate about <strong>chess</strong> (1200 Elo) and sport, I play <strong>football</strong>, <strong>basketball</strong>, <strong>athletics</strong> and <strong>bodybuilding</strong>.",
               para3:
                 "I am open to professional opportunities. If you have an offer that matches my skills, <strong>contact me below</strong>.",
             },
             skills: "My skills",
             contact_button: "Contact me",
           },
+          /* 20251230  */
+          competences: {
+            heading: "Competencies & evidence",
+            subheading:
+              "Linking savoir, savoir-faire, and savoir-être with real traces from my projects.",
+            definition: {
+              title: "Competence = knowledge + practice + behavior",
+              body: "A competence combines resources (knowledge), critical learnings (how to apply them), and behaviors that make collaboration work.",
+              savoir: "Knowledge",
+              savoirFaire: "Skills",
+              savoirEtre: "Attitude",
+            },
+            traces: {
+              title: "Traces & proof",
+              trace: "Trace",
+              proof: "Proof",
+              traceBody:
+                "Code excerpts from mini-projects (e.g., Python interfaces, database queries) built during tutorials.",
+              proofBody:
+                "Worked in pairs to build a Python UI to search movies in a database; captures of the UI and commented source code document the solution and the algorithms used.",
+            },
+            portfolio: {
+              title: "E-portfolio approach",
+              item1:
+                "Step back on experiences that helped me grow specific competencies.",
+              item2:
+                "Map each experience to my training reference framework to position myself.",
+              item3:
+                "Document and share evidence (trace + justification) of the competencies I claim.",
+              item4: "Connect these competencies with my professional goals.",
+            },
+            evidence: {
+              title: "Concrete evidence",
+              level: "Level 1 · simple conditions",
+              neo4j: {
+                title: "Social Networks Neo4j",
+                desc: "Graph modeling of social interactions, Cypher queries, path analysis, and recommendation logic validated with test datasets.",
+                resources:
+                  "Neo4j, Cypher, graph theory, UML modeling, Python drivers",
+              },
+              tpData: {
+                title: "TP Data MLxtend",
+                desc: "Data preparation, feature engineering, and MLxtend pipelines to compare classifiers and association rules with documented metrics.",
+                resources:
+                  "Python, pandas, scikit-learn, MLxtend, experiment tracking",
+              },
+            },
+          },
           projects: {
             home: {
               heading: "Projects",
               subheading:
                 "Discover a selection of personal and academic projects that I have carried out.",
-              galaxyRushContent:
-                "Galaxy Rush is a WPF game that I created with my team, in C# on Visual Studio. This project was carried out during my first year of BUT Informatique.",
+              /* 20251230  */
+              socialNetworksContent:
+                "Graph database modeling of a social network with Cypher queries, shortest-path analytics, and recommendations.",
+              tpDataContent:
+                "Machine learning lab using MLxtend: data preparation, model stacking, evaluation, and association rules mining.",
               offContent:
                 "It is a project to analyze and enhance nutritional and commercial data from the Open Food Facts database using an OLTP/OLAP architecture, Power BI visualizations, and artificial intelligence models on Knime.",
-              kubeContent:
-                "Kube is a game made via Unity in C#. It is a minimalist style platform game with several worlds and levels.",
               botanicContent:
                 "Botanic est un logiciel créé en C# lié à une base de données relationnelle. L'application a été créée pour la création de commandes et de produits pour une entreprise de décoration.",
               scodocContent:
@@ -67,22 +117,6 @@ i18next.init(
                 "Designed to simplify the purchasing workflow, Botanic enhances operational efficiency by offering an intuitive user interface and reliable data management features.",
               pDetail3:
                 "Among its key features, Botanic provides streamlined order creation with customizable filtering options, making it easy for users to locate and manage products efficiently.",
-            },
-            galaxyRush: {
-              pDetail1:
-                "Galaxy Rush is a WPF game coded in C# with Visual Studio, designed as an endless runner where players navigate a spaceshipto dodge evolving obstacles. Inspired by Flappy Bird, players press the spacebar to change direction while collecting power-ups that grant temporary invincibility.",
-              pDetail2:
-                "As gameplay progresses, the obstacles—ranging from asteroids to UFOs—become more frequent and challenging, pushing players to survive as long as possible.",
-              pDetail3:
-                "For those curious about the game's ultimate challenge, an invincibility key allows a sneak peek at what lies further into the game.",
-            },
-            kube: {
-              pDetail1:
-                "Kube is a 3D obstacle game developed with Unity. The player must navigate through different levels avoiding various obstacles, with increasing challenges at each stage. This project aims to offer an immersive and captivating gaming experience with a modern and dynamic graphic interface.",
-              pDetail2:
-                "Since its launch, Kube has been well-received for its innovative game mechanics and attractive visual design Kube aims to entertain and challenge players by providing them with a fluid and engaging gaming experience. This project is part of my portfolio of games developed with Unity.",
-              pDetail3:
-                "Among its features, Kube offers advanced 3D graphics and immersive sound effects for an enriching gaming experience.",
             },
             openFoodFact: {
               pDetail1:
@@ -139,6 +173,7 @@ i18next.init(
           header: {
             home: "Accueil",
             about: "Moi",
+            competences: "Compétences",
             projects: "Projets",
             contact: "Contact",
           },
@@ -155,24 +190,72 @@ i18next.init(
               para1:
                 "Je suis Sefer Tasdemir, un développeur de 19 ans, je termine actuellement ma <strong>deuxième année de BUT Informatique</strong> à l'IUT d'Annecy (France). J'ai eu mon <strong>baccalauréat général, spécialisé en mathématiques avec mention</strong>, et si vous voulez en savoir plus sur mon <strong>parcours scolaire et professionnel</strong>, je vous invite à <strong>consulter mon CV en bas de la page</strong>.",
               para2:
-                "Je parle couramment <strong>français</strong> et <strong>turc</strong>, j'ai un niveau B2 en <strong>anglais</strong> et un niveau scolaire d'<strong>espagnol</strong>. En dehors du codage, je suis passionné par les <strong>échecs</strong> (1200 Elo) et le sport, je pratique le <strong>football</strong>, le <strong>basketball</strong>, l'<strong>athlétisme</strong> et la <strong>musculation</strong>.",
+                "Je parle couramment <strong>français</strong> et <strong>turc</strong>, j'ai un niveau B2 en <strong>anglais</strong> (TOEIC 900 pts) et un niveau scolaire d'<strong>espagnol</strong>. En dehors du codage, je suis passionné par les <strong>échecs</strong> (1200 Elo) et le sport, je pratique le <strong>football</strong>, le <strong>basketball</strong>, l'<strong>athlétisme</strong> et la <strong>musculation</strong>.",
               para3:
                 "Je suis ouvert aux opportunités professionnelles. Si vous avez une offre qui correspond à mes compétences, <strong>contactez-moi en dessous</strong>.",
             },
             skills: "Mes compétences",
             contact_button: "Contactez-moi",
           },
+          /* 20251230  */
+          competences: {
+            heading: "Compétences & preuves",
+            subheading:
+              "Articuler savoir, savoir-faire et savoir-être avec des traces concrètes de mes projets.",
+            definition: {
+              title: "Compétence = savoir + savoir-faire + savoir-être",
+              body: "Une compétence mobilise des ressources (connaissances), des apprentissages critiques (comment agir) et des comportements collaboratifs.",
+              savoir: "Savoir",
+              savoirFaire: "Savoir-faire",
+              savoirEtre: "Savoir-être",
+            },
+            traces: {
+              title: "Traces & preuve",
+              trace: "Trace",
+              proof: "Preuve",
+              traceBody:
+                "Extraits de code issus de mini-projets (interfaces Python, requêtes base de données) réalisés en TD.",
+              proofBody:
+                "En binôme, j'ai développé une interface Python pour rechercher des films dans une base. La capture de l'interface finale et le code commenté détaillent l'algorithme et la fiabilité de la recherche.",
+            },
+            portfolio: {
+              title: "Démarche e-portfolio",
+              item1:
+                "Prendre du recul sur les expériences qui ont fait progresser mes compétences.",
+              item2:
+                "Relier chaque expérience à mon référentiel de formation pour me situer.",
+              item3:
+                "Documenter et partager des preuves (trace + justification) des compétences que je revendique.",
+              item4: "Faire le lien avec mon projet professionnel.",
+            },
+            evidence: {
+              title: "Preuves concrètes",
+              level: "Niveau 1 · conditions simples",
+              neo4j: {
+                title: "Social Networks Neo4j",
+                desc: "Modélisation graphe de relations sociales, requêtes Cypher, analyse de chemins et logique de recommandation testée sur jeux de données.",
+                resources:
+                  "Neo4j, Cypher, théorie des graphes, modélisation UML, drivers Python",
+              },
+              tpData: {
+                title: "TP Data MLxtend",
+                desc: "Préparation de données, feature engineering et pipelines MLxtend pour comparer classifieurs et règles d'association avec métriques documentées.",
+                resources:
+                  "Python, pandas, scikit-learn, MLxtend, suivi des expériences",
+              },
+            },
+          },
           projects: {
             home: {
               heading: "Projets",
               subheading:
                 "Découvrez une sélection de projets personnels et académiques que j'ai réalisés.",
-              galaxyRushContent:
-                "Galaxy Rush est un jeu WPF que j'ai développé avec mon équipe, en C# sur Visual Studio. Ce projet a été réalisé lors de ma première année en BUT Informatique.",
+              socialNetworksContent:
+                "Modélisation graphe d'un réseau social avec requêtes Cypher, analyses de plus courts chemins et recommandations.",
+              tpDataContent:
+                "TP de machine learning avec MLxtend : préparation de données, stacking de modèles, évaluation et fouille de règles d'association.",
               offContent:
                 "C'est un projet d’analyse et de valorisation des données nutritionnelles et commerciales de la base Open Food Facts à travers une architecture OLTP/OLAP, des visualisations Power BI et des modèles d’intelligence artificielle sur Knime.",
-              kubeContent:
-                "Kube est un jeu réalisé via Unity en C#. C'est un jeux de plateforme au style minimaliste avec plusieurs mondes et niveau.",
               botanicContent:
                 "Botanic est un logiciel réalisé en C# en lien avec une base de données relationnelle. L'application a été créée pour la création de commandes et de produits pour une entreprise de décoration.",
               scodocContent:
@@ -197,22 +280,6 @@ i18next.init(
                 "Conçu pour simplifier le flux de travail d'achat, Botanic améliore l'efficacité opérationnelle en offrant une interface utilisateur intuitive et des fonctionnalités de gestion de données fiables.",
               pDetail3:
                 "Parmi ses principales fonctionnalités, Botanic offre une création de commande simplifiée avec des options de filtrage personnalisables, facilitant la localisation et la gestion efficace des produits par les utilisateurs.",
-            },
-            galaxyRush: {
-              pDetail1:
-                "Galaxy Rush est un jeu WPF codé en C# avec Visual Studio, conçu comme un runner infini où les joueurs naviguent dans un vaisseau spatial pour éviter des obstacles évolutifs. Inspiré de Flappy Bird, les joueurs appuient sur la barre d'espace pour changer de direction tout en collectant des power-ups qui accordent une invincibilité temporaire.",
-              pDetail2:
-                "Au fur et à mesure que le gameplay progresse, les obstacles - allant des astéroïdes aux OVNI - deviennent plus fréquents et difficiles, poussant les joueurs à survivre le plus longtemps possible.",
-              pDetail3:
-                "Pour ceux qui sont curieux du défi ultime du jeu, une touche d'invincibilité permet de jeter un coup d'œil à ce qui se trouve plus loin dans le jeu.",
-            },
-            kube: {
-              pDetail1:
-                "Kube est un jeu d'obstacles en 3D développé avec Unity. Le joueur doit naviguer à travers différents niveaux en évitant divers obstacles, avec des défis croissants à chaque étape. Ce projet vise à offrir une expérience de jeu immersive et captivante avec une interface graphique moderne et dynamique.",
-              pDetail2:
-                "Depuis son lancement, Kube a été bien accueilli pour ses mécanismes de jeu innovants et son design visuel attrayant. Kube vise à divertir et à défier les joueurs en leur offrant une expérience de jeu fluide et engageante. Ce projet fait partie de mon portefeuille de jeux développés avec Unity.",
-              pDetail3:
-                "Parmi ses fonctionnalités, Kube offre des graphismes 3D avancés et des effets sonores immersifs pour une expérience de jeu enrichissante.",
             },
             openFoodFact: {
               pDetail1:

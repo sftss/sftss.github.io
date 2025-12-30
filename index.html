@@ -60,6 +60,13 @@
             </li>
             <li>
               <a
+                href="#competences"
+                class="header-link"
+                data-i18n="header.competences"
+              ></a>
+            </li>
+            <li>
+              <a
                 href="#projects"
                 class="header-link"
                 data-i18n="header.projects"
@@ -162,15 +169,15 @@
               <div class="skills-skill skill-python" data-text="Confirmed">
                 <span class="skill-name">Python</span>
               </div>
+              <div class="skills-skill skill-r" data-text="Confirmed">
+                <span class="skill-name">R</span>
+              </div>
 
               <div class="skills-skill skill-net" data-text="Advanced">
                 <span class="skill-name">.NET/C#</span>
               </div>
               <div class="skills-skill skill-azure" data-text="Advanced">
                 <span class="skill-name">Azure</span>
-              </div>
-              <div class="skills-skill skill-socket" data-text="Confirmed">
-                <span class="skill-name">Socket.io</span>
               </div>
               <div class="skills-skill skill-dax" data-text="Advanced">
                 <span class="skill-name">DAX</span>
@@ -182,6 +189,9 @@
               <div class="skills-skill skill-mongodb" data-text="Confirmed">
                 <span class="skill-name">MongoDB</span>
               </div>
+              <div class="skills-skill skill-neo4j" data-text="Advanced">
+                <span class="skill-name">Neo4j</span>
+              </div>
               <div class="skills-skill skill-pgadmin4" data-text="Expert">
                 <span class="skill-name">PgAdmin4</span>
               </div>
@@ -191,11 +201,14 @@
               <div class="skills-skill skill-knime" data-text="Advanced">
                 <span class="skill-name">Knime</span>
               </div>
-              <div class="skills-skill skill-phpmyadmin" data-text="Expert">
-                <span class="skill-name">PhpMyAdmin</span>
+              <div class="skills-skill skill-mlxtend" data-text="Confirmed">
+                <span class="skill-name">MLxtend</span>
               </div>
               <div class="skills-skill skill-sql-server" data-text="Confirmed">
                 <span class="skill-name">Microsoft SQL Server</span>
+              </div>
+              <div class="skills-skill skill-plsql" data-text="Confirmed">
+                <span class="skill-name">PL/SQL</span>
               </div>
               <div class="skills-skill skill-jquery" data-text="Beginner">
                 <span class="skill-name">JQuery</span>
@@ -218,9 +231,6 @@
               </div>
               <div class="skills-skill skill-vscode" data-text="Expert">
                 <span class="skill-name">VS Code</span>
-              </div>
-              <div class="skills-skill skill-unity" data-text="Confirmed">
-                <span class="skill-name">Unity</span>
               </div>
               <div class="skills-skill skill-bash" data-text="Advanced">
                 <span class="skill-name">Bash</span>
@@ -256,6 +266,145 @@
       </div>
     </section>
 
+    <!-- 20251230  -->
+    <!-- //////////////////////////////////////COMPETENCES////////////////////////////////////// -->
+    <section id="competences" class="competences second-padin">
+      <div class="main-container">
+        <h2 class="heading texte-css texte-css-about">
+          <span class="texte-css-main" data-i18n="competences.heading"></span>
+          <span class="texte-css-sub" data-i18n="competences.subheading"></span>
+        </h2>
+
+        <div class="competences-grid">
+          <div class="competence-card">
+            <p
+              class="competence-badge"
+              data-i18n="competences.definition.title"
+            ></p>
+            <p
+              class="competence-text"
+              data-i18n="competences.definition.body"
+            ></p>
+            <div class="competence-tags">
+              <span
+                class="competence-tag"
+                data-i18n="competences.definition.savoir"
+              ></span>
+              <span
+                class="competence-tag"
+                data-i18n="competences.definition.savoirFaire"
+              ></span>
+              <span
+                class="competence-tag"
+                data-i18n="competences.definition.savoirEtre"
+              ></span>
+            </div>
+          </div>
+
+          <div class="competence-card competence-card--accent">
+            <h3
+              class="competence-title"
+              data-i18n="competences.traces.title"
+            ></h3>
+            <div class="competence-traces">
+              <div class="competence-trace">
+                <span
+                  class="competence-trace-label"
+                  data-i18n="competences.traces.trace"
+                ></span>
+                <p
+                  class="competence-text"
+                  data-i18n="competences.traces.traceBody"
+                ></p>
+              </div>
+              <div class="competence-trace">
+                <span
+                  class="competence-trace-label"
+                  data-i18n="competences.traces.proof"
+                ></span>
+                <p
+                  class="competence-text"
+                  data-i18n="competences.traces.proofBody"
+                ></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="competence-card">
+            <h3
+              class="competence-title"
+              data-i18n="competences.portfolio.title"
+            ></h3>
+            <ul class="competence-list">
+              <li data-i18n="competences.portfolio.item1"></li>
+              <li data-i18n="competences.portfolio.item2"></li>
+              <li data-i18n="competences.portfolio.item3"></li>
+              <li data-i18n="competences.portfolio.item4"></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="competence-proof">
+          <h3
+            class="competence-title"
+            data-i18n="competences.evidence.title"
+          ></h3>
+          <div class="competence-proof-grid">
+            <div class="competence-proof-item">
+              <p
+                class="competence-proof-level"
+                data-i18n="competences.evidence.level"
+              ></p>
+              <h4
+                class="competence-proof-title"
+                data-i18n="competences.evidence.neo4j.title"
+              ></h4>
+              <p
+                class="competence-text"
+                data-i18n="competences.evidence.neo4j.desc"
+              ></p>
+              <div
+                class="competence-resources"
+                data-i18n="competences.evidence.neo4j.resources"
+              ></div>
+              <a
+                class="btn btn-theme-inv"
+                href="https://github.com/sftss/Social-Networks-Neo4j"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="projects.common.seeGitHub"
+              ></a>
+            </div>
+            <div class="competence-proof-item">
+              <p
+                class="competence-proof-level"
+                data-i18n="competences.evidence.level"
+              ></p>
+              <h4
+                class="competence-proof-title"
+                data-i18n="competences.evidence.tpData.title"
+              ></h4>
+              <p
+                class="competence-text"
+                data-i18n="competences.evidence.tpData.desc"
+              ></p>
+              <div
+                class="competence-resources"
+                data-i18n="competences.evidence.tpData.resources"
+              ></div>
+              <a
+                class="btn btn-theme-inv"
+                href="https://github.com/sftss/TP-Data-MLxtend"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="projects.common.seeGitHub"
+              ></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- //////////////////////////////////////PROJECTS////////////////////////////////////// -->
 
     <section id="projects" class="projects second-padin">
@@ -269,31 +418,60 @@
         </h2>
 
         <div>
+          <!-- 20251230 -->
           <div class="projects-colon">
             <div class="projects-colon-img-cont">
               <img
-                src="assets/img/GalaxyRush/MenuGalaxyRush.webp"
-                alt="Galaxy Rush main screenshot"
+                src="assets/img/Neo4j/Neo4jLogo.webp"
+                alt="Social Networks Neo4j"
                 class="projects-colon-img"
                 loading="lazy"
               />
             </div>
             <div class="projects-colon-content">
-              <h3 class="projects-colon-content-title">Galaxy Rush</h3>
+              <h3 class="projects-colon-content-title">
+                Social Networks Neo4j
+              </h3>
               <p
                 class="projects-colon-content-desc"
-                data-i18n="projects.home.galaxyRushContent"
+                data-i18n="projects.home.socialNetworksContent"
               ></p>
               <a
-                href="projects/GalaxyRush.html"
+                href="https://github.com/sftss/Social-Networks-Neo4j"
                 class="btn btn-sub-contact btn-theme"
-                blanck="_self"
-                data-i18n="projects.home.butSeeMore"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="projects.common.seeGitHub"
               ></a>
             </div>
           </div>
 
           <div class="projects-colon projects-colon--inverse">
+            <div class="projects-colon-img-cont">
+              <img
+                src="assets/img/MLxtend/Mlxtend.webp"
+                alt="TP Data MLxtend"
+                class="projects-colon-img"
+                loading="lazy"
+              />
+            </div>
+            <div class="projects-colon-content">
+              <h3 class="projects-colon-content-title">TP Data MLxtend</h3>
+              <p
+                class="projects-colon-content-desc"
+                data-i18n="projects.home.tpDataContent"
+              ></p>
+              <a
+                href="https://github.com/sftss/TP-Data-MLxtend"
+                class="btn btn-sub-contact btn-theme"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="projects.common.seeGitHub"
+              ></a>
+            </div>
+          </div>
+
+          <div class="projects-colon projects-colon">
             <div class="projects-colon-img-cont">
               <img
                 style="width: 100%; height: auto"
@@ -319,34 +497,10 @@
             </div>
           </div>
 
-          <div class="projects-colon">
-            <div class="projects-colon-img-cont">
-              <img
-                src="assets/img/Kube/MenuKube.webp"
-                alt="Kube Screenshot"
-                class="projects-colon-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects-colon-content">
-              <h3 class="projects-colon-content-title">Kube</h3>
-              <p
-                data-i18n="projects.home.kubeContent"
-                class="projects-colon-content-desc"
-              ></p>
-              <a
-                href="projects/Kube.html"
-                class="btn btn-sub-contact btn-theme"
-                blanck="_self"
-                data-i18n="projects.home.butSeeMore"
-              ></a>
-            </div>
-          </div>
-
           <div class="projects-colon projects-colon--inverse">
             <div class="projects-colon-img-cont">
               <img
-                src="assets/img/Botanic/ConnexionBotanic.webp"
+                src="assets/img/Botanic/BotanicLogo.webp"
                 alt="Botanic Screenshot"
                 class="projects-colon-img"
                 loading="lazy"

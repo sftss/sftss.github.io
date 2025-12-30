@@ -311,6 +311,10 @@ button,
   overflow: hidden;
   flex: 1;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 36rem;
 }
 
 .projects-colon-img {
@@ -342,6 +346,149 @@ button,
   max-width: 60rem;
   line-height: 1.7;
   margin-bottom: 3rem;
+}
+/* 20251230  */
+.projects-colon-img-cont--placeholder {
+  background: linear-gradient(135deg, #7bc6cc, #be93c5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects-colon-img-placeholder {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.competences-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+  gap: 2rem;
+}
+
+.competence-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(0, 128, 128, 0.05);
+  padding: 2.5rem;
+  border-radius: 10px;
+  color: var(--text-color);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.competence-card--accent {
+  background: linear-gradient(
+    120deg,
+    rgba(0, 128, 128, 0.15),
+    rgba(0, 0, 0, 0.05)
+  );
+  border-color: rgba(0, 128, 128, 0.2);
+}
+
+.competence-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.competence-badge {
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.competence-text {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  color: var(--text-color-para);
+}
+
+.competence-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.competence-tag {
+  background: #008080;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.competence-traces {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.competence-trace-label {
+  display: inline-block;
+  font-weight: 700;
+  color: #008080;
+  margin-bottom: 0.4rem;
+}
+
+.competence-list {
+  list-style: disc;
+  margin-left: 2.4rem;
+  color: var(--text-color-para);
+  display: grid;
+  gap: 0.8rem;
+  font-size: 1.6rem;
+}
+
+.competence-proof {
+  margin-top: 4rem;
+}
+
+.competence-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.competence-proof-item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--background-color);
+  padding: 2.4rem;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.competence-proof-level {
+  display: inline-block;
+  background: rgba(0, 128, 128, 0.1);
+  color: #008080;
+  font-weight: 700;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.competence-proof-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.competence-resources {
+  font-size: 1.4rem;
+  color: var(--text-color-para);
+  margin: 1.4rem 0 1.8rem 0;
+  line-height: 1.6;
 }
 
 .contact {
@@ -752,6 +899,10 @@ textarea {
   .projects-colon-content {
     align-items: center;
   }
+  /* 20251230  */
+  .competence-proof-grid {
+    grid-template-columns: 1fr;
+  }
   .about-content {
     grid-template-columns: 1fr;
     grid-gap: 8rem;
@@ -888,7 +1039,7 @@ textarea {
 .skill-figma::after,
 .skill-css::after,
 .skill-net::after,
-.skill-unity::after,
+.skill-javascript::after,
 .skill-visual-studio::after {
   color: var(--text-color-title);
 }
@@ -941,10 +1092,6 @@ textarea {
   background: #008ad7;
   --level: 75%;
 }
-.skill-socket::before {
-  background: #4d4d4d;
-  --level: 50%;
-}
 .skill-postgresql::before {
   background: #336791;
   --level: 75%;
@@ -952,6 +1099,10 @@ textarea {
 .skill-mongodb::before {
   background: #4db33d;
   --level: 50%;
+}
+.skill-neo4j::before {
+  background: #008cc1;
+  --level: 75%;
 }
 .skill-pgadmin4::before {
   background: #326690;
@@ -965,12 +1116,16 @@ textarea {
   background: #f0a500;
   --level: 50%;
 }
-.skill-phpmyadmin::before {
-  background: #8892bf;
-  --level: 100%;
+.skill-mlxtend::before {
+  background: #008cba;
+  --level: 50%;
 }
 .skill-sql-server::before {
   background: #cc2927;
+  --level: 50%;
+}
+.skill-plsql::before {
+  background: #f44336;
   --level: 50%;
 }
 .skill-jquery::before {
@@ -1001,10 +1156,6 @@ textarea {
   background: #0078d7;
   --level: 100%;
 }
-.skill-unity::before {
-  background: #222c37;
-  --level: 50%;
-}
 .skill-powershell::before {
   background: #1d1f21;
   --level: 50%;
@@ -1012,6 +1163,10 @@ textarea {
 .skill-bash::before {
   background: #4eaa25;
   --level: 75%;
+}
+.skill-r::before {
+  background: #276dc3;
+  --level: 50%;
 }
 .skill-ux::before {
   background: #ff9f1c;
