@@ -9,6 +9,7 @@ i18next.init(
           header: {
             home: "Home",
             about: "About me",
+            interests: "Interests",
             competences: "Competencies",
             projects: "Projects",
             contact: "Contact",
@@ -24,7 +25,7 @@ i18next.init(
             title: "Meet me!",
             details: {
               para1:
-                "I am Sefer Tasdemir, a 19 years old developer, I am currently completing my <strong>second year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France). I had my <strong>French Baccalaureate, specializing in mathematics with honors</strong>, and if you want to know more about my <strong>educational and professional background</strong>, I invite you to look at <strong>my CV</strong> at the <strong>bottom of the page</strong>.",
+                "I am Sefer Tasdemir, I am currently completing my <strong>third year of Computer Science Bachelor's Degree in Technology</strong> at the IUT of Annecy (France). I had my <strong>French Baccalaureate, specializing in mathematics with honors</strong>, if you want to know more about my <strong>educational and professional background</strong>, I invite you to look at <strong>my CV</strong> at the <strong>bottom of the page</strong>.",
               para2:
                 "I am a native speaker of <strong>french</strong> and <strong>turkish</strong>, a B2 level in <strong>english</strong> (TOEIC 900 pts) and a bit of <strong>spanish</strong>. Aside from coding, I am passionate about <strong>chess</strong> (1200 Elo) and sport, I play <strong>football</strong>, <strong>basketball</strong>, <strong>athletics</strong> and <strong>bodybuilding</strong>.",
               para3:
@@ -47,6 +48,43 @@ i18next.init(
             },
             skills: "My skills",
             contact_button: "Contact me",
+          },
+          interests: {
+            heading: "Interests",
+            subheading:
+              "Passions that enrich my personal and professional development",
+            items: {
+              sport: {
+                title: "Sport & Well-being",
+                description:
+                  "Regular participation in team sports, combined with physical training (weight training, cardio), is a cornerstone of balance for me. By cultivating a taste for effort and group cohesion, I strengthen my perseverance and interpersonal skills, while also gaining essential mental stability.",
+                tags: {
+                  team: "Team",
+                  perseverance: "Perseverance",
+                  communication: "Communication",
+                },
+              },
+              tech: {
+                title: "Technology Watch",
+                description:
+                  "Passionate about technological innovations, I maintain constant awareness through social media and specialized newsletters. This curiosity allows me to anticipate changes in the sector and continuously update my skills to stay abreast of the latest trends.",
+                tags: {
+                  innovation: "Innovation",
+                  trends: "Trends",
+                  adaptation: "Adaptation",
+                },
+              },
+              gaming: {
+                title: "Video Games",
+                description:
+                  "From the complex management of Dwarf Fortress to the responsiveness of Valorant, my passion for video games has always been an intellectual driving force. It has honed my ability to analyze situations, develop strategies, and solve problems—skills that I now apply to my coding.",
+                tags: {
+                  strategy: "Strategy",
+                  analysis: "Analysis",
+                  creativity: "Creativity",
+                },
+              },
+            },
           },
           /* 20251230  */
           competences: {
@@ -97,7 +135,7 @@ i18next.init(
             },
           },
           experience: {
-            heading: "Work Experience",
+            heading: "Work experience and education",
             subheading: "Key missions, internships, and projects",
             items: {
               dataAnalyst: {
@@ -242,7 +280,8 @@ i18next.init(
         translation: {
           header: {
             home: "Accueil",
-            about: "À propos",
+            about: "À propos de moi",
+            interests: "Centres d'intérêt",
             competences: "Compétences",
             projects: "Projets",
             contact: "Contact",
@@ -258,7 +297,7 @@ i18next.init(
             title: "Rencontrez-moi !",
             details: {
               para1:
-                "Je suis Sefer Tasdemir, un développeur de 19 ans, je termine actuellement ma <strong>deuxième année de BUT Informatique</strong> à l'IUT d'Annecy (France). J'ai eu mon <strong>baccalauréat général, spécialisé en mathématiques avec mention</strong>, et si vous voulez en savoir plus sur mon <strong>parcours scolaire et professionnel</strong>, je vous invite à <strong>consulter mon CV en bas de la page</strong>.",
+                "Je suis Sefer Tasdemir je termine actuellement ma <strong>troisième année de BUT Informatique</strong> à l'IUT d'Annecy (France). J'ai obtenu mon <strong>baccalauréat général, spécialisé en mathématiques avec mention</strong>, si vous voulez en savoir plus sur mon <strong>parcours scolaire et professionnel</strong>, je vous invite à <strong>consulter mon CV en bas de la page</strong>.",
               para2:
                 "Je parle couramment <strong>français</strong> et <strong>turc</strong>, j'ai un niveau B2 en <strong>anglais</strong> (TOEIC 900 pts) et un niveau scolaire d'<strong>espagnol</strong>. En dehors du codage, je suis passionné par les <strong>échecs</strong> (1200 Elo) et le sport, je pratique le <strong>football</strong>, le <strong>basketball</strong>, l'<strong>athlétisme</strong> et la <strong>musculation</strong>.",
               para3:
@@ -281,6 +320,43 @@ i18next.init(
             },
             skills: "Mes compétences",
             contact_button: "Contactez-moi",
+          },
+          interests: {
+            heading: "Centres d'intérêt",
+            subheading:
+              "Mes passions qui enrichissent mon développement personnel et professionnel",
+            items: {
+              sport: {
+                title: "Sport & Bien-être",
+                description:
+                  "La pratique régulière de sports collectifs, alliée à l’entraînement physique (musculation, cardio), est pour moi un pilier d'équilibre. En cultivant le goût de l'effort et la cohésion de groupe, je renforce ma persévérance et mes aptitudes relationnelles, tout en m'apportant une stabilité mentale indispensable.",
+                tags: {
+                  team: "Équipe",
+                  perseverance: "Persévérance",
+                  communication: "Communication",
+                },
+              },
+              tech: {
+                title: "Veille Technologique",
+                description:
+                  "Passionné par les innovations technologiques, j'assure une veille constante via les réseaux sociaux et des newsletters spécialisées. Cette curiosité me permet d'anticiper les changements du secteur et d'actualiser mes compétences en continu pour rester en phase avec les dernières tendances.",
+                tags: {
+                  innovation: "Innovation",
+                  trends: "Tendances",
+                  adaptation: "Adaptation",
+                },
+              },
+              gaming: {
+                title: "Jeux Vidéo",
+                description:
+                  "De la gestion complexe de Dwarf Fortress à la réactivité de Valorant, ma passion pour le jeu vidéo a toujours été un moteur intellectuel. Elle a aiguisé ma capacité à analyser des situations, élaborer des stratégies et résoudre des problèmes, des compétences  que je mets au service de mon code.",
+                tags: {
+                  strategy: "Stratégie",
+                  analysis: "Analyse",
+                  creativity: "Créativité",
+                },
+              },
+            },
           },
           /* 20251230  */
           competences: {
@@ -331,7 +407,7 @@ i18next.init(
             },
           },
           experience: {
-            heading: "Expérience professionnelle",
+            heading: "Expérience et formation",
             subheading: "Missions clés, stages et projets",
             items: {
               dataAnalyst: {
