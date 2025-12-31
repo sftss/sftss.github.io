@@ -136,14 +136,17 @@ i18next.init(
                 but: {
                   type: "Degree",
                   dates: "2023 - Present",
-                  title: "Bachelor of Technology in Computer Science - AGED track",
-                  place: "3rd year - Administration, Management and Data Exploitation",
+                  title:
+                    "Bachelor of Technology in Computer Science - AGED track",
+                  place:
+                    "3rd year - Administration, Management and Data Exploitation",
                 },
                 bac: {
                   type: "Degree",
                   dates: "2020 - 2023",
                   title: "General Baccalaureate",
-                  place: "Expert mathematics option, S.E.S / Mathematics specialization",
+                  place:
+                    "Expert mathematics option, S.E.S / Mathematics specialization",
                 },
               },
             },
@@ -368,13 +371,15 @@ i18next.init(
                   type: "Diplôme",
                   dates: "2023 - Présent",
                   title: "BUT Informatique parcours AGED",
-                  place: "3e année - Administration, Gestion et Exploitation des Données",
+                  place:
+                    "3e année - Administration, Gestion et Exploitation des Données",
                 },
                 bac: {
                   type: "Diplôme",
                   dates: "2020 - 2023",
                   title: "Baccalauréat Général",
-                  place: "Option maths expertes, spécialité S.E.S / Mathématiques",
+                  place:
+                    "Option maths expertes, spécialité S.E.S / Mathématiques",
                 },
               },
             },
