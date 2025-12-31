@@ -240,7 +240,7 @@ button,
   padding: calc(1.5rem - 2px) calc(5rem - 2px);
 }
 .second-padin {
-  padding: 12rem 0;
+  padding: 10rem 0;
 }
 .home-main {
   background: var(--img-main), url("svg\\endless-constellation.svg");
@@ -287,12 +287,12 @@ button,
 }
 
 .experience {
-  background: var(--background-dark-color);
+  background: var(--background-color);
 }
 
 .exp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin-top: 3rem;
 }
@@ -302,26 +302,34 @@ button,
 }
 
 .exp-card {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(0, 128, 128, 0.35);
+  background: var(--background-dark-color);
+  border: 2px solid transparent;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
 .exp-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgba(0, 128, 128, 0.15), transparent 60%);
+  padding: 2px;
+  background: linear-gradient(120deg, #40b5ad 0%, #4572f0 100%);
+  border-radius: 12px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
 }
 
 .exp-card:hover::before {
   opacity: 1;
+}
+
+.exp-card:hover {
+  box-shadow: 0 0 40px 1px rgba(48, 76, 128, 0.3);
 }
 
 .exp-card-top {
@@ -358,6 +366,7 @@ button,
 .exp-place {
   color: var(--text-color-para);
   font-weight: 700;
+  font-size: 1.6rem;
   margin-bottom: 1.2rem;
 }
 
@@ -412,7 +421,7 @@ button,
 .identity-card {
   display: grid;
   grid-template-columns: repeat(3, minmax(22rem, 1fr));
-  gap: 1.6rem;
+  gap: 1rem;
   padding: 2rem 0;
   width: 100%;
 }
@@ -423,9 +432,31 @@ button,
   gap: 0.4rem;
   padding: 1.4rem 1.6rem;
   border-radius: 10px;
-  background: var(--background-color);
-  border-left: 4px solid #008080;
+  background: var(--background-dark-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.identity-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(163deg, #008080 0%, #40b5ad 100%);
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+}
+
+.identity-row:hover::before {
+  opacity: 1;
+}
+
+.identity-row:hover {
+  box-shadow: 0 0 40px 1px rgba(0, 128, 128, 0.25);
 }
 
 .identity-label {
