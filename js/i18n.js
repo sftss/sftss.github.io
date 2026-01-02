@@ -117,22 +117,6 @@ i18next.init(
                 "Document and share evidence (trace + justification) of the competencies I claim.",
               item4: "Connect these competencies with my professional goals.",
             },
-            evidence: {
-              title: "Concrete evidence",
-              level: "Level 1 · simple conditions",
-              neo4j: {
-                title: "Social Networks Neo4j",
-                desc: "Graph modeling of social interactions, Cypher queries, path analysis, and recommendation logic validated with test datasets.",
-                resources:
-                  "Neo4j, Cypher, graph theory, UML modeling, Python drivers",
-              },
-              tpData: {
-                title: "TP Data MLxtend",
-                desc: "Data preparation, feature engineering, and MLxtend pipelines to compare classifiers and association rules with documented metrics.",
-                resources:
-                  "Python, pandas, scikit-learn, MLxtend, experiment tracking",
-              },
-            },
           },
           experience: {
             heading: "Work experience and education",
@@ -388,22 +372,6 @@ i18next.init(
               item3:
                 "Documenter et partager des preuves (trace + justification) des compétences que je revendique.",
               item4: "Faire le lien avec mon projet professionnel.",
-            },
-            evidence: {
-              title: "Preuves concrètes",
-              level: "Niveau 1 · conditions simples",
-              neo4j: {
-                title: "Social Networks Neo4j",
-                desc: "Modélisation graphe de relations sociales, requêtes Cypher, analyse de chemins et logique de recommandation testée sur jeux de données.",
-                resources:
-                  "Neo4j, Cypher, théorie des graphes, modélisation UML, drivers Python",
-              },
-              tpData: {
-                title: "TP Data MLxtend",
-                desc: "Préparation de données, feature engineering et pipelines MLxtend pour comparer classifieurs et règles d'association avec métriques documentées.",
-                resources:
-                  "Python, pandas, scikit-learn, MLxtend, suivi des expériences",
-              },
             },
           },
           experience: {
