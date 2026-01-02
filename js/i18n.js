@@ -10,7 +10,6 @@ i18next.init(
             home: "Home",
             about: "About me",
             interests: "Interests",
-            competences: "Competencies",
             projects: "Projects",
             contact: "Contact",
           },
@@ -86,38 +85,7 @@ i18next.init(
               },
             },
           },
-          /* 20251230  */
-          competences: {
-            heading: "Competencies & evidence",
-            subheading:
-              "Linking savoir, savoir-faire, and savoir-être with real traces from my projects.",
-            definition: {
-              title: "Competence = knowledge + practice + behavior",
-              body: "A competence combines resources (knowledge), critical learnings (how to apply them), and behaviors that make collaboration work.",
-              savoir: "Knowledge",
-              savoirFaire: "Skills",
-              savoirEtre: "Attitude",
-            },
-            traces: {
-              title: "Traces & proof",
-              trace: "Trace",
-              proof: "Proof",
-              traceBody:
-                "Code excerpts from mini-projects (e.g., Python interfaces, database queries) built during tutorials.",
-              proofBody:
-                "Worked in pairs to build a Python UI to search movies in a database; captures of the UI and commented source code document the solution and the algorithms used.",
-            },
-            portfolio: {
-              title: "E-portfolio approach",
-              item1:
-                "Step back on experiences that helped me grow specific competencies.",
-              item2:
-                "Map each experience to my training reference framework to position myself.",
-              item3:
-                "Document and share evidence (trace + justification) of the competencies I claim.",
-              item4: "Connect these competencies with my professional goals.",
-            },
-          },
+
           experience: {
             heading: "Work experience and education",
             subheading: "Key missions, internships, and projects",
@@ -266,7 +234,6 @@ i18next.init(
             home: "Accueil",
             about: "À propos de moi",
             interests: "Centres d'intérêt",
-            competences: "Compétences",
             projects: "Projets",
             contact: "Contact",
           },
@@ -342,38 +309,7 @@ i18next.init(
               },
             },
           },
-          /* 20251230  */
-          competences: {
-            heading: "Compétences & preuves",
-            subheading:
-              "Articuler savoir, savoir-faire et savoir-être avec des traces concrètes de mes projets.",
-            definition: {
-              title: "Compétence = savoir + savoir-faire + savoir-être",
-              body: "Une compétence mobilise des ressources (connaissances), des apprentissages critiques (comment agir) et des comportements collaboratifs.",
-              savoir: "Savoir",
-              savoirFaire: "Savoir-faire",
-              savoirEtre: "Savoir-être",
-            },
-            traces: {
-              title: "Traces & preuve",
-              trace: "Trace",
-              proof: "Preuve",
-              traceBody:
-                "Extraits de code issus de mini-projets (interfaces Python, requêtes base de données) réalisés en TD.",
-              proofBody:
-                "En binôme, j'ai développé une interface Python pour rechercher des films dans une base. La capture de l'interface finale et le code commenté détaillent l'algorithme et la fiabilité de la recherche.",
-            },
-            portfolio: {
-              title: "Démarche e-portfolio",
-              item1:
-                "Prendre du recul sur les expériences qui ont fait progresser mes compétences.",
-              item2:
-                "Relier chaque expérience à mon référentiel de formation pour me situer.",
-              item3:
-                "Documenter et partager des preuves (trace + justification) des compétences que je revendique.",
-              item4: "Faire le lien avec mon projet professionnel.",
-            },
-          },
+
           experience: {
             heading: "Expérience et formation",
             subheading: "Missions clés, stages et projets",
