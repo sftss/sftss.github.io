@@ -108,7 +108,6 @@ body {
   position: relative;
   line-height: 1.5;
   font-family: "Chakra Petch", sans-serif;
-  overflow-x: hidden;
   transition: all var(--transition-normal);
 }
 
