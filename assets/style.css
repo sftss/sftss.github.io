@@ -99,6 +99,7 @@ html {
   scroll-behavior: smooth;
   transition: font-size var(--transition-normal);
   overscroll-behavior: none;
+  overflow: none;
 }
 
 body {
