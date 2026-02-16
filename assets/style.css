@@ -97,7 +97,6 @@
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
-  overflow-x: hidden;
   transition: font-size var(--transition-normal);
   overscroll-behavior: none;
 }
