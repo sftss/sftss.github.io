@@ -86,7 +86,9 @@
   box-sizing: inherit;
   font-family: inherit;
   transition: all var(--transition-normal);
-  cursor: url("svg\\arrowhead-rounded-outline.svg") 1 1, auto;
+  cursor:
+    url("svg\\arrowhead-rounded-outline.svg") 1 1,
+    auto;
 }
 
 ::selection {
@@ -139,7 +141,9 @@ button,
 .header-logo-sub,
 .main-footer-icone,
 .selectLang-option {
-  cursor: url("svg\\hand-pointer.svg") 1 1, auto;
+  cursor:
+    url("svg\\hand-pointer.svg") 1 1,
+    auto;
 }
 
 form input,
@@ -252,7 +256,8 @@ textarea {
   font-weight: 700;
   border-radius: var(--radius-sm);
   box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.15);
-  transition: transform var(--transition-normal),
+  transition:
+    transform var(--transition-normal),
     background var(--transition-normal);
   text-decoration: none;
 }
@@ -298,7 +303,9 @@ textarea {
   font-size: 5em;
   letter-spacing: 0.15em;
   overflow: hidden;
-  animation: typing 4s steps(30, end), blink-caret 0.5s step-end infinite;
+  animation:
+    typing 4s steps(30, end),
+    blink-caret 0.5s step-end infinite;
   color: var(--text-color);
 }
 @keyframes typing {
@@ -359,7 +366,9 @@ textarea {
   font-size: 5em;
   letter-spacing: 0.15em;
   overflow: hidden;
-  animation: typing 4s steps(30, end), blink-caret 0.5s step-end infinite;
+  animation:
+    typing 4s steps(30, end),
+    blink-caret 0.5s step-end infinite;
 }
 
 @keyframes typing {
@@ -439,7 +448,6 @@ textarea {
 .exp-card,
 .interest-card {
   background: var(--background-dark-color);
-  border: 2px solid transparent;
   border-radius: var(--radius-lg);
   padding: 2rem;
   box-shadow: var(--shadow-md);
@@ -458,7 +466,9 @@ textarea {
   border-radius: var(--radius-lg);
   opacity: 0;
   transition: opacity var(--transition-normal);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
 }
 
@@ -602,7 +612,9 @@ textarea {
   border-radius: var(--radius-md);
   opacity: 0;
   transition: opacity var(--transition-normal);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
 }
 
@@ -728,6 +740,14 @@ textarea {
   display: flex;
   gap: 5rem;
   margin-bottom: 11rem;
+}
+
+.projects-colon:nth-of-type(odd) {
+  flex-direction: row;
+}
+
+.projects-colon:nth-of-type(even) {
+  flex-direction: row-reverse;
 }
 
 .projects-colon--inverse {
@@ -876,6 +896,125 @@ textarea {
 
 .project-details-lienss-btn:last-child {
   margin: 0;
+}
+
+.imdb-model-caption {
+  margin: 1rem 0 3rem;
+  color: var(--text-color-para);
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.imdb-carousel {
+  position: relative;
+  margin: 2rem 0 4rem;
+  padding: 2.2rem 5.5rem 4rem;
+  border-radius: var(--radius-md);
+  background: var(--background-dark-color);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.imdb-carousel-viewport {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 62rem;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: rgba(0, 0, 0, 0.05);
+  touch-action: pan-y;
+}
+
+.imdb-carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translateX(0);
+  transition: transform 0.52s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.imdb-carousel.is-dragging .imdb-carousel-track {
+  transition: none;
+}
+
+.imdb-carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.imdb-carousel-image {
+  display: none;
+}
+
+.imdb-carousel-btn {
+  position: absolute;
+  top: 46%;
+  transform: translateY(-50%);
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: 700;
+  z-index: 2;
+}
+
+.imdb-carousel-btn:hover {
+  background: var(--primary-hover);
+}
+
+.imdb-carousel-btn-prev {
+  left: 1rem;
+}
+
+.imdb-carousel-btn-next {
+  right: 1rem;
+}
+
+.imdb-carousel-caption {
+  margin-top: 1.6rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--text-color-para);
+  font-weight: 600;
+}
+
+.imdb-carousel-dots {
+  margin-top: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.imdb-carousel-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: 1px solid var(--primary-color);
+  background: transparent;
+  padding: 0;
+}
+
+.imdb-carousel-dot.is-active {
+  background: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.imdb-carousel-counter {
+  position: absolute;
+  right: 1.4rem;
+  bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-color-para);
 }
 
 /* ==========================================================================
@@ -1193,6 +1332,11 @@ textarea {
     text-align: center;
   }
 
+  .projects-colon:nth-of-type(odd),
+  .projects-colon:nth-of-type(even) {
+    flex-direction: column;
+  }
+
   .projects-colon-content {
     align-items: center;
   }
@@ -1277,6 +1421,27 @@ textarea {
   }
   .project-details-lienss-btn:last-child {
     margin: 0;
+  }
+  .imdb-carousel {
+    padding: 1.6rem 4.5rem 3.6rem;
+  }
+  .imdb-carousel-btn {
+    width: 3.6rem;
+    height: 3.6rem;
+    font-size: 1.9rem;
+  }
+  .imdb-carousel-btn-prev {
+    left: 0.6rem;
+  }
+  .imdb-carousel-btn-next {
+    right: 0.6rem;
+  }
+  .imdb-carousel-caption {
+    font-size: 1.4rem;
+  }
+  .imdb-model-caption,
+  .imdb-carousel-counter {
+    font-size: 1.2rem;
   }
   .header-liens {
     display: none;
@@ -1581,7 +1746,9 @@ body.animate {
   background-color: #dadada;
   border-top: 4px solid #f5f5f5;
   border-radius: 50% 50% 20% 20%;
-  cursor: url("svg\\hand-pointer.svg") 1 1, auto;
+  cursor:
+    url("svg\\hand-pointer.svg") 1 1,
+    auto;
 }
 
 .rocket-body:before {
@@ -1606,7 +1773,9 @@ body.animate {
   border: 3px solid #b4b2b2;
   border-radius: 50%;
   transform: translateX(-50%);
-  cursor: url("svg\\hand-pointer.svg") 1 1, auto;
+  cursor:
+    url("svg\\hand-pointer.svg") 1 1,
+    auto;
 }
 
 .fin {
@@ -1616,7 +1785,9 @@ body.animate {
   height: 40px;
   background-color: #ca2e55;
   top: calc(100% - 115px);
-  cursor: url("svg\\hand-pointer.svg") 1 1, auto;
+  cursor:
+    url("svg\\hand-pointer.svg") 1 1,
+    auto;
 }
 
 .fin-left {

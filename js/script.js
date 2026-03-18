@@ -76,7 +76,7 @@ function launchRocket() {
 //#region Theme toggle
 const themeToggle = document.getElementById("themeToggle");
 const isDarkModeEnabled = window.matchMedia(
-  "(prefers-color-scheme: dark)"
+  "(prefers-color-scheme: dark)",
 ).matches;
 
 const themeChoosed =
@@ -95,3 +95,175 @@ themeToggle?.addEventListener("click", () => {
   themeToggle.classList.toggle("theme-toggle--toggled");
 });
 //#endregion Theme toggle
+
+//#region IMDb carousels
+function initImdbCarousels() {
+  const carousels = document.querySelectorAll(".imdb-carousel");
+  if (!carousels.length) return;
+
+  carousels.forEach((carousel) => {
+    if (carousel.dataset.ready === "true") return;
+
+    const imageElement = carousel.querySelector(".imdb-carousel-image");
+    const prevButton = carousel.querySelector(".imdb-carousel-btn-prev");
+    const nextButton = carousel.querySelector(".imdb-carousel-btn-next");
+    const dotsContainer = carousel.querySelector(".imdb-carousel-dots");
+    const counterElement = carousel.querySelector(".imdb-carousel-counter");
+    const images = (carousel.dataset.images || "")
+      .split(",")
+      .map((img) => img.trim())
+      .filter(Boolean);
+
+    if (
+      !imageElement ||
+      !prevButton ||
+      !nextButton ||
+      !dotsContainer ||
+      !counterElement ||
+      !images.length
+    ) {
+      return;
+    }
+
+    const autoplayDelayMs = 7000;
+    const swipeThresholdPx = 50;
+    let currentIndex = 0;
+    let autoplayTimer = null;
+    let isPointerDown = false;
+    let pointerStartX = 0;
+    let pointerDeltaX = 0;
+
+    const viewport = document.createElement("div");
+    viewport.className = "imdb-carousel-viewport";
+
+    const track = document.createElement("div");
+    track.className = "imdb-carousel-track";
+
+    images.forEach((src, index) => {
+      const slideImage = document.createElement("img");
+      slideImage.src = src;
+      slideImage.alt = `${imageElement.alt} ${index + 1}`;
+      slideImage.className = "imdb-carousel-slide";
+      slideImage.loading = "lazy";
+      track.appendChild(slideImage);
+    });
+
+    viewport.appendChild(track);
+    imageElement.insertAdjacentElement("afterend", viewport);
+
+    dotsContainer.innerHTML = "";
+    const dots = images.map((_, index) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "imdb-carousel-dot";
+      dot.setAttribute("aria-label", `Go to slide ${index + 1}`);
+      dot.addEventListener("click", () => {
+        currentIndex = index;
+        renderSlide();
+        restartAutoplay();
+      });
+      dotsContainer.appendChild(dot);
+      return dot;
+    });
+
+    const updateTrackPosition = (offsetPx = 0) => {
+      const viewportWidth = viewport.clientWidth;
+      const baseOffset = -currentIndex * viewportWidth;
+      track.style.transform = `translateX(${baseOffset + offsetPx}px)`;
+    };
+
+    const renderSlide = (withTransition = true) => {
+      if (withTransition) {
+        carousel.classList.remove("is-dragging");
+      }
+      updateTrackPosition(0);
+      counterElement.textContent = `${currentIndex + 1} / ${images.length}`;
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("is-active", dotIndex === currentIndex);
+      });
+    };
+
+    const stopAutoplay = () => {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        currentIndex = (currentIndex + 1) % images.length;
+        renderSlide();
+      }, autoplayDelayMs);
+    };
+
+    const restartAutoplay = () => {
+      startAutoplay();
+    };
+
+    prevButton.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      renderSlide();
+      restartAutoplay();
+    });
+
+    nextButton.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      renderSlide();
+      restartAutoplay();
+    });
+
+    viewport.addEventListener("touchstart", (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      isPointerDown = true;
+      pointerStartX = touch.clientX;
+      pointerDeltaX = 0;
+      carousel.classList.add("is-dragging");
+      stopAutoplay();
+    });
+
+    viewport.addEventListener("touchmove", (event) => {
+      if (!isPointerDown) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      pointerDeltaX = touch.clientX - pointerStartX;
+      updateTrackPosition(pointerDeltaX);
+    });
+
+    const handleSwipeEnd = () => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+
+      if (Math.abs(pointerDeltaX) > swipeThresholdPx) {
+        if (pointerDeltaX < 0) {
+          currentIndex = (currentIndex + 1) % images.length;
+        } else {
+          currentIndex = (currentIndex - 1 + images.length) % images.length;
+        }
+      }
+
+      pointerDeltaX = 0;
+      renderSlide();
+      startAutoplay();
+    };
+
+    viewport.addEventListener("touchend", handleSwipeEnd);
+    viewport.addEventListener("touchcancel", handleSwipeEnd);
+
+    window.addEventListener("resize", () => {
+      renderSlide(false);
+    });
+
+    carousel.addEventListener("mouseenter", stopAutoplay);
+    carousel.addEventListener("mouseleave", startAutoplay);
+
+    carousel.dataset.ready = "true";
+    renderSlide();
+    startAutoplay();
+  });
+}
+
+initImdbCarousels();
+//#endregion IMDb carousels

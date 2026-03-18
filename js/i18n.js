@@ -159,11 +159,30 @@ i18next.init(
             },
             socialNetworksNeo4j: {
               pDetail1:
-                "This project explores the power of graph databases through Neo4j, modeling a complete social network system. The goal was to design and implement a graph structure representing users, their relationships, posts, and interactions, enabling advanced analysis of social connections.",
+                "This project explores Neo4j through a realistic and responsible social network case study. The objective was to model users, publications, interactions, moderation events, and communities in a single property graph that remains easy to query and explain.",
               pDetail2:
-                "The project focuses on leveraging Cypher query language to perform complex graph operations. We implemented various queries to find shortest paths between users, identify influential nodes in the network, detect communities, and generate friend recommendations based on mutual connections and shared interests.",
+                "From the start, we compared several NoSQL approaches and selected Neo4j because relationships are the core business value. Instead of forcing expensive joins or denormalized workarounds, we use native graph traversals to answer product questions such as feed building, recommendation paths, and interaction dynamics.",
               pDetail3:
-                "This work demonstrates the advantages of graph databases for social network analytics, particularly for recommendation systems and relationship analysis. By using Neo4j's native graph processing capabilities, we achieved efficient traversal and pattern matching that would be significantly more complex in traditional relational databases.",
+                "The experimental setup used Neo4j Aura and a Python toolchain to generate reproducible synthetic data. The dataset includes users, follows, posts, likes, comments, groups, tags, and reports, with controlled distributions over one year to support meaningful tests on both query logic and result interpretation.",
+              pDetail4:
+                "Beyond technical validation, this project emphasizes transparency and auditability: recommendation logic can be traced through explicit paths, moderation entities are first-class citizens, and privacy or visibility constraints are represented directly in the model.",
+              modelTitle: "Data model and generation strategy",
+              modelText:
+                "The model combines structural realism and analytical usability. Communities are injected to create dense local clusters, inter-community links preserve global connectivity, and preferential attachment creates hubs. This allows us to test centrality, community patterns, and recommendation behavior under non-trivial graph shapes.",
+              modelCaption:
+                "Property-graph schema used in Neo4j with constraints, labels, and indexed fields.",
+              followingCaption:
+                "Example of FOLLOWS relationships highlighting cluster structure and cross-community links.",
+              queryTitle: "Cypher queries and visual analysis",
+              queryText:
+                "Cypher scenarios cover insertion checks, shortest-path exploration, recommendation signals, post interaction ratios, and moderation reporting flows. The carousel below shows representative query outputs and visual graph explorations extracted from the project environment.",
+              queryCaption:
+                "Query gallery: social traversal, post analytics, moderation tracking, and graph visualization.",
+              resultsTitle: "Key outcomes",
+              resultsText1:
+                "Neo4j proved highly effective for relation-centric workloads. Typical social questions remained readable in Cypher and easier to maintain than equivalent multi-join SQL logic, especially when chaining two-hop and three-hop traversals.",
+              resultsText2:
+                "The final setup offers a strong educational and practical baseline for explainable recommendations, community analysis, and moderation workflows, while keeping infrastructure lightweight through URL-based media references rather than binary storage in the database.",
             },
             tpDataMLxtend: {
               pDetail1:
@@ -175,13 +194,32 @@ i18next.init(
             },
             imdb: {
               pDetail1:
-                "This comprehensive project covers the complete data pipeline for analyzing IMDb cinematographic data, from data modeling to artificial intelligence. The project is structured around three major components: transactional database (OLTP), analytical data warehouse (OLAP), and advanced AI modeling.",
+                "This portfolio project delivers an end-to-end data workflow on IMDb datasets, from ingestion and modeling to analytics and machine learning. The scope is structured into three layers: OLTP engineering, OLAP decision support, and AI experimentation.",
               pDetail2:
-                "The OLTP phase involved designing a normalized relational database with conceptual, logical, and physical data models using PowerAMC. We developed a complete SQL creation script and implemented a Python ETL pipeline to populate the transactional database from raw IMDb datasets, ensuring data quality and integrity throughout the process.",
+                "In the OLTP phase, I designed and implemented a normalized relational schema (conceptual, logical, and physical models) and built a Python ETL pipeline to load large raw IMDb files into SQL Server. The pipeline emphasizes referential integrity, controlled transformations, and operational reliability.",
               pDetail3:
-                "For the OLAP component, we built a multidimensional data warehouse using a star or snowflake schema optimized for analytical queries. The OLAP database enables efficient analysis of movies, ratings, actors, and other cinematographic dimensions. We created interactive Power BI dashboards connected to the OLAP database, providing comprehensive visualizations and insights.",
+                "For analytics, I designed an OLAP model optimized for multidimensional exploration across movies, people, genres, regions, and time. This layer powers interactive Power BI dashboards built for fast slicing, drill-down analysis, and business-oriented storytelling.",
               pDetail4:
-                "The AI component explores machine learning models for prediction and classification tasks on the processed data. Using Jupyter notebooks, we developed models to predict movie ratings, classify genres, and analyze trends in the film industry. This end-to-end project demonstrates expertise in database design, ETL processes, business intelligence, and artificial intelligence.",
+                "The AI layer evaluates multiple supervised learning approaches on curated IMDb features, including sentiment classification and rating prediction. This final stage demonstrates practical model evaluation, interpretation, and integration with the decision-support perspective.",
+              architectureTitle: "Data architecture and modeling",
+              architectureText:
+                "The architecture follows a production-like progression: robust OLTP ingestion, transformation into an analytics-ready OLAP model, then semantic modeling in Power BI. This sequence ensures traceability from source data to actionable KPIs.",
+              architectureOltpCaption:
+                "OLTP relational model for ingestion, constraints, and transaction consistency.",
+              architectureOlapCaption:
+                "OLAP dimensional model designed for fast decision-oriented analysis.",
+              architecturePowerBICaption:
+                "Power BI semantic model linking dimensions, facts, and business visuals.",
+              powerBiTitle: "Power BI dashboards",
+              powerBiText:
+                "To keep the page lightweight, report screenshots are presented in a carousel. The gallery highlights key pages, cross-filter interactions, and tooltip drilldowns used to analyze trends by period, geography, casting, title type, and video game segment.",
+              powerBiCaption:
+                "Power BI gallery: main pages, advanced filters, and contextual tooltips.",
+              aiTitle: "AI models and evaluation",
+              aiText:
+                "The AI phase includes three complementary models: binary sentiment classification, rating regression, and multi-grade classification. The carousel below presents core evaluation visuals used to compare model behavior and identify performance limits.",
+              aiCaption:
+                "Model evaluation visuals: confusion matrices and prediction distribution.",
             },
             botanic: {
               pDetail1:
@@ -357,7 +395,7 @@ i18next.init(
                   dates: "2020 - 2023",
                   title: "Baccalauréat Général",
                   place:
-                    "Option maths expertes, spécialité S.E.S / Mathématiques",
+                    "Spécialité S.E.S / Mathématiques, option maths expertes",
                 },
               },
             },
@@ -394,11 +432,30 @@ i18next.init(
             },
             socialNetworksNeo4j: {
               pDetail1:
-                "Ce projet explore la puissance des bases de données graphes à travers Neo4j, en modélisant un système complet de réseau social. L'objectif était de concevoir et d'implémenter une structure graphe représentant les utilisateurs, leurs relations, publications et interactions, permettant une analyse avancée des connexions sociales.",
+                "Ce projet explore Neo4j à travers un cas d'étude réaliste de réseau social responsable. L'objectif était de modéliser dans un même graphe de propriétés les utilisateurs, les publications, les interactions, la modération et les communautés, tout en gardant des requêtes lisibles et explicables.",
               pDetail2:
-                "Le projet se concentre sur l'exploitation du langage de requête Cypher pour effectuer des opérations graphes complexes. Nous avons implémenté diverses requêtes pour trouver les plus courts chemins entre utilisateurs, identifier les nœuds influents du réseau, détecter les communautés et générer des recommandations d'amis basées sur les connexions mutuelles et les intérêts partagés.",
+                "Dès le départ, nous avons comparé plusieurs approches NoSQL et retenu Neo4j car la relation est au cœur de la valeur métier. Au lieu de multiplier des jointures coûteuses ou des duplications, nous utilisons des parcours natifs pour répondre aux questions produit: fil d'actualité, chemins de recommandation et dynamiques d'interaction.",
               pDetail3:
-                "Ce travail démontre les avantages des bases de données graphes pour l'analyse de réseaux sociaux, particulièrement pour les systèmes de recommandation et l'analyse des relations. En utilisant les capacités natives de traitement graphe de Neo4j, nous avons obtenu une traversée et une reconnaissance de motifs efficaces qui seraient significativement plus complexes dans des bases de données relationnelles traditionnelles.",
+                "L'environnement d'expérimentation s'appuie sur Neo4j Aura et une chaîne Python pour générer des données synthétiques reproductibles. Le jeu couvre les users, follows, posts, likes, comments, groups, tags et reports, avec des distributions contrôlées sur une année pour tester à la fois la logique des requêtes et l'interprétation des résultats.",
+              pDetail4:
+                "Au-delà de la validation technique, le projet met l'accent sur la transparence et l'auditabilité: la logique de recommandation est traçable par chemins explicites, la modération est un objet de premier plan et les contraintes de privacy/visibility sont directement représentées dans le modèle.",
+              modelTitle: "Modèle de données et stratégie de génération",
+              modelText:
+                "Le modèle combine réalisme structurel et exploitation analytique. Des communautés sont injectées pour former des clusters denses, des liens inter-communautés assurent la connectivité globale et l'attachement préférentiel fait émerger des hubs. Cela permet de tester la centralité, les communautés et les recommandations sur des graphes non triviaux.",
+              modelCaption:
+                "Schéma property-graph utilisé dans Neo4j avec contraintes, labels et champs indexés.",
+              followingCaption:
+                "Exemple de relations FOLLOWS mettant en évidence les clusters et les liens inter-communautés.",
+              queryTitle: "Requêtes Cypher et analyse visuelle",
+              queryText:
+                "Les scénarios Cypher couvrent les vérifications d'insertion, l'exploration de plus courts chemins, les signaux de recommandation, les ratios d'interaction des posts et les flux de signalement/modération. Le carrousel ci-dessous présente des sorties représentatives et des visualisations issues de l'environnement de projet.",
+              queryCaption:
+                "Galerie de requêtes: parcours social, analytique des posts, suivi de modération et visualisation du graphe.",
+              resultsTitle: "Résultats principaux",
+              resultsText1:
+                "Neo4j s'est montré très efficace pour les charges centrées sur les relations. Les questions sociales courantes restent lisibles en Cypher et plus faciles à maintenir qu'une logique SQL multi-jointures équivalente, surtout avec des parcours sur deux ou trois sauts.",
+              resultsText2:
+                "La solution finale constitue une base solide, pédagogique et pratique, pour des recommandations explicables, l'analyse de communautés et les workflows de modération, tout en gardant une infrastructure légère grâce au stockage des médias par URL plutôt qu'en binaire dans la base.",
             },
             tpDataMLxtend: {
               pDetail1:
@@ -410,13 +467,32 @@ i18next.init(
             },
             imdb: {
               pDetail1:
-                "Ce projet complet couvre la chaîne complète de traitement des données pour l'analyse des données cinématographiques d'IMDb, de la modélisation des données à l'intelligence artificielle. Le projet est structuré autour de trois composantes majeures : base de données transactionnelle (OLTP), entrepôt de données analytique (OLAP) et modélisation IA avancée.",
+                "Ce projet portfolio présente une chaîne data de bout en bout sur les jeux de données IMDb, de l'ingestion à l'analyse décisionnelle et au machine learning. Le périmètre est structuré en trois couches: ingénierie OLTP, exploitation OLAP et expérimentation IA.",
               pDetail2:
-                "La phase OLTP a impliqué la conception d'une base de données relationnelle normalisée avec des modèles de données conceptuel, logique et physique en utilisant PowerAMC. Nous avons développé un script SQL de création complet et implémenté un pipeline ETL en Python pour peupler la base de données transactionnelle à partir des jeux de données bruts d'IMDb, assurant la qualité et l'intégrité des données tout au long du processus.",
+                "Sur la phase OLTP, j'ai conçu et implémenté un schéma relationnel normalisé (modèles conceptuel, logique et physique), puis développé un pipeline ETL Python pour charger de gros volumes IMDb dans SQL Server. L'objectif principal était la qualité des données, l'intégrité référentielle et la fiabilité opérationnelle.",
               pDetail3:
-                "Pour la composante OLAP, nous avons construit un entrepôt de données multidimensionnel utilisant un schéma en étoile ou en flocon optimisé pour les requêtes analytiques. La base de données OLAP permet une analyse efficace des films, notes, acteurs et autres dimensions cinématographiques. Nous avons créé des tableaux de bord Power BI interactifs connectés à la base OLAP, fournissant des visualisations et insights complets.",
+                "Côté analyse, j'ai construit un modèle OLAP optimisé pour l'exploration multidimensionnelle des films, des personnes, des genres, des régions et du temps. Cette couche alimente des tableaux de bord Power BI interactifs, pensés pour le filtrage rapide, le drill-down et la lecture métier.",
               pDetail4:
-                "La composante IA explore des modèles de machine learning pour des tâches de prédiction et de classification sur les données traitées. En utilisant des notebooks Jupyter, nous avons développé des modèles pour prédire les notes de films, classifier les genres et analyser les tendances de l'industrie cinématographique. Ce projet de bout en bout démontre une expertise en conception de bases de données, processus ETL, business intelligence et intelligence artificielle.",
+                "La couche IA évalue plusieurs approches supervisées sur des données IMDb préparées, notamment la classification de sentiment et la prédiction de notes. Cette étape illustre une démarche complète d'évaluation, d'interprétation des résultats et de cohérence avec la vision décisionnelle du projet.",
+              architectureTitle: "Architecture de données et modélisation",
+              architectureText:
+                "L'architecture suit une progression proche d'un contexte de production: ingestion robuste en OLTP, transformation en modèle OLAP orienté analyse, puis modélisation sémantique dans Power BI. Cette séquence garantit la traçabilité entre données sources et indicateurs décisionnels.",
+              architectureOltpCaption:
+                "Modèle relationnel OLTP pour ingestion, contraintes et cohérence transactionnelle.",
+              architectureOlapCaption:
+                "Modèle dimensionnel OLAP conçu pour une analyse décisionnelle rapide.",
+              architecturePowerBICaption:
+                "Modèle sémantique Power BI reliant dimensions, faits et visuels métiers.",
+              powerBiTitle: "Tableaux de bord Power BI",
+              powerBiText:
+                "Pour conserver une page légère, les captures du reporting sont présentées dans un carrousel. Cette galerie met en avant les pages clés, les interactions de filtres croisés et les tooltips de détail pour analyser les tendances par période, géographie, casting, type de titre et segment jeu vidéo.",
+              powerBiCaption:
+                "Galerie Power BI: pages principales, filtres avancés et tooltips contextuels.",
+              aiTitle: "Modèles IA et évaluation",
+              aiText:
+                "La phase IA repose sur trois modèles complémentaires: classification binaire de sentiment, régression de note et classification multi-grades. Le carrousel ci-dessous présente les visuels d'évaluation utilisés pour comparer les comportements des modèles et identifier leurs limites.",
+              aiCaption:
+                "Visuels d'évaluation des modèles: matrices de confusion et distribution des prédictions.",
             },
             botanic: {
               pDetail1:
@@ -482,7 +558,7 @@ i18next.init(
   },
   function (err, t) {
     updateContent();
-  }
+  },
 );
 
 function detectUserLanguage() {
