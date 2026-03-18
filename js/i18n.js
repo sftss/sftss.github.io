@@ -136,6 +136,8 @@ i18next.init(
                 "Graph database modeling of a social network with Cypher queries, shortest-path analytics, and recommendations.",
               tpDataContent:
                 "Machine learning lab using MLxtend: data preparation, model stacking, evaluation, and association rules mining.",
+              imdbContent:
+                "A comprehensive data analysis project covering the complete data pipeline from transactional modeling (OLTP) to decision-making analysis (OLAP) and artificial intelligence on IMDb cinematographic data.",
               offContent:
                 "It is a project to analyze and enhance nutritional and commercial data from the Open Food Facts database using an OLTP/OLAP architecture, Power BI visualizations, and artificial intelligence models on Knime.",
               botanicContent:
@@ -154,6 +156,32 @@ i18next.init(
               projectsPresentaion: "Project presentation",
               feelFree:
                 "Feel free to check out the project by visiting the GitHub link.",
+            },
+            socialNetworksNeo4j: {
+              pDetail1:
+                "This project explores the power of graph databases through Neo4j, modeling a complete social network system. The goal was to design and implement a graph structure representing users, their relationships, posts, and interactions, enabling advanced analysis of social connections.",
+              pDetail2:
+                "The project focuses on leveraging Cypher query language to perform complex graph operations. We implemented various queries to find shortest paths between users, identify influential nodes in the network, detect communities, and generate friend recommendations based on mutual connections and shared interests.",
+              pDetail3:
+                "This work demonstrates the advantages of graph databases for social network analytics, particularly for recommendation systems and relationship analysis. By using Neo4j's native graph processing capabilities, we achieved efficient traversal and pattern matching that would be significantly more complex in traditional relational databases.",
+            },
+            tpDataMLxtend: {
+              pDetail1:
+                "This practical machine learning project utilizes the MLxtend library to explore advanced data science techniques. The laboratory work covers the complete machine learning workflow, from initial data preparation and feature engineering to model training, evaluation, and optimization.",
+              pDetail2:
+                "A key focus of the project is model stacking and ensemble methods. We implemented multiple base learners and combined them using stacking techniques to improve prediction accuracy. The project also includes comprehensive model evaluation using various metrics, cross-validation strategies, and performance visualization.",
+              pDetail3:
+                "Additionally, we applied association rules mining techniques to discover interesting patterns and relationships within datasets. Using algorithms like Apriori and FP-Growth, we extracted frequent itemsets and generated association rules, demonstrating practical applications in market basket analysis and pattern discovery.",
+            },
+            imdb: {
+              pDetail1:
+                "This comprehensive project covers the complete data pipeline for analyzing IMDb cinematographic data, from data modeling to artificial intelligence. The project is structured around three major components: transactional database (OLTP), analytical data warehouse (OLAP), and advanced AI modeling.",
+              pDetail2:
+                "The OLTP phase involved designing a normalized relational database with conceptual, logical, and physical data models using PowerAMC. We developed a complete SQL creation script and implemented a Python ETL pipeline to populate the transactional database from raw IMDb datasets, ensuring data quality and integrity throughout the process.",
+              pDetail3:
+                "For the OLAP component, we built a multidimensional data warehouse using a star or snowflake schema optimized for analytical queries. The OLAP database enables efficient analysis of movies, ratings, actors, and other cinematographic dimensions. We created interactive Power BI dashboards connected to the OLAP database, providing comprehensive visualizations and insights.",
+              pDetail4:
+                "The AI component explores machine learning models for prediction and classification tasks on the processed data. Using Jupyter notebooks, we developed models to predict movie ratings, classify genres, and analyze trends in the film industry. This end-to-end project demonstrates expertise in database design, ETL processes, business intelligence, and artificial intelligence.",
             },
             botanic: {
               pDetail1:
@@ -343,6 +371,8 @@ i18next.init(
                 "Modélisation graphe d'un réseau social avec requêtes Cypher, analyses de plus courts chemins et recommandations.",
               tpDataContent:
                 "TP de machine learning avec MLxtend : préparation de données, stacking de modèles, évaluation et fouille de règles d'association.",
+              imdbContent:
+                "Un projet d'analyse de données complet couvrant la chaîne complète de la donnée, de la modélisation transactionnelle (OLTP) à l'analyse décisionnelle (OLAP) et l'intelligence artificielle sur les données cinématographiques d'IMDb.",
               offContent:
                 "C'est un projet d’analyse et de valorisation des données nutritionnelles et commerciales de la base Open Food Facts à travers une architecture OLTP/OLAP, des visualisations Power BI et des modèles d’intelligence artificielle sur Knime.",
               botanicContent:
@@ -361,6 +391,32 @@ i18next.init(
               projectsPresentaion: "Présentation du projet",
               feelFree:
                 "N'hésitez pas à consulter le projet en visitant le lien GitHub.",
+            },
+            socialNetworksNeo4j: {
+              pDetail1:
+                "Ce projet explore la puissance des bases de données graphes à travers Neo4j, en modélisant un système complet de réseau social. L'objectif était de concevoir et d'implémenter une structure graphe représentant les utilisateurs, leurs relations, publications et interactions, permettant une analyse avancée des connexions sociales.",
+              pDetail2:
+                "Le projet se concentre sur l'exploitation du langage de requête Cypher pour effectuer des opérations graphes complexes. Nous avons implémenté diverses requêtes pour trouver les plus courts chemins entre utilisateurs, identifier les nœuds influents du réseau, détecter les communautés et générer des recommandations d'amis basées sur les connexions mutuelles et les intérêts partagés.",
+              pDetail3:
+                "Ce travail démontre les avantages des bases de données graphes pour l'analyse de réseaux sociaux, particulièrement pour les systèmes de recommandation et l'analyse des relations. En utilisant les capacités natives de traitement graphe de Neo4j, nous avons obtenu une traversée et une reconnaissance de motifs efficaces qui seraient significativement plus complexes dans des bases de données relationnelles traditionnelles.",
+            },
+            tpDataMLxtend: {
+              pDetail1:
+                "Ce projet pratique de machine learning utilise la bibliothèque MLxtend pour explorer des techniques avancées de data science. Les travaux pratiques couvrent l'ensemble du workflow de machine learning, de la préparation initiale des données et l'ingénierie des features jusqu'à l'entraînement, l'évaluation et l'optimisation des modèles.",
+              pDetail2:
+                "Un point central du projet est le stacking de modèles et les méthodes d'ensemble. Nous avons implémenté plusieurs apprenants de base et les avons combinés en utilisant des techniques de stacking pour améliorer la précision des prédictions. Le projet inclut également une évaluation complète des modèles utilisant diverses métriques, des stratégies de validation croisée et des visualisations de performance.",
+              pDetail3:
+                "De plus, nous avons appliqué des techniques de fouille de règles d'association pour découvrir des motifs et relations intéressants au sein des ensembles de données. En utilisant des algorithmes comme Apriori et FP-Growth, nous avons extrait des itemsets fréquents et généré des règles d'association, démontrant des applications pratiques dans l'analyse de panier de marché et la découverte de motifs.",
+            },
+            imdb: {
+              pDetail1:
+                "Ce projet complet couvre la chaîne complète de traitement des données pour l'analyse des données cinématographiques d'IMDb, de la modélisation des données à l'intelligence artificielle. Le projet est structuré autour de trois composantes majeures : base de données transactionnelle (OLTP), entrepôt de données analytique (OLAP) et modélisation IA avancée.",
+              pDetail2:
+                "La phase OLTP a impliqué la conception d'une base de données relationnelle normalisée avec des modèles de données conceptuel, logique et physique en utilisant PowerAMC. Nous avons développé un script SQL de création complet et implémenté un pipeline ETL en Python pour peupler la base de données transactionnelle à partir des jeux de données bruts d'IMDb, assurant la qualité et l'intégrité des données tout au long du processus.",
+              pDetail3:
+                "Pour la composante OLAP, nous avons construit un entrepôt de données multidimensionnel utilisant un schéma en étoile ou en flocon optimisé pour les requêtes analytiques. La base de données OLAP permet une analyse efficace des films, notes, acteurs et autres dimensions cinématographiques. Nous avons créé des tableaux de bord Power BI interactifs connectés à la base OLAP, fournissant des visualisations et insights complets.",
+              pDetail4:
+                "La composante IA explore des modèles de machine learning pour des tâches de prédiction et de classification sur les données traitées. En utilisant des notebooks Jupyter, nous avons développé des modèles pour prédire les notes de films, classifier les genres et analyser les tendances de l'industrie cinématographique. Ce projet de bout en bout démontre une expertise en conception de bases de données, processus ETL, business intelligence et intelligence artificielle.",
             },
             botanic: {
               pDetail1:
