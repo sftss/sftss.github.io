@@ -152,8 +152,12 @@ i18next.init(
               butProjectLink: "See project",
               butBack: "Go Back",
               skills: "Skills",
+              technologiesUsed: "Technologies used",
               seeGitHub: "See on GitHub",
               projectsPresentaion: "Project presentation",
+              relatedTitle: "Related projects",
+              relatedDescription:
+                "Continue browsing with similar projects, or go back to the portfolio homepage.",
               feelFree:
                 "Feel free to check out the project by visiting the GitHub link.",
             },
@@ -191,6 +195,8 @@ i18next.init(
                 "A key focus of the project is model stacking and ensemble methods. We implemented multiple base learners and combined them using stacking techniques to improve prediction accuracy. The project also includes comprehensive model evaluation using various metrics, cross-validation strategies, and performance visualization.",
               pDetail3:
                 "Additionally, we applied association rules mining techniques to discover interesting patterns and relationships within datasets. Using algorithms like Apriori and FP-Growth, we extracted frequent itemsets and generated association rules, demonstrating practical applications in market basket analysis and pattern discovery.",
+              carouselCaption:
+                "MLxtend analyses: baskets, products, and customer segmentation.",
             },
             imdb: {
               pDetail1:
@@ -425,8 +431,12 @@ i18next.init(
               butProjectLink: "Voir le projet",
               butBack: "Retour",
               skills: "Compétences",
+              technologiesUsed: "Technologies utilisées",
               seeGitHub: "Voir sur GitHub",
               projectsPresentaion: "Présentation du projet",
+              relatedTitle: "Projets liés",
+              relatedDescription:
+                "Continuez la visite avec des projets similaires, ou revenez à l'accueil du portfolio.",
               feelFree:
                 "N'hésitez pas à consulter le projet en visitant le lien GitHub.",
             },
@@ -464,6 +474,8 @@ i18next.init(
                 "Un point central du projet est le stacking de modèles et les méthodes d'ensemble. Nous avons implémenté plusieurs apprenants de base et les avons combinés en utilisant des techniques de stacking pour améliorer la précision des prédictions. Le projet inclut également une évaluation complète des modèles utilisant diverses métriques, des stratégies de validation croisée et des visualisations de performance.",
               pDetail3:
                 "De plus, nous avons appliqué des techniques de fouille de règles d'association pour découvrir des motifs et relations intéressants au sein des ensembles de données. En utilisant des algorithmes comme Apriori et FP-Growth, nous avons extrait des itemsets fréquents et généré des règles d'association, démontrant des applications pratiques dans l'analyse de panier de marché et la découverte de motifs.",
+              carouselCaption:
+                "Analyses MLxtend: paniers, articles et segmentation clients.",
             },
             imdb: {
               pDetail1:

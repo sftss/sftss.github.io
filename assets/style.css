@@ -113,6 +113,53 @@ body {
   transition: all var(--transition-normal);
 }
 
+/* Scroll reveal */
+.reveal-up {
+  opacity: 0;
+  transform: translate3d(0, 2.8rem, 0);
+  filter: blur(0);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.72s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  filter: blur(0);
+}
+
+/* Keep reveal behavior on cards that define their own base opacity/transition */
+.exp-card.reveal-up,
+.interest-card.reveal-up {
+  opacity: 0;
+  transform: translate3d(0, 2.8rem, 0);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.72s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.exp-card.reveal-up.is-visible,
+.interest-card.reveal-up.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .reveal-up.is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
 /* Base elements */
 a {
   text-decoration: none;
@@ -283,7 +330,6 @@ textarea {
 }
 
 .btn-theme-inv {
-  border: 2px solid var(--primary-color);
   box-shadow: none;
   padding: calc(1.5rem - 2px) calc(5rem - 2px);
 }
@@ -878,7 +924,7 @@ textarea {
 }
 
 .project-details-description {
-  margin: 0 0 7rem 0;
+  margin: 0 0 2rem 0;
 }
 
 .project-details-description-para {
@@ -896,6 +942,64 @@ textarea {
 
 .project-details-lienss-btn:last-child {
   margin: 0;
+}
+
+.project-related {
+  padding: 0 0 2rem;
+}
+
+.project-related .main-container,
+.project-end-actions .main-container {
+  max-width: 70rem;
+}
+
+.project-related-list {
+  list-style: none;
+  margin: 2rem 0 3rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.project-related-list a {
+  display: inline-block;
+  padding: 0.9rem 1.4rem;
+  border-radius: var(--radius-sm);
+  background: rgb(153 153 153 / 0.2);
+  color: var(--primary-color);
+  font-size: 1.6rem;
+  font-weight: 600;
+  transition: color var(--transition-normal);
+}
+
+.project-related-list a:hover {
+  color: var(--primary-hover);
+}
+
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 2rem 0 3rem;
+}
+
+.project-related .project-details-content-title {
+  margin-top: 0;
+}
+
+.project-related .project-details-description-para {
+  margin-bottom: 1.2rem;
+}
+
+.project-end-actions {
+  padding: 0 0 8rem;
+}
+
+.project-end-actions .project-details-lienss {
+  margin-top: 0;
+  justify-content: center;
+  gap: 3rem;
 }
 
 .imdb-model-caption {
@@ -1573,6 +1677,10 @@ textarea {
   background: #306998;
   --level: 50%;
 }
+.skill-wpf::before {
+  background: #5c2d91;
+  --level: 25%;
+}
 .skill-net::before {
   background: #512bd4;
   --level: 75%;
@@ -1580,6 +1688,14 @@ textarea {
 .skill-azure::before {
   background: #008ad7;
   --level: 75%;
+}
+.skill-ssis::before {
+  background: #c51a7d;
+  --level: 75%;
+}
+.skill-talend::before {
+  background: #ff6d00;
+  --level: 50%;
 }
 .skill-postgresql::before {
   background: #336791;
@@ -1592,6 +1708,10 @@ textarea {
 .skill-neo4j::before {
   background: #008cc1;
   --level: 75%;
+}
+.skill-cypher::before {
+  background: #1f8a70;
+  --level: 50%;
 }
 .skill-pgadmin4::before {
   background: #326690;
@@ -1609,6 +1729,10 @@ textarea {
   background: #008cba;
   --level: 50%;
 }
+.skill-pandas::before {
+  background: #150458;
+  --level: 25%;
+}
 .skill-sql-server::before {
   background: #cc2927;
   --level: 50%;
@@ -1617,8 +1741,8 @@ textarea {
   background: #f44336;
   --level: 50%;
 }
-.skill-jquery::before {
-  background: #0769ad;
+.skill-oracle::before {
+  background: #f80000;
   --level: 25%;
 }
 .skill-laravel::before {
@@ -1639,10 +1763,6 @@ textarea {
 }
 .skill-visual-studio::before {
   background: #5c2d91;
-  --level: 100%;
-}
-.skill-vscode::before {
-  background: #0078d7;
   --level: 100%;
 }
 .skill-powershell::before {
@@ -1676,14 +1796,14 @@ textarea {
 }
 .skill-excel::before {
   background: #217346;
-  --level: 50%;
+  --level: 75%;
+}
+.skill-archimate::before {
+  background: #7b8794;
+  --level: 25%;
 }
 .skill-uml::before {
   background: #ffb74d;
-  --level: 50%;
-}
-.skill-adobe::before {
-  background: #ff0000;
   --level: 50%;
 }
 

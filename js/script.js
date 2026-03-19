@@ -5,6 +5,68 @@ headerLogoContainer.addEventListener("click", () => {
 });
 //#endregion
 
+//#region Reveal up animations
+function initRevealUpAnimations() {
+  const revealSelectors = [
+    ".texte-css-main",
+    ".texte-css-sub",
+    ".about-content-main",
+    ".about-content-skills",
+    ".projects-colon",
+    ".experience-subtitle",
+    ".exp-card",
+    ".exp-animate",
+    ".interest-card",
+    ".interest-animate",
+    ".contact-form-container",
+    ".project-details-content-main > *",
+    ".project-related .main-container > *",
+    ".project-end-actions .main-container > *",
+  ];
+
+  const revealTargets = [
+    ...new Set(
+      revealSelectors.flatMap((selector) => [
+        ...document.querySelectorAll(selector),
+      ]),
+    ),
+  ];
+
+  if (!revealTargets.length) return;
+
+  revealTargets.forEach((element, index) => {
+    element.classList.add("reveal-up");
+    const delay = Math.min((index % 12) * 70, 560);
+    element.style.setProperty("--reveal-delay", `${delay}ms`);
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    revealTargets.forEach((element) => {
+      element.classList.add("is-visible");
+    });
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.14,
+      rootMargin: "0px 0px -8% 0px",
+    },
+  );
+
+  revealTargets.forEach((element) => observer.observe(element));
+}
+
+initRevealUpAnimations();
+//#endregion
+
 //#region Header hide
 let dernierPoint = 1;
 const header = document.getElementById("header");
