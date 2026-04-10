@@ -1,29 +1,68 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Découvrez le portfolio de Sefer Tasdemir, développeur passionné. Consultez mes projets en C#, Unity, Knime,Power BI, Azure, MongoDB, PgAdmin4, Microsoft SQL server et Node.js, mes compétences en développement web, bases de données, et gestion de projets. Contacter moi pour des opportunités professionnelles."
+      content="Botanic is a C# desktop application for garden center order management, built with a relational database and an intuitive user interface by Sefer Tasdemir."
     />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
-    <!-- Open Graph meta tags (prévisualisations de liens) -->
-    <meta property="og:title" content="Sefer Tasdemir - Data Analyst" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Botanic - C# Order Management App with SQL | Sefer Tasdemir" />
     <meta
       property="og:description"
-      content="Découvrez le portfolio de Sefer Tasdemir"
+      content="Botanic is a C# desktop application for garden center order management, built with a relational database and an intuitive user interface."
     />
     <meta
       property="og:image"
       content="https://sftss.github.io/assets/img/logo.webp"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Botanic project - Sefer Tasdemir" />
     <meta
       property="og:url"
       content="https://sftss.github.io/projects/Botanic.html"
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sefer Tasdemir Portfolio" />
+
+    <!-- Twitter Card meta -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Botanic - C# Order Management App with SQL | Sefer Tasdemir" />
+    <meta name="twitter:description" content="Botanic is a C# desktop application for garden center order management, built with a relational database and an intuitive user interface." />
+    <meta name="twitter:image" content="https://sftss.github.io/assets/img/logo.webp" />
+    <meta name="twitter:image:alt" content="Botanic project - Sefer Tasdemir" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Botanic - C# Order Management App",
+      "description": "C# desktop application for a garden center: purchase order management, product filtering, relational SQL database, and intuitive user interface.",
+      "url": "https://sftss.github.io/projects/Botanic.html",
+      "author": {
+        "@type": "Person",
+        "name": "Sefer Tasdemir",
+        "url": "https://sftss.github.io/"
+      },
+      "keywords": ["C#", ".NET", "WPF", "SQL", "Database", "Order Management", "Desktop App"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://sftss.github.io/"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://sftss.github.io/#projects"},
+        {"@type": "ListItem", "position": 3, "name": "Botanic", "item": "https://sftss.github.io/projects/Botanic.html"}
+      ]
+    }
+    </script>
 
     <link
       rel="canonical"
@@ -42,7 +81,7 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <title>Sefer - Botanic</title>
+    <title>Botanic - C# Order Management App with SQL | Sefer Tasdemir</title>
   </head>
 
   <body>
@@ -132,10 +171,12 @@
             <div class="project-details-afficher-img-contient">
               <img
                 src="../assets/img/Botanic/EnregistrerModifierCommandeBotanic.webp"
+                alt="Botanic - create and edit order form"
                 class="project-details-afficher-img-small"
               />
               <img
                 src="../assets/img/Botanic/ValiderCommandeBotanic.webp"
+                alt="Botanic - validate order screen"
                 class="project-details-afficher-img-small"
               />
             </div>
@@ -147,10 +188,12 @@
             <div class="project-details-afficher-img-contient">
               <img
                 src="../assets/img/Botanic/EnregistrerModifierProduitBotanic.webp"
+                alt="Botanic - add and edit product form"
                 class="project-details-afficher-img-small"
               />
               <img
                 src="../assets/img/Botanic/FiltrerBotanic.webp"
+                alt="Botanic - product filtering interface"
                 class="project-details-afficher-img-small"
               />
             </div>
@@ -161,12 +204,14 @@
             <div class="project-details-afficher-img-contient">
               <img
                 src="../assets/img/Botanic/RechercherProduitBotanic.webp"
+                alt="Botanic - product search screen"
                 class="project-details-afficher-img"
               />
             </div>
             <div class="project-details-afficher-img-contient">
               <img
                 src="../assets/img/Botanic/VisualiserCommandeBotanic.webp"
+                alt="Botanic - order detail view"
                 class="project-details-afficher-img"
               />
             </div>
@@ -245,14 +290,14 @@
                   alt="Sefer Tasdemir Linkedin"
                 />
               </a>
-              <a target="_blank" href="https://github.com/sftss">
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/sftss">
                 <img
                   class="main-footer-icone"
                   src="../assets/svg/github.svg"
                   alt="Sefer Tasdemir Github"
                 />
               </a>
-              <a target="_blank" href="https://www.instagram.com/sf_tsd/">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/sf_tsd/">
                 <img
                   class="main-footer-icone"
                   src="../assets/svg/instagram.svg"
@@ -346,8 +391,8 @@
       </button>
     </div>
 
-    <script src="../js/botpress.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js"></script>
+    <script src="../js/botpress.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js" defer></script>
     <script src="../js/i18n.js"></script>
     <script src="../js/script.js" defer></script>
   </body>

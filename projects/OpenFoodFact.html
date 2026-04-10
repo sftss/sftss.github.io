@@ -1,29 +1,68 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Découvrez le portfolio de Sefer Tasdemir, développeur passionné. Consultez mes projets en C#, Unity, Knime,Power BI, Azure, MongoDB, PgAdmin4, Microsoft SQL server et Node.js, mes compétences en développement web, bases de données, et gestion de projets. Contacter moi pour des opportunités professionnelles."
+      content="Open Food Facts analysis by Sefer Tasdemir: PostgreSQL OLTP/OLAP on Azure, Knime ETL pipeline, Power BI dashboards, and AI models to predict NutriScore."
     />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
-    <!-- Open Graph meta tags (prévisualisations de liens) -->
-    <meta property="og:title" content="Sefer Tasdemir - Data Analyst" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Open Food Facts - OLTP/OLAP, Power BI & AI on Nutrition | Sefer Tasdemir" />
     <meta
       property="og:description"
-      content="Découvrez le portfolio de Sefer Tasdemir"
+      content="Analysis of the Open Food Facts database: PostgreSQL OLTP/OLAP on Azure, Knime ETL, Power BI dashboards, and AI models to predict NutriScore."
     />
     <meta
       property="og:image"
       content="https://sftss.github.io/assets/img/logo.webp"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Open Food Facts project - Sefer Tasdemir" />
     <meta
       property="og:url"
       content="https://sftss.github.io/projects/OpenFoodFact.html"
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sefer Tasdemir Portfolio" />
+
+    <!-- Twitter Card meta -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Open Food Facts - OLTP/OLAP, Power BI & AI on Nutrition | Sefer Tasdemir" />
+    <meta name="twitter:description" content="Analysis of the Open Food Facts database: PostgreSQL OLTP/OLAP on Azure, Knime ETL, Power BI dashboards, and AI models to predict NutriScore." />
+    <meta name="twitter:image" content="https://sftss.github.io/assets/img/logo.webp" />
+    <meta name="twitter:image:alt" content="Open Food Facts project - Sefer Tasdemir" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Open Food Facts - OLTP/OLAP, Power BI & AI on Nutrition",
+      "description": "Structuring and enhancing nutritional data from Open Food Facts: PostgreSQL OLTP/OLAP on Azure, Azure Data Factory, Knime ETL, Power BI dashboards, and machine learning models to predict NutriScore and a composite environmental-nutritional score.",
+      "url": "https://sftss.github.io/projects/OpenFoodFact.html",
+      "author": {
+        "@type": "Person",
+        "name": "Sefer Tasdemir",
+        "url": "https://sftss.github.io/"
+      },
+      "keywords": ["Open Food Facts", "OLTP", "OLAP", "PostgreSQL", "Azure", "Knime", "Power BI", "Machine Learning", "NutriScore", "Data Analysis"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://sftss.github.io/"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://sftss.github.io/#projects"},
+        {"@type": "ListItem", "position": 3, "name": "Open Food Facts", "item": "https://sftss.github.io/projects/OpenFoodFact.html"}
+      ]
+    }
+    </script>
 
     <link
       rel="canonical"
@@ -42,7 +81,7 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <title>Sefer - Open Food Fact</title>
+    <title>Open Food Facts - OLTP/OLAP, Power BI & AI on Nutrition | Sefer Tasdemir</title>
   </head>
 
   <body>
@@ -141,6 +180,7 @@
               <div class="project-details-afficher-img-contient">
                 <img
                   src="../assets/img/OpenFoodFact/OLTPOFF.webp"
+                  alt="Open Food Facts - OLTP relational database schema"
                   class="project-details-afficher-img"
                 />
               </div>
@@ -151,6 +191,7 @@
               <div class="project-details-afficher-img-contient">
                 <img
                   src="../assets/img/OpenFoodFact/OLAPOFF.webp"
+                  alt="Open Food Facts - OLAP star schema for decision support"
                   class="project-details-afficher-img"
                 />
               </div>
@@ -161,11 +202,13 @@
               <div class="project-details-afficher-img-contient">
                 <img
                   src="../assets/img/OpenFoodFact/knimeOFF1.webp"
+                  alt="Open Food Facts - Knime ETL workflow step 1"
                   class="project-details-afficher-img"
                 />
                 <img
                   style="width: 75%; margin: auto"
                   src="../assets/img/OpenFoodFact/knimeOFF2.webp"
+                  alt="Open Food Facts - Knime ETL workflow step 2"
                   class="project-details-afficher-img"
                 />
               </div>
@@ -274,14 +317,14 @@
                   alt="Sefer Tasdemir Linkedin"
                 />
               </a>
-              <a target="_blank" href="https://github.com/sftss">
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/sftss">
                 <img
                   class="main-footer-icone"
                   src="../assets/svg/github.svg"
                   alt="Sefer Tasdemir Github"
                 />
               </a>
-              <a target="_blank" href="https://www.instagram.com/sf_tsd/">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/sf_tsd/">
                 <img
                   class="main-footer-icone"
                   src="../assets/svg/instagram.svg"
@@ -374,8 +417,8 @@
       </button>
     </div>
 
-    <script src="../js/botpress.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js"></script>
+    <script src="../js/botpress.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js" defer></script>
     <script src="../js/i18n.js"></script>
     <script src="../js/script.js" defer></script>
   </body>

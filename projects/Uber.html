@@ -1,29 +1,68 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Découvrez le portfolio de Sefer Tasdemir, développeur passionné. Consultez mes projets en C#, Unity, Knime,Power BI, Azure, MongoDB, PgAdmin4, Microsoft SQL server et Node.js, mes compétences en développement web, bases de données, et gestion de projets. Contacter moi pour des opportunités professionnelles."
+      content="Uber Laravel clone by Sefer Tasdemir: ride booking web app with Leaflet maps, PayPal payments, Dialogflow chatbot, and Power BI analytics dashboards."
     />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
-    <!-- Open Graph meta tags (prévisualisations de liens) -->
-    <meta property="og:title" content="Sefer Tasdemir - Data Analyst" />
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Uber Laravel Clone - Ride Booking & Map Integration | Sefer Tasdemir" />
     <meta
       property="og:description"
-      content="Découvrez le portfolio de Sefer Tasdemir"
+      content="Uber web app built with Laravel: user authentication, ride booking with Leaflet maps, PayPal payments, and Power BI analytics dashboards."
     />
     <meta
       property="og:image"
       content="https://sftss.github.io/assets/img/logo.webp"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Uber Laravel project - Sefer Tasdemir" />
     <meta
       property="og:url"
       content="https://sftss.github.io/projects/Uber.html"
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sefer Tasdemir Portfolio" />
+
+    <!-- Twitter Card meta -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Uber Laravel Clone - Ride Booking & Map Integration | Sefer Tasdemir" />
+    <meta name="twitter:description" content="Uber web app built with Laravel: user authentication, ride booking with Leaflet maps, PayPal payments, and Power BI analytics dashboards." />
+    <meta name="twitter:image" content="https://sftss.github.io/assets/img/logo.webp" />
+    <meta name="twitter:image:alt" content="Uber Laravel project - Sefer Tasdemir" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Uber Laravel Clone - Ride Booking & Map Integration",
+      "description": "Uber-inspired web application built with Laravel: user authentication, passenger and driver profile management, real-time ride booking with Leaflet maps, PayPal payment integration, Dialogflow chatbot, and Power BI data analytics dashboards.",
+      "url": "https://sftss.github.io/projects/Uber.html",
+      "author": {
+        "@type": "Person",
+        "name": "Sefer Tasdemir",
+        "url": "https://sftss.github.io/"
+      },
+      "keywords": ["Laravel", "PHP", "Leaflet", "PayPal", "Dialogflow", "Power BI", "Web Development", "MySQL"]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Portfolio", "item": "https://sftss.github.io/"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://sftss.github.io/#projects"},
+        {"@type": "ListItem", "position": 3, "name": "Uber", "item": "https://sftss.github.io/projects/Uber.html"}
+      ]
+    }
+    </script>
 
     <link rel="canonical" href="https://sftss.github.io/projects/Uber.html" />
     <link rel="stylesheet" href="../assets/style.css" />
@@ -39,7 +78,7 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <title>Sefer - Uber</title>
+    <title>Uber Laravel Clone - Ride Booking & Map Integration | Sefer Tasdemir</title>
   </head>
 
   <body>
@@ -108,15 +147,14 @@
             <img
               style="width: 75%; margin: auto"
               src="../assets/img/Uber/UberLogo.webp"
-              alt="Open Food Fact
-              Screenshot"
+              alt="Uber Logo"
               class="projects-colon-img"
               loading="lazy"
             />
           </div>
 
           <div class="project-details-afficher-img-contient">
-            <img class="project-details-afficher-img" />
+            <img class="project-details-afficher-img" alt="" />
           </div>
           <div class="project-details-content-main">
             <div class="project-details-description">
@@ -131,6 +169,7 @@
               <div class="project-details-afficher-img-contient">
                 <img
                   src="../assets/img/Uber/mainUber.webp"
+                  alt="Uber main page screenshot"
                   class="project-details-afficher-img"
                 />
                 <p
@@ -140,6 +179,7 @@
                 <div class="project-details-afficher-img-contient">
                   <img
                     src="../assets/img/Uber/profilUber.webp"
+                    alt="Uber user profile page screenshot"
                     class="project-details-afficher-img"
                   />
                   <p
@@ -148,6 +188,7 @@
                   ></p>
                   <img
                     src="../assets/img/Uber/courseUber.webp"
+                    alt="Uber ride booking page screenshot"
                     class="project-details-afficher-img"
                   />
                 </div>
@@ -157,14 +198,17 @@
                 ></p>
                 <img
                   src="../assets/img/Uber/biUber1.webp"
+                  alt="Uber Power BI dashboard - ride analytics"
                   class="project-details-afficher-img"
                 />
                 <img
                   src="../assets/img/Uber/biUber2.webp"
+                  alt="Uber Power BI dashboard - revenue by vehicle type"
                   class="project-details-afficher-img"
                 />
                 <img
                   src="../assets/img/Uber/biUber3.webp"
+                  alt="Uber Power BI dashboard - geographic heatmap"
                   class="project-details-afficher-img"
                 />
                 <p
@@ -175,6 +219,7 @@
                   <img
                     style="width: 50%; margin: 0 auto"
                     src="../assets/img/Uber/chatUber.webp"
+                    alt="Uber Dialogflow chatbot interface"
                     class="project-details-afficher-img"
                   />
                 </div>
@@ -185,6 +230,7 @@
                 <div class="project-details-afficher-img-contient">
                   <img
                     src="../assets/img/Uber/restauUber.webp"
+                    alt="Uber Eats restaurant listing page screenshot"
                     class="project-details-afficher-img"
                   />
                 </div>
@@ -268,14 +314,14 @@
                   alt="Sefer Tasdemir Linkedin"
                 />
               </a>
-              <a target="_blank" href="https://github.com/sftss">
+              <a target="_blank" rel="noopener noreferrer" href="https://github.com/sftss">
                 <img
                   class="main-footer-icone"
                   src="../assets/svg/github.svg"
                   alt="Sefer Tasdemir Github"
                 />
               </a>
-              <a target="_blank" href="https://www.instagram.com/sf_tsd/">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/sf_tsd/">
                 <img
                   class="main-footer-icone"
                   src="../assets/svg/instagram.svg"
@@ -368,8 +414,8 @@
       </button>
     </div>
 
-    <script src="../js/botpress.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js"></script>
+    <script src="../js/botpress.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js" defer></script>
     <script src="../js/i18n.js"></script>
     <script src="../js/script.js" defer></script>
   </body>
