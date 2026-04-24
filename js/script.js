@@ -93,17 +93,83 @@ window.addEventListener("scroll", () => {
 // });
 const form = document.getElementById("contactForm");
 const confirmationMessage = document.getElementById("confirmationMessage");
+const submitBtn = document.getElementById("submitBtn");
 
-if (form) {
-  form.addEventListener("submit", (e) => {
+const contactStatusMessages = {
+  fr: {
+    sending: "Envoi en cours...",
+    success: "Merci ! Votre message a bien ete envoye.",
+    error: "Une erreur est survenue. Reessayez plus tard.",
+  },
+  en: {
+    sending: "Sending...",
+    success: "Thank you! Your message has been sent successfully.",
+    error: "An error occurred. Please try again later.",
+  },
+};
+
+function getContactLang() {
+  const savedLanguage = localStorage.getItem("preferredLanguage");
+  if (savedLanguage === "fr" || savedLanguage === "en") {
+    return savedLanguage;
+  }
+
+  const userLang = (navigator.language || "en").toLowerCase();
+  return userLang.startsWith("fr") ? "fr" : "en";
+}
+
+function setContactStatus(type) {
+  if (!confirmationMessage) return;
+
+  const lang = getContactLang();
+  const text = contactStatusMessages[lang][type];
+  const bgColor =
+    type === "error" ? "#c0392b" : type === "sending" ? "#1f6feb" : "#28a745";
+
+  confirmationMessage.textContent = text;
+  confirmationMessage.style.display = "block";
+  confirmationMessage.style.color = "#fff";
+  confirmationMessage.style.backgroundColor = bgColor;
+  confirmationMessage.style.border = "1px solid rgba(0,0,0,0.2)";
+  confirmationMessage.style.borderRadius = "8px";
+  confirmationMessage.style.padding = "1rem 1.5rem";
+}
+
+if (form && submitBtn) {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    setTimeout(() => {
-      if (confirmationMessage) {
-        confirmationMessage.style.display = "block";
+    submitBtn.disabled = true;
+    setContactStatus("sending");
+
+    try {
+      const response = await fetch(form.action, {
+        method: form.method || "POST",
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      let payload = null;
+      try {
+        payload = await response.json();
+      } catch {
+        payload = null;
       }
+
+      if (!response.ok || (payload && payload.success === false)) {
+        throw new Error("Form submission failed");
+      }
+
       form.reset();
-    }, 300);
+      setContactStatus("success");
+    } catch (error) {
+      console.error("Contact form error:", error);
+      setContactStatus("error");
+    } finally {
+      submitBtn.disabled = false;
+    }
   });
 }
 
