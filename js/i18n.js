@@ -9,7 +9,6 @@ i18next.init(
           header: {
             home: "Home",
             about: "About me",
-            interests: "Interests",
             projects: "Projects",
             contact: "Contact",
           },
@@ -33,44 +32,6 @@ i18next.init(
             skills: "My skills",
             contact_button: "Contact me",
           },
-          interests: {
-            heading: "Interests",
-            subheading:
-              "Passions that enrich my personal and professional development",
-            items: {
-              sport: {
-                title: "Sport & Well-being",
-                description:
-                  "Regular participation in team sports, combined with physical training (weight training, cardio), is a cornerstone of balance for me. By cultivating a taste for effort and group cohesion, I strengthen my perseverance and interpersonal skills, while also gaining essential mental stability.",
-                tags: {
-                  team: "Team",
-                  perseverance: "Perseverance",
-                  communication: "Communication",
-                },
-              },
-              tech: {
-                title: "Technology Watch",
-                description:
-                  "Passionate about technological innovations, I maintain constant awareness through social media and specialized newsletters. This curiosity allows me to anticipate changes in the sector and continuously update my skills to stay abreast of the latest trends.",
-                tags: {
-                  innovation: "Innovation",
-                  trends: "Trends",
-                  adaptation: "Adaptation",
-                },
-              },
-              gaming: {
-                title: "Video Games",
-                description:
-                  "From the complex management of Dwarf Fortress to the responsiveness of Valorant, my passion for video games has always been an intellectual driving force. It has honed my ability to analyze situations, develop strategies, and solve problems—skills that I now apply to my coding.",
-                tags: {
-                  strategy: "Strategy",
-                  analysis: "Analysis",
-                  creativity: "Creativity",
-                },
-              },
-            },
-          },
-
           experience: {
             heading: "Work experience and education",
             subheading: "Key missions, internships, and projects",
@@ -290,7 +251,6 @@ i18next.init(
           header: {
             home: "Accueil",
             about: "À propos de moi",
-            interests: "Centres d'intérêt",
             projects: "Projets",
             contact: "Contact",
           },
@@ -314,44 +274,6 @@ i18next.init(
             skills: "Mes compétences",
             contact_button: "Contactez-moi",
           },
-          interests: {
-            heading: "Centres d'intérêt",
-            subheading:
-              "Mes passions qui enrichissent mon développement personnel et professionnel",
-            items: {
-              sport: {
-                title: "Sport & Bien-être",
-                description:
-                  "La pratique régulière de sports collectifs, alliée à l’entraînement physique (musculation, cardio), est pour moi un pilier d'équilibre. En cultivant le goût de l'effort et la cohésion de groupe, je renforce ma persévérance et mes aptitudes relationnelles, tout en m'apportant une stabilité mentale indispensable.",
-                tags: {
-                  team: "Équipe",
-                  perseverance: "Persévérance",
-                  communication: "Communication",
-                },
-              },
-              tech: {
-                title: "Veille Technologique",
-                description:
-                  "Passionné par les innovations technologiques, j'assure une veille constante via les réseaux sociaux et des newsletters spécialisées. Cette curiosité me permet d'anticiper les changements du secteur et d'actualiser mes compétences en continu pour rester en phase avec les dernières tendances.",
-                tags: {
-                  innovation: "Innovation",
-                  trends: "Tendances",
-                  adaptation: "Adaptation",
-                },
-              },
-              gaming: {
-                title: "Jeux Vidéo",
-                description:
-                  "De la gestion complexe de Dwarf Fortress à la réactivité de Valorant, ma passion pour le jeu vidéo a toujours été un moteur intellectuel. Elle a aiguisé ma capacité à analyser des situations, élaborer des stratégies et résoudre des problèmes, des compétences  que je mets au service de mon code.",
-                tags: {
-                  strategy: "Stratégie",
-                  analysis: "Analyse",
-                  creativity: "Créativité",
-                },
-              },
-            },
-          },
-
           experience: {
             heading: "Expérience et formation",
             subheading: "Missions clés, stages et projets",
