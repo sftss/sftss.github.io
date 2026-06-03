@@ -1,3 +1,4 @@
+/*#region global styles */
 :root {
   --primary-color: #008080;
   --primary-hover: #40b5ad;
@@ -112,7 +113,9 @@ body {
   font-family: "Chakra Petch", sans-serif;
   transition: all var(--transition-normal);
 }
+/*#endregion global styles */
 
+/*#region reveal */
 /* Scroll reveal */
 .reveal-up {
   opacity: 0;
@@ -159,8 +162,9 @@ body {
     transition: none;
   }
 }
+/*#endregion reveal */
 
-/* Base elements */
+/*#region base elements */
 a {
   text-decoration: none;
   color: inherit;
@@ -292,8 +296,9 @@ textarea {
 .second-padin {
   padding: var(--section-padding);
 }
+/*#endregion base elements */
 
-/* Buttons */
+/*#region buttons */
 .btn {
   background: var(--primary-color);
   color: #fff;
@@ -333,6 +338,7 @@ textarea {
   box-shadow: none;
   padding: calc(1.5rem - 2px) calc(5rem - 2px);
 }
+/*#endregion buttons */
 
 /*#region typewriter*/
 .typewriter {
@@ -371,10 +377,9 @@ textarea {
     border-color: #008080;
   }
 }
-/* ==========================================================================
-   HOME SECTION
-   ========================================================================== */
+/*#endregion typewriter*/
 
+/*#region home section*/
 .home-main {
   background: var(--img-main), url("svg\\endless-constellation.svg");
   background-position: center;
@@ -395,48 +400,9 @@ textarea {
   margin-top: 5rem;
   text-align: center;
 }
+/*#endregion home section*/
 
-/* Typewriter Animation */
-.typewriter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10vh;
-  overflow: hidden;
-}
-
-.typewriter h1 {
-  white-space: nowrap;
-  border-right: 0.15em solid var(--primary-color);
-  color: var(--text-color);
-  font-size: 5em;
-  letter-spacing: 0.15em;
-  overflow: hidden;
-  animation:
-    typing 4s steps(30, end),
-    blink-caret 0.5s step-end infinite;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: var(--primary-color);
-  }
-}
-
-/* About Section */
+/*#region about section */
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -473,8 +439,9 @@ textarea {
   color: var(--primary-color);
   margin: 0 3px;
 }
+/*#endregion about section */
 
-/* Experience Section */
+/*#region experience section */
 .experience {
   background: var(--background-color);
 }
@@ -489,8 +456,9 @@ textarea {
 .exp-grid--education {
   margin-top: 2rem;
 }
+/*#endregion experience section */
 
-/* Shared Card Styles */
+/*#region shared card styles */
 .exp-card,
 .interest-card {
   background: var(--background-dark-color);
@@ -584,46 +552,9 @@ textarea {
   font-weight: 800;
   color: var(--text-color);
 }
+/*#endregion shared card styles */
 
-/* Animations */
-.exp-animate,
-.interest-animate {
-  /* Visible by default; animation only if allowed */
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .exp-animate,
-  .interest-animate {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.8s ease forwards;
-  }
-
-  .exp-animate:nth-child(1) {
-    animation-delay: 0.05s;
-  }
-  .exp-animate:nth-child(2) {
-    animation-delay: 0.12s;
-  }
-  .exp-animate:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Identity Section */
+/*#region identity */
 .about-identity {
   margin-top: 3rem;
   grid-column: 1 / -1;
@@ -688,12 +619,9 @@ textarea {
 .identity-value--link {
   text-decoration: underline;
 }
+/*#endregion identity */
 
-
-/* ==========================================================================
-   PROJECTS SECTION
-   ========================================================================== */
-
+/*#region projects*/
 .projects-colon {
   display: flex;
   gap: 5rem;
@@ -1032,12 +960,9 @@ textarea {
   font-weight: 700;
   color: var(--text-color-para);
 }
+/*#endregion projects*/
 
-/* ==========================================================================
-   HEADER & FOOTER
-   ========================================================================== */
-
-/* Header */
+/*#region header & footer*/
 .header {
   position: fixed;
   width: 100%;
@@ -1175,8 +1100,9 @@ textarea {
 .main-footer-liens:hover {
   color: var(--primary-color);
 }
+/*#endregion header & footer*/
 
-/* Contact Form */
+/*#region contact form*/
 .contact {
   background: var(--img-contact), url("svg\\common-bg.svg");
   background-size: cover;
@@ -1243,9 +1169,85 @@ textarea {
   text-align: center;
   animation: fadeInScale 0.5s ease-in-out;
 }
-/* ==========================================================================
-   ANIMATIONS
-   ========================================================================== */
+/*#endregion contact form*/
+
+/*#region animations */
+/* Typewriter Animation */
+.typewriter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  overflow: hidden;
+}
+
+.typewriter h1 {
+  white-space: nowrap;
+  border-right: 0.15em solid var(--primary-color);
+  color: var(--text-color);
+  font-size: 5em;
+  letter-spacing: 0.15em;
+  overflow: hidden;
+  animation:
+    typing 4s steps(30, end),
+    blink-caret 0.5s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--primary-color);
+  }
+}
+
+.exp-animate,
+.interest-animate {
+  /* Visible by default; animation only if allowed */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .exp-animate,
+  .interest-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .exp-animate:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .exp-animate:nth-child(2) {
+    animation-delay: 0.12s;
+  }
+  .exp-animate:nth-child(3) {
+    animation-delay: 0.2s;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @keyframes fadeInScale {
   0% {
@@ -1257,11 +1259,9 @@ textarea {
     transform: scale(1);
   }
 }
+/*#endregion animations */
 
-/* ==========================================================================
-   LANGUAGE SWITCH
-   ========================================================================== */
-
+/*#region language switch */
 .switch-language {
   display: flex;
   gap: 10px;
@@ -1286,10 +1286,9 @@ textarea {
 #LangEn:hover {
   background-color: #d6a69e;
 }
+/*#endregion language switch*/
 
-/* ==========================================================================
-   RESPONSIVE
-   ========================================================================== */
+/*#region responsive */
 
 @media only screen and (max-width: 57em) {
   html {
