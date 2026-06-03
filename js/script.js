@@ -176,8 +176,6 @@ if (form && submitBtn) {
 //#endregion contact form
 
 //#region Rocket
-
-//#region Rocket
 function launchRocket() {
   const rocket = document.querySelector(".rocket");
   if (rocket) {
@@ -224,7 +222,7 @@ themeToggle?.addEventListener("click", () => {
 });
 //#endregion Theme toggle
 
-//#region IMDb carousels
+//#region carousels
 function initImdbCarousels() {
   const carousels = document.querySelectorAll(".imdb-carousel");
   if (!carousels.length) return;
@@ -394,4 +392,18 @@ function initImdbCarousels() {
 }
 
 initImdbCarousels();
-//#endregion IMDb carousels
+//#endregion carousels
+
+//#region Lenis smooth scroll
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+//#endregion Lenis smooth scroll
