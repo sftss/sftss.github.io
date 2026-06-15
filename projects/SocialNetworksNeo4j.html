@@ -81,12 +81,10 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <link rel="alternate" hreflang="fr" href="https://sftss.github.io/projects/SocialNetworksNeo4j.html" />
-    <link rel="alternate" hreflang="en" href="https://sftss.github.io/projects/SocialNetworksNeo4j.html" />
     <link rel="alternate" hreflang="x-default" href="https://sftss.github.io/projects/SocialNetworksNeo4j.html" />
     <title>Social Networks Neo4j - Graph DB, Cypher & Recommendations | Sefer Tasdemir</title>
     <script>
-      (function(){var t=localStorage.getItem('preferredTheme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();
+      (function(){var t=null;try{t=localStorage.getItem('preferredTheme');}catch(e){}if(!t)t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
     </script>
   </head>
 
@@ -242,6 +240,8 @@
 
               <div
                 class="imdb-carousel"
+                role="region"
+                aria-label="Image carousel"
                 data-images="../assets/img/Neo4j/ExQuery.webp,../assets/img/Neo4j/ExQueryGeneral.webp,../assets/img/Neo4j/ExQueryPost.webp,../assets/img/Neo4j/ExQueryProportion.webp,../assets/img/Neo4j/ExQueryReport.webp,../assets/img/Neo4j/ExQueryViz.webp"
               >
                 <button
@@ -269,7 +269,7 @@
                   class="imdb-carousel-caption"
                   data-i18n="projects.socialNetworksNeo4j.queryCaption"
                 ></p>
-                <p class="imdb-carousel-counter"></p>
+                <p class="imdb-carousel-counter" aria-live="polite"></p>
               </div>
 
               <h2

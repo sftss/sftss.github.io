@@ -397,22 +397,35 @@ initImdbCarousels();
 //#region Mobile nav toggle
 const navToggle = document.querySelector(".nav-toggle");
 const navMenu = document.querySelector(".header-liens");
+let prevBodyOverflow = "";
+
+function closeNavMenu() {
+  if (!navMenu || !navToggle) return;
+  navMenu.classList.remove("open");
+  navToggle.classList.remove("open");
+  navToggle.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = prevBodyOverflow;
+}
 
 if (navToggle && navMenu) {
   navToggle.addEventListener("click", () => {
     const isOpen = navMenu.classList.toggle("open");
     navToggle.classList.toggle("open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) {
+      prevBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = prevBodyOverflow;
+    }
   });
 
   navMenu.querySelectorAll(".header-link").forEach((link) => {
-    link.addEventListener("click", () => {
-      navMenu.classList.remove("open");
-      navToggle.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    });
+    link.addEventListener("click", closeNavMenu);
+  });
+
+  window.matchMedia("(max-width: 40em)").addEventListener("change", (e) => {
+    if (!e.matches) closeNavMenu();
   });
 }
 //#endregion

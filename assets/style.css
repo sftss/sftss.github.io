@@ -116,6 +116,7 @@ html.lenis, html.lenis body {
 
 body {
   overscroll-behavior: none;
+  overflow-x: hidden;
   box-sizing: border-box;
   position: relative;
   line-height: 1.5;

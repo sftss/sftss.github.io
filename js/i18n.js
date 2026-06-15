@@ -244,6 +244,13 @@ i18next.init(
             seeMeCvEn: "See my international CV",
             seeMeCvFr: "See my French CV",
           },
+          notFound: {
+            code: "404",
+            title: "Page not found",
+            desc: "The page you are looking for does not exist or has been moved.",
+            backHome: "← Back to home",
+            seeProjects: "See my projects",
+          },
         },
       },
       fr: {
@@ -482,6 +489,13 @@ i18next.init(
             seeMe: "Voir mes réseaux",
             seeMeCvEn: "Voir mon CV international",
             seeMeCvFr: "Voir mon CV français",
+          },
+          notFound: {
+            code: "404",
+            title: "Page introuvable",
+            desc: "La page que vous cherchez n'existe pas ou a été déplacée.",
+            backHome: "← Retour à l'accueil",
+            seeProjects: "Voir mes projets",
           },
         },
       },
