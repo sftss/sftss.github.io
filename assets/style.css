@@ -1969,3 +1969,64 @@ body.animate {
   }
 }
 /*#endregion Rocket*/
+
+/*#region Mobile nav hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 2.6rem;
+  height: 1.9rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 10001;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--text-color);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+@media only screen and (max-width: 40em) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .header-liens.open {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    background: var(--background-color);
+    z-index: 10000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .header-liens.open .header-link {
+    font-size: 2.8rem;
+    padding: 1.5rem 3rem;
+  }
+}
+/*#endregion Mobile nav hamburger */

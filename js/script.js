@@ -394,6 +394,29 @@ function initImdbCarousels() {
 initImdbCarousels();
 //#endregion carousels
 
+//#region Mobile nav toggle
+const navToggle = document.querySelector(".nav-toggle");
+const navMenu = document.querySelector(".header-liens");
+
+if (navToggle && navMenu) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = navMenu.classList.toggle("open");
+    navToggle.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    document.body.style.overflow = isOpen ? "hidden" : "";
+  });
+
+  navMenu.querySelectorAll(".header-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      navMenu.classList.remove("open");
+      navToggle.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    });
+  });
+}
+//#endregion
+
 //#region Lenis smooth scroll
 const lenis = new Lenis({
   duration: 1.2,
