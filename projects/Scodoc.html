@@ -78,12 +78,10 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <link rel="alternate" hreflang="fr" href="https://sftss.github.io/projects/Scodoc.html" />
-    <link rel="alternate" hreflang="en" href="https://sftss.github.io/projects/Scodoc.html" />
     <link rel="alternate" hreflang="x-default" href="https://sftss.github.io/projects/Scodoc.html" />
     <title>Scodoc - Student Records Management with WPF & Power BI | Sefer Tasdemir</title>
     <script>
-      (function(){var t=localStorage.getItem('preferredTheme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();
+      (function(){var t=null;try{t=localStorage.getItem('preferredTheme');}catch(e){}if(!t)t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
     </script>
   </head>
 

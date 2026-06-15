@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/theme-toggles@4.10.1/css/within.min.css" />
     <title>404 - Page introuvable | Sefer Tasdemir</title>
     <script>
-      (function(){var t=localStorage.getItem('preferredTheme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();
+      (function(){var t=null;try{t=localStorage.getItem('preferredTheme');}catch(e){}if(!t)t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
     </script>
     <style>
       .not-found {
@@ -74,9 +74,9 @@
         </div>
         <div class="header-main">
           <ul class="header-liens">
-            <li><a href="/#home" class="header-link">Accueil</a></li>
-            <li><a href="/#projects" class="header-link">Projets</a></li>
-            <li><a href="/#contact" class="header-link">Contact</a></li>
+            <li><a href="/#home" class="header-link" data-i18n="header.home"></a></li>
+            <li><a href="/#projects" class="header-link" data-i18n="header.projects"></a></li>
+            <li><a href="/#contact" class="header-link" data-i18n="header.contact"></a></li>
             <li><a href="/#CV" class="header-link">CV</a></li>
           </ul>
           <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
@@ -89,16 +89,12 @@
     </header>
 
     <main class="not-found">
-      <p class="not-found-code">404</p>
-      <h1 class="not-found-title">Page introuvable</h1>
-      <p class="not-found-desc">
-        La page que vous cherchez n'existe pas ou a été déplacée.
-        <br />
-        <em>The page you are looking for does not exist or has been moved.</em>
-      </p>
+      <p class="not-found-code" data-i18n="notFound.code">404</p>
+      <h1 class="not-found-title" data-i18n="notFound.title">Page introuvable</h1>
+      <p class="not-found-desc" data-i18n="notFound.desc">La page que vous cherchez n'existe pas ou a été déplacée.</p>
       <div class="not-found-actions">
-        <a href="/" class="btn btn-project">← Retour à l'accueil</a>
-        <a href="/#projects" class="btn btn-project">Voir mes projets</a>
+        <a href="/" class="btn btn-project" data-i18n="notFound.backHome">← Retour à l'accueil</a>
+        <a href="/#projects" class="btn btn-project" data-i18n="notFound.seeProjects">Voir mes projets</a>
       </div>
     </main>
 
@@ -117,7 +113,10 @@
       </button>
     </div>
 
+    <script src="js/botpress.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js" defer></script>
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
+    <script src="js/i18n.js" async></script>
     <script src="js/script.js" defer></script>
   </body>
 </html>

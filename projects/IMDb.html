@@ -78,12 +78,10 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <link rel="alternate" hreflang="fr" href="https://sftss.github.io/projects/IMDb.html" />
-    <link rel="alternate" hreflang="en" href="https://sftss.github.io/projects/IMDb.html" />
     <link rel="alternate" hreflang="x-default" href="https://sftss.github.io/projects/IMDb.html" />
     <title>IMDb Data Pipeline - OLTP, OLAP, Power BI & AI | Sefer Tasdemir</title>
     <script>
-      (function(){var t=localStorage.getItem('preferredTheme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();
+      (function(){var t=null;try{t=localStorage.getItem('preferredTheme');}catch(e){}if(!t)t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
     </script>
   </head>
 
@@ -252,6 +250,8 @@
 
               <div
                 class="imdb-carousel"
+                role="region"
+                aria-label="Image carousel"
                 data-images="../assets/img/IMDb/PowerBI/p1_main.webp,../assets/img/IMDb/PowerBI/p1_menu.webp,../assets/img/IMDb/PowerBI/p1_tooltip_correlation.webp,../assets/img/IMDb/PowerBI/p1_tooltip_share.webp,../assets/img/IMDb/PowerBI/p2_movie.webp,../assets/img/IMDb/PowerBI/p2_tooltip_scatter.webp,../assets/img/IMDb/PowerBI/p3_casting.webp,../assets/img/IMDb/PowerBI/p3_tooltip_actor.webp,../assets/img/IMDb/PowerBI/p4_versus.webp,../assets/img/IMDb/PowerBI/p5_video_game.webp"
               >
                 <button
@@ -279,7 +279,7 @@
                   class="imdb-carousel-caption"
                   data-i18n="projects.imdb.powerBiCaption"
                 ></p>
-                <p class="imdb-carousel-counter"></p>
+                <p class="imdb-carousel-counter" aria-live="polite"></p>
               </div>
 
               <h2
@@ -293,6 +293,8 @@
 
               <div
                 class="imdb-carousel"
+                role="region"
+                aria-label="Image carousel"
                 data-images="../assets/img/IMDb/IA/M1Matrice.webp,../assets/img/IMDb/IA/M2Nuage.webp,../assets/img/IMDb/IA/M3Matrice.webp"
               >
                 <button
@@ -320,7 +322,7 @@
                   class="imdb-carousel-caption"
                   data-i18n="projects.imdb.aiCaption"
                 ></p>
-                <p class="imdb-carousel-counter"></p>
+                <p class="imdb-carousel-counter" aria-live="polite"></p>
               </div>
 
               <p

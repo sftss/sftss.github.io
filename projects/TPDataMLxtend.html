@@ -81,12 +81,10 @@
     />
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
     <link rel="icon" href="/assets/img/logo.webp" type="image/png" />
-    <link rel="alternate" hreflang="fr" href="https://sftss.github.io/projects/TPDataMLxtend.html" />
-    <link rel="alternate" hreflang="en" href="https://sftss.github.io/projects/TPDataMLxtend.html" />
     <link rel="alternate" hreflang="x-default" href="https://sftss.github.io/projects/TPDataMLxtend.html" />
     <title>Data MLxtend - Machine Learning, Stacking & Association Rules | Sefer Tasdemir</title>
     <script>
-      (function(){var t=localStorage.getItem('preferredTheme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();
+      (function(){var t=null;try{t=localStorage.getItem('preferredTheme');}catch(e){}if(!t)t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
     </script>
   </head>
 
@@ -194,6 +192,8 @@
 
               <div
                 class="imdb-carousel"
+                role="region"
+                aria-label="Image carousel"
                 data-images="../assets/img/MLxtend/1_paniers_par_mois.webp,../assets/img/MLxtend/2_paniers_par_jour_et_heure.webp,../assets/img/MLxtend/3_taille_des_paniers_filtres.webp,../assets/img/MLxtend/4_top_20_articles.webp,../assets/img/MLxtend/5_regles_association.webp,../assets/img/MLxtend/6_segmentation_rfm.webp,../assets/img/MLxtend/7_fidelite_clients.webp,../assets/img/MLxtend/8_evolution_clients.webp"
               >
                 <button
@@ -221,7 +221,7 @@
                   class="imdb-carousel-caption"
                   data-i18n="projects.tpDataMLxtend.carouselCaption"
                 ></p>
-                <p class="imdb-carousel-counter"></p>
+                <p class="imdb-carousel-counter" aria-live="polite"></p>
               </div>
 
               <p
