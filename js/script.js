@@ -109,11 +109,9 @@ const contactStatusMessages = {
 };
 
 function getContactLang() {
-  const savedLanguage = localStorage.getItem("preferredLanguage");
-  if (savedLanguage === "fr" || savedLanguage === "en") {
-    return savedLanguage;
-  }
-
+  let savedLanguage = null;
+  try { savedLanguage = localStorage.getItem("preferredLanguage"); } catch {}
+  if (savedLanguage === "fr" || savedLanguage === "en") return savedLanguage;
   const userLang = (navigator.language || "en").toLowerCase();
   return userLang.startsWith("fr") ? "fr" : "en";
 }
@@ -140,7 +138,8 @@ if (form && submitBtn) {
     e.preventDefault();
 
     submitBtn.disabled = true;
-    setContactStatus("sending");
+    submitBtn.setAttribute("aria-busy", "true");
+    submitBtn.classList.add("contact-btn--loading");
 
     try {
       const response = await fetch(form.action, {
@@ -169,6 +168,8 @@ if (form && submitBtn) {
       setContactStatus("error");
     } finally {
       submitBtn.disabled = false;
+      submitBtn.removeAttribute("aria-busy");
+      submitBtn.classList.remove("contact-btn--loading");
     }
   });
 }
@@ -205,9 +206,9 @@ const isDarkModeEnabled = window.matchMedia(
   "(prefers-color-scheme: dark)",
 ).matches;
 
-const themeChoosed =
-  localStorage.getItem("preferredTheme") ||
-  (isDarkModeEnabled ? "dark" : "light");
+let savedTheme = null;
+try { savedTheme = localStorage.getItem("preferredTheme"); } catch {}
+const themeChoosed = savedTheme || (isDarkModeEnabled ? "dark" : "light");
 document.documentElement.setAttribute("data-theme", themeChoosed);
 if (themeChoosed === "dark")
   themeToggle?.classList.add("theme-toggle--toggled");
@@ -217,7 +218,7 @@ themeToggle?.addEventListener("click", () => {
   const nvTheme = isDark ? "light" : "dark";
 
   document.documentElement.setAttribute("data-theme", nvTheme);
-  localStorage.setItem("preferredTheme", nvTheme);
+  try { localStorage.setItem("preferredTheme", nvTheme); } catch {}
   themeToggle.classList.toggle("theme-toggle--toggled");
 });
 //#endregion Theme toggle

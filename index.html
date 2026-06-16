@@ -720,8 +720,10 @@
               type="submit"
               class="btn btn-theme contact-btn"
               id="submitBtn"
-              data-i18n="contact.form.send"
-            ></button>
+            >
+              <span class="btn-spinner" aria-hidden="true"></span>
+              <span data-i18n="contact.form.send"></span>
+            </button>
           </form>
           <p
             id="confirmationMessage"
@@ -845,7 +847,7 @@
     <script src="js/botpress.js" defer></script>
     <script src="https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js" defer></script>
     <script src="https://unpkg.com/i18next/dist/umd/i18next.min.js"></script>
-    <script src="js/i18n.js" async></script>
+    <script src="js/i18n.js" defer></script>
     <script src="js/script.js" defer></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
   </body>

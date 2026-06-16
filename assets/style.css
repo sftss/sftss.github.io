@@ -102,7 +102,7 @@ html {
   scroll-behavior: smooth;
   transition: font-size var(--transition-normal);
   overscroll-behavior: none;
-  overflow: none;
+  overflow-x: hidden;
 }
 
 html.lenis, html.lenis body {
@@ -397,6 +397,7 @@ textarea {
   min-height: 80rem;
   max-height: 120rem;
   position: relative;
+  overflow: hidden;
 }
 
 .home-main-txt {
@@ -1401,6 +1402,8 @@ textarea {
     margin: auto;
     position: static;
     transform: translate(0, 0);
+    max-width: 100%;
+    overflow: hidden;
   }
 
   .about-content-title {
@@ -2031,3 +2034,34 @@ body.animate {
   }
 }
 /*#endregion Mobile nav hamburger */
+
+/*#region Form spinner */
+.btn-spinner {
+  display: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+  margin-right: 0.8rem;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.contact-btn--loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.contact-btn--loading .btn-spinner {
+  display: inline-block;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+/*#endregion Form spinner */
