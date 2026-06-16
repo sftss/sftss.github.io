@@ -510,15 +510,16 @@ i18next.init(
 );
 
 function detectUserLanguage() {
-  const savedLanguage = localStorage.getItem("preferredLanguage");
-  if (savedLanguage) return savedLanguage; //lang sauvg.
+  let savedLanguage = null;
+  try { savedLanguage = localStorage.getItem("preferredLanguage"); } catch (e) {}
+  if (savedLanguage) return savedLanguage;
   const userLang = navigator.language || navigator.languages[0];
-  return userLang.startsWith("fr") ? "fr" : "en"; //langue par défaut détectée
+  return userLang.startsWith("fr") ? "fr" : "en";
 }
 
 function changeLanguage(lang) {
-  localStorage.setItem("preferredLanguage", lang); //sauvg dans localStorage
-  i18next.changeLanguage(lang, () => updateContent()); //switch langue
+  try { localStorage.setItem("preferredLanguage", lang); } catch (e) {}
+  i18next.changeLanguage(lang, () => updateContent());
 }
 
 function updateContent() {
