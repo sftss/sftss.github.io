@@ -432,17 +432,17 @@ if (navToggle && navMenu) {
 //#endregion
 
 //#region Lenis smooth scroll
-if (typeof Lenis !== "undefined") {
+try {
   const lenis = new Lenis({
     duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   });
 
-  function raf(time) {
+  const raf = (time) => {
     lenis.raf(time);
     requestAnimationFrame(raf);
-  }
+  };
 
   requestAnimationFrame(raf);
-}
+} catch {}
 //#endregion Lenis smooth scroll
