@@ -116,7 +116,6 @@ html.lenis, html.lenis body {
 
 body {
   overscroll-behavior: none;
-  overflow-x: hidden;
   box-sizing: border-box;
   position: relative;
   line-height: 1.5;
@@ -1165,6 +1164,9 @@ textarea {
   padding: 2rem 4rem;
   font-size: 1.6rem;
   margin-right: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #confirmationMessage {
@@ -2050,9 +2052,6 @@ body.animate {
 }
 
 .contact-btn--loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
   opacity: 0.8;
 }
