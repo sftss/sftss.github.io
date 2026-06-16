@@ -140,7 +140,6 @@ if (form && submitBtn) {
     submitBtn.disabled = true;
     submitBtn.setAttribute("aria-busy", "true");
     submitBtn.classList.add("contact-btn--loading");
-    setContactStatus("sending");
 
     try {
       const response = await fetch(form.action, {
