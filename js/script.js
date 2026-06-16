@@ -110,7 +110,7 @@ const contactStatusMessages = {
 
 function getContactLang() {
   let savedLanguage = null;
-  try { savedLanguage = localStorage.getItem("preferredLanguage"); } catch (e) {}
+  try { savedLanguage = localStorage.getItem("preferredLanguage"); } catch {}
   if (savedLanguage === "fr" || savedLanguage === "en") return savedLanguage;
   const userLang = (navigator.language || "en").toLowerCase();
   return userLang.startsWith("fr") ? "fr" : "en";
@@ -138,6 +138,7 @@ if (form && submitBtn) {
     e.preventDefault();
 
     submitBtn.disabled = true;
+    submitBtn.setAttribute("aria-busy", "true");
     submitBtn.classList.add("contact-btn--loading");
     setContactStatus("sending");
 
@@ -168,6 +169,7 @@ if (form && submitBtn) {
       setContactStatus("error");
     } finally {
       submitBtn.disabled = false;
+      submitBtn.removeAttribute("aria-busy");
       submitBtn.classList.remove("contact-btn--loading");
     }
   });
@@ -206,7 +208,7 @@ const isDarkModeEnabled = window.matchMedia(
 ).matches;
 
 let savedTheme = null;
-try { savedTheme = localStorage.getItem("preferredTheme"); } catch (e) {}
+try { savedTheme = localStorage.getItem("preferredTheme"); } catch {}
 const themeChoosed = savedTheme || (isDarkModeEnabled ? "dark" : "light");
 document.documentElement.setAttribute("data-theme", themeChoosed);
 if (themeChoosed === "dark")
@@ -217,7 +219,7 @@ themeToggle?.addEventListener("click", () => {
   const nvTheme = isDark ? "light" : "dark";
 
   document.documentElement.setAttribute("data-theme", nvTheme);
-  try { localStorage.setItem("preferredTheme", nvTheme); } catch (e) {}
+  try { localStorage.setItem("preferredTheme", nvTheme); } catch {}
   themeToggle.classList.toggle("theme-toggle--toggled");
 });
 //#endregion Theme toggle

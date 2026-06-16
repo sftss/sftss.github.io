@@ -511,14 +511,14 @@ i18next.init(
 
 function detectUserLanguage() {
   let savedLanguage = null;
-  try { savedLanguage = localStorage.getItem("preferredLanguage"); } catch (e) {}
+  try { savedLanguage = localStorage.getItem("preferredLanguage"); } catch {}
   if (savedLanguage) return savedLanguage;
   const userLang = navigator.language || navigator.languages[0];
   return userLang.startsWith("fr") ? "fr" : "en";
 }
 
 function changeLanguage(lang) {
-  try { localStorage.setItem("preferredLanguage", lang); } catch (e) {}
+  try { localStorage.setItem("preferredLanguage", lang); } catch {}
   i18next.changeLanguage(lang, () => updateContent());
 }
 
