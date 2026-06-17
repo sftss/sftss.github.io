@@ -1,0 +1,215 @@
+/*#region responsive */
+@media only screen and (max-width: 57em) {
+  html {
+    font-size: 55%;
+  }
+
+  .typewriter h1 {
+    font-size: 2.7em;
+  }
+
+  .texte-css-backG,
+  .texte-css-about {
+    margin-bottom: 8rem;
+  }
+
+  .second-padin {
+    padding: 8rem 0;
+  }
+
+  /* Header adjustments */
+  .header-content {
+    padding: 1rem 2rem;
+  }
+
+  .header-logo-img-container {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-right: 1.2rem;
+  }
+
+  .header-link {
+    padding: 3rem 1.8rem;
+    font-size: 1.5rem;
+  }
+
+  /* Footer adjustments */
+  .main-footer-haut {
+    padding: 6rem 0;
+  }
+
+  .main-footer-col-1 {
+    margin: 0 5rem 0 0;
+  }
+
+  .main-footer-col-2 {
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 0;
+  }
+
+  /* Projects adjustments */
+  .projects-colon {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 8rem;
+    text-align: center;
+  }
+
+  .projects-colon:nth-of-type(odd),
+  .projects-colon:nth-of-type(even) {
+    flex-direction: column;
+  }
+
+  .projects-colon-content {
+    align-items: center;
+  }
+
+  /* About adjustments */
+  .about-content {
+    grid-template-columns: 1fr;
+    grid-gap: 8rem;
+  }
+
+  .identity-card {
+    grid-template-columns: repeat(2, minmax(20rem, 1fr));
+    padding: 0;
+  }
+
+  #div_theme_bot {
+    margin: auto auto;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  .heading-primary {
+    font-size: 4.5rem;
+  }
+
+  .texte-css-sub {
+    font-size: 1.8rem;
+  }
+
+  .texte-css-main::after {
+    top: calc(100% + 1.2rem);
+  }
+
+  .home-main {
+    height: unset;
+    min-height: unset;
+  }
+
+  .home-main-txt {
+    padding: 19rem 0 13rem 0;
+    margin: auto;
+    position: static;
+    transform: translate(0, 0);
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .about-content-title {
+    font-size: 2.4rem;
+  }
+
+  .projects-colon-content-title {
+    font-size: 2.4rem;
+  }
+
+  .projects-colon-content-desc {
+    font-size: 1.7rem;
+  }
+
+  .contact-form-container {
+    padding: 3rem;
+  }
+
+  .contact--form-field {
+    margin-bottom: 3rem;
+  }
+
+  .contact-btn {
+    width: 100%;
+  }
+
+  .project-css {
+    height: unset;
+    min-height: unset;
+  }
+
+  .project-css-content {
+    padding: 19rem 0 13rem 0;
+    margin: auto;
+    position: static;
+    transform: translate(0, 0);
+  }
+
+  .project-details-content-title {
+    font-size: 2.4rem;
+  }
+
+  .project-details-lienss {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .project-details-lienss-btn {
+    margin-right: 0;
+    width: 70%;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .project-details-lienss-btn:last-child {
+    margin: 0;
+  }
+
+  .imdb-carousel {
+    padding: 1.6rem 4.5rem 3.6rem;
+  }
+
+  .imdb-carousel-btn {
+    width: 3.6rem;
+    height: 3.6rem;
+    font-size: 1.9rem;
+  }
+
+  .imdb-carousel-btn-prev {
+    left: 0.6rem;
+  }
+
+  .imdb-carousel-btn-next {
+    right: 0.6rem;
+  }
+
+  .imdb-carousel-caption {
+    font-size: 1.4rem;
+  }
+
+  .imdb-model-caption,
+  .imdb-carousel-counter {
+    font-size: 1.2rem;
+  }
+
+  .header-liens {
+    display: none;
+  }
+
+  .main-footer-haut {
+    display: block;
+  }
+
+  .rocket {
+    visibility: hidden;
+  }
+
+  #div_theme_bot {
+    margin: auto auto;
+  }
+
+  .identity-card {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+}
+/*#endregion responsive */

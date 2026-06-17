@@ -1,0 +1,140 @@
+/*#region header */
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  background: #fff;
+  box-shadow: 0 10px 100px rgb(0 0 0 / 0.1);
+  transition: top var(--transition-normal);
+}
+
+.hidden {
+  top: -100px;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 5rem;
+  background-color: var(--background-dark-color);
+}
+
+.header-logo-container {
+  display: flex;
+  align-items: center;
+  transition: color 0.1s;
+}
+
+.header-logo-container:hover {
+  color: var(--primary-color);
+  transition: color var(--transition-normal);
+}
+
+.header-logo-img-container {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50px;
+  overflow: hidden;
+  margin-right: 1.5rem;
+  background: var(--primary-color);
+}
+
+.header-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.header-logo-sub {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-color);
+}
+
+.header-liens {
+  display: flex;
+}
+
+.header-link {
+  padding: 2.2rem 3rem;
+  display: inline-block;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  transition: color var(--transition-normal);
+  color: var(--text-color);
+}
+
+.header-link:hover {
+  color: var(--primary-color);
+}
+/*#endregion header */
+
+/*#region footer */
+.main-footer {
+  background: #000;
+  color: #fff;
+}
+
+.main-footer-haut {
+  display: flex;
+  justify-content: space-between;
+  padding: 8rem 0;
+}
+
+.main-footer-col-1 {
+  order: 2;
+}
+
+.main-footer-col-2 {
+  width: 40%;
+  order: 1;
+  max-width: 50rem;
+  margin: 0 0 0 5rem;
+}
+
+.main-footer-short-description {
+  margin-top: 2rem;
+  color: #eee;
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+.main-footer-social-stock {
+  margin-top: 1rem;
+}
+
+.main-footer-icone {
+  margin-right: 1rem;
+  width: 3rem;
+  margin-bottom: 1rem;
+  transition: transform var(--transition-normal);
+}
+
+.main-footer-icone:hover {
+  transform: scale(1.2);
+}
+
+.main-footer-icone--mr-none {
+  margin-right: 0;
+}
+
+.main-footer-liens {
+  display: inline-block;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: color var(--transition-normal);
+}
+
+.main-footer-liens:hover {
+  color: var(--primary-color);
+}
+/*#endregion footer */
