@@ -70,8 +70,32 @@ initRevealUpAnimations();
 //#region Header hide
 let dernierPoint = 1;
 const header = document.getElementById("header");
+let isHeaderInteracting = false;
+
+if (header) {
+  header.addEventListener("pointerdown", () => {
+    isHeaderInteracting = true;
+    header.classList.remove("hidden");
+  });
+
+  header.addEventListener("pointerup", () => {
+    isHeaderInteracting = false;
+  });
+
+  header.addEventListener("pointercancel", () => {
+    isHeaderInteracting = false;
+  });
+}
 
 window.addEventListener("scroll", () => {
+  if (!header) return;
+
+  if (isHeaderInteracting || document.querySelector(".header-liens")?.classList.contains("open")) {
+    header.classList.remove("hidden");
+    dernierPoint = window.scrollY;
+    return;
+  }
+
   const pointActuelle = window.scrollY;
 
   if (pointActuelle > dernierPoint) {
