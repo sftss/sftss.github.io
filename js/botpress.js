@@ -1058,8 +1058,10 @@
         .bpFab {
           z-index: 9998;
           position: fixed;
-          bottom: 1.5rem;
-          right: 1.4rem;
+          bottom: 1.5rem !important;
+          right: 1.4rem !important;
+          left: unset !important;
+          top: unset !important;
           height: 6.4rem;
           width: 6.4rem;
           border-radius: 100%;

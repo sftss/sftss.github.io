@@ -455,6 +455,38 @@ if (navToggle && navMenu) {
 }
 //#endregion
 
+//#region Fix Botpress FAB position lock on mobile
+(function () {
+  function setupFabLock() {
+    const fab = document.querySelector(".bpFab");
+    if (!fab) return false;
+
+    // Reset any drag-applied inline styles (left/top/transform translate)
+    new MutationObserver(function () {
+      fab.style.removeProperty("left");
+      fab.style.removeProperty("top");
+      const tr = fab.style.transform;
+      if (tr && tr.includes("translate")) fab.style.removeProperty("transform");
+    }).observe(fab, { attributes: true, attributeFilter: ["style"] });
+
+    // Prevent touchmove inside the FAB iframe to block drag at the source
+    const doc = document.querySelector('iframe[name="fab"]')?.contentDocument;
+    if (doc) {
+      doc.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+    }
+
+    return true;
+  }
+
+  if (!setupFabLock()) {
+    let attempts = 0;
+    const id = setInterval(function () {
+      if (setupFabLock() || ++attempts >= 50) clearInterval(id);
+    }, 200);
+  }
+})();
+//#endregion Fix Botpress FAB position lock
+
 //#region Lenis smooth scroll
 try {
   const lenis = new Lenis({
