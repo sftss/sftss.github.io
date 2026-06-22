@@ -71,19 +71,23 @@ initRevealUpAnimations();
 let dernierPoint = 1;
 const header = document.getElementById("header");
 let isHeaderInteracting = false;
+let lenis = null;
 
 if (header) {
   header.addEventListener("pointerdown", () => {
     isHeaderInteracting = true;
     header.classList.remove("hidden");
+    lenis?.stop();
   });
 
   header.addEventListener("pointerup", () => {
     isHeaderInteracting = false;
+    lenis?.start();
   });
 
   header.addEventListener("pointercancel", () => {
     isHeaderInteracting = false;
+    lenis?.start();
   });
 }
 
@@ -311,7 +315,7 @@ function initImdbCarousels() {
       dot.addEventListener("click", () => {
         currentIndex = index;
         renderSlide();
-        restartAutoplay();
+        startAutoplay();
       });
       dotsContainer.appendChild(dot);
       return dot;
@@ -349,20 +353,16 @@ function initImdbCarousels() {
       }, autoplayDelayMs);
     };
 
-    const restartAutoplay = () => {
-      startAutoplay();
-    };
-
     prevButton.addEventListener("click", () => {
       currentIndex = (currentIndex - 1 + images.length) % images.length;
       renderSlide();
-      restartAutoplay();
+      startAutoplay();
     });
 
     nextButton.addEventListener("click", () => {
       currentIndex = (currentIndex + 1) % images.length;
       renderSlide();
-      restartAutoplay();
+      startAutoplay();
     });
 
     viewport.addEventListener("touchstart", (event) => {
@@ -489,7 +489,7 @@ if (navToggle && navMenu) {
 
 //#region Lenis smooth scroll
 try {
-  const lenis = new Lenis({
+  lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   });
