@@ -75,28 +75,6 @@
 .header-link:hover {
   color: var(--primary-color);
 }
-
-.header-link[href="#CV"],
-.header-link[href="/#CV"] {
-  border: 1px solid rgb(255 255 255 / 35%);
-  border-radius: 999px;
-  padding: 1rem 2rem;
-  margin: 1.2rem 0 1.2rem 1rem;
-  line-height: 1;
-  background: rgb(255 255 255 / 7%);
-  transition:
-    color var(--transition-normal),
-    border-color var(--transition-normal),
-    background-color var(--transition-normal),
-    transform var(--transition-normal);
-}
-
-.header-link[href="#CV"]:hover,
-.header-link[href="/#CV"]:hover {
-  border-color: var(--primary-color);
-  background: rgb(0 122 255 / 16%);
-  transform: translateY(-1px);
-}
 /*#endregion header */
 
 /*#region footer */
@@ -153,22 +131,11 @@
   font-size: 1.4rem;
   text-transform: uppercase;
   font-weight: 600;
-  padding: 1rem 1.6rem;
   margin-bottom: 0.6rem;
-  border: 1px solid rgb(255 255 255 / 26%);
-  border-radius: 999px;
-  background: rgb(255 255 255 / 5%);
-  transition:
-    color var(--transition-normal),
-    border-color var(--transition-normal),
-    background-color var(--transition-normal),
-    transform var(--transition-normal);
+  transition: color var(--transition-normal);
 }
 
 .main-footer-liens:hover {
   color: var(--primary-color);
-  border-color: var(--primary-color);
-  background: rgb(0 122 255 / 16%);
-  transform: translateY(-1px);
 }
 /*#endregion footer */
