@@ -69,20 +69,26 @@ i18next.init(
             education: {
               heading: "Education",
               items: {
+                master: {
+                  type: "Degree",
+                  dates: "2026 - Present",
+                  title:
+                    "Master's in Computer Science - Machine Learning for Artificial Intelligence specialization",
+                  place: "Lumière University Lyon 2",
+                },
                 but: {
                   type: "Degree",
-                  dates: "2023 - Present",
+                  dates: "2023 - 2026",
                   title:
-                    "Bachelor of Technology in Computer Science - AGED track",
-                  place:
-                    "3rd year - Administration, Management and Data Exploitation",
+                    "BUT Computer Science, specialization in data administration, management, and operations",
+                  place: "USMB - IUT Annecy",
                 },
                 bac: {
                   type: "Degree",
                   dates: "2020 - 2023",
-                  title: "General Baccalaureate",
-                  place:
-                    "Expert mathematics option, S.E.S / Mathematics specialization",
+                  title:
+                    "General Baccalaureate with honors, Advanced Mathematics elective",
+                  place: "Lycée Guillaume Fichet (74130)",
                 },
               },
             },
@@ -318,19 +324,26 @@ i18next.init(
             education: {
               heading: "Formation",
               items: {
+                master: {
+                  type: "Diplôme",
+                  dates: "2026 - Présent",
+                  title:
+                    "Master Informatique parcours Machine Learning for Artificial Intelligence",
+                  place: "Université Lumière Lyon 2",
+                },
                 but: {
                   type: "Diplôme",
-                  dates: "2023 - Présent",
-                  title: "BUT Informatique parcours AGED",
-                  place:
-                    "3e année - Administration, Gestion et Exploitation des Données",
+                  dates: "2023 - 2026",
+                  title:
+                    "BUT Informatique, parcours administration, gestion et exploitation des données",
+                  place: "USMB - IUT Annecy",
                 },
                 bac: {
                   type: "Diplôme",
                   dates: "2020 - 2023",
-                  title: "Baccalauréat Général",
-                  place:
-                    "Spécialité S.E.S / Mathématiques, option maths expertes",
+                  title:
+                    "Baccalauréat général avec mention assez bien, option mathématiques expertes",
+                  place: "Lycée Guillaume Fichet (74130)",
                 },
               },
             },
