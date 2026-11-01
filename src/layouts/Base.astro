@@ -4,6 +4,7 @@ import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
+import Chatbot from '../components/Chatbot.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { langs, links, useTranslations, type Lang } from '../i18n/ui';
@@ -83,5 +84,6 @@ const person = {
       <slot />
     </main>
     <Footer lang={lang} />
+    <Chatbot lang={lang} />
   </body>
 </html>

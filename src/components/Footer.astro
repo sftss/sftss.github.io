@@ -31,7 +31,8 @@ const t = useTranslations(lang);
     align-items: center;
     justify-content: space-between;
     gap: var(--space-xs) var(--space-m);
-    padding-block: var(--space-m);
+    /* Laisse la place au bouton fixe du chatbot sous les liens. */
+    padding-block: var(--space-m) calc(var(--space-l) + var(--space-s));
   }
 
   p {

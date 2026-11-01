@@ -1,0 +1,90 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<button class="chatbot btn btn-primary" type="button" data-loading={t('chat.loading')}>
+  {t('chat.open')}
+</button>
+
+<style>
+  .chatbot {
+    position: fixed;
+    right: var(--space-s);
+    bottom: var(--space-s);
+    z-index: 5;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .chatbot[hidden] {
+    display: none;
+  }
+
+  /* Sans JS, le chatbot ne peut pas se charger. */
+  :global(html:not([data-theme])) .chatbot {
+    display: none;
+  }
+</style>
+
+<script>
+  // Botpress n'est demandé qu'au clic : aucune requête tierce avant cette intention.
+  const INJECT = 'https://cdn.botpress.cloud/webchat/v2.2/inject.js';
+  const CONFIG = 'https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js';
+
+  const load = (src: string) =>
+    new Promise<void>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = src;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(src));
+      document.head.append(script);
+    });
+
+  // Une ouverture demandée trop tôt est perdue et laisse la fenêtre vide :
+  // on la renouvelle jusqu'à ce que l'application interne soit montée.
+  const openWhenMounted = (open: () => void) =>
+    new Promise<void>((resolve) => {
+      const started = Date.now();
+      const timer = setInterval(() => {
+        open();
+        const iframe = document.querySelector<HTMLIFrameElement>('.bpWebchat');
+        const nodes = iframe?.contentDocument?.body?.querySelectorAll('*').length ?? 0;
+        if (nodes > 2 || Date.now() - started > 10000) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 200);
+    });
+
+  const button = document.querySelector<HTMLButtonElement>('.chatbot');
+
+  button?.addEventListener('click', async () => {
+    const label = button.textContent;
+    button.disabled = true;
+    button.textContent = button.dataset.loading ?? '';
+    try {
+      await load(INJECT);
+      const { botpress } = window as unknown as {
+        botpress: { on: (event: string, handler: () => void) => void; open: () => void };
+      };
+      botpress.on('webchat:ready', async () => {
+        await openWhenMounted(botpress.open);
+        button.hidden = true;
+        // Botpress masque ses iframes aux lecteurs d'écran et au clavier.
+        document.querySelectorAll('.bpWebchat, .bpFab').forEach((frame) => {
+          frame.removeAttribute('aria-hidden');
+          frame.removeAttribute('tabindex');
+          frame.setAttribute('title', label ?? 'Chatbot');
+        });
+      });
+      await load(CONFIG);
+    } catch {
+      button.disabled = false;
+      button.textContent = label;
+    }
+  });
+</script>
