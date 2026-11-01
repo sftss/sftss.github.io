@@ -1,0 +1,48 @@
+/* Thème : chaque couleur est écrite une fois, light-dark(clair, sombre).
+   Sombre par défaut ; clair si data-theme="light" ou, sans JS, si le système le demande. */
+:root {
+  color-scheme: dark;
+
+  --color-bg: light-dark(oklch(0.985 0.005 250), oklch(0.16 0.04 265));
+  --color-surface: light-dark(oklch(1 0 0), oklch(0.21 0.05 265));
+  --color-border: light-dark(oklch(0.86 0.02 255), oklch(0.32 0.05 265));
+  --color-text: light-dark(oklch(0.22 0.04 265), oklch(0.96 0.01 250));
+  --color-muted: light-dark(oklch(0.44 0.03 260), oklch(0.75 0.03 255));
+  --color-accent: light-dark(oklch(0.5 0.19 258), oklch(0.68 0.19 255));
+  --color-accent-2: light-dark(oklch(0.46 0.1 215), oklch(0.8 0.12 215));
+  --color-on-accent: light-dark(oklch(0.99 0.003 250), oklch(0.16 0.04 265));
+
+  --font-sans: 'IBM Plex Sans Variable', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.92rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.13rem);
+  --step-1: clamp(1.25rem, 1.15rem + 0.5vw, 1.56rem);
+  --step-2: clamp(1.56rem, 1.38rem + 0.9vw, 2.16rem);
+  --step-3: clamp(1.95rem, 1.63rem + 1.6vw, 2.99rem);
+  --step-4: clamp(2.44rem, 1.9rem + 2.7vw, 4.13rem);
+
+  --space-xs: 0.5rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 3rem;
+  --space-xl: clamp(4rem, 3rem + 5vw, 7rem);
+
+  --radius: 0.5rem;
+  --width: 68rem;
+  --ease: 180ms ease;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+  }
+}
