@@ -75,6 +75,47 @@ a {
   background: color-mix(in oklch, var(--color-accent) 86%, var(--color-text));
 }
 
+.section {
+  padding-block: var(--space-l);
+}
+
+.section h2 {
+  font-size: var(--step-3);
+}
+
+.lead {
+  max-width: 46rem;
+  margin: var(--space-s) 0 0;
+  color: var(--color-muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+.tags li {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .skip {
   position: absolute;
   left: var(--space-s);

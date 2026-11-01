@@ -133,21 +133,7 @@ const others = (await getCollection('projects'))
   }
 
   .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin: var(--space-s) 0;
-    padding: 0;
-    list-style: none;
-    color: var(--color-accent);
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
-  }
-
-  .tags li {
-    padding: 0.1rem 0.5rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
+    margin-block: var(--space-s);
   }
 
   .approach :global(ul) {
