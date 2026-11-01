@@ -1,0 +1,33 @@
+---
+import { home } from '../i18n/home';
+import { cvUrl, links, useTranslations, type Lang } from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<section id="contact" class="section container">
+  <h2>{t('nav.contact')}</h2>
+  <p class="lead">{home[lang].contact.lead}</p>
+  <ul class="links">
+    <li><a class="btn btn-primary" href={`mailto:${links.email}`}>{links.email}</a></li>
+    <li><a class="btn" href={links.linkedin} rel="noopener noreferrer">LinkedIn</a></li>
+    <li><a class="btn" href={links.github} rel="noopener noreferrer">GitHub</a></li>
+    <li><a class="btn" href={cvUrl(lang)} download>{t('hero.cv')}</a></li>
+  </ul>
+</section>
+
+<style>
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin: var(--space-m) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .links a {
+    overflow-wrap: anywhere;
+  }
+</style>
