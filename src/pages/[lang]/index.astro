@@ -1,17 +1,22 @@
 ---
-import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import AiProjects from '../../components/AiProjects.astro';
+import Contact from '../../components/Contact.astro';
+import Experience from '../../components/Experience.astro';
+import ProjectGrid from '../../components/ProjectGrid.astro';
+import { home } from '../../i18n/home';
 import { cvUrl, langs, useTranslations, type Lang } from '../../i18n/ui';
+import Base from '../../layouts/Base.astro';
+import { entryLang } from '../../lib/projects';
 
 export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
 
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
-const sections = [
-  { id: 'projects', title: t('nav.projects') },
-  { id: 'experience', title: t('nav.experience') },
-  { id: 'about', title: t('nav.about') },
-  { id: 'contact', title: t('nav.contact') },
-];
+const copy = home[lang];
+const projects = (await getCollection('projects'))
+  .filter((entry) => entryLang(entry) === lang)
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base lang={lang}>
@@ -30,14 +35,21 @@ const sections = [
     </figure>
   </section>
 
-  {
-    sections.map((section) => (
-      <section id={section.id} class="stub container">
-        <h2>{section.title}</h2>
-        <p>{t('stub.soon')}</p>
-      </section>
-    ))
-  }
+  <section id="projects" class="section container">
+    <h2>{t('nav.projects')}</h2>
+    <p class="lead">{copy.projects.lead}</p>
+    <ProjectGrid lang={lang} projects={projects} />
+  </section>
+
+  <AiProjects lang={lang} />
+  <Experience lang={lang} />
+
+  <section id="about" class="section container">
+    <h2>{t('nav.about')}</h2>
+    {copy.about.paragraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
+  </section>
+
+  <Contact lang={lang} />
 </Base>
 
 <style>
@@ -86,15 +98,5 @@ const sections = [
   blockquote {
     margin: 0;
     font-style: italic;
-  }
-
-  .stub {
-    padding-block: var(--space-m);
-    color: var(--color-muted);
-  }
-
-  .stub h2 {
-    color: var(--color-text);
-    font-size: var(--step-2);
   }
 </style>
