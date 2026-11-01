@@ -1,0 +1,201 @@
+---
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { home, type Category } from '../i18n/home';
+import type { Lang } from '../i18n/ui';
+import { entrySlug } from '../lib/projects';
+
+interface Props {
+  lang: Lang;
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { lang, projects } = Astro.props;
+const copy = home[lang].projects;
+const categories = Object.entries(copy.categories) as [Category, string][];
+---
+
+<div data-project-grid>
+  <div class="filters" role="group" aria-label={copy.filterLabel}>
+    <button type="button" data-filter="all" aria-pressed="true">{copy.all}</button>
+    {
+      categories.map(([id, label]) => (
+        <button type="button" data-filter={id} aria-pressed="false">
+          {label}
+        </button>
+      ))
+    }
+  </div>
+  <p class="visually-hidden" role="status" data-template={copy.status}></p>
+
+  <ul class="grid">
+    {
+      projects.map((entry) => (
+        <li data-categories={entry.data.categories.join(' ')}>
+          <article class="card">
+            <Picture
+              src={entry.data.cover}
+              alt={entry.data.coverAlt}
+              formats={['avif', 'webp']}
+              widths={[320, 640]
+                .filter((w) => w < entry.data.cover.width)
+                .concat(entry.data.cover.width)}
+              sizes="(min-width: 44rem) 33vw, 100vw"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="body">
+              <h3>
+                <a href={`/${lang}/projects/${entrySlug(entry)}/`}>{entry.data.title}</a>
+              </h3>
+              <p>{entry.data.summary}</p>
+              <ul class="tags">
+                {entry.data.tags.slice(0, 4).map((tag) => <li>{tag}</li>)}
+              </ul>
+            </div>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-m);
+  }
+
+  /* Sans JS, tous les projets restent visibles : les filtres ne serviraient à rien. */
+  :global(html:not([data-theme])) .filters {
+    display: none;
+  }
+
+  .filters button {
+    padding: 0.35em 0.8em;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-muted);
+    font: inherit;
+    font-size: var(--step--1);
+    cursor: pointer;
+    transition:
+      border-color var(--ease),
+      color var(--ease);
+  }
+
+  .filters button:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .filters button[aria-pressed='true'] {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--space-m);
+    margin: var(--space-m) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .grid > li[hidden] {
+    display: none;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    overflow: hidden;
+    transition:
+      border-color var(--ease),
+      transform var(--ease);
+  }
+
+  .card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .card:focus-within {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  .card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: var(--space-s);
+    object-fit: contain;
+    background: var(--color-logo-bg);
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: var(--space-xs);
+    padding: var(--space-s);
+  }
+
+  h3 {
+    font-size: var(--step-1);
+  }
+
+  h3 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  /* Toute la carte devient cliquable à partir du lien du titre. */
+  h3 a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  h3 a:focus-visible {
+    outline: none;
+  }
+
+  .body p {
+    flex: 1;
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-project-grid]').forEach((root) => {
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-categories]')];
+    const status = root.querySelector<HTMLElement>('[role="status"]')!;
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter ?? 'all';
+        buttons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+        cards.forEach((card) => {
+          card.hidden = filter !== 'all' && !card.dataset.categories?.split(' ').includes(filter);
+        });
+        const shown = cards.filter((card) => !card.hidden).length;
+        status.textContent = (status.dataset.template ?? '').replace('{n}', String(shown));
+      });
+    });
+  });
+</script>
