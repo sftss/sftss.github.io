@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import { cvUrl, langs, useTranslations, type Lang } from '../../i18n/ui';
+
+export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const sections = [
+  { id: 'projects', title: t('nav.projects') },
+  { id: 'experience', title: t('nav.experience') },
+  { id: 'about', title: t('nav.about') },
+  { id: 'contact', title: t('nav.contact') },
+];
+---
+
+<Base lang={lang}>
+  <section class="hero container">
+    <h1>Sefer Tasdemir</h1>
+    <p class="role">{t('hero.title')}</p>
+    <p class="tagline">{t('hero.tagline')}</p>
+    <p class="status">{t('hero.status')}</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#projects">{t('hero.projects')}</a>
+      <a class="btn" href={cvUrl(lang)} download>{t('hero.cv')}</a>
+    </div>
+    <figure>
+      <blockquote lang="en">Program or be programmed.</blockquote>
+      <figcaption>Douglas Rushkoff</figcaption>
+    </figure>
+  </section>
+
+  {
+    sections.map((section) => (
+      <section id={section.id} class="stub container">
+        <h2>{section.title}</h2>
+        <p>{t('stub.soon')}</p>
+      </section>
+    ))
+  }
+</Base>
+
+<style>
+  .hero {
+    padding-block: var(--space-xl) var(--space-l);
+  }
+
+  h1 {
+    font-size: var(--step-4);
+  }
+
+  .role {
+    margin: var(--space-xs) 0 0;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--step-1);
+    font-weight: 500;
+  }
+
+  .tagline {
+    margin: var(--space-m) 0 0;
+    font-size: var(--step-2);
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .status {
+    max-width: 44rem;
+    margin: var(--space-s) 0 0;
+    color: var(--color-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin-top: var(--space-m);
+  }
+
+  figure {
+    margin: var(--space-l) 0 0;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  blockquote {
+    margin: 0;
+    font-style: italic;
+  }
+
+  .stub {
+    padding-block: var(--space-m);
+    color: var(--color-muted);
+  }
+
+  .stub h2 {
+    color: var(--color-text);
+    font-size: var(--step-2);
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+const site = Astro.site as URL;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <meta name="google-site-verification" content="_YOwXn6Ifjhj_kEnAddJc_UjdSoupw9G3zk07rka1QI" />
+    <title>Sefer Tasdemir | Data Scientist</title>
+    <link rel="canonical" href={new URL('/fr/', site).href} />
+    <link rel="alternate" hreflang="fr" href={new URL('/fr/', site).href} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', site).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />
+    <script is:inline>
+      (function () {
+        var lang = null;
+        try {
+          lang = localStorage.getItem('preferredLanguage');
+        } catch (e) {}
+        if (lang !== 'fr' && lang !== 'en') {
+          lang = (navigator.language || '').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+        }
+        location.replace('/' + lang + '/' + location.hash);
+      })();
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/fr/" /></noscript>
+  </head>
+  <body>
+    <p><a href="/fr/">Français</a> · <a href="/en/">English</a></p>
+  </body>
+</html>
