@@ -1,0 +1,93 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { cvUrl, useTranslations, type Lang } from '../i18n/ui';
+
+const { lang, path = '' } = Astro.props as { lang: Lang; path?: string };
+const t = useTranslations(lang);
+const home = `/${lang}/`;
+const items = [
+  { href: `${home}#projects`, label: t('nav.projects') },
+  { href: `${home}#experience`, label: t('nav.experience') },
+  { href: `${home}#about`, label: t('nav.about') },
+  { href: `${home}#contact`, label: t('nav.contact') },
+  { href: cvUrl(lang), label: t('nav.cv') },
+];
+---
+
+<header class="site-header">
+  <a class="skip" href="#main">{t('skip')}</a>
+  <div class="container bar">
+    <a class="brand" href={home}>Sefer Tasdemir</a>
+    <nav aria-label={t('nav.label')}>
+      <ul>
+        {items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="tools">
+      <LangSwitch lang={lang} path={path} />
+      <ThemeToggle lang={lang} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs) var(--space-m);
+    padding-block: var(--space-s);
+  }
+
+  .brand {
+    color: var(--color-text);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  nav {
+    margin-inline-start: auto;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem var(--space-s);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    color: var(--color-muted);
+    font-size: var(--step--1);
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    color: var(--color-text);
+  }
+
+  .tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  @media (max-width: 44rem) {
+    .tools {
+      margin-inline-start: auto;
+    }
+
+    nav {
+      order: 3;
+      flex-basis: 100%;
+      margin-inline-start: 0;
+    }
+  }
+</style>

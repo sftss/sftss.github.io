@@ -1,0 +1,64 @@
+---
+import { langs, useTranslations, type Lang } from '../i18n/ui';
+
+const { lang, path = '' } = Astro.props as { lang: Lang; path?: string };
+const t = useTranslations(lang);
+---
+
+<ul class="lang-switch" aria-label={t('lang.label')}>
+  {
+    langs.map((code) => (
+      <li>
+        <a
+          href={`/${code}/${path}`}
+          hreflang={code}
+          lang={code}
+          data-lang={code}
+          aria-label={useTranslations(code)('lang.switch')}
+          aria-current={code === lang ? 'true' : undefined}
+        >
+          {code.toUpperCase()}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .lang-switch {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  a {
+    display: inline-block;
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius);
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-text);
+  }
+
+  a[aria-current] {
+    color: var(--color-text);
+    box-shadow: inset 0 -2px var(--color-accent);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.lang-switch a').forEach((link) => {
+    link.addEventListener('click', () => {
+      try {
+        localStorage.setItem('preferredLanguage', link.dataset.lang ?? '');
+      } catch {}
+    });
+  });
+</script>

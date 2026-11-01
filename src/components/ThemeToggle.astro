@@ -1,0 +1,66 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<button class="theme-toggle" type="button" aria-label={t('theme.dark')} aria-pressed="true">
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+    <path
+      class="moon"
+      d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"
+      fill="currentColor"></path>
+    <g class="sun" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"></circle>
+      <path
+        d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"
+      ></path>
+    </g>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: border-color var(--ease);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Sans JS, la bascule ne peut rien faire : le système décide. */
+  :global(html:not([data-theme])) .theme-toggle {
+    display: none;
+  }
+
+  :global(html[data-theme='dark']) .sun,
+  :global(html[data-theme='light']) .moon {
+    display: none;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach((button) => {
+    button.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+    button.addEventListener('click', () => {
+      const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = theme;
+      button.setAttribute('aria-pressed', String(theme === 'dark'));
+      try {
+        localStorage.setItem('preferredTheme', theme);
+      } catch {}
+    });
+  });
+</script>

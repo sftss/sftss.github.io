@@ -1,0 +1,87 @@
+---
+import '@fontsource-variable/ibm-plex-sans/wght.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/500.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { langs, links, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Chemin après la langue, avec / final : '' pour l'accueil, 'projects/imdb/' sinon. */
+  path?: string;
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const { lang, path = '', title, description, noindex = false } = Astro.props;
+const t = useTranslations(lang);
+const pageTitle = title ?? t('meta.title');
+const pageDescription = description ?? t('meta.description');
+const site = Astro.site as URL;
+const urlFor = (code: Lang) => new URL(`/${code}/${path}`, site).href;
+const image = new URL('/assets/img/logo.webp', site).href;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Sefer Tasdemir',
+  url: new URL('/', site).href,
+  image: new URL('/assets/img/pp.webp', site).href,
+  jobTitle: 'Data Scientist',
+  knowsLanguage: ['fr', 'en', 'tr'],
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'IUT d’Annecy, Université Savoie Mont Blanc' },
+  sameAs: [links.linkedin, links.github],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="_YOwXn6Ifjhj_kEnAddJc_UjdSoupw9G3zk07rka1QI" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={urlFor(lang)} />
+    {langs.map((code) => <link rel="alternate" hreflang={code} href={urlFor(code)} />)}
+    {path === '' && <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />}
+    <link rel="icon" href="/assets/img/logo.webp" type="image/webp" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sefer Tasdemir" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={urlFor(lang)} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+    <meta name="twitter:card" content="summary" />
+
+    {path === '' && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
+
+    <script is:inline>
+      (function () {
+        var theme = null;
+        try {
+          theme = localStorage.getItem('preferredTheme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+  </head>
+  <body>
+    <Header lang={lang} path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
