@@ -4,6 +4,7 @@ import AiProjects from '../../components/AiProjects.astro';
 import Contact from '../../components/Contact.astro';
 import Experience from '../../components/Experience.astro';
 import ProjectGrid from '../../components/ProjectGrid.astro';
+import SkillGraph from '../../components/SkillGraph.astro';
 import { home } from '../../i18n/home';
 import { cvUrl, langs, useTranslations, type Lang } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
@@ -34,6 +35,8 @@ const projects = (await getCollection('projects'))
       <figcaption>Douglas Rushkoff</figcaption>
     </figure>
   </section>
+
+  <SkillGraph lang={lang} projects={projects} />
 
   <section id="projects" class="section container">
     <h2>{t('nav.projects')}</h2>

@@ -1,0 +1,488 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { home } from '../i18n/home';
+import type { Lang } from '../i18n/ui';
+import { buildGraph, families, type Family } from '../lib/skills';
+
+interface Props {
+  lang: Lang;
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { lang, projects } = Astro.props;
+const copy = home[lang].skills;
+const { projects: nodes, tools } = buildGraph(projects, lang);
+const titleOf = new Map(nodes.map((node) => [node.id, node]));
+const familyIds = Object.keys(families) as Family[];
+const data = {
+  projects: nodes,
+  tools,
+  families: copy.families,
+  labels: { tool: copy.toolLabel, project: copy.projectLabel },
+};
+---
+
+<section id="skills" class="section container" data-skill-graph>
+  <h2>{copy.title}</h2>
+  <p class="lead hint-graph" id="skills-hint">{copy.lead}</p>
+  <p class="lead hint-list">{copy.listLead}</p>
+  <div class="controls">
+    <button class="toggle" type="button" data-list={copy.showList} data-graph={copy.showGraph}>
+      {copy.showList}
+    </button>
+    <a class="pass" href="#projects">{copy.skip}</a>
+  </div>
+
+  <svg
+    class="stage"
+    viewBox="0 0 960 640"
+    role="group"
+    aria-label={copy.title}
+    aria-describedby="skills-hint"></svg>
+
+  <div class="fallback">
+    {
+      familyIds.map((family) => (
+        <section>
+          <h3>{copy.families[family]}</h3>
+          <dl>
+            {tools
+              .filter((tool) => tool.family === family)
+              .map((tool) => (
+                <div>
+                  <dt>{tool.name}</dt>
+                  <dd>
+                    {tool.projects.map((id, index) => (
+                      <>
+                        {index > 0 && ', '}
+                        <a href={titleOf.get(id)?.href}>{titleOf.get(id)?.title}</a>
+                      </>
+                    ))}
+                  </dd>
+                </div>
+              ))}
+          </dl>
+        </section>
+      ))
+    }
+  </div>
+
+  <script type="application/json" set:html={JSON.stringify(data)} />
+</section>
+
+<style>
+  .hint-graph {
+    display: none;
+  }
+
+  .controls {
+    display: none;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s);
+    margin-top: var(--space-s);
+    font-size: var(--step--1);
+  }
+
+  .toggle {
+    padding: 0.35em 0.8em;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .toggle:hover {
+    border-color: var(--color-accent);
+  }
+
+  .pass {
+    position: absolute;
+    left: -100vw;
+  }
+
+  .pass:focus {
+    position: static;
+  }
+
+  .stage {
+    display: none;
+    width: 100%;
+    height: auto;
+    margin-top: var(--space-s);
+    aspect-ratio: 960 / 640;
+    overflow: visible;
+  }
+
+  /* Le graphe n'existe qu'avec JS, assez de largeur et du mouvement autorisé.
+     Le choix se fait en CSS pour ne provoquer aucun décalage au chargement. */
+  @media (min-width: 48rem) and (prefers-reduced-motion: no-preference) {
+    :global(html[data-theme]) .controls {
+      display: flex;
+    }
+
+    :global(html[data-theme]) [data-skill-graph]:not([data-view='list']) .stage {
+      display: block;
+    }
+
+    :global(html[data-theme]) [data-skill-graph]:not([data-view='list']) :is(.fallback, .hint-list) {
+      display: none;
+    }
+
+    :global(html[data-theme]) [data-skill-graph]:not([data-view='list']) .hint-graph {
+      display: block;
+    }
+  }
+
+  .fallback {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: var(--space-m);
+    margin-top: var(--space-m);
+  }
+
+  .fallback h3 {
+    font-size: var(--step-1);
+  }
+
+  dl {
+    margin: var(--space-xs) 0 0;
+    font-size: var(--step--1);
+  }
+
+  dl div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.75rem;
+    padding-block: 0.2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  dt {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-muted);
+  }
+
+  .stage :global(line) {
+    stroke: var(--color-border);
+    stroke-width: 1.5;
+    transition:
+      stroke var(--ease),
+      opacity var(--ease);
+  }
+
+  .stage :global(.node) {
+    cursor: default;
+    outline: none;
+    transition: opacity var(--ease);
+  }
+
+  .stage :global(a.node) {
+    cursor: pointer;
+  }
+
+  .stage :global(.node rect) {
+    fill: var(--color-surface);
+    stroke: var(--color-border);
+    stroke-width: 1.5;
+    transition:
+      fill var(--ease),
+      stroke var(--ease);
+  }
+
+  .stage :global(.node text) {
+    fill: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-anchor: middle;
+    dominant-baseline: central;
+    pointer-events: none;
+  }
+
+  .stage :global(a.node rect) {
+    fill: var(--color-accent);
+    stroke: var(--color-accent);
+  }
+
+  .stage :global(a.node text) {
+    fill: var(--color-on-accent);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .stage :global(.family) {
+    fill: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-anchor: middle;
+    transition: opacity var(--ease);
+  }
+
+  .stage:global(.is-active) :global(.node),
+  .stage:global(.is-active) :global(line),
+  .stage:global(.is-active) :global(.family) {
+    opacity: 0.15;
+  }
+
+  .stage:global(.is-active) :global(.node.on),
+  .stage:global(.is-active) :global(line.on) {
+    opacity: 1;
+  }
+
+  .stage :global(line.on) {
+    stroke: var(--color-accent);
+  }
+
+  .stage :global(.node.on rect) {
+    stroke: var(--color-accent);
+  }
+
+  .stage :global(.node.current rect),
+  .stage :global(.node:focus-visible rect) {
+    stroke: var(--color-accent-2);
+    stroke-width: 3;
+  }
+</style>
+
+<script>
+  import type { SimulationLinkDatum, SimulationNodeDatum } from 'd3-force';
+
+  interface GraphData {
+    projects: { id: string; title: string; href: string }[];
+    tools: { id: string; name: string; family: string; projects: string[] }[];
+    families: Record<string, string>;
+    labels: { tool: string; project: string };
+  }
+
+  interface Node extends SimulationNodeDatum {
+    id: string;
+    label: string;
+    href?: string;
+    aria: string;
+    width: number;
+    height: number;
+    tx: number;
+    ty: number;
+    element?: SVGElement;
+  }
+
+  const WIDTH = 960;
+  const HEIGHT = 640;
+  const NS = 'http://www.w3.org/2000/svg';
+
+  // Les familles occupent la périphérie, les projets se placent entre elles.
+  const anchors: Record<string, [number, number]> = {
+    ml: [165, 130],
+    etl: [480, 75],
+    bi: [795, 130],
+    db: [795, 510],
+    app: [480, 565],
+    graph: [165, 510],
+  };
+
+  const create = <K extends keyof SVGElementTagNameMap>(tag: K, parent: Element) => {
+    const element = document.createElementNS(NS, tag);
+    parent.append(element);
+    return element;
+  };
+
+  async function draw(root: HTMLElement, svg: SVGSVGElement, data: GraphData) {
+    const { forceCollide, forceLink, forceManyBody, forceSimulation, forceX, forceY } =
+      await import('d3-force');
+
+    const toolsOf = (id: string) =>
+      data.tools.filter((tool) => tool.projects.includes(id)).map((tool) => tool.name);
+
+    const projectNodes: Node[] = data.projects.map((project) => {
+      const linked = data.tools.filter((tool) => tool.projects.includes(project.id));
+      const meanX = linked.reduce((sum, tool) => sum + anchors[tool.family][0], 0) / linked.length;
+      const meanY = linked.reduce((sum, tool) => sum + anchors[tool.family][1], 0) / linked.length;
+      const tx = WIDTH / 2 + (meanX - WIDTH / 2) * 0.55;
+      const ty = HEIGHT / 2 + (meanY - HEIGHT / 2) * 0.55;
+      return {
+        id: project.id,
+        label: project.title,
+        href: project.href,
+        aria: data.labels.project
+          .replace('{name}', project.title)
+          .replace('{list}', toolsOf(project.id).join(', ')),
+        width: project.title.length * 8.4 + 28,
+        height: 34,
+        tx,
+        ty,
+        x: tx,
+        y: ty,
+      };
+    });
+
+    const titleOf = new Map(data.projects.map((project) => [project.id, project.title]));
+    const toolNodes: Node[] = data.tools.map((tool) => {
+      const [tx, ty] = anchors[tool.family];
+      return {
+        id: tool.id,
+        label: tool.name,
+        aria: data.labels.tool
+          .replace('{name}', tool.name)
+          .replace('{list}', tool.projects.map((id) => titleOf.get(id)).join(', ')),
+        width: tool.name.length * 7.9 + 20,
+        height: 26,
+        tx,
+        ty,
+        x: tx,
+        y: ty,
+      };
+    });
+
+    const nodes = [...toolNodes, ...projectNodes];
+    const links: (SimulationLinkDatum<Node> & { element?: SVGLineElement })[] = data.tools.flatMap(
+      (tool) => tool.projects.map((project) => ({ source: tool.id, target: project })),
+    );
+
+    const linkLayer = create('g', svg);
+    Object.entries(anchors).forEach(([family, [x, y]]) => {
+      const label = create('text', svg);
+      label.setAttribute('class', 'family');
+      label.setAttribute('x', String(x));
+      label.setAttribute('y', String(y < HEIGHT / 2 ? 14 : HEIGHT - 4));
+      label.textContent = data.families[family];
+    });
+    const nodeLayer = create('g', svg);
+
+    const neighbours = new Map<string, Set<string>>(nodes.map((node) => [node.id, new Set()]));
+    data.tools.forEach((tool) =>
+      tool.projects.forEach((project) => {
+        neighbours.get(tool.id)?.add(project);
+        neighbours.get(project)?.add(tool.id);
+      }),
+    );
+
+    const clear = () => {
+      svg.classList.remove('is-active');
+      nodes.forEach((node) => node.element?.classList.remove('on', 'current'));
+      links.forEach((link) => link.element?.classList.remove('on'));
+    };
+
+    const activate = (id: string) => {
+      clear();
+      svg.classList.add('is-active');
+      nodes.forEach((node) => {
+        node.element?.classList.toggle('on', node.id === id || !!neighbours.get(id)?.has(node.id));
+        node.element?.classList.toggle('current', node.id === id);
+      });
+      links.forEach((link) => {
+        const ends = [(link.source as Node).id, (link.target as Node).id];
+        link.element?.classList.toggle('on', ends.includes(id));
+      });
+    };
+
+    nodes.forEach((node) => {
+      const element = create(node.href ? 'a' : 'g', nodeLayer);
+      element.classList.add('node');
+      if (node.href) {
+        element.setAttribute('href', node.href);
+      } else {
+        element.setAttribute('tabindex', '0');
+        element.setAttribute('role', 'img');
+      }
+      element.setAttribute('aria-label', node.aria);
+
+      const rect = create('rect', element);
+      rect.setAttribute('x', String(-node.width / 2));
+      rect.setAttribute('y', String(-node.height / 2));
+      rect.setAttribute('width', String(node.width));
+      rect.setAttribute('height', String(node.height));
+      rect.setAttribute('rx', String(node.height / 2));
+
+      create('text', element).textContent = node.label;
+
+      element.addEventListener('pointerenter', () => activate(node.id));
+      element.addEventListener('pointerleave', clear);
+      element.addEventListener('focus', () => activate(node.id));
+      element.addEventListener('blur', clear);
+      node.element = element;
+    });
+
+    const simulation = forceSimulation(nodes)
+      .alphaDecay(0.04)
+      .force(
+        'link',
+        forceLink<Node, SimulationLinkDatum<Node>>(links)
+          .id((node) => node.id)
+          .distance(110)
+          .strength(0.05),
+      )
+      .force('charge', forceManyBody().strength(-90))
+      .force(
+        'collide',
+        forceCollide<Node>((node) => node.width / 2 + 6).iterations(2),
+      )
+      .force('x', forceX<Node>((node) => node.tx).strength((node) => (node.href ? 0.16 : 0.24)))
+      .force('y', forceY<Node>((node) => node.ty).strength((node) => (node.href ? 0.3 : 0.4)));
+
+    links.forEach((link) => {
+      link.element = create('line', linkLayer);
+    });
+
+    // La simulation s'arrête d'elle-même dès qu'elle est stable : rien ne boucle ensuite.
+    simulation.on('tick', () => {
+      nodes.forEach((node) => {
+        node.x = Math.max(node.width / 2 + 2, Math.min(WIDTH - node.width / 2 - 2, node.x ?? 0));
+        node.y = Math.max(32, Math.min(HEIGHT - 28, node.y ?? 0));
+        node.element?.setAttribute('transform', `translate(${node.x} ${node.y})`);
+      });
+      links.forEach((link) => {
+        const source = link.source as Node;
+        const target = link.target as Node;
+        link.element?.setAttribute('x1', String(source.x));
+        link.element?.setAttribute('y1', String(source.y));
+        link.element?.setAttribute('x2', String(target.x));
+        link.element?.setAttribute('y2', String(target.y));
+      });
+    });
+
+    root.dataset.ready = 'true';
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-skill-graph]').forEach((root) => {
+    const svg = root.querySelector<SVGSVGElement>('svg.stage')!;
+    const toggle = root.querySelector<HTMLButtonElement>('.toggle')!;
+    const data: GraphData = JSON.parse(
+      root.querySelector('script[type="application/json"]')?.textContent ?? '{}',
+    );
+
+    const showList = (list: boolean) => {
+      if (list) root.dataset.view = 'list';
+      else delete root.dataset.view;
+      toggle.textContent = (list ? toggle.dataset.graph : toggle.dataset.list) ?? '';
+    };
+
+    toggle.addEventListener('click', () => showList(root.dataset.view !== 'list'));
+
+    if (getComputedStyle(svg).display === 'none' && !matchMedia('(min-width: 48rem)').matches) {
+      return;
+    }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Équivalent de client:visible, sans framework : d3-force n'arrive qu'à l'approche du graphe.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        draw(root, svg, data).catch(() => showList(true));
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(root);
+  });
+</script>

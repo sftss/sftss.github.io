@@ -1,8 +1,20 @@
+import type { Family } from '../lib/skills';
 import type { Lang } from './ui';
 
 export type Category = 'bi' | 'ml' | 'db' | 'graph' | 'app';
 
 interface HomeContent {
+  skills: {
+    title: string;
+    lead: string;
+    listLead: string;
+    showList: string;
+    showGraph: string;
+    skip: string;
+    toolLabel: string;
+    projectLabel: string;
+    families: Record<Family, string>;
+  };
   projects: {
     lead: string;
     filterLabel: string;
@@ -28,6 +40,24 @@ interface HomeContent {
 
 export const home: Record<Lang, HomeContent> = {
   fr: {
+    skills: {
+      title: 'Compétences et projets',
+      lead: 'Survolez un outil ou parcourez le graphe au clavier pour voir où il a servi, et inversement depuis un projet.',
+      listLead: 'Les outils que j’utilise, regroupés par famille, avec les projets où ils ont servi.',
+      showList: 'Afficher en liste',
+      showGraph: 'Afficher le graphe',
+      skip: 'Passer le graphe',
+      toolLabel: '{name}, utilisé dans\u00a0: {list}',
+      projectLabel: 'Projet {name}, outils\u00a0: {list}',
+      families: {
+        db: 'Bases de données & SQL',
+        bi: 'BI & visualisation',
+        etl: 'ETL & cloud',
+        ml: 'Machine learning',
+        graph: 'Bases graphes',
+        app: 'Développement applicatif',
+      },
+    },
     projects: {
       lead: 'Sept projets de groupe réalisés pendant mon BUT Informatique, de la base de données au modèle.',
       filterLabel: 'Filtrer par catégorie',
@@ -124,6 +154,24 @@ export const home: Record<Lang, HomeContent> = {
     },
   },
   en: {
+    skills: {
+      title: 'Skills and projects',
+      lead: 'Hover over a tool or browse the graph with the keyboard to see where it was used, and the other way around from a project.',
+      listLead: 'The tools I use, grouped by family, with the projects where they were used.',
+      showList: 'Show as a list',
+      showGraph: 'Show the graph',
+      skip: 'Skip the graph',
+      toolLabel: '{name}, used in: {list}',
+      projectLabel: 'Project {name}, tools: {list}',
+      families: {
+        db: 'Databases & SQL',
+        bi: 'BI & visualization',
+        etl: 'ETL & cloud',
+        ml: 'Machine learning',
+        graph: 'Graph databases',
+        app: 'Application development',
+      },
+    },
     projects: {
       lead: 'Seven group projects from my BUT in Computer Science, from database to model.',
       filterLabel: 'Filter by category',
