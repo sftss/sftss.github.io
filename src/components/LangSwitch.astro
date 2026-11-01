@@ -14,7 +14,7 @@ const t = useTranslations(lang);
           hreflang={code}
           lang={code}
           data-lang={code}
-          aria-label={useTranslations(code)('lang.switch')}
+          aria-label={`${code.toUpperCase()}, ${useTranslations(code)('lang.switch')}`}
           aria-current={code === lang ? 'true' : undefined}
         >
           {code.toUpperCase()}
