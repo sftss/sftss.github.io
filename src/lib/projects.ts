@@ -1,3 +1,5 @@
+import type { CollectionEntry } from 'astro:content';
+
 // Ancien nom de fichier (/projects/<nom>.html) vers le slug des nouvelles pages.
 export const legacyProjects = {
   IMDb: 'imdb',
@@ -9,4 +11,6 @@ export const legacyProjects = {
   Botanic: 'botanic',
 } as const;
 
-export const projectSlugs = Object.values(legacyProjects);
+// Les fiches vivent dans src/content/projects/<langue>/<slug>.md.
+export const entryLang = (entry: CollectionEntry<'projects'>) => entry.id.split('/')[0];
+export const entrySlug = (entry: CollectionEntry<'projects'>) => entry.id.split('/')[1];

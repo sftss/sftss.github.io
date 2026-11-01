@@ -1,0 +1,208 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Gallery from '../components/Gallery.astro';
+import PowerBiEmbed from '../components/PowerBiEmbed.astro';
+import { cvUrl, useTranslations, type Lang } from '../i18n/ui';
+import { entryLang, entrySlug } from '../lib/projects';
+import Base from './Base.astro';
+
+const { entry } = Astro.props as { entry: CollectionEntry<'projects'> };
+const lang = entryLang(entry) as Lang;
+const slug = entrySlug(entry);
+const t = useTranslations(lang);
+const { data } = entry;
+const { Content } = await render(entry);
+
+const others = (await getCollection('projects'))
+  .filter((other) => entryLang(other) === lang && entrySlug(other) !== slug)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  lang={lang}
+  path={`projects/${slug}/`}
+  title={`${data.title} | Sefer Tasdemir`}
+  description={data.summary}
+>
+  <article class="container project">
+    <header>
+      <p><a href={`/${lang}/#projects`}>{t('project.back')}</a></p>
+      <h1>{data.title}</h1>
+      <p class="summary">{data.summary}</p>
+      <ul class="tags">
+        {data.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+      <p><a class="btn" href={data.repo} rel="noopener noreferrer">{t('project.repo')}</a></p>
+    </header>
+
+    <section>
+      <h2>{t('project.context')}</h2>
+      <p>{data.context}</p>
+    </section>
+
+    <section>
+      <h2>{t('project.team')}</h2>
+      <p>{data.team}</p>
+      <p>{data.role}</p>
+    </section>
+
+    <section class="approach">
+      <h2>{t('project.approach')}</h2>
+      <Content />
+    </section>
+
+    <section class="wide">
+      <h2>{t('project.visuals')}</h2>
+      <Gallery lang={lang} items={data.gallery} />
+      <PowerBiEmbed lang={lang} embeds={data.embeds} />
+    </section>
+
+    <section class="wide">
+      <h2>{t('project.facts')}</h2>
+      <dl class="facts">
+        {
+          data.facts.map((fact) => (
+            <div>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <section>
+      <h2>{t('project.learnings')}</h2>
+      <p>{data.learnings}</p>
+    </section>
+
+    <footer>
+      <nav aria-labelledby="other-projects">
+        <h2 id="other-projects">{t('project.others')}</h2>
+        <ul>
+          {
+            others.map((other) => (
+              <li>
+                <a href={`/${lang}/projects/${entrySlug(other)}/`}>{other.data.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <p class="next">
+        <a class="btn btn-primary" href={cvUrl(lang)}>{t('hero.cv')}</a>
+        <a class="btn" href={`/${lang}/#contact`}>{t('nav.contact')}</a>
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .project {
+    padding-block: var(--space-l) 0;
+  }
+
+  .project > :is(header, section, footer) {
+    max-width: 46rem;
+  }
+
+  .project > .wide {
+    max-width: none;
+  }
+
+  section,
+  footer {
+    margin-top: var(--space-l);
+  }
+
+  h1 {
+    font-size: var(--step-4);
+  }
+
+  h2 {
+    font-size: var(--step-2);
+  }
+
+  section > p {
+    margin: var(--space-xs) 0 0;
+  }
+
+  .summary {
+    font-size: var(--step-1);
+    line-height: 1.35;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin: var(--space-s) 0;
+    padding: 0;
+    list-style: none;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  .tags li {
+    padding: 0.1rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+
+  .approach :global(ul) {
+    margin: var(--space-xs) 0 0;
+    padding-inline-start: 1.2em;
+  }
+
+  .approach :global(li + li) {
+    margin-top: 0.35em;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    gap: var(--space-s);
+    margin: var(--space-s) 0 0;
+  }
+
+  .facts div {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    padding: var(--space-s);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  dt {
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--step-1);
+    font-weight: 500;
+  }
+
+  footer ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-m);
+    margin: var(--space-xs) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .next {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin: var(--space-m) 0 0;
+  }
+</style>

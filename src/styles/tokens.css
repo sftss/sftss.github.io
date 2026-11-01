@@ -11,6 +11,8 @@
   --color-accent: light-dark(oklch(0.5 0.19 258), oklch(0.68 0.19 255));
   --color-accent-2: light-dark(oklch(0.46 0.1 215), oklch(0.8 0.12 215));
   --color-on-accent: light-dark(oklch(0.99 0.003 250), oklch(0.16 0.04 265));
+  --color-scrim: oklch(0.12 0.03 265 / 0.97);
+  --color-on-scrim: oklch(0.96 0.01 250);
 
   --font-sans: 'IBM Plex Sans Variable', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
