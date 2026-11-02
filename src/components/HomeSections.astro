@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import { home } from '../i18n/home';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { entryLang } from '../lib/projects';
+import AiProjects from './AiProjects.astro';
+import Contact from './Contact.astro';
+import Experience from './Experience.astro';
+import ProjectGrid from './ProjectGrid.astro';
+import SkillGraph from './SkillGraph.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const copy = home[lang];
+const projects = (await getCollection('projects'))
+  .filter((entry) => entryLang(entry) === lang)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<SkillGraph lang={lang} projects={projects} />
+
+<section id="projects" class="section container">
+  <h2>{t('nav.projects')}</h2>
+  <p class="lead">{copy.projects.lead}</p>
+  <ProjectGrid lang={lang} projects={projects} />
+</section>
+
+<AiProjects lang={lang} />
+<Experience lang={lang} />
+
+<section id="about" class="section container">
+  <h2>{t('nav.about')}</h2>
+  {copy.about.paragraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
+</section>
+
+<Contact lang={lang} />

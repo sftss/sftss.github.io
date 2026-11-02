@@ -1,105 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
-import AiProjects from '../../components/AiProjects.astro';
-import Contact from '../../components/Contact.astro';
-import Experience from '../../components/Experience.astro';
-import ProjectGrid from '../../components/ProjectGrid.astro';
-import SkillGraph from '../../components/SkillGraph.astro';
-import { home } from '../../i18n/home';
-import { cvUrl, langs, useTranslations, type Lang } from '../../i18n/ui';
+import HeroText from '../../components/HeroText.astro';
+import HomeSections from '../../components/HomeSections.astro';
+import { langs, type Lang } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
-import { entryLang } from '../../lib/projects';
 
 export const getStaticPaths = () => langs.map((lang) => ({ params: { lang } }));
 
 const lang = Astro.params.lang as Lang;
-const t = useTranslations(lang);
-const copy = home[lang];
-const projects = (await getCollection('projects'))
-  .filter((entry) => entryLang(entry) === lang)
-  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base lang={lang}>
   <section class="hero container">
-    <h1>Sefer Tasdemir</h1>
-    <p class="role">{t('hero.title')}</p>
-    <p class="tagline">{t('hero.tagline')}</p>
-    <p class="status">{t('hero.status')}</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="#projects">{t('hero.projects')}</a>
-      <a class="btn" href={cvUrl(lang)} download>{t('hero.cv')}</a>
-    </div>
-    <figure>
-      <blockquote lang="en">Program or be programmed.</blockquote>
-      <figcaption>Douglas Rushkoff</figcaption>
-    </figure>
+    <HeroText lang={lang} />
   </section>
-
-  <SkillGraph lang={lang} projects={projects} />
-
-  <section id="projects" class="section container">
-    <h2>{t('nav.projects')}</h2>
-    <p class="lead">{copy.projects.lead}</p>
-    <ProjectGrid lang={lang} projects={projects} />
-  </section>
-
-  <AiProjects lang={lang} />
-  <Experience lang={lang} />
-
-  <section id="about" class="section container">
-    <h2>{t('nav.about')}</h2>
-    {copy.about.paragraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
-  </section>
-
-  <Contact lang={lang} />
+  <HomeSections lang={lang} />
 </Base>
 
 <style>
   .hero {
     padding-block: var(--space-xl) var(--space-l);
-  }
-
-  h1 {
-    font-size: var(--step-4);
-  }
-
-  .role {
-    margin: var(--space-xs) 0 0;
-    color: var(--color-accent);
-    font-family: var(--font-mono);
-    font-size: var(--step-1);
-    font-weight: 500;
-  }
-
-  .tagline {
-    margin: var(--space-m) 0 0;
-    font-size: var(--step-2);
-    font-weight: 600;
-    line-height: 1.25;
-  }
-
-  .status {
-    max-width: 44rem;
-    margin: var(--space-s) 0 0;
-    color: var(--color-muted);
-  }
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-s);
-    margin-top: var(--space-m);
-  }
-
-  figure {
-    margin: var(--space-l) 0 0;
-    color: var(--color-muted);
-    font-size: var(--step--1);
-  }
-
-  blockquote {
-    margin: 0;
-    font-style: italic;
   }
 </style>
