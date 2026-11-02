@@ -37,8 +37,13 @@ const person = {
   url: new URL('/', site).href,
   image: new URL('/assets/img/pp.webp', site).href,
   jobTitle: 'Data Scientist',
+  description:
+    'Data Scientist spécialisé en transformation de données, bases de données et gestion de projets',
   knowsLanguage: ['fr', 'en', 'tr'],
-  alumniOf: { '@type': 'CollegeOrUniversity', name: 'IUT d’Annecy, Université Savoie Mont Blanc' },
+  alumniOf: [
+    { '@type': 'University', name: 'Université Lumière Lyon 2' },
+    { '@type': 'CollegeOrUniversity', name: 'IUT d’Annecy, Université Savoie Mont Blanc' },
+  ],
   sameAs: [links.linkedin, links.github],
 };
 ---
