@@ -76,6 +76,11 @@ const paragraphs = copy.paragraphs.map((paragraph) =>
     @media (prefers-reduced-motion: no-preference) {
       .w {
         animation: light linear both;
+      }
+
+      /* Règle à part, plus spécifique : le minifieur fusionnerait sinon la timeline dans le
+         raccourci animation, que Chrome refuse. */
+      .story .w {
         animation-timeline: view();
         animation-range: entry 20% cover 45%;
       }
