@@ -14,6 +14,7 @@ const t = useTranslations(lang);
           hreflang={code}
           lang={code}
           data-lang={code}
+          data-astro-history="replace"
           aria-label={`${code.toUpperCase()}, ${useTranslations(code)('lang.switch')}`}
           aria-current={code === lang ? 'true' : undefined}
         >
@@ -54,11 +55,40 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  document.querySelectorAll<HTMLAnchorElement>('.lang-switch a').forEach((link) => {
-    link.addEventListener('click', () => {
+  // Le texte FR et le texte EN n'ont pas la même longueur : on retient la section à l'écran
+  // et la position dans cette section, puis on la retrouve dans l'autre langue.
+  let anchor: { id: string; ratio: number; y: number } | null = null;
+
+  const currentAnchor = () => {
+    let section: HTMLElement | null = null;
+    for (const candidate of document.querySelectorAll<HTMLElement>('main section[id]')) {
+      if (candidate.getBoundingClientRect().top <= innerHeight / 2) section = candidate;
+    }
+    if (!section) return { id: '', ratio: 0, y: scrollY };
+    const box = section.getBoundingClientRect();
+    return { id: section.id, ratio: -box.top / Math.max(1, box.height), y: scrollY };
+  };
+
+  // Capture : on note la position avant que le routeur ne prenne le clic.
+  document.addEventListener(
+    'click',
+    (event) => {
+      const link = (event.target as Element).closest<HTMLAnchorElement>('.lang-switch a');
+      if (!link) return;
       try {
         localStorage.setItem('preferredLanguage', link.dataset.lang ?? '');
       } catch {}
-    });
+      anchor = currentAnchor();
+    },
+    true,
+  );
+
+  document.addEventListener('astro:after-swap', () => {
+    if (!anchor) return;
+    const { id, ratio, y } = anchor;
+    anchor = null;
+    const section = id ? document.getElementById(id) : null;
+    const top = section ? section.getBoundingClientRect().top + scrollY + ratio * section.offsetHeight : y;
+    scrollTo({ top, behavior: 'instant' });
   });
 </script>

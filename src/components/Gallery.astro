@@ -190,44 +190,48 @@ const images = await Promise.all(
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
-    const links = [...gallery.querySelectorAll<HTMLAnchorElement>('.gallery a')];
-    const dialog = gallery.querySelector('dialog')!;
-    const image = dialog.querySelector('img')!;
-    const caption = dialog.querySelector('figcaption')!;
-    let current = 0;
+  import { onPage } from '../lib/lifecycle';
 
-    dialog.toggleAttribute('data-single', links.length < 2);
+  onPage(() => {
+    document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+      const links = [...gallery.querySelectorAll<HTMLAnchorElement>('.gallery a')];
+      const dialog = gallery.querySelector('dialog')!;
+      const image = dialog.querySelector('img')!;
+      const caption = dialog.querySelector('figcaption')!;
+      let current = 0;
 
-    const show = (index: number) => {
-      current = (index + links.length) % links.length;
-      const link = links[current];
-      image.width = Number(link.dataset.width);
-      image.height = Number(link.dataset.height);
-      image.alt = link.dataset.alt ?? '';
-      image.src = link.href;
-      caption.textContent = link.dataset.caption ?? '';
-    };
+      dialog.toggleAttribute('data-single', links.length < 2);
 
-    links.forEach((link, index) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        show(index);
-        dialog.showModal();
+      const show = (index: number) => {
+        current = (index + links.length) % links.length;
+        const link = links[current];
+        image.width = Number(link.dataset.width);
+        image.height = Number(link.dataset.height);
+        image.alt = link.dataset.alt ?? '';
+        image.src = link.href;
+        caption.textContent = link.dataset.caption ?? '';
+      };
+
+      links.forEach((link, index) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+          show(index);
+          dialog.showModal();
+        });
       });
-    });
 
-    dialog.querySelector('.close')!.addEventListener('click', () => dialog.close());
-    dialog.querySelector('.prev')!.addEventListener('click', () => show(current - 1));
-    dialog.querySelector('.next')!.addEventListener('click', () => show(current + 1));
-    dialog.addEventListener('click', (event) => {
-      if (event.target === dialog) dialog.close();
+      dialog.querySelector('.close')!.addEventListener('click', () => dialog.close());
+      dialog.querySelector('.prev')!.addEventListener('click', () => show(current - 1));
+      dialog.querySelector('.next')!.addEventListener('click', () => show(current + 1));
+      dialog.addEventListener('click', (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      dialog.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') show(current - 1);
+        if (event.key === 'ArrowRight') show(current + 1);
+      });
+      // Rend le focus à l'image affichée en dernier, pas à celle ouverte au départ.
+      dialog.addEventListener('close', () => links[current].focus());
     });
-    dialog.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') show(current - 1);
-      if (event.key === 'ArrowRight') show(current + 1);
-    });
-    // Rend le focus à l'image affichée en dernier, pas à celle ouverte au départ.
-    dialog.addEventListener('close', () => links[current].focus());
   });
 </script>

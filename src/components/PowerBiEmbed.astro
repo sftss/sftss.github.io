@@ -96,14 +96,18 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('[data-embed]').forEach((frame) => {
-    frame.querySelector('button')?.addEventListener('click', () => {
-      const iframe = document.createElement('iframe');
-      iframe.src = frame.dataset.embed ?? '';
-      iframe.title = frame.dataset.title ?? '';
-      iframe.allowFullscreen = true;
-      frame.replaceChildren(iframe);
-      iframe.focus();
+  import { onPage } from '../lib/lifecycle';
+
+  onPage(() => {
+    document.querySelectorAll<HTMLElement>('[data-embed]').forEach((frame) => {
+      frame.querySelector('button')?.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = frame.dataset.embed ?? '';
+        iframe.title = frame.dataset.title ?? '';
+        iframe.allowFullscreen = true;
+        frame.replaceChildren(iframe);
+        iframe.focus();
+      });
     });
   });
 </script>

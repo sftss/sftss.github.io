@@ -181,20 +181,24 @@ const categories = Object.entries(copy.categories) as [Category, string][];
 </style>
 
 <script>
-  document.querySelectorAll<HTMLElement>('[data-project-grid]').forEach((root) => {
-    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
-    const cards = [...root.querySelectorAll<HTMLElement>('[data-categories]')];
-    const status = root.querySelector<HTMLElement>('[role="status"]')!;
+  import { onPage } from '../lib/lifecycle';
 
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const filter = button.dataset.filter ?? 'all';
-        buttons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
-        cards.forEach((card) => {
-          card.hidden = filter !== 'all' && !card.dataset.categories?.split(' ').includes(filter);
+  onPage(() => {
+    document.querySelectorAll<HTMLElement>('[data-project-grid]').forEach((root) => {
+      const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+      const cards = [...root.querySelectorAll<HTMLElement>('[data-categories]')];
+      const status = root.querySelector<HTMLElement>('[role="status"]')!;
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = button.dataset.filter ?? 'all';
+          buttons.forEach((other) => other.setAttribute('aria-pressed', String(other === button)));
+          cards.forEach((card) => {
+            card.hidden = filter !== 'all' && !card.dataset.categories?.split(' ').includes(filter);
+          });
+          const shown = cards.filter((card) => !card.hidden).length;
+          status.textContent = (status.dataset.template ?? '').replace('{n}', String(shown));
         });
-        const shown = cards.filter((card) => !card.hidden).length;
-        status.textContent = (status.dataset.template ?? '').replace('{n}', String(shown));
       });
     });
   });

@@ -9,6 +9,7 @@ import '../styles/base.css';
 import Chatbot from '../components/Chatbot.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
+import { ClientRouter } from 'astro:transitions';
 import { langs, links, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -84,6 +85,7 @@ const person = {
       )
     }
 
+    <ClientRouter />
     <script is:inline>
       (function () {
         var theme = null;
@@ -94,6 +96,10 @@ const person = {
           theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
         document.documentElement.dataset.theme = theme;
+        // Le routeur remplace les attributs de <html> : la page suivante reçoit le thème courant.
+        document.addEventListener('astro:before-swap', function (event) {
+          event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme;
+        });
       })();
     </script>
   </head>

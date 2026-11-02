@@ -51,16 +51,20 @@ const t = useTranslations(lang);
 </style>
 
 <script>
-  const root = document.documentElement;
-  document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach((button) => {
-    button.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
-    button.addEventListener('click', () => {
-      const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-      root.dataset.theme = theme;
-      button.setAttribute('aria-pressed', String(theme === 'dark'));
-      try {
-        localStorage.setItem('preferredTheme', theme);
-      } catch {}
+  import { onPage } from '../lib/lifecycle';
+
+  onPage(() => {
+    const root = document.documentElement;
+    document.querySelectorAll<HTMLButtonElement>('.theme-toggle').forEach((button) => {
+      button.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+      button.addEventListener('click', () => {
+        const theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = theme;
+        button.setAttribute('aria-pressed', String(theme === 'dark'));
+        try {
+          localStorage.setItem('preferredTheme', theme);
+        } catch {}
+      });
     });
   });
 </script>

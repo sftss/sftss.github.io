@@ -31,9 +31,12 @@ const t = useTranslations(lang);
 </style>
 
 <script>
+  import { onPage } from '../lib/lifecycle';
+
   // Botpress n'est demandé qu'au clic : aucune requête tierce avant cette intention.
   const INJECT = 'https://cdn.botpress.cloud/webchat/v2.2/inject.js';
   const CONFIG = 'https://files.bpcontent.cloud/2025/04/12/10/20250412104746-SVC1SOL9.js';
+  const PERSIST = 'data-astro-transition-persist';
 
   const load = (src: string) =>
     new Promise<void>((resolve, reject) => {
@@ -60,31 +63,84 @@ const t = useTranslations(lang);
       }, 200);
     });
 
-  const button = document.querySelector<HTMLButtonElement>('.chatbot');
-
-  button?.addEventListener('click', async () => {
-    const label = button.textContent;
-    button.disabled = true;
-    button.textContent = button.dataset.loading ?? '';
-    try {
-      await load(INJECT);
-      const { botpress } = window as unknown as {
-        botpress: { on: (event: string, handler: () => void) => void; open: () => void };
-      };
-      botpress.on('webchat:ready', async () => {
-        await openWhenMounted(botpress.open);
-        button.hidden = true;
-        // Botpress masque ses iframes aux lecteurs d'écran et au clavier.
-        document.querySelectorAll('.bpWebchat, .bpFab').forEach((frame) => {
-          frame.removeAttribute('aria-hidden');
-          frame.removeAttribute('tabindex');
-          frame.setAttribute('title', label ?? 'Chatbot');
-        });
-      });
-      await load(CONFIG);
-    } catch {
-      button.disabled = false;
-      button.textContent = label;
+  // Tout ce que Botpress ajoute à <head> et <body> (iframes, styles, scripts) est noté,
+  // pour le garder d'une page à l'autre. Les scripts relancés par le routeur sont ignorés.
+  let loaded = false;
+  const added = new Set<Element>();
+  const watcher = new MutationObserver((records) => {
+    for (const record of records) {
+      for (const node of record.addedNodes) {
+        if (!(node instanceof Element)) continue;
+        if (node instanceof HTMLScriptElement && !/botpress|bpcontent/.test(node.src)) continue;
+        added.add(node);
+      }
     }
+  });
+  const watch = () => {
+    watcher.observe(document.head, { childList: true });
+    watcher.observe(document.body, { childList: true });
+  };
+
+  // Le routeur garde un élément s'il trouve son jumeau dans la nouvelle page :
+  // chaque élément de Botpress reçoit un identifiant et un jumeau vide.
+  document.addEventListener('astro:before-swap', (event) => {
+    if (!loaded) return;
+    watcher.disconnect();
+    const doc = event.newDocument;
+    let n = 0;
+    for (const element of added) {
+      if (!element.isConnected) {
+        added.delete(element);
+        continue;
+      }
+      const id = `botpress-${n++}`;
+      element.setAttribute(PERSIST, id);
+      const twin = doc.createElement('template');
+      twin.setAttribute(PERSIST, id);
+      (element.parentElement === document.head ? doc.head : doc.body).append(twin);
+    }
+  });
+  document.addEventListener('astro:after-swap', () => {
+    if (loaded) watch();
+  });
+
+  onPage(() => {
+    const button = document.querySelector<HTMLButtonElement>('.chatbot');
+    if (!button) return;
+    if (loaded) {
+      button.hidden = true;
+      return;
+    }
+
+    button.addEventListener('click', async () => {
+      const label = button.textContent;
+      button.disabled = true;
+      button.textContent = button.dataset.loading ?? '';
+      loaded = true;
+      watch();
+      try {
+        await load(INJECT);
+        const { botpress } = window as unknown as {
+          botpress: { on: (event: string, handler: () => void) => void; open: () => void };
+        };
+        botpress.on('webchat:ready', async () => {
+          await openWhenMounted(botpress.open);
+          document.querySelector<HTMLButtonElement>('.chatbot')?.setAttribute('hidden', '');
+          // Botpress masque ses iframes aux lecteurs d'écran et au clavier.
+          document.querySelectorAll('.bpWebchat, .bpFab').forEach((frame) => {
+            frame.removeAttribute('aria-hidden');
+            frame.removeAttribute('tabindex');
+            frame.setAttribute('title', label ?? 'Chatbot');
+          });
+        });
+        await load(CONFIG);
+      } catch {
+        loaded = false;
+        watcher.disconnect();
+        added.clear();
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
   });
 </script>
