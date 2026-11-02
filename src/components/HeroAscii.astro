@@ -1,0 +1,143 @@
+---
+import type { Lang } from '../i18n/ui';
+import { asciiPortrait } from '../lib/ascii';
+import HeroText from './HeroText.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const portrait = await asciiPortrait({ cols: 110, threshold: 0.3, gamma: 0.8 });
+const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
+---
+
+<section class="hero">
+  <div class="container grid">
+    <HeroText lang={lang} />
+    <div class="frame">
+      <pre aria-hidden="true" data-ascii data-cols={Math.max(...portrait.map((line) => line.length))}>{portrait.join('\n')}</pre>
+    </div>
+  </div>
+  <a class="cue" href="#skills">{cue} ↓</a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: calc(100svh - 4.5rem);
+    padding-block: var(--space-l);
+    overflow: hidden;
+  }
+
+  .grid {
+    display: grid;
+    align-items: center;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 60rem) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    }
+  }
+
+  .frame {
+    container-type: inline-size;
+    order: -1;
+  }
+
+  @media (min-width: 60rem) {
+    .frame {
+      order: 0;
+    }
+  }
+
+  pre {
+    margin: 0;
+    /* 110 colonnes de caractères mono, d'environ 0,6 em de large chacune. */
+    font-size: calc(100cqi / 110 / 0.6);
+    line-height: 1;
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    white-space: pre;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Caractères en cours de brouillage, posés par le script. */
+  pre :global(b) {
+    color: var(--color-accent-2);
+    font-weight: inherit;
+  }
+
+  .cue {
+    position: absolute;
+    bottom: var(--space-s);
+    left: 50%;
+    translate: -50% 0;
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-decoration: none;
+  }
+
+  .cue:hover {
+    color: var(--color-text);
+  }
+</style>
+
+<script>
+  const pre = document.querySelector<HTMLPreElement>('[data-ascii]');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (pre && !reduced) {
+    const target = pre.textContent!.split('\n').map((line) => [...line]);
+    const width = Number(pre.dataset.cols);
+    // Aucun caractère à échapper : le rendu passe par innerHTML pour colorer les caractères brouillés.
+    const glyphs = '01/\\{}[]=+*#%@$?!';
+    const random = () => `<b>${glyphs[Math.floor(Math.random() * glyphs.length)]}</b>`;
+    const start = performance.now();
+    // Chaque caractère se fige à son propre instant : le portrait se « décode » en 1,4 s.
+    const reveal = target.map((row) => row.map((ch) => (ch === ' ' ? 0 : Math.random() * 1400)));
+    const scrambled = new Map<number, number>();
+    let frame = 0;
+
+    const render = (now: number) => {
+      let busy = false;
+      pre.innerHTML = target
+        .map((row, y) =>
+          row
+            .map((ch, x) => {
+              if (ch === ' ') return ' ';
+              const until = scrambled.get(y * width + x);
+              if (now - start < reveal[y][x] || (until && until > now)) {
+                busy = true;
+                return random();
+              }
+              if (until) scrambled.delete(y * width + x);
+              return ch;
+            })
+            .join(''),
+        )
+        .join('\n');
+      // Plus rien à animer : la boucle s'arrête jusqu'au prochain passage du curseur.
+      frame = busy ? requestAnimationFrame(render) : 0;
+    };
+    frame = requestAnimationFrame(render);
+
+    pre.addEventListener('pointermove', (event) => {
+      const box = pre.getBoundingClientRect();
+      const cx = Math.floor(((event.clientX - box.left) / box.width) * width);
+      const cy = Math.floor(((event.clientY - box.top) / box.height) * target.length);
+      const now = performance.now();
+      for (let dy = -5; dy <= 5; dy++) {
+        for (let dx = -10; dx <= 10; dx++) {
+          const x = cx + dx;
+          const y = cy + dy;
+          if ((dx / 10) ** 2 + (dy / 5) ** 2 > 1 || target[y]?.[x] === undefined || target[y][x] === ' ') continue;
+          scrambled.set(y * width + x, now + 180 + Math.random() * 420);
+        }
+      }
+      if (!frame) frame = requestAnimationFrame(render);
+    });
+  }
+</script>
