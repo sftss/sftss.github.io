@@ -41,3 +41,44 @@ export async function asciiPortrait({ cols, threshold, gamma }: AsciiOptions) {
   }
   return lines;
 }
+
+/** Réseau de neurones en ASCII, à la taille de la grille du portrait. */
+export function asciiNetwork(cols: number, rows: number) {
+  const grid = Array.from({ length: rows }, () => Array<string>(cols).fill(' '));
+  const layers = [4, 6, 6, 3];
+  const columns = [0.12, 0.38, 0.62, 0.88].map((f) => Math.round(f * (cols - 1)));
+  const spacing = (rows * 0.82) / Math.max(...layers);
+  const nodes = layers.map((count, layer) =>
+    Array.from({ length: count }, (_, i) => ({
+      x: columns[layer],
+      y: Math.round(rows / 2 + (i - (count - 1) / 2) * spacing),
+    })),
+  );
+
+  // Connexions en pointillés : légères, elles laissent ressortir les nœuds même quand elles se croisent.
+  for (let layer = 0; layer < nodes.length - 1; layer++) {
+    for (const a of nodes[layer]) {
+      for (const b of nodes[layer + 1]) {
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const steps = Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)));
+        for (let s = 0; s <= steps; s += 2) {
+          const x = Math.round(a.x + (dx * s) / steps);
+          const y = Math.round(a.y + (dy * s) / steps);
+          if (grid[y]?.[x] === ' ') grid[y][x] = '.';
+        }
+      }
+    }
+  }
+
+  // Les nœuds, des disques pleins, recouvrent les connexions.
+  for (const node of nodes.flat()) {
+    for (let y = node.y - 3; y <= node.y + 3; y++) {
+      for (let x = node.x - 6; x <= node.x + 6; x++) {
+        const d = ((x - node.x) / 5.2) ** 2 + ((y - node.y) / 2.7) ** 2;
+        if (d <= 1 && grid[y]?.[x] !== undefined) grid[y][x] = d < 0.35 ? '@' : d < 0.75 ? '%' : '*';
+      }
+    }
+  }
+  return grid.map((row) => row.join(''));
+}

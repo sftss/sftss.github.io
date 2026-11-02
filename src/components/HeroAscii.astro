@@ -1,31 +1,53 @@
 ---
 import type { Lang } from '../i18n/ui';
-import { asciiPortrait } from '../lib/ascii';
+import { asciiNetwork, asciiPortrait } from '../lib/ascii';
 import HeroText from './HeroText.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const portrait = await asciiPortrait({ cols: 110, threshold: 0.3, gamma: 0.8 });
+const network = asciiNetwork(110, portrait.length);
 const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
 ---
 
 <section class="hero" data-hero>
-  <div class="container grid">
-    <HeroText lang={lang} />
-    <div class="frame">
-      <pre aria-hidden="true" data-ascii data-cols={Math.max(...portrait.map((line) => line.length))}>{portrait.join('\n')}</pre>
+  <div class="pin">
+    <div class="container grid">
+      <HeroText lang={lang} />
+      <div class="frame">
+        <pre aria-hidden="true" data-ascii data-cols={Math.max(...portrait.map((line) => line.length))}>{portrait.join('\n')}</pre>
+      </div>
     </div>
+    <a class="cue" href="#skills">{cue} ↓</a>
   </div>
-  <a class="cue" href="#skills">{cue} ↓</a>
+  <script type="application/json" data-network set:html={JSON.stringify(network)} />
 </section>
 
 <style>
   .hero {
     position: relative;
+    overflow-x: clip;
+  }
+
+  .pin {
+    position: relative;
     display: grid;
     align-items: center;
     min-height: calc(100svh - 4.5rem);
     padding-block: var(--space-l);
-    overflow: hidden;
+  }
+
+  /* Sur grand écran, avec JS et mouvement autorisé, le hero reste à l'écran pendant que
+     le portrait se recompose en réseau de neurones, puis la page reprend. */
+  @media (min-width: 60rem) and (prefers-reduced-motion: no-preference) {
+    :global(html[data-theme]) .hero {
+      height: 185svh;
+    }
+
+    :global(html[data-theme]) .pin {
+      position: sticky;
+      top: 0;
+      min-height: 100svh;
+    }
   }
 
   .grid {
@@ -103,6 +125,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     revealAt: number;
     sx: number;
     sy: number;
+    /** Place du caractère dans le réseau de neurones, si ce caractère y participe. */
+    target: { col: number; row: number; ch: string } | null;
   }
 
   const pre = document.querySelector<HTMLPreElement>('[data-ascii]');
@@ -116,6 +140,7 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
       dark: ['oklch(0.9 0.12 215)', 'oklch(0.97 0.01 250)', 'oklch(0.8 0.16 350)', 'oklch(0.88 0.15 90)'],
       light: ['oklch(0.55 0.13 215)', 'oklch(0.42 0.06 262)', 'oklch(0.58 0.2 350)', 'oklch(0.62 0.16 65)'],
     };
+    const wide = matchMedia('(min-width: 60rem)');
     const canvas = document.createElement('canvas');
     canvas.setAttribute('aria-hidden', 'true');
     pre.after(canvas);
@@ -135,9 +160,18 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
           revealAt: Math.random() * 1200,
           sx: Math.cos(angle) * distance,
           sy: Math.sin(angle) * distance,
+          target: null,
         });
       }),
     );
+
+    // Chaque case du réseau reçoit un caractère du portrait tiré au hasard : ils se croisent en vol.
+    const network: string[] = JSON.parse(hero.querySelector('[data-network]')!.textContent!);
+    const cells = network.flatMap((line, row) =>
+      [...line].map((ch, col) => ({ col, row, ch })).filter((cell) => cell.ch !== ' '),
+    );
+    const order = particles.map((_, i) => i).sort(() => Math.random() - 0.5);
+    cells.slice(0, particles.length).forEach((cell, i) => (particles[order[i]].target = cell));
 
     let charWidth = 0;
     let lineHeight = 0;
@@ -147,10 +181,15 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     let placed = false;
     let pointer: { x: number; y: number } | null = null;
     let scatter = 0;
+    let morph = 0;
     let frame = 0;
 
-    const homeX = (p: Particle) => (p.col + 0.5) * charWidth;
-    const homeY = (p: Particle) => (p.row + 0.5) * lineHeight;
+    const smooth = (t: number) => {
+      const c = Math.min(1, Math.max(0, t));
+      return c * c * (3 - 2 * c);
+    };
+    const cellX = (col: number) => (col + 0.5) * charWidth;
+    const cellY = (row: number) => (row + 0.5) * lineHeight;
 
     const layout = () => {
       const style = getComputedStyle(pre);
@@ -167,22 +206,30 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
       lineHeight = size;
       if (!placed) {
         particles.forEach((p) => {
-          p.x = homeX(p);
-          p.y = homeY(p);
+          p.x = cellX(p.col);
+          p.y = cellY(p.row);
         });
         placed = true;
       }
     };
 
     const step = (now: number) => {
-      const intro = now - start < 1300;
       const radius = charWidth * 9;
-      const easedScatter = scatter ** 1.5;
-      let busy = intro || pointer !== null;
+      const m = smooth((morph - 0.05) / 0.75);
+      const s = scatter ** 1.5;
+      // Les caractères se colorent pendant leur vol, puis reprennent la couleur du site à l'arrivée.
+      const flight = Math.sin(Math.PI * m);
+      let busy = now - start < 1300 || pointer !== null;
 
       for (const p of particles) {
-        const tx = homeX(p) + p.sx * easedScatter;
-        const ty = homeY(p) + p.sy * easedScatter;
+        let tx = cellX(p.col) + p.sx * s;
+        let ty = cellY(p.row) + p.sy * s;
+        if (m > 0) {
+          const toX = p.target ? cellX(p.target.col) : cellX(p.col) + p.sx;
+          const toY = p.target ? cellY(p.target.row) : cellY(p.row) + p.sy;
+          tx += (toX - tx) * m;
+          ty += (toY - ty) * m;
+        }
         let fx = (tx - p.x) * 0.08;
         let fy = (ty - p.y) * 0.08;
         if (pointer) {
@@ -197,40 +244,46 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
             p.heat = Math.max(p.heat, 1 - d / radius);
           }
         }
-        p.heat = Math.max(p.heat * 0.965, scatter);
+        p.heat = Math.max(p.heat * 0.965, scatter, flight * 0.9);
         p.vx = (p.vx + fx) * 0.8;
         p.vy = (p.vy + fy) * 0.8;
         p.x += p.vx;
         p.y += p.vy;
         if (!busy && (Math.abs(p.vx) + Math.abs(p.vy) > 0.03 || p.heat > 0.03)) busy = true;
       }
-      return busy;
+      return { busy, m };
     };
 
-    const draw = (now: number) => {
-      const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
-      const palette = palettes[theme];
+    const draw = (now: number, m: number) => {
+      const palette = palettes[document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'];
+      const base = getComputedStyle(pre).color;
       ctx.clearRect(0, 0, width, height);
       ctx.font = font;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.globalAlpha = 1 - scatter * 0.85;
-      // Couleur de base d'abord, puis une passe par couleur : peu de changements de style par image.
-      for (let pass = -1; pass < palette.length; pass++) {
-        ctx.fillStyle = pass === -1 ? getComputedStyle(pre).color : palette[pass];
-        for (const p of particles) {
-          const hidden = now - start < p.revealAt;
-          const colored = hidden || p.heat > 0.12;
-          if (pass === -1 ? colored : !colored || p.tint !== pass) continue;
-          const ch = hidden || p.heat > 0.6 ? glyphs[(Math.random() * glyphs.length) | 0] : p.ch;
-          ctx.fillText(ch, p.x, p.y);
+      // Les caractères sans place dans le réseau s'effacent pendant la transformation.
+      for (const mapped of [true, false]) {
+        ctx.globalAlpha = (1 - scatter * 0.85) * (mapped ? 1 : 1 - m);
+        if (ctx.globalAlpha <= 0.01) continue;
+        // Couleur de base d'abord, puis une passe par couleur : peu de changements de style par image.
+        for (let pass = -1; pass < palette.length; pass++) {
+          ctx.fillStyle = pass === -1 ? base : palette[pass];
+          for (const p of particles) {
+            if ((p.target !== null) !== mapped) continue;
+            const hidden = now - start < p.revealAt;
+            const colored = hidden || p.heat > 0.12;
+            if (pass === -1 ? colored : !colored || p.tint !== pass) continue;
+            const settled = m > 0.5 && p.target ? p.target.ch : p.ch;
+            ctx.fillText(hidden || p.heat > 0.6 ? glyphs[(Math.random() * glyphs.length) | 0] : settled, p.x, p.y);
+          }
         }
       }
+      ctx.globalAlpha = 1;
     };
 
     const tick = (now: number) => {
-      const busy = step(now);
-      draw(now);
+      const { busy, m } = step(now);
+      draw(now, m);
       // La boucle s'arrête dès que tout est revenu au repos.
       frame = busy ? requestAnimationFrame(tick) : 0;
     };
@@ -254,19 +307,20 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
       pointer = null;
     });
 
-    // Au défilement, le portrait se désagrège vers le haut pendant que le hero quitte l'écran.
-    addEventListener(
-      'scroll',
-      () => {
-        const box = hero.getBoundingClientRect();
-        const next = Math.min(1, Math.max(0, -box.top / (box.height * 0.85)));
-        if (next !== scatter) {
-          scatter = next;
-          wake();
-        }
-      },
-      { passive: true },
-    );
+    // Grand écran : le hero reste à l'écran et le portrait devient un réseau de neurones.
+    // Petit écran : le portrait se désagrège vers le haut pendant que le hero quitte l'écran.
+    const onScroll = () => {
+      const box = hero.getBoundingClientRect();
+      const nextMorph = wide.matches ? Math.min(1, Math.max(0, -box.top / Math.max(1, box.height - innerHeight))) : 0;
+      const nextScatter = wide.matches ? 0 : Math.min(1, Math.max(0, -box.top / (box.height * 0.85)));
+      if (nextMorph !== morph || nextScatter !== scatter) {
+        morph = nextMorph;
+        scatter = nextScatter;
+        wake();
+      }
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     new MutationObserver(wake).observe(document.documentElement, { attributeFilter: ['data-theme'] });
   }
 </script>
