@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Open-Food-Fact
 context: "SAE S4.C.01 du BUT Informatique, « développement avec une base de données et visualisation » (2024-25). Il fallait améliorer une base collaborative existante, y intégrer des ventes simulées, produire des rapports et entraîner des modèles capables d’attribuer le Nutri-Score malgré l’absence de données sur les fibres et le sodium."
 team: Projet de groupe, 5 personnes.
 role: J’ai écrit les scripts SQL qui assurent la cohérence des clés entre les deux serveurs Azure, et réalisé dans Knime les jointures, les correspondances d’identifiants et les transformations nécessaires.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Sans données sur les fibres et le sodium, il a fallu entraîner des modèles plutôt que reproduire le calcul officiel du Nutri-Score, et l’accès aux serveurs Azure depuis le réseau de l’IUT a demandé des réglages de ports et de proxy. Côté équipe, le management du projet et l’initialisation du cahier des charges ont été mes principaux apprentissages."
 gallery:
   - src: ../../../assets/projects/open-food-facts/OLTPOFF.webp
     alt: Modèle relationnel OLTP centré sur la table PRODUCT, avec ses tables de référence

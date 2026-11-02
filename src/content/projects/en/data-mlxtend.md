@@ -10,7 +10,7 @@ repo: https://github.com/sftss/TP-Data-MLxtend
 context: Practical assignment of the BUT in Computer Science. From a year of transactions, the brief was to clean the data, describe buying behavior and surface products bought together.
 team: Group project.
 role: I took the lead on the project and handled the technical side.
-learnings: The main challenges and lessons came from managing the project and from setting up the initial requirements.
+learnings: "Before looking for rules, the data had to be cleaned: removing baskets with no customer and lines that are not products, such as postage. On the team side, managing the project and setting up the initial requirements were my main lessons."
 gallery:
   - src: ../../../assets/projects/data-mlxtend/1_paniers_par_mois.webp
     alt: Line chart of baskets per month, peaking in November 2011

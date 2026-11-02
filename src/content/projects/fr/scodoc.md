@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Scodoc
 context: "SAÉ 2.04 du BUT Informatique, « Exploitation d’une base de données ». Il fallait concevoir une base gérant les étudiants, leurs groupes, leurs modules, leurs évaluations et leurs notes, puis en tirer des analyses."
 team: Projet de groupe, 3 personnes.
 role: J’ai co-conçu les modèles conceptuel et logique, rédigé les rapports, co-écrit les requêtes SQL et les calculs Excel, et créé le rapport Power BI.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges."
 gallery:
   - src: ../../../assets/projects/scodoc/MLDScodoc.webp
     alt: Modèle logique de données reliant les étudiants, groupes, modules, évaluations et notes

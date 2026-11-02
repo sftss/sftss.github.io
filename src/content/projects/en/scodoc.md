@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Scodoc
 context: "SAÉ 2.04 of the BUT in Computer Science, “Using a database”. The brief was to design a database managing students, their groups, modules, assessments and grades, then to draw analyses from it."
 team: Group project, 3 people.
 role: I co-designed the conceptual and logical models, wrote the reports, co-wrote the SQL queries and Excel calculations, and created the Power BI report.
-learnings: The main challenges and lessons came from managing the project and from setting up the initial requirements.
+learnings: "The main challenges and lessons came from managing the project and from setting up the initial requirements."
 gallery:
   - src: ../../../assets/projects/scodoc/MLDScodoc.webp
     alt: Logical data model linking students, groups, modules, assessments and grades

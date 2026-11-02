@@ -10,7 +10,7 @@ repo: https://github.com/sftss/IMDb
 context: "SAE5.C.01 of the BUT in Computer Science (2025-26, IUT d’Annecy). Starting from IMDb’s public flat files, the brief was to design an optimized SQL Server database and Power BI reports, then AI models able to assess a review from its text alone, all on a standard PC."
 team: Group project, 5 people.
 role: I took the lead on the project and handled the technical side.
-learnings: The main challenges and lessons came from managing the project and from setting up the initial requirements.
+learnings: "The main technical challenge was the ETL: processing 222 million rows on a standard PC without running out of memory. On the team side, managing the project and setting up the initial requirements were my main lessons."
 gallery:
   - src: ../../../assets/projects/imdb/IMDbModeleOLTP.webp
     alt: OLTP relational schema with the TITLE, PERSON and TITLE_PRINCIPAL tables and their reference tables

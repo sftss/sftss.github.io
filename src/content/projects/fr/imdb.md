@@ -10,7 +10,7 @@ repo: https://github.com/sftss/IMDb
 context: "SAE5.C.01 du BUT Informatique (2025-26, IUT d’Annecy). À partir des fichiers plats publics d’IMDb, il fallait concevoir une base SQL Server optimisée et des rapports Power BI, puis des modèles d’IA capables de qualifier une critique à partir de son seul texte, le tout sur un PC standard."
 team: Projet de groupe, 5 personnes.
 role: J’ai pris le lead du projet et je me suis occupé de la partie technique.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Le principal défi technique a été l’ETL : traiter 222 millions de lignes sur un PC standard sans saturer la mémoire. Côté équipe, le management du projet et l’initialisation du cahier des charges ont été mes principaux apprentissages."
 gallery:
   - src: ../../../assets/projects/imdb/IMDbModeleOLTP.webp
     alt: Schéma relationnel OLTP avec les tables TITLE, PERSON, TITLE_PRINCIPAL et leurs tables de référence

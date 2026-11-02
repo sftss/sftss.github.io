@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Botanic
 context: SAE201 of the BUT in Computer Science. The brief was to develop a desktop application connected to a database, so that a garden center’s purchasing department could manage its purchase orders.
 team: Group project, 3 people.
 role: I took the lead on the project and handled the technical side.
-learnings: The main challenges and lessons came from managing the project and from setting up the initial requirements.
+learnings: "The main challenges and lessons came from managing the project and from setting up the initial requirements."
 gallery:
   - src: ../../../assets/projects/botanic/ConnexionBotanic.webp
     alt: Login screen with a garden center photo and a form
