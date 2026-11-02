@@ -1,0 +1,55 @@
+---
+import { home } from '../i18n/home';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+const copy = home[lang].about;
+---
+
+<section id="about" class="section container">
+  <h2>{t('nav.about')}</h2>
+  {copy.paragraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
+  <dl>
+    {
+      copy.facts.map((fact) => (
+        <div>
+          <dt>{fact.label}</dt>
+          <dd>{fact.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<style>
+  dl {
+    display: grid;
+    gap: var(--space-xs);
+    max-width: 46rem;
+    margin: var(--space-m) 0 0;
+  }
+
+  dl div {
+    display: grid;
+    gap: 0 var(--space-m);
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 40rem) {
+    dl div {
+      grid-template-columns: 11rem minmax(0, 1fr);
+    }
+  }
+
+  dt {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  dd {
+    margin: 0;
+  }
+</style>

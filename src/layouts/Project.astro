@@ -2,7 +2,8 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Gallery from '../components/Gallery.astro';
 import PowerBiEmbed from '../components/PowerBiEmbed.astro';
-import { cvUrl, useTranslations, type Lang } from '../i18n/ui';
+import CvLink from '../components/CvLink.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
 import { entryLang, entrySlug } from '../lib/projects';
 import Base from './Base.astro';
 
@@ -102,7 +103,7 @@ const others = (await getCollection('projects'))
         </ul>
       </nav>
       <p class="next">
-        <a class="btn btn-primary" href={cvUrl(lang)}>{t('hero.cv')}</a>
+        <CvLink class="btn btn-primary" lang={lang} label={t('hero.cv')} />
         <a class="btn" href={`/${lang}/#contact`}>{t('nav.contact')}</a>
       </p>
     </footer>
