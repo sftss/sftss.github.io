@@ -15,7 +15,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       i18n: { defaultLocale: 'fr', locales: { fr: 'fr-FR', en: 'en-US' } },
-      filter: (page) => /\/(fr|en)\//.test(page),
+      filter: (page) => /\/(fr|en)\//.test(page) && !page.includes('/lab/'),
     }),
   ],
 });

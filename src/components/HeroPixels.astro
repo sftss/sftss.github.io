@@ -1,0 +1,133 @@
+---
+import baskets from '../data/baskets.json';
+import type { Lang } from '../i18n/ui';
+import HeroText from './HeroText.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const caption =
+  lang === 'fr'
+    ? `${baskets.total.toLocaleString('fr-FR')} paniers réels du projet MLxtend : taille selon la date, de déc. 2010 à déc. 2011.`
+    : `${baskets.total.toLocaleString('en-US')} real baskets from the MLxtend project: size by date, Dec. 2010 to Dec. 2011.`;
+---
+
+<section class="hero">
+  <div class="container grid">
+    <HeroText lang={lang} onDark />
+    <figure>
+      <canvas width="640" height="560" data-pixels aria-hidden="true"></canvas>
+      <figcaption>{caption}</figcaption>
+    </figure>
+  </div>
+  <script type="application/json" data-baskets set:html={JSON.stringify(baskets)} />
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    align-items: center;
+    min-height: calc(100svh - 4.5rem);
+    padding-block: var(--space-l);
+    background: oklch(0.42 0.2 262);
+  }
+
+  .hero :global(.btn) {
+    border-color: var(--color-on-scrim);
+    color: var(--color-on-scrim);
+  }
+
+  .hero :global(.btn-primary) {
+    background: var(--color-on-scrim);
+    color: oklch(0.3 0.15 262);
+  }
+
+  .grid {
+    display: grid;
+    align-items: center;
+    gap: var(--space-l);
+  }
+
+  @media (min-width: 60rem) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  figcaption {
+    margin-top: var(--space-xs);
+    color: var(--color-on-scrim);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    opacity: 0.85;
+  }
+</style>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-pixels]');
+  const data = JSON.parse(document.querySelector('[data-baskets]')?.textContent ?? '{}');
+
+  if (canvas && data.points) {
+    const ctx = canvas.getContext('2d')!;
+    const W = canvas.width;
+    const H = canvas.height;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const colors = ['oklch(0.9 0.12 215)', 'oklch(0.97 0.01 250)', 'oklch(0.8 0.16 350)', 'oklch(0.88 0.15 90)'];
+    const maxLog = Math.log(121);
+    const points = data.points.map(([day, size]: number[], i: number) => {
+      const x = 16 + (day / data.days) * (W - 32);
+      const y = H - 16 - (Math.log(size + 1) / maxLog) * (H - 32);
+      return { hx: x, hy: y, x, y, vx: 0, vy: 0, c: colors[i % colors.length] };
+    });
+    let pointer: { x: number; y: number } | null = null;
+    let frame = 0;
+
+    const draw = () => {
+      let moving = false;
+      ctx.clearRect(0, 0, W, H);
+      for (const p of points) {
+        let fx = (p.hx - p.x) * 0.06;
+        let fy = (p.hy - p.y) * 0.06;
+        if (pointer) {
+          const dx = p.x - pointer.x;
+          const dy = p.y - pointer.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < 6400) {
+            const push = (1 - Math.sqrt(d2) / 80) * 3;
+            const d = Math.sqrt(d2) || 1;
+            fx += (dx / d) * push;
+            fy += (dy / d) * push;
+          }
+        }
+        p.vx = (p.vx + fx) * 0.82;
+        p.vy = (p.vy + fy) * 0.82;
+        p.x += p.vx;
+        p.y += p.vy;
+        if (Math.abs(p.vx) + Math.abs(p.vy) > 0.05 || Math.abs(p.hx - p.x) + Math.abs(p.hy - p.y) > 0.5) moving = true;
+        ctx.fillStyle = p.c;
+        ctx.fillRect(Math.round(p.x) - 2, Math.round(p.y) - 2, 4, 4);
+      }
+      frame = moving || pointer ? requestAnimationFrame(draw) : 0;
+    };
+    draw();
+
+    if (!reduced) {
+      canvas.addEventListener('pointermove', (event) => {
+        const box = canvas.getBoundingClientRect();
+        pointer = { x: ((event.clientX - box.left) / box.width) * W, y: ((event.clientY - box.top) / box.height) * H };
+        if (!frame) frame = requestAnimationFrame(draw);
+      });
+      canvas.addEventListener('pointerleave', () => {
+        pointer = null;
+      });
+    }
+  }
+</script>
