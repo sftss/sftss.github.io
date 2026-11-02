@@ -1,7 +1,8 @@
 ---
 import LangSwitch from './LangSwitch.astro';
 import ThemeToggle from './ThemeToggle.astro';
-import { cvUrl, useTranslations, type Lang } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
+import CvLink from './CvLink.astro';
 
 const { lang, path = '' } = Astro.props as { lang: Lang; path?: string };
 const t = useTranslations(lang);
@@ -11,7 +12,6 @@ const items = [
   { href: `${home}#experience`, label: t('nav.experience') },
   { href: `${home}#about`, label: t('nav.about') },
   { href: `${home}#contact`, label: t('nav.contact') },
-  { href: cvUrl(lang), label: t('nav.cv') },
 ];
 ---
 
@@ -22,6 +22,7 @@ const items = [
     <nav aria-label={t('nav.label')}>
       <ul>
         {items.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><CvLink lang={lang} label={t('nav.cv')} /></li>
       </ul>
     </nav>
     <div class="tools">

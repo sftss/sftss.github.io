@@ -1,0 +1,17 @@
+---
+import { cvUrl, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  label: string;
+  class?: string;
+}
+
+const { lang, label, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!-- Le PDF s'affiche dans le navigateur, sans téléchargement forcé. -->
+<a class={className} href={cvUrl(lang)} target="_blank" rel="noopener"
+  >{label}<span class="visually-hidden"> {t('cv.newTab')}</span></a
+>

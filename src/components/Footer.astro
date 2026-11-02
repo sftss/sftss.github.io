@@ -1,5 +1,6 @@
 ---
-import { cvUrl, links, useTranslations, type Lang } from '../i18n/ui';
+import { links, useTranslations, type Lang } from '../i18n/ui';
+import CvLink from './CvLink.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
@@ -12,7 +13,7 @@ const t = useTranslations(lang);
       <li><a href={links.linkedin} rel="noopener noreferrer">LinkedIn</a></li>
       <li><a href={links.github} rel="noopener noreferrer">GitHub</a></li>
       <li><a href={`mailto:${links.email}`}>{t('footer.mail')}</a></li>
-      <li><a href={cvUrl(lang)}>{t('nav.cv')}</a></li>
+      <li><CvLink lang={lang} label={t('nav.cv')} /></li>
     </ul>
   </div>
 </footer>

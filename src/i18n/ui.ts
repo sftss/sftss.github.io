@@ -29,7 +29,8 @@ const fr = {
   'hero.status':
     'En Master Informatique à Lyon\u00a02. Je cherche un stage d’au moins 308\u00a0heures à Lyon, à partir d’avril\u00a02027.',
   'hero.projects': 'Voir mes projets',
-  'hero.cv': 'Télécharger mon CV',
+  'hero.cv': 'Voir mon CV',
+  'cv.newTab': '(s’ouvre dans un nouvel onglet)',
   'chat.open': 'Une question\u00a0?',
   'chat.loading': 'Chargement…',
   'project.back': '← Tous les projets',
@@ -71,7 +72,8 @@ const en: typeof fr = {
   'hero.status':
     'Master’s student in Computer Science at Lyon\u00a02. Looking for an internship of at least 308\u00a0hours in Lyon, from April\u00a02027.',
   'hero.projects': 'See my projects',
-  'hero.cv': 'Download my CV',
+  'hero.cv': 'View my CV',
+  'cv.newTab': '(opens in a new tab)',
   'chat.open': 'Any questions?',
   'chat.loading': 'Loading…',
   'project.back': '← All projects',
