@@ -970,6 +970,11 @@ par :
         background: var(--color-accent);
         transform-origin: left;
         animation: progress linear both;
+      }
+
+      /* Règle à part, plus spécifique : le minifieur fusionnerait sinon la timeline dans le
+         raccourci animation, que Chrome refuse. */
+      .site-header.site-header::after {
         animation-timeline: scroll(root);
       }
     }
