@@ -1,0 +1,50 @@
+---
+import { cvUrl, links, useTranslations, type Lang } from '../i18n/ui';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = useTranslations(lang);
+---
+
+<footer class="site-footer">
+  <div class="container row">
+    <p>© {new Date().getFullYear()} Sefer Tasdemir</p>
+    <ul>
+      <li><a href={links.linkedin} rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href={links.github} rel="noopener noreferrer">GitHub</a></li>
+      <li><a href={`mailto:${links.email}`}>{t('footer.mail')}</a></li>
+      <li><a href={cvUrl(lang)}>{t('nav.cv')}</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-m);
+    /* Laisse la place au bouton fixe du chatbot sous les liens. */
+    padding-block: var(--space-m) calc(var(--space-l) + var(--space-s));
+  }
+
+  p {
+    margin: 0;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>
