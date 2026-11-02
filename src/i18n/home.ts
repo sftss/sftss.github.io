@@ -93,7 +93,7 @@ export const home: Record<Lang, HomeContent> = {
           title: 'Vidéos verticales',
           text: 'Une chaîne de production de vidéos bilingues : script, voix, animation, sous-titres et rendu, jusqu’à la planification de la publication.',
           tags: ['Three.js', 'Python', 'Playwright', 'FFmpeg'],
-          stat: 'Meilleure publication\u00a0: environ 350\u00a0000 vues et 20\u00a0000 likes',
+          stat: 'Meilleure publication\u00a0: environ 350k vues et 20k likes',
         },
         {
           title: 'Jeux Roblox',
@@ -222,7 +222,7 @@ export const home: Record<Lang, HomeContent> = {
           title: 'Vertical videos',
           text: 'A production pipeline for bilingual videos: script, voice, animation, subtitles and rendering, through to publication scheduling.',
           tags: ['Three.js', 'Python', 'Playwright', 'FFmpeg'],
-          stat: 'Best post: about 350,000 views and 20,000 likes',
+          stat: 'Best post: about 350k views and 20k likes',
         },
         {
           title: 'Roblox games',

@@ -13,7 +13,7 @@ export const links = {
 const fr = {
   'meta.title': 'Sefer Tasdemir | Data Scientist',
   'meta.description':
-    'Portfolio de Sefer Tasdemir, Data Scientist\u00a0: pipelines de données, BI et machine learning. En Master Informatique à Lyon\u00a02.',
+    'Pipelines de données, BI et machine learning. En Master Informatique à Lyon\u00a02, je cherche un stage à partir d’avril 2027.',
   'skip': 'Aller au contenu',
   'nav.label': 'Navigation principale',
   'nav.projects': 'Projets',
@@ -56,7 +56,7 @@ const fr = {
 const en: typeof fr = {
   'meta.title': 'Sefer Tasdemir | Data Scientist',
   'meta.description':
-    'Portfolio of Sefer Tasdemir, Data Scientist: data pipelines, BI and machine learning. Master’s student in Computer Science at Lyon\u00a02.',
+    'Data pipelines, BI and machine learning. Master’s student in Computer Science at Lyon\u00a02, looking for an internship from April 2027.',
   'skip': 'Skip to content',
   'nav.label': 'Main navigation',
   'nav.projects': 'Projects',
