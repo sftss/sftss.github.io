@@ -1,0 +1,136 @@
+---
+// Point collé à la souris et anneau qui le suit. Le curseur natif n'est masqué
+// qu'une fois le script lancé : sans JS, rien ne change.
+---
+
+<div class="cursor" aria-hidden="true" data-cursor transition:persist="cursor">
+  <div class="ring"></div>
+  <div class="dot"></div>
+</div>
+
+<style>
+  .cursor {
+    display: none;
+  }
+
+  :global(html.has-cursor) .cursor {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .ring,
+  .dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    translate: -50% -50%;
+    opacity: 0;
+    transition: opacity var(--ease);
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-accent);
+  }
+
+  .ring {
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--color-accent);
+    transition:
+      opacity var(--ease),
+      width var(--ease),
+      height var(--ease),
+      background-color var(--ease);
+  }
+
+  .cursor[data-visible] .ring,
+  .cursor[data-visible] .dot {
+    opacity: 1;
+  }
+
+  .cursor[data-hover] .ring {
+    width: 48px;
+    height: 48px;
+    background: color-mix(in oklch, var(--color-accent) 15%, transparent);
+  }
+
+  /* !important : les boutons déclarent cursor: pointer avec une spécificité plus forte. */
+  :global(html.has-cursor),
+  :global(html.has-cursor *) {
+    cursor: none !important;
+  }
+
+  :global(html.has-cursor :is(input, textarea, [contenteditable='true'])) {
+    cursor: text !important;
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cursor]');
+
+  if (root && matchMedia('(pointer: fine)').matches) {
+    const dot = root.querySelector<HTMLElement>('.dot')!;
+    const ring = root.querySelector<HTMLElement>('.ring')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const CLICKABLE = 'a, button, [role="button"], summary, label, select';
+    // Champs et iframes gardent leur propre curseur.
+    const NATIVE = 'input, textarea, [contenteditable="true"], iframe';
+
+    const html = document.documentElement;
+    html.classList.add('has-cursor');
+    // Le routeur remplace les attributs de <html> : la page suivante garde la classe.
+    document.addEventListener('astro:before-swap', (event) => {
+      event.newDocument.documentElement.classList.add('has-cursor');
+    });
+
+    let x = 0;
+    let y = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let frame = 0;
+
+    // La boucle ne tourne que tant que l'anneau n'a pas rejoint le point.
+    const render = () => {
+      const follow = reduced.matches ? 1 : 0.2;
+      ringX += (x - ringX) * follow;
+      ringY += (y - ringY) * follow;
+      dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      frame = Math.abs(x - ringX) + Math.abs(y - ringY) > 0.1 ? requestAnimationFrame(render) : 0;
+    };
+
+    addEventListener(
+      'pointermove',
+      (event) => {
+        if (event.pointerType !== 'mouse') return;
+        const target = event.target as Element;
+        if (target.closest?.(NATIVE)) {
+          root.removeAttribute('data-visible');
+          return;
+        }
+        if (!root.hasAttribute('data-visible')) {
+          ringX = event.clientX;
+          ringY = event.clientY;
+          root.setAttribute('data-visible', '');
+        }
+        x = event.clientX;
+        y = event.clientY;
+        root.toggleAttribute('data-hover', !!target.closest?.(CLICKABLE));
+        if (!frame) frame = requestAnimationFrame(render);
+      },
+      { passive: true },
+    );
+
+    // L'iframe capte la souris : le parent ne reçoit plus que l'entrée sur l'iframe.
+    addEventListener('pointerover', (event) => {
+      if ((event.target as Element).closest?.(NATIVE)) root.removeAttribute('data-visible');
+    });
+    html.addEventListener('pointerleave', () => root.removeAttribute('data-visible'));
+  }
+</script>

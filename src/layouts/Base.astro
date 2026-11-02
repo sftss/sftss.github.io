@@ -7,6 +7,7 @@ import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/tokens.css';
 import '../styles/base.css';
 import Chatbot from '../components/Chatbot.astro';
+import Cursor from '../components/Cursor.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { ClientRouter } from 'astro:transitions';
@@ -110,5 +111,6 @@ const person = {
     </main>
     <Footer lang={lang} />
     <Chatbot lang={lang} />
+    <Cursor />
   </body>
 </html>
