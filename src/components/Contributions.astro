@@ -1,0 +1,148 @@
+---
+import { links, type Lang } from '../i18n/ui';
+import { getContributions } from '../lib/contributions';
+
+const { lang } = Astro.props as { lang: Lang };
+const data = await getContributions('sftss');
+const locale = lang === 'fr' ? 'fr-FR' : 'en-US';
+const month = (date: string, form: 'short' | 'long' = 'short') =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { month: form, timeZone: 'UTC' });
+const fmt = (n: number) => n.toLocaleString(locale);
+const day = (date?: string) =>
+  date ? new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) : '';
+
+const CELL = 11;
+const GAP = 3;
+const TOP = 16;
+const copy =
+  lang === 'fr'
+    ? {
+        title: `${fmt(data?.total ?? 0)} contributions sur GitHub en un an`,
+        caption: `Activité GitHub du ${day(data?.from)} au ${day(data?.to)}, mise à jour chaque semaine.`,
+        less: 'Moins',
+        more: 'Plus',
+        profile: 'Voir mon profil GitHub',
+      }
+    : {
+        title: `${fmt(data?.total ?? 0)} GitHub contributions in a year`,
+        caption: `GitHub activity from ${day(data?.from)} to ${day(data?.to)}, updated weekly.`,
+        less: 'Less',
+        more: 'More',
+        profile: 'View my GitHub profile',
+      };
+const months = data
+  ? data.days
+      .filter((day, i) => day.weekday === 0 && (i === 0 || new Date(day.date).getUTCDate() <= 7))
+      .map((day) => ({ x: day.week * (CELL + GAP), label: month(day.date) }))
+  : [];
+---
+
+{
+  data && (
+    <figure class="contributions">
+      <svg
+        viewBox={`0 0 ${data.weeks * (CELL + GAP)} ${TOP + 7 * (CELL + GAP)}`}
+        role="img"
+        aria-label={copy.title}
+      >
+        {months.map((m) => (
+          <text x={m.x} y="10">
+            {m.label}
+          </text>
+        ))}
+        {data.days.map((day) => (
+          <rect
+            class={`l${day.level}`}
+            x={day.week * (CELL + GAP)}
+            y={TOP + day.weekday * (CELL + GAP)}
+            width={CELL}
+            height={CELL}
+            rx="2"
+          />
+        ))}
+      </svg>
+      <figcaption>
+        <strong>{copy.title}.</strong> {copy.caption}{' '}
+        <a href={links.github} rel="noopener noreferrer">
+          {copy.profile}
+        </a>
+        <span class="legend" aria-hidden="true">
+          {copy.less}
+          {[0, 1, 2, 3, 4].map((level) => (
+            <svg viewBox="0 0 11 11" width="11" height="11">
+              <rect class={`l${level}`} width="11" height="11" rx="2" />
+            </svg>
+          ))}
+          {copy.more}
+        </span>
+      </figcaption>
+    </figure>
+  )
+}
+
+<style>
+  .contributions {
+    max-width: 46rem;
+    margin: var(--space-l) 0 0;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  text {
+    fill: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 9px;
+  }
+
+  rect {
+    fill: var(--color-accent);
+  }
+
+  .l0 {
+    fill: var(--color-border);
+  }
+
+  .l1 {
+    fill-opacity: 0.35;
+  }
+
+  .l2 {
+    fill-opacity: 0.55;
+  }
+
+  .l3 {
+    fill-opacity: 0.78;
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs) var(--space-s);
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-inline-start: auto;
+    font-family: var(--font-mono);
+  }
+
+  .legend svg {
+    display: inline-block;
+    width: 11px;
+  }
+</style>
