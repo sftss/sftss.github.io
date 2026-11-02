@@ -92,5 +92,7 @@ const t = useTranslations(lang);
     const section = id ? document.getElementById(id) : null;
     const top = section ? section.getBoundingClientRect().top + scrollY + ratio * section.offsetHeight : y;
     scrollTo({ top, behavior: 'instant' });
+    // Le clic a détruit l'élément focalisé avec l'ancienne page : le focus passe au lien de la nouvelle.
+    document.querySelector<HTMLAnchorElement>('.lang-switch a[aria-current]')?.focus({ preventScroll: true });
   });
 </script>

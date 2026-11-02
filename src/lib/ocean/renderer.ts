@@ -33,7 +33,9 @@ const BUBBLE = "rgb(110,230,255)";
 export interface RendererOptions {
   /** Adaptation: no black fill nor grid, for drawing over a page. */
   transparent?: boolean;
+  /** Adaptation: accent colours are injectable, to follow the site theme. */
   accents?: string[];
+  /** Adaptation: bubble colour is injectable, to follow the site theme. */
   bubble?: string;
 }
 
@@ -289,6 +291,7 @@ export class AsciiRenderer {
   private cols = 0;
   private rows = 0;
   private fontFamily = "ui-monospace, Menlo, monospace";
+  // Adaptation: options kept as fields (transparent mode, accent and bubble colours).
   private transparent: boolean;
   private accents: string[];
   private bubble: string;
@@ -333,9 +336,11 @@ export class AsciiRenderer {
   private fishStyles = FISH_ALPHAS.map((a) => `rgba(230,238,255,${a})`);
 
   constructor(private canvas: HTMLCanvasElement, options: RendererOptions = {}) {
+    // Adaptation: options with the original defaults (opaque canvas, built-in colours).
     this.transparent = options.transparent ?? false;
     this.accents = options.accents ?? ACCENTS;
     this.bubble = options.bubble ?? BUBBLE;
+    // Adaptation: the canvas keeps an alpha channel only in transparent mode.
     const ctx = canvas.getContext("2d", { alpha: this.transparent });
     if (!ctx) throw new Error("2D canvas unavailable");
     this.ctx = ctx;
@@ -381,8 +386,11 @@ export class AsciiRenderer {
 
     this.canvas.width = Math.round(width * dpr);
     this.canvas.height = Math.round(height * dpr);
-    this.bg.width = this.canvas.width;
-    this.bg.height = this.canvas.height;
+    // Adaptation: the background buffer is only needed when the black fill is drawn.
+    if (!this.transparent) {
+      this.bg.width = this.canvas.width;
+      this.bg.height = this.canvas.height;
+    }
 
     const n = this.cols * this.rows;
     if (this.cols !== prevCols || this.rows !== prevRows) {
@@ -415,6 +423,7 @@ export class AsciiRenderer {
   }
 
   private paintBackground() {
+    // Adaptation: transparent mode draws neither the black fill nor the grid.
     if (this.transparent) return;
     const g = this.bg.getContext("2d");
     if (!g) return;
@@ -436,6 +445,7 @@ export class AsciiRenderer {
     this.diffuse(dt);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // Adaptation: transparent mode clears the canvas instead of drawing the background.
     if (this.transparent) ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     else ctx.drawImage(this.bg, 0, 0);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);

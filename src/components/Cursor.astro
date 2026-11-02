@@ -88,7 +88,7 @@
 <script>
   const root = document.querySelector<HTMLElement>('[data-cursor]');
 
-  if (root && matchMedia('(pointer: fine)').matches) {
+  if (root && matchMedia('(pointer: fine)').matches && matchMedia('(forced-colors: none)').matches) {
     const dot = root.querySelector<HTMLElement>('.dot')!;
     const ring = root.querySelector<HTMLElement>('.ring')!;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -122,7 +122,7 @@
     addEventListener(
       'pointermove',
       (event) => {
-        if (event.pointerType !== 'mouse') return;
+        if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
         const target = event.target as Element;
         if (target.closest?.(NATIVE)) {
           root.removeAttribute('data-visible');

@@ -38,6 +38,8 @@
 
     // Le moteur n'existe que le temps d'une traversée : rien ne tourne entre deux passages.
     const pass = () => {
+      // Mouvement réduit activé depuis le dernier passage : on saute celui-ci.
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(60, 120);
       if (document.hidden) return later(60, 120);
       engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1 }], {
         transparent: true,

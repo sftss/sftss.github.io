@@ -7,7 +7,7 @@ const STEP = 1 / 60;
 const MAX_STEPS = 4;
 
 export interface OceanOptions extends RendererOptions {
-  /** Overrides the area-based fish population; 0 leaves the sharks alone. */
+  /** Adaptation: overrides the area-based fish population; 0 leaves the sharks alone. */
   fishCount?: number;
   /** Adaptation: one pass across the canvas, then onDone. */
   crossing?: Crossing;
@@ -127,6 +127,12 @@ export class OceanEngine {
   private onMotionPreference = () => {
     if (this.reducedMotion.matches) {
       cancelAnimationFrame(this.raf);
+      // Adaptation: a crossing in progress is cut short instead of freezing on a still frame.
+      if (this.options.crossing) {
+        this.renderer.clear();
+        this.options.onDone?.();
+        return;
+      }
       this.drawStill();
     } else {
       this.schedule();

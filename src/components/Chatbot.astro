@@ -72,8 +72,13 @@ const t = useTranslations(lang);
       for (const node of record.addedNodes) {
         if (!(node instanceof Element)) continue;
         if (node instanceof HTMLScriptElement && !/botpress|bpcontent/.test(node.src)) continue;
-        // Le routeur ajoute son annonceur et ses préchargements : ils ne sont pas à Botpress.
-        if (node.matches('.astro-route-announcer, link[rel="preload"]')) continue;
+        // Le routeur ajoute son annonceur, ses préchargements et ses prélectures : ils ne sont pas à Botpress.
+        if (
+          node.matches(
+            '.astro-route-announcer, link[rel="preload"], link[rel="prefetch"], script[type="speculationrules"]',
+          )
+        )
+          continue;
         added.add(node);
       }
     }

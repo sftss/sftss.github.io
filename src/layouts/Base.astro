@@ -100,6 +100,9 @@ const person = {
         // Le routeur remplace les attributs de <html> : la page suivante reçoit le thème courant.
         document.addEventListener('astro:before-swap', function (event) {
           event.newDocument.documentElement.dataset.theme = document.documentElement.dataset.theme;
+          // Idem pour la hauteur du header : le style en ligne de <html> est effacé aussi.
+          var h = document.documentElement.style.getPropertyValue('--header-h');
+          if (h) event.newDocument.documentElement.style.setProperty('--header-h', h);
         });
       })();
     </script>

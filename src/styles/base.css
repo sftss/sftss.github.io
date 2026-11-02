@@ -6,7 +6,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-h, 4rem) + var(--space-s));
+  scroll-padding-top: calc(var(--header-h, 4.5rem) + var(--space-s));
   scrollbar-color: var(--color-border) var(--color-bg);
   scrollbar-width: thin;
 }

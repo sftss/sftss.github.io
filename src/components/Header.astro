@@ -53,8 +53,9 @@ const items = [
         bottom: -1px;
         height: 2px;
         background: var(--color-accent);
+        transform: scaleX(0);
         transform-origin: left;
-        animation: progress linear both;
+        animation: read-progress linear both;
       }
 
       /* Règle à part, plus spécifique : le minifieur fusionnerait sinon la timeline dans le
@@ -65,7 +66,7 @@ const items = [
     }
   }
 
-  @keyframes progress {
+  @keyframes read-progress {
     from {
       transform: scaleX(0);
     }
