@@ -127,7 +127,7 @@ Le script en ligne du thème (`Base.astro`) est aussi rejoué sur `astro:after-s
 
 Botpress ajoute ses iframes (`.bpWebchat`, `.bpFab`) et son style dans `<body>`, que l'échange remplace.
 
-- Sur `astro:before-swap`, ces éléments sont déplacés dans le nouveau document : une conversation ouverte survit au changement de page.
+- Le script note tout ce que Botpress ajoute dans `<head>` et `<body>`. Sur `astro:before-swap`, il marque ces éléments `data-astro-transition-persist` et place un jumeau vide (`<template>`) dans le nouveau document. Le routeur les conserve alors tels quels : avec `moveBefore()` (Chrome 133+), l'iframe garde son état et la conversation ouverte survit au changement de page. Ailleurs, l'iframe se recharge.
 - Le bouton « Une question ? » reste masqué si Botpress est déjà chargé.
 - Botpress reste dans la langue de sa configuration, comme aujourd'hui.
 
@@ -162,7 +162,7 @@ Le routeur se replie sur une navigation classique. Rien ne casse : on retrouve s
 Un nouveau composant `SharkPass.astro` est inclus seulement sur l'accueil (`/fr/` et `/en/`).
 
 - Un canvas `position: fixed`, en bas de l'écran, sur 35 % de la hauteur. Il a `pointer-events: none`, `aria-hidden="true"` et un `z-index` sous le contenu, avec une opacité de 0,35.
-- Un seul requin, de type `classic`, sans poissons, sur fond transparent. Ses couleurs viennent du thème : `--color-muted` pour le corps, `--color-accent` pour les reflets. Elles sont relues si le thème change.
+- Un seul requin, de type `classic`, sans poissons, sur fond transparent. Le corps garde l'ombrage gris d'origine, lisible sur les deux thèmes à 35 % d'opacité. Les reflets prennent `--color-accent`, relu au début de chaque traversée.
 - Premier passage 20 à 40 s après l'arrivée sur la page, puis un passage toutes les 60 à 120 s, au hasard. Le sens est tiré au hasard et une traversée dure 8 à 12 s.
 - Le moteur n'est créé que pour une traversée et détruit juste après : aucune boucle ne tourne entre deux passages.
 - Pas de passage si l'onglet est caché (`visibilitychange`) ni en mouvement réduit. Le minuteur est annulé sur `astro:before-swap`.
@@ -182,7 +182,7 @@ Un nouveau composant `SharkPass.astro` est inclus seulement sur l'accueil (`/fr/
 
 ## Vérification
 
-Le projet n'a pas de tests automatisés. Chaque lot est vérifié par `npm run build` sans erreur, puis à la main dans Chrome avec `npm run preview` :
+Les fonctions pures (découpage des mots-clés, traversée du requin) ont des tests `node:test`, lancés par `npm test` sans dépendance ajoutée : Node 24 exécute le TypeScript directement. Chaque lot est vérifié par `npm run build` sans erreur, puis à la main dans Chrome avec `npm run preview` :
 
 - accueil et une fiche projet, en FR et en EN, en thème sombre et clair, sur grand écran et en 390 px de large ;
 - 404 : `/page-inconnue`, `/en/page-inconnue` et `/fr/page-inconnue`, sélecteur FR/EN, lien de retour ;
