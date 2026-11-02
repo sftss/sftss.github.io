@@ -1,10 +1,20 @@
 // Copied from ascii-sharks (https://github.com/stackedlol/ascii-sharks, commit a0074c1),
 // © 2026 drewdi, MIT licence: see LICENSE in this folder. Changes are marked "Adaptation:".
-import { AsciiRenderer } from "./renderer.ts";
-import { World, type SharkSpec } from "./world.ts";
+import { AsciiRenderer, type RendererOptions } from "./renderer.ts";
+import { World, type Crossing, type SharkSpec } from "./world.ts";
 
 const STEP = 1 / 60;
 const MAX_STEPS = 4;
+
+export interface OceanOptions extends RendererOptions {
+  /** Overrides the area-based fish population; 0 leaves the sharks alone. */
+  fishCount?: number;
+  /** Adaptation: one pass across the canvas, then onDone. */
+  crossing?: Crossing;
+  /** Adaptation: false ignores the pointer (fish don't flee, clicks don't splash). */
+  interactive?: boolean;
+  onDone?: () => void;
+}
 
 /**
  * Wires World + AsciiRenderer to a canvas: fixed-timestep loop, resize,
@@ -21,10 +31,14 @@ export class OceanEngine {
   private resizeObserver: ResizeObserver;
   private intersectionObserver: IntersectionObserver;
   private disposed = false;
+  private canvas: HTMLCanvasElement;
+  private options: OceanOptions;
 
-  constructor(private canvas: HTMLCanvasElement, sharks?: SharkSpec[]) {
-    this.world = new World(sharks);
-    this.renderer = new AsciiRenderer(canvas);
+  constructor(canvas: HTMLCanvasElement, sharks?: SharkSpec[], options: OceanOptions = {}) {
+    this.canvas = canvas;
+    this.options = options;
+    this.world = new World(sharks, { fishCount: options.fishCount, crossing: options.crossing });
+    this.renderer = new AsciiRenderer(canvas, options);
     this.renderer.setFontFamily(getComputedStyle(canvas).fontFamily);
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -37,10 +51,12 @@ export class OceanEngine {
     this.intersectionObserver.observe(canvas);
 
     this.reducedMotion.addEventListener("change", this.onMotionPreference);
-    window.addEventListener("pointermove", this.onPointerMove, { passive: true });
-    window.addEventListener("pointerdown", this.onPointerDown, { passive: true });
-    document.documentElement.addEventListener("pointerleave", this.onPointerLeave);
-    window.addEventListener("blur", this.onPointerLeave);
+    if (options.interactive ?? true) {
+      window.addEventListener("pointermove", this.onPointerMove, { passive: true });
+      window.addEventListener("pointerdown", this.onPointerDown, { passive: true });
+      document.documentElement.addEventListener("pointerleave", this.onPointerLeave);
+      window.addEventListener("blur", this.onPointerLeave);
+    }
 
     this.resize();
     // Canvas text can't trigger a webfont load; once the mono face is in, redraw.
@@ -89,6 +105,13 @@ export class OceanEngine {
       steps++;
     }
     if (steps === MAX_STEPS) this.acc = 0;
+    // Adaptation: a finished crossing stops the loop and hands over to the caller.
+    if (this.world.done) {
+      this.raf = 0;
+      this.renderer.clear();
+      this.options.onDone?.();
+      return;
+    }
     this.renderer.render(this.world, dt);
     this.raf = requestAnimationFrame(this.frame);
   };

@@ -1,21 +1,185 @@
 ---
-import Base from '../layouts/Base.astro';
+import '@fontsource-variable/ibm-plex-sans/wght.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '../styles/tokens.css';
+import '../styles/base.css';
+import Cursor from '../components/Cursor.astro';
+import { langs } from '../i18n/ui';
+
+const copy = {
+  fr: { text: 'Cette page n’existe pas ou a été déplacée.', back: 'Retour à l’accueil' },
+  en: { text: 'This page does not exist or has moved.', back: 'Back to home' },
+};
 ---
 
-<Base lang="fr" title="404 | Sefer Tasdemir" noindex>
-  <section class="container">
-    <h1>404</h1>
-    <p>Cette page n’existe pas ou a été déplacée. <a href="/fr/">Retour à l’accueil</a></p>
-    <p lang="en">This page does not exist or has moved. <a href="/en/">Back to home</a></p>
-  </section>
-</Base>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>404 | Sefer Tasdemir</title>
+    <link rel="icon" href="/assets/img/logo.webp" type="image/webp" />
+    <script is:inline>
+      (function () {
+        // GitHub Pages sert cette page pour toute adresse inconnue : la langue se choisit ici.
+        // Priorité : l'adresse demandée, puis le choix enregistré, puis le navigateur.
+        var lang = null;
+        var match = /^\/(fr|en)(\/|$)/.exec(location.pathname);
+        if (match) lang = match[1];
+        if (!lang) {
+          try {
+            lang = localStorage.getItem('preferredLanguage');
+          } catch (e) {}
+        }
+        if (lang !== 'fr' && lang !== 'en') {
+          lang = (navigator.language || '').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+        }
+        document.documentElement.lang = lang;
+        document.documentElement.dataset.lang = lang;
+      })();
+    </script>
+  </head>
+  <body>
+    <canvas class="ocean" aria-hidden="true" data-ocean></canvas>
+    <main class="card">
+      <h1>404</h1>
+      {
+        langs.map((code) => (
+          <div class="copy" lang={code}>
+            <p>{copy[code].text}</p>
+            <a href={`/${code}/`}>{copy[code].back}</a>
+          </div>
+        ))
+      }
+      <ul class="switch" aria-label="Langue / Language">
+        {
+          langs.map((code) => (
+            <li>
+              <button type="button" lang={code} data-set-lang={code} aria-pressed="false">
+                {code.toUpperCase()}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+    <Cursor />
+  </body>
+</html>
 
 <style>
-  section {
-    padding-block: var(--space-xl);
+  /* L'océan est une scène sombre, quel que soit le thème choisi ailleurs. */
+  :global(body) {
+    color-scheme: dark;
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .ocean {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+
+  .card {
+    position: relative;
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+    width: min(100% - 2 * var(--space-m), 30rem);
+    padding: var(--space-l);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: oklch(0.12 0.03 265 / 0.78);
+    color: var(--color-on-scrim);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
   }
 
   h1 {
     font-size: var(--step-4);
   }
+
+  .copy p {
+    margin: 0 0 var(--space-xs);
+  }
+
+  /* Sans JS, le français s'affiche ; sinon, la langue choisie par le script. */
+  .copy {
+    display: none;
+  }
+
+  :global(html:not([data-lang])) .copy[lang='fr'],
+  :global(html[data-lang='fr']) .copy[lang='fr'],
+  :global(html[data-lang='en']) .copy[lang='en'] {
+    display: block;
+  }
+
+  .switch {
+    display: none;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  :global(html[data-lang]) .switch {
+    display: flex;
+  }
+
+  .switch button {
+    padding: 0.35rem 0.5rem;
+    border: 0;
+    border-radius: var(--radius);
+    background: none;
+    color: var(--color-muted);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .switch button:hover,
+  .switch button[aria-pressed='true'] {
+    color: var(--color-on-scrim);
+  }
+
+  .switch button[aria-pressed='true'] {
+    font-weight: 600;
+  }
 </style>
+
+<script>
+  import { OceanEngine } from '../lib/ocean';
+
+  const root = document.documentElement;
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-set-lang]')];
+  const sync = () =>
+    buttons.forEach((button) =>
+      button.setAttribute('aria-pressed', String(button.dataset.setLang === root.dataset.lang)),
+    );
+
+  // Bascule sur place : la 404 n'a pas d'adresse par langue.
+  buttons.forEach((button) =>
+    button.addEventListener('click', () => {
+      const lang = button.dataset.setLang ?? 'fr';
+      root.dataset.lang = lang;
+      root.lang = lang;
+      try {
+        localStorage.setItem('preferredLanguage', lang);
+      } catch {}
+      sync();
+    }),
+  );
+  sync();
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-ocean]');
+  if (canvas) new OceanEngine(canvas, undefined, { bubble: getComputedStyle(canvas).color });
+</script>

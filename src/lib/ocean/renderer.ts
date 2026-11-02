@@ -27,6 +27,16 @@ const WAKE = DOT_RGB.length - 1;
 
 const ACCENTS = ["#e0892c", "#e03a32", "#b44ae0", "#33c8cc", "#3cb54a", "#3150e8", "#d9c14a"];
 
+/** Adaptation: bubbles replace the red splash where a fish is eaten. */
+const BUBBLE = "rgb(110,230,255)";
+
+export interface RendererOptions {
+  /** Adaptation: no black fill nor grid, for drawing over a page. */
+  transparent?: boolean;
+  accents?: string[];
+  bubble?: string;
+}
+
 // Sparse glyphs on bright skin, dense glyphs in shadow, so the texture
 // reinforces the shading instead of fighting it.
 const SKIN_RAMP = ":;t%SX8#@";
@@ -279,6 +289,9 @@ export class AsciiRenderer {
   private cols = 0;
   private rows = 0;
   private fontFamily = "ui-monospace, Menlo, monospace";
+  private transparent: boolean;
+  private accents: string[];
+  private bubble: string;
 
   private dotKind = new Uint8Array(0); // 0 none, 1 blue, 2 green, 3 red, 4 pale
   private dotPhase = new Float32Array(0);
@@ -319,8 +332,11 @@ export class AsciiRenderer {
   private fishBuckets: number[][] = FISH_ALPHAS.map(() => []);
   private fishStyles = FISH_ALPHAS.map((a) => `rgba(230,238,255,${a})`);
 
-  constructor(private canvas: HTMLCanvasElement) {
-    const ctx = canvas.getContext("2d", { alpha: false });
+  constructor(private canvas: HTMLCanvasElement, options: RendererOptions = {}) {
+    this.transparent = options.transparent ?? false;
+    this.accents = options.accents ?? ACCENTS;
+    this.bubble = options.bubble ?? BUBBLE;
+    const ctx = canvas.getContext("2d", { alpha: this.transparent });
     if (!ctx) throw new Error("2D canvas unavailable");
     this.ctx = ctx;
     this.bg = document.createElement("canvas");
@@ -340,6 +356,12 @@ export class AsciiRenderer {
 
   get cellHeight() {
     return this.ch;
+  }
+
+  /** Adaptation: wipe the canvas once a crossing is over. */
+  clear() {
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
   setFontFamily(family: string) {
@@ -393,6 +415,7 @@ export class AsciiRenderer {
   }
 
   private paintBackground() {
+    if (this.transparent) return;
     const g = this.bg.getContext("2d");
     if (!g) return;
     const { width: W, height: H, dpr, cw, ch } = this;
@@ -413,7 +436,8 @@ export class AsciiRenderer {
     this.diffuse(dt);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.drawImage(this.bg, 0, 0);
+    if (this.transparent) ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    else ctx.drawImage(this.bg, 0, 0);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     this.markFish(world);
@@ -777,7 +801,7 @@ export class AsciiRenderer {
         const g = (70 + shade * 80) * dim;
         ctx.fillStyle =
           roll < 0.07
-            ? ACCENTS[key % ACCENTS.length]
+            ? this.accents[key % this.accents.length]
             : `rgb(${Math.round(g * tr)},${Math.round(g * tg)},${Math.min(255, Math.round(g * tb + 6))})`;
         ctx.fillText(set[(key >>> 8) % set.length], x + cw / 2, y + ch / 2 + 1);
         continue;
@@ -810,7 +834,7 @@ export class AsciiRenderer {
       let color: string;
       if (flag === FLAG_EYE) color = "#9aa0ad";
       else if (flag === FLAG_MARK) color = `rgb(${Math.round(70 * tr)},${Math.round(70 * tg)},${Math.round(70 * tb)})`;
-      else if (roll < 0.09) color = ACCENTS[key % ACCENTS.length];
+      else if (roll < 0.09) color = this.accents[key % this.accents.length];
       else if (roll < 0.13) color = "#ffffff";
       else color = shade > 0.55 ? "#0e0f13" : "#1b1d24";
       ctx.fillStyle = color;
@@ -854,16 +878,19 @@ export class AsciiRenderer {
     }
   }
 
+  /** Adaptation: bubbles in one colour where a fish was eaten, instead of red splashes. */
   private drawHeat() {
     const { ctx, heat, cols, cw, ch } = this;
+    ctx.fillStyle = this.bubble;
     for (let i = 0; i < heat.length; i++) {
       const h = heat[i];
       if (h < 0.08) continue;
+      ctx.globalAlpha = Math.min(1, h * 1.4);
       const col = i % cols;
       const row = (i / cols) | 0;
-      ctx.fillStyle = h > 0.5 ? `rgba(255,120,60,${h.toFixed(2)})` : `rgba(220,40,40,${(h * 1.6).toFixed(2)})`;
-      ctx.fillText(h > 0.6 ? "*" : "·", col * cw + cw / 2, row * ch + ch / 2 + 1);
+      ctx.fillText(h > 0.6 ? "o" : "°", col * cw + cw / 2, row * ch + ch / 2 + 1);
     }
+    ctx.globalAlpha = 1;
   }
 
   /**
