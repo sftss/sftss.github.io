@@ -1,0 +1,65 @@
+---
+// Easter egg : de temps en temps, un requin ASCII traverse le bas de l'accueil, derrière le contenu.
+---
+
+<canvas class="shark-pass" aria-hidden="true" data-shark-pass></canvas>
+
+<style>
+  .shark-pass {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    height: 35vh;
+    opacity: 0.35;
+    pointer-events: none;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+  }
+</style>
+
+<script>
+  import { onPage } from '../lib/lifecycle';
+  import { OceanEngine } from '../lib/ocean';
+
+  const between = (min: number, max: number) => (min + Math.random() * (max - min)) * 1000;
+
+  onPage(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-shark-pass]');
+    if (!canvas || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let timer = 0;
+    let engine: OceanEngine | null = null;
+
+    const later = (min: number, max: number) => {
+      timer = window.setTimeout(pass, between(min, max));
+    };
+
+    // Le moteur n'existe que le temps d'une traversée : rien ne tourne entre deux passages.
+    const pass = () => {
+      if (document.hidden) return later(60, 120);
+      engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1 }], {
+        transparent: true,
+        interactive: false,
+        fishCount: 0,
+        // Reflets à la couleur d'accent, relue à chaque passage pour suivre le thème.
+        accents: [getComputedStyle(canvas).color],
+        crossing: { dir: Math.random() < 0.5 ? 1 : -1, duration: 8 + Math.random() * 4 },
+        onDone: () => {
+          engine?.destroy();
+          engine = null;
+          later(60, 120);
+        },
+      });
+    };
+
+    later(20, 40);
+
+    return () => {
+      clearTimeout(timer);
+      engine?.destroy();
+      engine = null;
+    };
+  });
+</script>
