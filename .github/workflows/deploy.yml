@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Reconstruit le site chaque lundi pour actualiser la carte des contributions GitHub.
+  schedule:
+    - cron: '0 6 * * 1'
 
 permissions:
   contents: read
