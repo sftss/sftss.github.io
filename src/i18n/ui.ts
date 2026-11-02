@@ -13,7 +13,7 @@ export const links = {
 const fr = {
   'meta.title': 'Sefer Tasdemir | Data Scientist',
   'meta.description':
-    'Portfolio de Sefer Tasdemir, Data Scientist : pipelines de données, BI et machine learning. En Master Machine Learning for AI à Lyon 2.',
+    'Portfolio de Sefer Tasdemir, Data Scientist\u00a0: pipelines de données, BI et machine learning. En Master Machine Learning for AI à Lyon 2.',
   'skip': 'Aller au contenu',
   'nav.label': 'Navigation principale',
   'nav.projects': 'Projets',
@@ -30,7 +30,7 @@ const fr = {
     'En Master Machine Learning for AI à Lyon 2. Disponible pour un stage à Lyon à partir d’avril 2027, pour 2 mois ou plus.',
   'hero.projects': 'Voir mes projets',
   'hero.cv': 'Télécharger mon CV',
-  'chat.open': 'Une question ?',
+  'chat.open': 'Une question\u00a0?',
   'chat.loading': 'Chargement…',
   'project.back': '← Tous les projets',
   'project.repo': 'Voir le dépôt GitHub',
@@ -46,7 +46,7 @@ const fr = {
   'lightbox.prev': 'Image précédente',
   'lightbox.next': 'Image suivante',
   'embed.load': 'Charger le rapport Power BI',
-  'embed.note': 'Hébergé par Microsoft : rien n’est chargé avant ce clic.',
+  'embed.note': 'Hébergé par Microsoft : rien n’est chargé avant ce clic.',
   'embed.open': 'Ouvrir dans Power BI',
   'footer.mail': 'E-mail',
   'footer.back': 'Retour à l’accueil',

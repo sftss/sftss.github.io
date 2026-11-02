@@ -54,4 +54,4 @@ facts:
 - **Nettoyage** : retrait des paniers sans client identifié, normalisation des noms de produits et exclusion des lignes qui n’en sont pas, comme les frais de port ou les remises.
 - **Analyse descriptive** : distribution des paniers par mois, jour et heure, taille des paniers et articles les plus vendus.
 - **Clients** : segmentation RFM en 6 segments, analyse de la fidélité et suivi des clients nouveaux et récurrents.
-- **Règles d’association** : Apriori sur les 30 derniers jours, avec un support minimal de 2 %, des itemsets de taille 3 au plus et une confiance minimale de 80 %, puis tri par lift.
+- **Règles d’association** : Apriori sur les 30 derniers jours, avec un support minimal de 2 %, des itemsets de taille 3 au plus et une confiance minimale de 80 %, puis tri par lift.
