@@ -153,9 +153,9 @@ export const home: Record<Lang, HomeContent> = {
     },
     about: {
       paragraphs: [
-        'Je suis Sefer Tasdemir. Après un BUT Informatique parcours AGED à l’IUT d’Annecy et un an d’alternance comme Data Analyst aux Autoroutes et tunnel du Mont-Blanc, je suis en Master Informatique à Lyon\u00a02, avec le parcours SISE envisagé en M2.',
-        'Pragmatique et autonome, je veux mettre mes compétences en pratique au sein d’une équipe avec laquelle je partage mes valeurs.',
-        'En dehors des cours, je construis mes propres outils avec Claude Code et je tiens une veille sur les outils d’IA, encyClaupedia.',
+        'Je suis Sefer Tasdemir. Après un BUT Informatique parcours AGED à l’IUT d’Annecy et un an d’alternance comme [[Data Analyst]] aux Autoroutes et tunnel du Mont-Blanc, je suis en [[Master Informatique]] à Lyon\u00a02, avec le parcours SISE envisagé en M2.',
+        '[[Pragmatique et autonome]], je veux mettre mes compétences en pratique au sein d’une équipe avec laquelle je partage mes valeurs.',
+        'En dehors des cours, je construis mes propres outils avec [[Claude Code]] et je tiens une veille sur les outils d’IA, [[encyClaupedia]].',
       ],
       facts: [
         { label: 'Formation', value: 'Master Informatique, Université Lumière Lyon\u00a02' },
@@ -282,9 +282,9 @@ export const home: Record<Lang, HomeContent> = {
     },
     about: {
       paragraphs: [
-        'I’m Sefer Tasdemir. After a BUT in Computer Science (AGED track) at IUT d’Annecy and a year as an apprentice Data Analyst at Autoroutes et tunnel du Mont-Blanc, I’m now doing a Master’s in Computer Science at Lyon\u00a02, with the SISE track planned for the second year.',
-        'Pragmatic and autonomous, I want to put my skills into practice within a team whose values I share.',
-        'Outside of class, I build my own tools with Claude Code and keep a watch on AI tools, encyClaupedia.',
+        'I’m Sefer Tasdemir. After a BUT in Computer Science (AGED track) at IUT d’Annecy and a year as an apprentice [[Data Analyst]] at Autoroutes et tunnel du Mont-Blanc, I’m now doing a [[Master’s in Computer Science]] at Lyon\u00a02, with the SISE track planned for the second year.',
+        '[[Pragmatic and autonomous]], I want to put my skills into practice within a team whose values I share.',
+        'Outside of class, I build my own tools with [[Claude Code]] and keep a watch on AI tools, [[encyClaupedia]].',
       ],
       facts: [
         { label: 'Education', value: 'Master’s in Computer Science, Université Lumière Lyon\u00a02' },

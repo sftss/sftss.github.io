@@ -1,16 +1,41 @@
 ---
 import { home } from '../i18n/home';
 import { useTranslations, type Lang } from '../i18n/ui';
+import { parseRich, words } from '../lib/rich';
 import Contributions from './Contributions.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 const copy = home[lang].about;
+// Chaque mot est entouré au build (<span class="w">) : le CSS l'allume au défilement, sans JavaScript.
+const paragraphs = copy.paragraphs.map((paragraph) =>
+  parseRich(paragraph).map((part) => ({
+    keyword: part.keyword,
+    claude: part.text === 'Claude Code',
+    words: words(part.text).map((text) => ({ text, space: text.trim() === '' })),
+  })),
+);
 ---
 
 <section id="about" class="section container">
   <h2>{t('nav.about')}</h2>
-  {copy.paragraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
+  <div class="story">
+    {
+      paragraphs.map((parts) => (
+        <p>
+          {parts.map((part) =>
+            part.keyword ? (
+              <strong class:list={['kw', { claude: part.claude }]}>
+                {part.words.map((word) => (word.space ? word.text : <span class="w">{word.text}</span>))}
+              </strong>
+            ) : (
+              part.words.map((word) => (word.space ? word.text : <span class="w">{word.text}</span>))
+            ),
+          )}
+        </p>
+      ))
+    }
+  </div>
   <dl>
     {
       copy.facts.map((fact) => (
@@ -25,6 +50,48 @@ const copy = home[lang].about;
 </section>
 
 <style>
+  .story {
+    max-width: 40rem;
+    margin-top: var(--space-s);
+  }
+
+  .story p {
+    margin: 0 0 var(--space-s);
+    font-size: var(--step-1);
+    line-height: 1.5;
+  }
+
+  .kw {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .kw.claude {
+    color: var(--color-claude);
+  }
+
+  /* Le texte s'allume ligne à ligne en entrant dans l'écran. Sans support
+     (Firefox aujourd'hui) ou en mouvement réduit, il s'affiche normalement. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .w {
+        animation: light linear both;
+        animation-timeline: view();
+        animation-range: entry 20% cover 45%;
+      }
+    }
+  }
+
+  @keyframes light {
+    from {
+      opacity: 0.25;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
   dl {
     display: grid;
     gap: var(--space-xs);
