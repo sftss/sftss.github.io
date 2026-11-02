@@ -1,5 +1,6 @@
 ---
-import { cvUrl, useTranslations, type Lang } from '../i18n/ui';
+import { useTranslations, type Lang } from '../i18n/ui';
+import CvLink from './CvLink.astro';
 
 const { lang, onDark = false } = Astro.props as { lang: Lang; onDark?: boolean };
 const t = useTranslations(lang);
@@ -12,7 +13,7 @@ const t = useTranslations(lang);
   <p class="status">{t('hero.status')}</p>
   <div class="actions">
     <a class="btn btn-primary" href="#projects">{t('hero.projects')}</a>
-    <a class="btn" href={cvUrl(lang)} download>{t('hero.cv')}</a>
+    <CvLink class="btn" lang={lang} label={t('hero.cv')} />
   </div>
   <figure>
     <blockquote lang="en">Program or be programmed.</blockquote>

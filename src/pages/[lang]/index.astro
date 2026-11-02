@@ -1,5 +1,5 @@
 ---
-import HeroText from '../../components/HeroText.astro';
+import HeroAscii from '../../components/HeroAscii.astro';
 import HomeSections from '../../components/HomeSections.astro';
 import { langs, type Lang } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
@@ -10,14 +10,6 @@ const lang = Astro.params.lang as Lang;
 ---
 
 <Base lang={lang}>
-  <section class="hero container">
-    <HeroText lang={lang} />
-  </section>
+  <HeroAscii lang={lang} />
   <HomeSections lang={lang} />
 </Base>
-
-<style>
-  .hero {
-    padding-block: var(--space-xl) var(--space-l);
-  }
-</style>
