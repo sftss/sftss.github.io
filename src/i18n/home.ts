@@ -26,7 +26,7 @@ interface HomeContent {
     title: string;
     lead: string;
     repo: string;
-    items: { title: string; text: string; tags: string[]; href?: string; linkLabel?: string }[];
+    items: { title: string; text: string; tags: string[]; stat?: string; href?: string; linkLabel?: string }[];
   };
   experience: {
     work: string;
@@ -93,6 +93,7 @@ export const home: Record<Lang, HomeContent> = {
           title: 'Vidéos verticales',
           text: 'Une chaîne de production de vidéos bilingues : script, voix, animation, sous-titres et rendu, jusqu’à la planification de la publication.',
           tags: ['Three.js', 'Python', 'Playwright', 'FFmpeg'],
+          stat: 'Meilleure publication\u00a0: environ 350\u00a0000 vues et 20\u00a0000 likes',
         },
         {
           title: 'Jeux Roblox',
@@ -221,6 +222,7 @@ export const home: Record<Lang, HomeContent> = {
           title: 'Vertical videos',
           text: 'A production pipeline for bilingual videos: script, voice, animation, subtitles and rendering, through to publication scheduling.',
           tags: ['Three.js', 'Python', 'Playwright', 'FFmpeg'],
+          stat: 'Best post: about 350,000 views and 20,000 likes',
         },
         {
           title: 'Roblox games',
