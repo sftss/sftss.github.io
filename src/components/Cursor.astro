@@ -69,6 +69,20 @@
   :global(html.has-cursor :is(input, textarea, [contenteditable='true'])) {
     cursor: text !important;
   }
+
+  /* Une boîte de dialogue modale passe au-dessus de tout, curseur compris :
+     tant qu'elle est ouverte, on masque le curseur personnalisé et on rend le curseur natif. */
+  :global(html.has-cursor:has(dialog:modal)) .cursor {
+    display: none;
+  }
+
+  :global(html.has-cursor:has(dialog:modal) *) {
+    cursor: auto !important;
+  }
+
+  :global(html.has-cursor:has(dialog:modal) :is(a, button)) {
+    cursor: pointer !important;
+  }
 </style>
 
 <script>
