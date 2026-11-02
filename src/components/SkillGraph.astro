@@ -481,12 +481,16 @@ const data = {
 
       // Équivalent de client:visible, sans framework : d3-force n'arrive qu'à l'approche du graphe.
       let simulation: { stop: () => void } | undefined;
+      let stopped = false;
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
           observer.disconnect();
           draw(root, svg, data)
-            .then((running) => (simulation = running))
+            .then((running) => {
+              if (stopped) running.stop();
+              else simulation = running;
+            })
             .catch(() => showList(true));
         },
         { rootMargin: '200px' },
@@ -494,6 +498,7 @@ const data = {
       observer.observe(root);
       cleanups.push(() => {
         observer.disconnect();
+        stopped = true;
         simulation?.stop();
       });
     });

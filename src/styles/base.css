@@ -142,4 +142,11 @@ a {
     animation: none !important;
     transition: none !important;
   }
+
+  /* Le fondu du routeur client passe par ces pseudo-éléments, que * n'atteint pas. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }
