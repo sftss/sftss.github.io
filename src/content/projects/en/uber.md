@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Uber
 context: "SAE3.01 of the BUT in Computer Science, building an Uber application. The brief was to design the data management and develop an application covering passengers, drivers, rides, payments and bookings."
 team: Group project.
 role: I took the lead on the project and handled the technical side.
-learnings: The main challenges and lessons came from managing the project and from setting up the initial requirements.
+learnings: "The main challenges and lessons came from managing the project and from setting up the initial requirements."
 gallery:
   - src: ../../../assets/projects/uber/mainUber.webp
     alt: Dark home page offering to order a ride, book one or get a delivery

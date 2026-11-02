@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Uber
 context: "SAE3.01 du BUT Informatique, création d’une application Uber. Il fallait concevoir la gestion des données et développer une application couvrant les passagers, les chauffeurs, les courses, les paiements et les réservations."
 team: Projet de groupe.
 role: J’ai pris le lead du projet et je me suis occupé de la partie technique.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges."
 gallery:
   - src: ../../../assets/projects/uber/mainUber.webp
     alt: Page d’accueil sombre proposant de commander une course, de réserver ou de se faire livrer

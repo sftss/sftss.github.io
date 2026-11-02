@@ -10,7 +10,7 @@ repo: https://github.com/sftss/TP-Data-MLxtend
 context: Travail pratique du BUT Informatique. À partir d’un an de transactions, il fallait nettoyer les données, décrire les comportements d’achat et faire ressortir les produits achetés ensemble.
 team: Projet de groupe.
 role: J’ai pris le lead du projet et je me suis occupé de la partie technique.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Avant de chercher des règles, il a fallu nettoyer les données : écarter les paniers sans client et les lignes qui ne sont pas des produits, comme les frais de port. Côté équipe, le management du projet et l’initialisation du cahier des charges ont été mes principaux apprentissages."
 gallery:
   - src: ../../../assets/projects/data-mlxtend/1_paniers_par_mois.webp
     alt: Courbe du nombre de paniers par mois, avec un pic en novembre 2011

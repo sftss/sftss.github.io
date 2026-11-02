@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Social-Networks-Neo4j
 context: "Projet tutoré du BUT Informatique, « Étude et expérimentation d’un service NoSQL ». Il fallait choisir un service NoSQL adapté à un réseau social, le justifier, puis l’expérimenter sur un jeu de données conçu pour l’occasion."
 team: Projet de groupe, 3 personnes.
 role: J’ai été responsable de l’analyse comparative des solutions NoSQL et j’ai co-conçu le modèle de données.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Cypher et la modélisation en graphe ont demandé un temps d’adaptation, surtout pour les requêtes qui traversent plusieurs niveaux de relations. Côté équipe, le management du projet et l’initialisation du cahier des charges ont été mes principaux apprentissages."
 gallery:
   - src: ../../../assets/projects/social-networks-neo4j/NeoModel.webp
     alt: Schéma du graphe reliant les nœuds User, Post, Comment, Tag, Topic, Group et Report

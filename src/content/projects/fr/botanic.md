@@ -10,7 +10,7 @@ repo: https://github.com/sftss/Botanic
 context: SAE201 du BUT Informatique. Il fallait développer une application de bureau reliée à une base de données, pour permettre au service achats d’une jardinerie de gérer ses bons de commande.
 team: Projet de groupe, 3 personnes.
 role: J’ai pris le lead du projet et je me suis occupé de la partie technique.
-learnings: Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges.
+learnings: "Les difficultés et les apprentissages sont venus du management du projet et de l’initialisation du cahier des charges."
 gallery:
   - src: ../../../assets/projects/botanic/ConnexionBotanic.webp
     alt: Écran de connexion avec une photo de jardinerie et un formulaire
