@@ -108,14 +108,8 @@ const t = useTranslations(lang);
     if (loaded) watch();
   });
 
-  onPage(() => {
-    const button = document.querySelector<HTMLButtonElement>('.chatbot');
-    if (!button) return;
-    if (loaded) {
-      button.hidden = true;
-      return;
-    }
-
+  // Le gestionnaire est séparé pour pouvoir armer aussi le bouton d'une autre page (voir le catch).
+  function arm(button: HTMLButtonElement) {
     button.addEventListener('click', async () => {
       const label = button.textContent;
       button.disabled = true;
@@ -146,8 +140,24 @@ const t = useTranslations(lang);
         const current = document.querySelector<HTMLButtonElement>('.chatbot') ?? button;
         current.hidden = false;
         current.disabled = false;
-        current.textContent = label;
+        if (current === button) {
+          current.textContent = label;
+        } else {
+          // Un bouton venu d'une autre page n'a jamais été armé (onPage l'a seulement masqué) : sans cela il resterait mort.
+          arm(current);
+        }
       }
     });
+  }
+
+  onPage(() => {
+    const button = document.querySelector<HTMLButtonElement>('.chatbot');
+    if (!button) return;
+    if (loaded) {
+      button.hidden = true;
+      return;
+    }
+
+    arm(button);
   });
 </script>
