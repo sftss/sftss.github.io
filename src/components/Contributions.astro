@@ -1,0 +1,145 @@
+---
+import type { Lang } from '../i18n/ui';
+import { getContributions } from '../lib/contributions';
+
+const { lang } = Astro.props as { lang: Lang };
+const data = await getContributions('sftss');
+const locale = lang === 'fr' ? 'fr-FR' : 'en-US';
+const month = (date: string, form: 'short' | 'long' = 'short') =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { month: form, timeZone: 'UTC' });
+const monthYear = (date = '') =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+const fmt = (n: number) => n.toLocaleString(locale);
+
+const CELL = 11;
+const GAP = 3;
+const TOP = 16;
+// Légende visible réduite à la période ; le détail reste annoncé aux lecteurs d'écran.
+const range = data ? `${capitalize(monthYear(data.from))} – ${data.to.slice(0, 4)}` : '';
+const copy =
+  lang === 'fr'
+    ? {
+        label: `${fmt(data?.total ?? 0)} contributions sur GitHub entre ${monthYear(data?.from)} et ${monthYear(data?.to)}`,
+        less: 'Moins',
+        more: 'Plus',
+      }
+    : {
+        label: `${fmt(data?.total ?? 0)} GitHub contributions between ${monthYear(data?.from)} and ${monthYear(data?.to)}`,
+        less: 'Less',
+        more: 'More',
+      };
+const months = data
+  ? data.days
+      .filter((day, i) => day.weekday === 0 && (i === 0 || new Date(day.date).getUTCDate() <= 7))
+      .map((day) => ({ x: day.week * (CELL + GAP), label: month(day.date) }))
+      // Une étiquette trop proche du bord droit serait coupée : on la masque.
+      .filter((m) => m.x <= (data.weeks - 2) * (CELL + GAP))
+  : [];
+---
+
+{
+  data && (
+    <figure class="contributions">
+      <svg
+        viewBox={`0 0 ${data.weeks * (CELL + GAP)} ${TOP + 7 * (CELL + GAP)}`}
+        role="img"
+        aria-label={copy.label}
+      >
+        {months.map((m) => (
+          <text x={m.x} y="10">
+            {m.label}
+          </text>
+        ))}
+        {data.days.map((day) => (
+          <rect
+            class={`l${day.level}`}
+            x={day.week * (CELL + GAP)}
+            y={TOP + day.weekday * (CELL + GAP)}
+            width={CELL}
+            height={CELL}
+            rx="2"
+          />
+        ))}
+      </svg>
+      <figcaption>
+        <span class="range" aria-hidden="true">{range}</span>
+        <span class="legend" aria-hidden="true">
+          {copy.less}
+          {[0, 1, 2, 3, 4].map((level) => (
+            <svg viewBox="0 0 11 11" width="11" height="11">
+              <rect class={`l${level}`} width="11" height="11" rx="2" />
+            </svg>
+          ))}
+          {copy.more}
+        </span>
+      </figcaption>
+    </figure>
+  )
+}
+
+<style>
+  .contributions {
+    max-width: 46rem;
+    margin: var(--space-l) 0 0;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  text {
+    fill: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 9px;
+  }
+
+  rect {
+    fill: var(--color-accent);
+  }
+
+  .l0 {
+    fill: var(--color-border);
+  }
+
+  .l1 {
+    fill-opacity: 0.35;
+  }
+
+  .l2 {
+    fill-opacity: 0.55;
+  }
+
+  .l3 {
+    fill-opacity: 0.78;
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs) var(--space-s);
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  .range {
+    font-family: var(--font-mono);
+  }
+
+  .legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-inline-start: auto;
+    font-family: var(--font-mono);
+  }
+
+  .legend svg {
+    display: inline-block;
+    width: 11px;
+  }
+</style>

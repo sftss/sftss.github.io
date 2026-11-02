@@ -1,6 +1,7 @@
 ---
 import { home } from '../i18n/home';
 import { useTranslations, type Lang } from '../i18n/ui';
+import Contributions from './Contributions.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
@@ -20,6 +21,7 @@ const copy = home[lang].about;
       ))
     }
   </dl>
+  <Contributions lang={lang} />
 </section>
 
 <style>
