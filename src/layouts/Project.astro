@@ -13,6 +13,17 @@ const t = useTranslations(lang);
 const { data } = entry;
 const { Content } = await render(entry);
 
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: data.title,
+  description: data.summary,
+  inLanguage: lang,
+  url: new URL(`/${lang}/projects/${slug}/`, Astro.site).href,
+  author: { '@type': 'Person', name: 'Sefer Tasdemir', url: new URL('/', Astro.site).href },
+  keywords: data.tags,
+};
+
 const others = (await getCollection('projects'))
   .filter((other) => entryLang(other) === lang && entrySlug(other) !== slug)
   .sort((a, b) => a.data.order - b.data.order);
@@ -23,6 +34,7 @@ const others = (await getCollection('projects'))
   path={`projects/${slug}/`}
   title={`${data.title} | Sefer Tasdemir`}
   description={data.summary}
+  schema={schema}
 >
   <article class="container project">
     <header>

@@ -1,5 +1,7 @@
 ---
 import '@fontsource-variable/ibm-plex-sans/wght.css';
+import monoFont from '@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2?url';
+import sansFont from '@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2?url';
 import '@fontsource/ibm-plex-mono/400.css';
 import '@fontsource/ibm-plex-mono/500.css';
 import '../styles/tokens.css';
@@ -16,15 +18,17 @@ interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  /** Données structurées de la page ; l'accueil publie la fiche Person par défaut. */
+  schema?: object;
 }
 
-const { lang, path = '', title, description, noindex = false } = Astro.props;
+const { lang, path = '', title, description, noindex = false, schema } = Astro.props;
 const t = useTranslations(lang);
 const pageTitle = title ?? t('meta.title');
 const pageDescription = description ?? t('meta.description');
 const site = Astro.site as URL;
 const urlFor = (code: Lang) => new URL(`/${code}/${path}`, site).href;
-const image = new URL('/assets/img/logo.webp', site).href;
+const image = new URL(`/assets/img/og-${lang}.png`, site).href;
 
 const person = {
   '@context': 'https://schema.org',
@@ -46,6 +50,8 @@ const person = {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="google-site-verification" content="_YOwXn6Ifjhj_kEnAddJc_UjdSoupw9G3zk07rka1QI" />
     <title>{pageTitle}</title>
+    <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoFont} as="font" type="font/woff2" crossorigin />
     <meta name="description" content={pageDescription} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={urlFor(lang)} />
@@ -60,10 +66,18 @@ const person = {
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={urlFor(lang)} />
     <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t('meta.title')} />
     <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
 
-    {path === '' && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
+    {
+      (schema ?? path === '') && (
+        <script type="application/ld+json" set:html={JSON.stringify(schema ?? person)} />
+      )
+    }
 
     <script is:inline>
       (function () {
