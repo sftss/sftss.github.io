@@ -34,7 +34,7 @@ interface HomeContent {
     jobs: { title: string; place: string; dates: string; points: string[] }[];
     degrees: { title: string; place: string; dates: string }[];
   };
-  about: { paragraphs: string[]; facts: { label: string; value: string }[]; photoAlt: string };
+  about: { paragraphs: string[]; facts: { label: string; value: string }[] };
   contact: { lead: string };
 }
 
@@ -151,7 +151,6 @@ export const home: Record<Lang, HomeContent> = {
       ],
     },
     about: {
-      photoAlt: 'Portrait de Sefer Tasdemir',
       paragraphs: [
         'Je suis Sefer Tasdemir. Après un BUT Informatique parcours AGED à l’IUT d’Annecy et un an d’alternance comme Data Analyst aux Autoroutes et tunnel du Mont-Blanc, je suis en Master Informatique à Lyon\u00a02, avec le parcours SISE envisagé en M2.',
         'Pragmatique et autonome, je veux mettre mes compétences en pratique au sein d’une équipe avec laquelle je partage mes valeurs.',
@@ -280,7 +279,6 @@ export const home: Record<Lang, HomeContent> = {
       ],
     },
     about: {
-      photoAlt: 'Portrait of Sefer Tasdemir',
       paragraphs: [
         'I’m Sefer Tasdemir. After a BUT in Computer Science (AGED track) at IUT d’Annecy and a year as an apprentice Data Analyst at Autoroutes et tunnel du Mont-Blanc, I’m now doing a Master’s in Computer Science at Lyon\u00a02, with the SISE track planned for the second year.',
         'Pragmatic and autonomous, I want to put my skills into practice within a team whose values I share.',
