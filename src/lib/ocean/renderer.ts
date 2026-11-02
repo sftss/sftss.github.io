@@ -20,15 +20,17 @@ const DOT_RGB: [number, number, number][] = [
   [52, 205, 60],
   [228, 50, 44],
   [190, 212, 255],
-  [110, 230, 255],
+  // Adaptation: a soft grey-blue wake instead of bright cyan, to keep the scene sober.
+  [150, 170, 200],
 ];
 const DOT_BASE_ALPHA = [1, 1, 1, 1, 1];
 const WAKE = DOT_RGB.length - 1;
 
-const ACCENTS = ["#e0892c", "#e03a32", "#b44ae0", "#33c8cc", "#3cb54a", "#3150e8", "#d9c14a"];
+// Adaptation: sober greys instead of the original bright shimmer colours.
+const ACCENTS = ["#8a93a6", "#a9b1c0", "#c7ccd6"];
 
 /** Adaptation: bubbles replace the red splash where a fish is eaten. */
-const BUBBLE = "rgb(110,230,255)";
+const BUBBLE = "rgb(170,185,210)";
 
 export interface RendererOptions {
   /** Adaptation: no black fill nor grid, for drawing over a page. */

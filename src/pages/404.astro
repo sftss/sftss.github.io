@@ -85,7 +85,6 @@ const copy = {
     inset: 0;
     width: 100%;
     height: 100%;
-    color: var(--color-accent);
     font-family: var(--font-mono);
   }
 
@@ -182,5 +181,5 @@ const copy = {
   sync();
 
   const canvas = document.querySelector<HTMLCanvasElement>('[data-ocean]');
-  if (canvas) new OceanEngine(canvas, undefined, { bubble: getComputedStyle(canvas).color });
+  if (canvas) new OceanEngine(canvas);
 </script>

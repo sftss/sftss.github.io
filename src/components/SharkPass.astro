@@ -14,7 +14,7 @@
     height: 35vh;
     opacity: 0.35;
     pointer-events: none;
-    color: var(--color-accent);
+    color: var(--color-muted);
     font-family: var(--font-mono);
   }
 </style>
@@ -39,24 +39,24 @@
     // Le moteur n'existe que le temps d'une traversée : rien ne tourne entre deux passages.
     const pass = () => {
       // Mouvement réduit activé depuis le dernier passage : on saute celui-ci.
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(60, 120);
-      if (document.hidden) return later(60, 120);
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(30, 30);
+      if (document.hidden) return later(30, 30);
       engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1 }], {
         transparent: true,
         interactive: false,
         fishCount: 0,
-        // Reflets à la couleur d'accent, relue à chaque passage pour suivre le thème.
+        // Reflets discrets, dans le gris du texte secondaire, relu à chaque passage pour suivre le thème.
         accents: [getComputedStyle(canvas).color],
         crossing: { dir: Math.random() < 0.5 ? 1 : -1, duration: 8 + Math.random() * 4 },
         onDone: () => {
           engine?.destroy();
           engine = null;
-          later(60, 120);
+          later(30, 30);
         },
       });
     };
 
-    later(20, 40);
+    later(8, 12);
 
     return () => {
       clearTimeout(timer);
