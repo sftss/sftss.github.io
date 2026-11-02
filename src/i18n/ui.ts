@@ -13,7 +13,7 @@ export const links = {
 const fr = {
   'meta.title': 'Sefer Tasdemir | Data Scientist',
   'meta.description':
-    'Portfolio de Sefer Tasdemir, Data Scientist\u00a0: pipelines de données, BI et machine learning. En Master Machine Learning for AI à Lyon 2.',
+    'Portfolio de Sefer Tasdemir, Data Scientist\u00a0: pipelines de données, BI et machine learning. En Master Informatique à Lyon\u00a02.',
   'skip': 'Aller au contenu',
   'nav.label': 'Navigation principale',
   'nav.projects': 'Projets',
@@ -27,7 +27,7 @@ const fr = {
   'hero.title': 'Data Scientist',
   'hero.tagline': 'Full-stack data : du pipeline au modèle.',
   'hero.status':
-    'En Master Machine Learning for AI à Lyon 2. Disponible pour un stage à Lyon à partir d’avril 2027, pour 2 mois ou plus.',
+    'En Master Informatique à Lyon\u00a02. Je cherche un stage d’au moins 308\u00a0heures à Lyon, à partir d’avril\u00a02027.',
   'hero.projects': 'Voir mes projets',
   'hero.cv': 'Télécharger mon CV',
   'chat.open': 'Une question\u00a0?',
@@ -55,7 +55,7 @@ const fr = {
 const en: typeof fr = {
   'meta.title': 'Sefer Tasdemir | Data Scientist',
   'meta.description':
-    'Portfolio of Sefer Tasdemir, Data Scientist: data pipelines, BI and machine learning. Master’s student in Machine Learning for AI at Lyon 2.',
+    'Portfolio of Sefer Tasdemir, Data Scientist: data pipelines, BI and machine learning. Master’s student in Computer Science at Lyon\u00a02.',
   'skip': 'Skip to content',
   'nav.label': 'Main navigation',
   'nav.projects': 'Projects',
@@ -69,7 +69,7 @@ const en: typeof fr = {
   'hero.title': 'Data Scientist',
   'hero.tagline': 'Full-stack data: from pipeline to model.',
   'hero.status':
-    'Master’s student in Machine Learning for AI at Lyon 2. Available for an internship in Lyon from April 2027, for 2 months or more.',
+    'Master’s student in Computer Science at Lyon\u00a02. Looking for an internship of at least 308\u00a0hours in Lyon, from April\u00a02027.',
   'hero.projects': 'See my projects',
   'hero.cv': 'Download my CV',
   'chat.open': 'Any questions?',

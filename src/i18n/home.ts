@@ -103,7 +103,7 @@ export const home: Record<Lang, HomeContent> = {
           place: 'Autoroutes et tunnel du Mont-Blanc',
           dates: 'Sept. 2025 à sept. 2026',
           points: [
-            'Architecture décisionnelle de bout en bout sur Microsoft Fabric : extraction depuis SQL Server, pipelines ETL en SQL et R, modélisation OLAP.',
+            'Architecture décisionnelle sur Microsoft Fabric\u00a0: extraction depuis SQL Server, pipelines ETL en SQL et R, modélisation OLAP.',
             'Rapports Power BI automatisés pour piloter les indicateurs d’exploitation.',
             'Scripts R pour fiabiliser les transferts de données et suivre le trafic à partir des données radars.',
             'Migration d’une base Excel vers SQL Server.',
@@ -120,14 +120,14 @@ export const home: Record<Lang, HomeContent> = {
         },
         {
           title: 'Opérateur de production et agent de tri',
-          place: 'Sodep KUHAIL et MPM',
+          place: 'Sodep KUHAIL, MPM et Molliex Frères',
           dates: 'Étés 2022 à 2025',
           points: ['Vérification, tri et inventaire des pièces, préparation et emballage.'],
         },
       ],
       degrees: [
         {
-          title: 'Master Informatique, parcours Machine Learning for Artificial Intelligence',
+          title: 'Master Informatique, parcours SISE envisagé en M2',
           place: 'Université Lumière Lyon 2',
           dates: 'Depuis 2026',
         },
@@ -145,12 +145,12 @@ export const home: Record<Lang, HomeContent> = {
     },
     about: {
       paragraphs: [
-        'Je suis Sefer Tasdemir. Après un BUT Informatique parcours AGED à l’IUT d’Annecy et une année d’alternance comme Data Analyst, je suis en Master Machine Learning for AI à Lyon 2.',
+        'Je suis Sefer Tasdemir. Après un BUT Informatique parcours AGED à l’IUT d’Annecy et une année d’alternance comme Data Analyst, je suis en Master Informatique à Lyon\u00a02.',
         'Je parle français et turc, et anglais à un niveau professionnel (TOEIC : 900 points). En dehors du code, je joue aux échecs et je fais du sport.',
       ],
     },
     contact: {
-      lead: 'Je cherche un stage à Lyon à partir d’avril 2027, pour 2 mois ou plus. Le plus simple pour me joindre : un e-mail ou un message sur LinkedIn.',
+      lead: 'Je cherche un stage d’au moins 308\u00a0heures à Lyon, à partir d’avril\u00a02027. Le plus simple pour me joindre\u00a0: un e-mail ou un message sur LinkedIn.',
     },
   },
   en: {
@@ -217,7 +217,7 @@ export const home: Record<Lang, HomeContent> = {
           place: 'Autoroutes et tunnel du Mont-Blanc',
           dates: 'Sep. 2025 to Sep. 2026',
           points: [
-            'End-to-end decision-support architecture on Microsoft Fabric: extraction from SQL Server, ETL pipelines in SQL and R, OLAP modeling.',
+            'Decision-support architecture on Microsoft Fabric: extraction from SQL Server, ETL pipelines in SQL and R, OLAP modeling.',
             'Automated Power BI reports to steer operational KPIs.',
             'R scripts to make data transfers reliable and track traffic from radar data.',
             'Migration of an Excel database to SQL Server.',
@@ -234,14 +234,14 @@ export const home: Record<Lang, HomeContent> = {
         },
         {
           title: 'Production operator and sorting agent',
-          place: 'Sodep KUHAIL and MPM',
+          place: 'Sodep KUHAIL, MPM and Molliex Frères',
           dates: 'Summers 2022 to 2025',
           points: ['Checking, sorting and inventory of parts, preparation and packaging.'],
         },
       ],
       degrees: [
         {
-          title: 'Master’s in Computer Science, Machine Learning for Artificial Intelligence track',
+          title: 'Master’s in Computer Science, SISE track planned for the second year',
           place: 'Université Lumière Lyon 2',
           dates: 'Since 2026',
         },
@@ -259,12 +259,12 @@ export const home: Record<Lang, HomeContent> = {
     },
     about: {
       paragraphs: [
-        'I’m Sefer Tasdemir. After a BUT in Computer Science (AGED track) at IUT d’Annecy and a year as an apprentice Data Analyst, I’m now doing a Master’s in Machine Learning for AI at Lyon 2.',
+        'I’m Sefer Tasdemir. After a BUT in Computer Science (AGED track) at IUT d’Annecy and a year as an apprentice Data Analyst, I’m now doing a Master’s in Computer Science at Lyon\u00a02.',
         'I speak French and Turkish, and English at a professional level (TOEIC: 900 points). Away from code, I play chess and do sports.',
       ],
     },
     contact: {
-      lead: 'I’m looking for an internship in Lyon from April 2027, for 2 months or more. The easiest way to reach me is by email or on LinkedIn.',
+      lead: 'I’m looking for an internship of at least 308\u00a0hours in Lyon, from April\u00a02027. The easiest way to reach me is by email or on LinkedIn.',
     },
   },
 };
