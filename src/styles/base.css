@@ -6,7 +6,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--space-l);
+  scroll-padding-top: calc(var(--header-h, 4rem) + var(--space-s));
+  scrollbar-color: var(--color-border) var(--color-bg);
+  scrollbar-width: thin;
 }
 
 body {
@@ -42,6 +44,31 @@ a {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Safari ; Chrome et Firefox utilisent scrollbar-color ci-dessus. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--color-bg);
+  border-radius: 999px;
+  background: var(--color-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 }
 
 .container {

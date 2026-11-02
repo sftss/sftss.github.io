@@ -32,7 +32,7 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     position: relative;
     display: grid;
     align-items: center;
-    min-height: calc(100svh - 4.5rem);
+    min-height: calc(100svh - var(--header-h, 4.5rem));
     padding-block: var(--space-l);
   }
 
@@ -45,8 +45,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
 
     :global(html[data-theme]) .pin {
       position: sticky;
-      top: 0;
-      min-height: 100svh;
+      top: var(--header-h, 4rem);
+      min-height: calc(100svh - var(--header-h, 4rem));
     }
   }
 
