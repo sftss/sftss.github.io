@@ -17,6 +17,7 @@ const copy = home[lang].ai;
         <li>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
+          {item.stat && <p class="stat">{item.stat}</p>}
           <ul class="tags">
             {item.tags.map((tag) => <li>{tag}</li>)}
           </ul>
@@ -64,6 +65,12 @@ const copy = home[lang].ai;
     margin: 0;
     color: var(--color-muted);
     font-size: var(--step--1);
+  }
+
+  .cards .stat {
+    flex: none;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
   }
 
   .cards a {
