@@ -1,5 +1,5 @@
 ---
-import { links, type Lang } from '../i18n/ui';
+import type { Lang } from '../i18n/ui';
 import { getContributions } from '../lib/contributions';
 
 const { lang } = Astro.props as { lang: Lang };
@@ -7,28 +7,27 @@ const data = await getContributions('sftss');
 const locale = lang === 'fr' ? 'fr-FR' : 'en-US';
 const month = (date: string, form: 'short' | 'long' = 'short') =>
   new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { month: form, timeZone: 'UTC' });
+const monthYear = (date = '') =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 const fmt = (n: number) => n.toLocaleString(locale);
-const day = (date?: string) =>
-  date ? new Date(`${date}T12:00:00Z`).toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) : '';
 
 const CELL = 11;
 const GAP = 3;
 const TOP = 16;
+// Légende visible réduite à la période ; le détail reste annoncé aux lecteurs d'écran.
+const range = data ? `${capitalize(monthYear(data.from))} – ${data.to.slice(0, 4)}` : '';
 const copy =
   lang === 'fr'
     ? {
-        title: `${fmt(data?.total ?? 0)} contributions sur GitHub en un an`,
-        caption: `Activité GitHub du ${day(data?.from)} au ${day(data?.to)}, mise à jour chaque semaine.`,
+        label: `${fmt(data?.total ?? 0)} contributions sur GitHub entre ${monthYear(data?.from)} et ${monthYear(data?.to)}`,
         less: 'Moins',
         more: 'Plus',
-        profile: 'Voir mon profil GitHub',
       }
     : {
-        title: `${fmt(data?.total ?? 0)} GitHub contributions in a year`,
-        caption: `GitHub activity from ${day(data?.from)} to ${day(data?.to)}, updated weekly.`,
+        label: `${fmt(data?.total ?? 0)} GitHub contributions between ${monthYear(data?.from)} and ${monthYear(data?.to)}`,
         less: 'Less',
         more: 'More',
-        profile: 'View my GitHub profile',
       };
 const months = data
   ? data.days
@@ -43,7 +42,7 @@ const months = data
       <svg
         viewBox={`0 0 ${data.weeks * (CELL + GAP)} ${TOP + 7 * (CELL + GAP)}`}
         role="img"
-        aria-label={copy.title}
+        aria-label={copy.label}
       >
         {months.map((m) => (
           <text x={m.x} y="10">
@@ -62,10 +61,7 @@ const months = data
         ))}
       </svg>
       <figcaption>
-        <strong>{copy.title}.</strong> {copy.caption}{' '}
-        <a href={links.github} rel="noopener noreferrer">
-          {copy.profile}
-        </a>
+        <span class="range" aria-hidden="true">{range}</span>
         <span class="legend" aria-hidden="true">
           {copy.less}
           {[0, 1, 2, 3, 4].map((level) => (
@@ -128,9 +124,8 @@ const months = data
     font-size: var(--step--1);
   }
 
-  strong {
-    color: var(--color-text);
-    font-weight: 600;
+  .range {
+    font-family: var(--font-mono);
   }
 
   .legend {
