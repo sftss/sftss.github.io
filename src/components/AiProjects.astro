@@ -7,7 +7,9 @@ const copy = home[lang].ai;
 ---
 
 <section id="claude-code" class="section container">
-  <h2>{copy.title}</h2>
+  <h2>
+    {copy.title.split('{brand}')[0]}<span class="claude">Claude Code</span>{copy.title.split('{brand}')[1]}
+  </h2>
   <p class="lead">{copy.lead}</p>
   <ul class="cards">
     {
@@ -20,7 +22,7 @@ const copy = home[lang].ai;
           </ul>
           {item.href && (
             <a href={item.href} rel="noopener noreferrer">
-              {copy.repo}
+              {item.linkLabel ?? copy.repo}
             </a>
           )}
         </li>
@@ -32,7 +34,7 @@ const copy = home[lang].ai;
 <style>
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 24rem), 1fr));
     gap: var(--space-m);
     margin: var(--space-m) 0 0;
     padding: 0;
@@ -47,6 +49,10 @@ const copy = home[lang].ai;
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     background: var(--color-surface);
+  }
+
+  .claude {
+    color: var(--color-claude);
   }
 
   h3 {

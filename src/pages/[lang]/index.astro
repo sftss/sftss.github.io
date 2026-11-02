@@ -1,12 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import About from '../../components/About.astro';
 import AiProjects from '../../components/AiProjects.astro';
 import Contact from '../../components/Contact.astro';
+import CvLink from '../../components/CvLink.astro';
 import Experience from '../../components/Experience.astro';
 import ProjectGrid from '../../components/ProjectGrid.astro';
 import SkillGraph from '../../components/SkillGraph.astro';
 import { home } from '../../i18n/home';
-import { cvUrl, langs, useTranslations, type Lang } from '../../i18n/ui';
+import { langs, useTranslations, type Lang } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
 import { entryLang } from '../../lib/projects';
 
@@ -28,7 +30,7 @@ const projects = (await getCollection('projects'))
     <p class="status">{t('hero.status')}</p>
     <div class="actions">
       <a class="btn btn-primary" href="#projects">{t('hero.projects')}</a>
-      <a class="btn" href={cvUrl(lang)} download>{t('hero.cv')}</a>
+      <CvLink class="btn" lang={lang} label={t('hero.cv')} />
     </div>
     <figure>
       <blockquote lang="en">Program or be programmed.</blockquote>
@@ -47,10 +49,7 @@ const projects = (await getCollection('projects'))
   <AiProjects lang={lang} />
   <Experience lang={lang} />
 
-  <section id="about" class="section container">
-    <h2>{t('nav.about')}</h2>
-    {copy.about.paragraphs.map((paragraph) => <p class="lead">{paragraph}</p>)}
-  </section>
+  <About lang={lang} />
 
   <Contact lang={lang} />
 </Base>
