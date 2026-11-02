@@ -1,6 +1,7 @@
 ---
 import HeroAscii from '../../components/HeroAscii.astro';
 import HomeSections from '../../components/HomeSections.astro';
+import SharkPass from '../../components/SharkPass.astro';
 import { langs, type Lang } from '../../i18n/ui';
 import Base from '../../layouts/Base.astro';
 
@@ -12,4 +13,5 @@ const lang = Astro.params.lang as Lang;
 <Base lang={lang}>
   <HeroAscii lang={lang} />
   <HomeSections lang={lang} />
+  <SharkPass />
 </Base>

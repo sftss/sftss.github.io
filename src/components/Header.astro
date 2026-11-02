@@ -34,7 +34,48 @@ const items = [
 
 <style>
   .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    /* Transition à part : le header reste en place pendant le changement de page. */
+    view-transition-name: site-header;
     border-bottom: 1px solid var(--color-border);
+    background: color-mix(in oklch, var(--color-bg) 82%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Progression de lecture, en CSS pur. Firefox ne gère pas encore scroll() : pas de barre. */
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .site-header::after {
+        content: '';
+        position: absolute;
+        inset-inline: 0;
+        bottom: -1px;
+        height: 2px;
+        background: var(--color-accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: read-progress linear both;
+      }
+
+      /* Règle à part, plus spécifique : le minifieur fusionnerait sinon la timeline dans le
+         raccourci animation, que Chrome refuse. */
+      .site-header.site-header::after {
+        animation-timeline: scroll(root);
+      }
+    }
+  }
+
+  @keyframes read-progress {
+    from {
+      transform: scaleX(0);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
   }
 
   .bar {
@@ -82,6 +123,10 @@ const items = [
   }
 
   @media (max-width: 44rem) {
+    .bar {
+      padding-block: var(--space-xs);
+    }
+
     .tools {
       margin-inline-start: auto;
     }
@@ -93,3 +138,18 @@ const items = [
     }
   }
 </style>
+
+<script>
+  import { onPage } from '../lib/lifecycle';
+
+  // La hauteur du header sert aux ancres (scroll-padding-top) et au hero figé.
+  onPage(() => {
+    const header = document.querySelector<HTMLElement>('.site-header');
+    if (!header) return;
+    const observer = new ResizeObserver(() =>
+      document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`),
+    );
+    observer.observe(header);
+    return () => observer.disconnect();
+  });
+</script>

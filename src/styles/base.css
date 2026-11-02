@@ -6,7 +6,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--space-l);
+  scroll-padding-top: calc(var(--header-h, 4.5rem) + var(--space-s));
+  scrollbar-color: var(--color-border) var(--color-bg);
+  scrollbar-width: thin;
 }
 
 body {
@@ -42,6 +44,57 @@ a {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* Changement de page ou de langue : l'ancienne page s'efface en remontant légèrement,
+   la nouvelle arrive par le bas. Le header et le curseur, nommés à part, ne bougent pas. */
+::view-transition-old(root) {
+  animation: page-out 160ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 280ms ease-out 80ms both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+    filter: blur(4px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+}
+
+/* Safari ; Chrome et Firefox utilisent scrollbar-color ci-dessus. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--color-bg);
+  border-radius: 999px;
+  background: var(--color-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
 }
 
 .container {
@@ -141,5 +194,12 @@ a {
   *::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  /* Le fondu du routeur client passe par ces pseudo-éléments, que * n'atteint pas. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

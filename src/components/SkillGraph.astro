@@ -257,6 +257,7 @@ const data = {
 
 <script>
   import type { SimulationLinkDatum, SimulationNodeDatum } from 'd3-force';
+  import { onPage } from '../lib/lifecycle';
 
   interface GraphData {
     projects: { id: string; title: string; href: string }[];
@@ -452,37 +453,56 @@ const data = {
     });
 
     root.dataset.ready = 'true';
+    return simulation;
   }
 
-  document.querySelectorAll<HTMLElement>('[data-skill-graph]').forEach((root) => {
-    const svg = root.querySelector<SVGSVGElement>('svg.stage')!;
-    const toggle = root.querySelector<HTMLButtonElement>('.toggle')!;
-    const data: GraphData = JSON.parse(
-      root.querySelector('script[type="application/json"]')?.textContent ?? '{}',
-    );
+  onPage(() => {
+    const cleanups: (() => void)[] = [];
 
-    const showList = (list: boolean) => {
-      if (list) root.dataset.view = 'list';
-      else delete root.dataset.view;
-      toggle.textContent = (list ? toggle.dataset.graph : toggle.dataset.list) ?? '';
-    };
+    document.querySelectorAll<HTMLElement>('[data-skill-graph]').forEach((root) => {
+      const svg = root.querySelector<SVGSVGElement>('svg.stage')!;
+      const toggle = root.querySelector<HTMLButtonElement>('.toggle')!;
+      const data: GraphData = JSON.parse(
+        root.querySelector('script[type="application/json"]')?.textContent ?? '{}',
+      );
 
-    toggle.addEventListener('click', () => showList(root.dataset.view !== 'list'));
+      const showList = (list: boolean) => {
+        if (list) root.dataset.view = 'list';
+        else delete root.dataset.view;
+        toggle.textContent = (list ? toggle.dataset.graph : toggle.dataset.list) ?? '';
+      };
 
-    if (getComputedStyle(svg).display === 'none' && !matchMedia('(min-width: 48rem)').matches) {
-      return;
-    }
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      toggle.addEventListener('click', () => showList(root.dataset.view !== 'list'));
 
-    // Équivalent de client:visible, sans framework : d3-force n'arrive qu'à l'approche du graphe.
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
+      if (getComputedStyle(svg).display === 'none' && !matchMedia('(min-width: 48rem)').matches) {
+        return;
+      }
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // Équivalent de client:visible, sans framework : d3-force n'arrive qu'à l'approche du graphe.
+      let simulation: { stop: () => void } | undefined;
+      let stopped = false;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          draw(root, svg, data)
+            .then((running) => {
+              if (stopped) running.stop();
+              else simulation = running;
+            })
+            .catch(() => showList(true));
+        },
+        { rootMargin: '200px' },
+      );
+      observer.observe(root);
+      cleanups.push(() => {
         observer.disconnect();
-        draw(root, svg, data).catch(() => showList(true));
-      },
-      { rootMargin: '200px' },
-    );
-    observer.observe(root);
+        stopped = true;
+        simulation?.stop();
+      });
+    });
+
+    return () => cleanups.forEach((cleanup) => cleanup());
   });
 </script>

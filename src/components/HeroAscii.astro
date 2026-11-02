@@ -32,7 +32,7 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     position: relative;
     display: grid;
     align-items: center;
-    min-height: calc(100svh - 4.5rem);
+    min-height: calc(100svh - var(--header-h, 4.5rem));
     padding-block: var(--space-l);
   }
 
@@ -45,8 +45,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
 
     :global(html[data-theme]) .pin {
       position: sticky;
-      top: 0;
-      min-height: 100svh;
+      top: var(--header-h, 4.5rem);
+      min-height: calc(100svh - var(--header-h, 4.5rem));
     }
   }
 
@@ -112,6 +112,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
 </style>
 
 <script>
+  import { onPage } from '../lib/lifecycle';
+
   interface Particle {
     ch: string;
     col: number;
@@ -129,12 +131,14 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     target: { col: number; row: number; ch: string } | null;
   }
 
-  const pre = document.querySelector<HTMLPreElement>('[data-ascii]');
-  const hero = document.querySelector<HTMLElement>('[data-hero]');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  onPage(() => {
+    const pre = document.querySelector<HTMLPreElement>('[data-ascii]');
+    const hero = document.querySelector<HTMLElement>('[data-hero]');
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Sans JS ou en mouvement réduit, le <pre> statique reste affiché tel quel.
-  if (pre && hero && !reduced) {
+    // Sans JS ou en mouvement réduit, le <pre> statique reste affiché tel quel.
+    if (!pre || !hero || reduced) return;
+
     const glyphs = '01/\\{}[]=+*#%@$?!';
     const palettes = {
       dark: ['oklch(0.9 0.12 215)', 'oklch(0.97 0.01 250)', 'oklch(0.8 0.16 350)', 'oklch(0.88 0.15 90)'],
@@ -293,10 +297,11 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
 
     layout();
     wake();
-    new ResizeObserver(() => {
+    const resizer = new ResizeObserver(() => {
       layout();
       wake();
-    }).observe(pre);
+    });
+    resizer.observe(pre);
 
     canvas.addEventListener('pointermove', (event) => {
       const box = canvas.getBoundingClientRect();
@@ -321,6 +326,16 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     };
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
-    new MutationObserver(wake).observe(document.documentElement, { attributeFilter: ['data-theme'] });
-  }
+    const themeWatcher = new MutationObserver(wake);
+    themeWatcher.observe(document.documentElement, { attributeFilter: ['data-theme'] });
+
+    // Avant de quitter la page : plus de boucle, d'écouteur ni d'observateur.
+    return () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      removeEventListener('scroll', onScroll);
+      resizer.disconnect();
+      themeWatcher.disconnect();
+    };
+  });
 </script>
