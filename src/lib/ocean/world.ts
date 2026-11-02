@@ -126,6 +126,8 @@ export class World {
   private sharkSpecs: SharkSpec[];
   private fishCount?: number;
   private crossing?: Crossing;
+  /** Adaptation: phase of the slow vertical meander a crossing shark follows. */
+  private meander = rand(0, TAU);
 
   // Adaptation: options object, and plain fields so Node can run the tests without a build.
   constructor(sharkSpecs: SharkSpec[] = DEFAULT_SHARKS, options: WorldOptions = {}) {
@@ -525,9 +527,11 @@ export class World {
       let hunting = false;
       let closing = 0;
       if (this.crossing) {
-        // Adaptation: no hunting, patrol or turning back; swim across and stay mid-height.
-        dx += this.crossing.dir * 2.5;
-        dy += clamp((cyW - hy) / cyW, -1, 1) * 0.8;
+        // Adaptation: no hunting, patrol or turning back. Swim across while following a slow
+        // vertical meander, so the body bends into curves like a patrolling shark.
+        const targetY = cyW + Math.sin(time * 0.7 + this.meander) * H * 0.24;
+        dx += this.crossing.dir * 1.5;
+        dy += clamp((targetY - hy) / cyW, -1, 1) * 1.2;
       } else {
         // Hunt.
         if (time >= sh.retargetAt) {
