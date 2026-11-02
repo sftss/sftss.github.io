@@ -33,6 +33,8 @@ const months = data
   ? data.days
       .filter((day, i) => day.weekday === 0 && (i === 0 || new Date(day.date).getUTCDate() <= 7))
       .map((day) => ({ x: day.week * (CELL + GAP), label: month(day.date) }))
+      // Une étiquette trop proche du bord droit serait coupée : on la masque.
+      .filter((m) => m.x <= (data.weeks - 2) * (CELL + GAP))
   : [];
 ---
 
