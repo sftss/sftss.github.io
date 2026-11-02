@@ -37,6 +37,8 @@ const items = [
     position: sticky;
     top: 0;
     z-index: 20;
+    /* Transition à part : le header reste en place pendant le changement de page. */
+    view-transition-name: site-header;
     border-bottom: 1px solid var(--color-border);
     background: color-mix(in oklch, var(--color-bg) 82%, transparent);
     -webkit-backdrop-filter: blur(10px);

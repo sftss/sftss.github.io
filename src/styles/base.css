@@ -51,6 +51,32 @@ a {
   color: var(--color-on-accent);
 }
 
+/* Changement de page ou de langue : l'ancienne page s'efface en remontant légèrement,
+   la nouvelle arrive par le bas. Le header et le curseur, nommés à part, ne bougent pas. */
+::view-transition-old(root) {
+  animation: page-out 160ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 280ms ease-out 80ms both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+    filter: blur(4px);
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+}
+
 /* Safari ; Chrome et Firefox utilisent scrollbar-color ci-dessus. */
 ::-webkit-scrollbar {
   width: 10px;
