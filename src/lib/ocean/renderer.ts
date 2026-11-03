@@ -8,6 +8,7 @@
  *   4. sharks rasterised cell-by-cell with supersampled edges: grey blocks
  *      shaded by the light, dense glyphs, and shimmering accent colours
  */
+import { labelCells } from "./label.ts";
 import { clamp, hash3, smoothstep } from "./math.ts";
 import { SHARK_NODES, type Shark, type SharkKind, type World } from "./world.ts";
 
@@ -58,6 +59,10 @@ const FLAG_EYE = 5;
 /** Dark skin markings: tiger bars, zebra-shark spots. */
 const FLAG_MARK = 6;
 const MARK_GLYPHS = "#%@";
+/** Adaptation: cells of a label written across the body, light on dark so it reads on any skin. */
+const FLAG_LABEL = 7;
+/** Where along the body (snout 0 → tail 1) the label sits: the widest stretch of the back. */
+const LABEL_S = 0.42;
 
 // Sub-cell sample offsets for anti-aliased silhouettes.
 const SUBSAMPLES = [0.25, 0.3, 0.75, 0.3, 0.25, 0.72, 0.75, 0.72];
@@ -785,6 +790,26 @@ export class AsciiRenderer {
           }
         }
       }
+
+      if (sh.label) this.stampLabel(sh.label);
+    }
+  }
+
+  /** Writes a label on the thickest part of the body, on cells the shark already covers. */
+  private stampLabel(text: string) {
+    const { spine, arc, arcTotal, sharkFlag, sharkKey, cw, ch, cols, rows } = this;
+    const target = arcTotal * LABEL_S;
+    let k = 0;
+    while (k < SHARK_NODES - 2 && arc[k + 1] < target) k++;
+    const span = arc[k + 1] - arc[k] || 1;
+    const u = clamp((target - arc[k]) / span, 0, 1);
+    const x = spine[k * 2] + (spine[(k + 1) * 2] - spine[k * 2]) * u;
+    const y = spine[k * 2 + 1] + (spine[(k + 1) * 2 + 1] - spine[k * 2 + 1]) * u;
+    for (const { col, row, char } of labelCells(x, y, cw, ch, cols, rows, text)) {
+      const i = row * cols + col;
+      if (sharkFlag[i] !== FLAG_BODY && sharkFlag[i] !== FLAG_RIDGE) continue;
+      sharkFlag[i] = FLAG_LABEL;
+      sharkKey[i] = char.charCodeAt(0);
     }
   }
 
@@ -806,6 +831,14 @@ export class AsciiRenderer {
       // Colours re-roll on a staggered clock so the hide shimmers.
       const tick = Math.floor(t * 2.4 + (key % 997) / 97);
       const roll = hash3(key, tick, 7);
+
+      if (flag === FLAG_LABEL) {
+        ctx.fillStyle = "#0b0c10";
+        ctx.fillRect(x + 1, y + 1, cw - 1, ch - 1);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(String.fromCharCode(key), x + cw / 2, y + ch / 2 + 1);
+        continue;
+      }
 
       if (flag === FLAG_EDGE) {
         // Soft, anti-aliased silhouette: no block, just a light glyph.
