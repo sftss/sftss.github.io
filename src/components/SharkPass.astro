@@ -41,7 +41,8 @@
       // Mouvement réduit activé depuis le dernier passage : on saute celui-ci.
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(30, 30);
       if (document.hidden) return later(30, 30);
-      engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1 }], {
+      // « 404 » sur le dos : un indice pour qui cherche la page cachée.
+      engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1, label: '404' }], {
         transparent: true,
         interactive: false,
         fishCount: 0,
@@ -56,7 +57,7 @@
       });
     };
 
-    later(8, 12);
+    later(20, 20);
 
     return () => {
       clearTimeout(timer);
