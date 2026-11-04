@@ -51,6 +51,10 @@ const fr = {
   'embed.open': 'Ouvrir dans Power BI',
   'footer.mail': 'E-mail',
   'footer.back': 'Retour à l’accueil',
+  'depth.epipelagic': 'épipélagique',
+  'depth.mesopelagic': 'mésopélagique',
+  'depth.bathypelagic': 'bathypélagique',
+  'depth.abyssopelagic': 'abyssopélagique',
 };
 
 const en: typeof fr = {
@@ -94,6 +98,10 @@ const en: typeof fr = {
   'embed.open': 'Open in Power BI',
   'footer.mail': 'Email',
   'footer.back': 'Back to home',
+  'depth.epipelagic': 'epipelagic',
+  'depth.mesopelagic': 'mesopelagic',
+  'depth.bathypelagic': 'bathypelagic',
+  'depth.abyssopelagic': 'abyssopelagic',
 };
 
 const ui = { fr, en };
