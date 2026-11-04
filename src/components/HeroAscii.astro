@@ -2,6 +2,7 @@
 import type { Lang } from '../i18n/ui';
 import { asciiNetwork, asciiPortrait } from '../lib/ascii';
 import HeroText from './HeroText.astro';
+import ReefSchool from './ReefSchool.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const portrait = await asciiPortrait({ cols: 110, threshold: 0.3, gamma: 0.8 });
@@ -11,6 +12,7 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
 
 <section class="hero" data-hero>
   <div class="pin">
+    <ReefSchool />
     <div class="container grid">
       <HeroText lang={lang} />
       <div class="frame">
