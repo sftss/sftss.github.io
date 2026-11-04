@@ -89,12 +89,22 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     -webkit-user-select: none;
   }
 
-  /* Le script dessine le portrait dans un canvas posé exactement sur le texte. */
+  /* Le script dessine le portrait dans un canvas posé sur le texte, débordant d'une marge
+     (--bleed) où les caractères qui s'envolent s'effacent en fondu au lieu d'être coupés net. */
   .frame :global(canvas) {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: calc(-1 * var(--bleed, 0px));
+    width: calc(100% + 2 * var(--bleed, 0px));
+    height: calc(100% + 2 * var(--bleed, 0px));
+    pointer-events: none;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent, #000 var(--bleed, 0px), #000 calc(100% - var(--bleed, 0px)), transparent),
+      linear-gradient(to bottom, transparent, #000 var(--bleed, 0px), #000 calc(100% - var(--bleed, 0px)), transparent);
+    mask-image:
+      linear-gradient(to right, transparent, #000 var(--bleed, 0px), #000 calc(100% - var(--bleed, 0px)), transparent),
+      linear-gradient(to bottom, transparent, #000 var(--bleed, 0px), #000 calc(100% - var(--bleed, 0px)), transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
   }
 
   .cue {
@@ -184,6 +194,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     let font = '';
     let width = 0;
     let height = 0;
+    /** Marge du canvas autour du portrait, en px CSS. */
+    let bleed = 0;
     let placed = false;
     let pointer: { x: number; y: number } | null = null;
     let scatter = 0;
@@ -201,11 +213,14 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
       const style = getComputedStyle(pre);
       const size = parseFloat(style.fontSize);
       const ratio = devicePixelRatio || 1;
+      bleed = Math.round(pre.clientWidth * 0.22);
+      canvas.style.setProperty('--bleed', `${bleed}px`);
       width = pre.clientWidth;
       height = pre.clientHeight;
-      canvas.width = Math.round(width * ratio);
-      canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      canvas.width = Math.round((width + 2 * bleed) * ratio);
+      canvas.height = Math.round((height + 2 * bleed) * ratio);
+      // Origine décalée de la marge : les coordonnées restent celles du portrait.
+      ctx.setTransform(ratio, 0, 0, ratio, bleed * ratio, bleed * ratio);
       font = `${size}px ${style.fontFamily}`;
       ctx.font = font;
       charWidth = ctx.measureText('M').width;
@@ -263,7 +278,7 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     const draw = (now: number, m: number) => {
       const palette = palettes[document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'];
       const base = getComputedStyle(pre).color;
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(-bleed, -bleed, width + 2 * bleed, height + 2 * bleed);
       ctx.font = font;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -305,12 +320,14 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     });
     resizer.observe(pre);
 
-    canvas.addEventListener('pointermove', (event) => {
-      const box = canvas.getBoundingClientRect();
+    // Le canvas déborde sur le texte et laisse passer la souris : on écoute le cadre du portrait.
+    const frameEl = pre.parentElement!;
+    frameEl.addEventListener('pointermove', (event) => {
+      const box = pre.getBoundingClientRect();
       pointer = { x: event.clientX - box.left, y: event.clientY - box.top };
       wake();
     });
-    canvas.addEventListener('pointerleave', () => {
+    frameEl.addEventListener('pointerleave', () => {
       pointer = null;
     });
 
