@@ -58,8 +58,8 @@ interface Jelly {
   dim: number;
 }
 
-const GLOW_RADIUS = 110;
-const GLOW_FADE = 2.2;
+const GLOW_RADIUS = 70;
+const GLOW_FADE = 1.3;
 const SNOW_PARALLAX = 0.35;
 /** Cloche de la méduse : une ligne par rangée, centrée. */
 const BELL = ['.-~~~-.', "/ '   ' \\", '( .   . )', "'~^~^~^~'"];
@@ -286,7 +286,7 @@ export class Midwater {
       m.glow *= fade;
       if (p) {
         const d = Math.hypot(m.x - p.x, this.planktonTop + m.u * span - p.y);
-        if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, (1 - d / GLOW_RADIUS) ** 1.5);
+        if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, 0.75 * (1 - d / GLOW_RADIUS) ** 2);
       }
       // Rarement, un point s'allume tout seul : l'essentiel de la lumière vient du curseur.
       if (Math.random() < dt * 0.0025) m.glow = Math.max(m.glow, 0.6);
@@ -346,9 +346,9 @@ export class Midwater {
       // Apparition progressive sur les 700 premiers pixels de la zone.
       const ramp = 0.25 + 0.75 * smooth((pageY - this.planktonTop) / 700);
       if (m.glow > 0.05) {
-        ctx.globalAlpha = m.glow * 0.32;
+        ctx.globalAlpha = m.glow * 0.22;
         ctx.beginPath();
-        ctx.arc(m.x, y, m.size * 6, 0, Math.PI * 2);
+        ctx.arc(m.x, y, m.size * 4.5, 0, Math.PI * 2);
         ctx.fill();
       }
       ctx.globalAlpha = Math.max(m.base * ramp, m.glow);
