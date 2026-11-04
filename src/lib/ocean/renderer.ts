@@ -395,6 +395,12 @@ export class AsciiRenderer {
     if (family) this.fontFamily = family;
   }
 
+  /** Adaptation: whether a point of the canvas (CSS px) lies on a shark drawn in the last frame. */
+  isSharkAt(x: number, y: number) {
+    const i = this.cellIndex(x, y);
+    return i >= 0 && this.sharkFlag[i] !== 0;
+  }
+
   /** Adaptation: new fish colours after a theme change. */
   setFishColors(colors: string[]) {
     this.fishColors = colors;

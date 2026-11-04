@@ -230,7 +230,8 @@
         }
         x = event.clientX;
         y = event.clientY;
-        root.toggleAttribute('data-hover', !!target.closest?.(CLICKABLE));
+        // data-shark-hover : posé par le requin de l'accueil, qui se laisse cliquer.
+        root.toggleAttribute('data-hover', !!target.closest?.(CLICKABLE) || html.hasAttribute('data-shark-hover'));
         lay(x, y);
         if (!frame) frame = requestAnimationFrame(render);
       },

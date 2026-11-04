@@ -69,6 +69,12 @@ export class OceanEngine {
     this.schedule();
   }
 
+  /** Adaptation: whether a viewport point (clientX, clientY) is on a shark. */
+  hitShark(clientX: number, clientY: number) {
+    const rect = this.canvas.getBoundingClientRect();
+    return this.renderer.isSharkAt(clientX - rect.left, clientY - rect.top);
+  }
+
   /** Adaptation: recolour the fish (theme change); a still frame is redrawn at once. */
   setFishColors(colors: string[]) {
     this.renderer.setFishColors(colors);
