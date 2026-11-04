@@ -17,6 +17,11 @@
     color: var(--color-muted);
     font-family: var(--font-mono);
   }
+
+  /* Sans le curseur personnalisé, une main au-dessus du requin. */
+  :global(html[data-shark-hover]:not(.has-cursor) body) {
+    cursor: pointer;
+  }
 </style>
 
 <script>
@@ -52,6 +57,7 @@
         onDone: () => {
           engine?.destroy();
           engine = null;
+          document.documentElement.removeAttribute('data-shark-hover');
           later(30, 30);
         },
       });
@@ -59,10 +65,32 @@
 
     later(20, 20);
 
+    // Le requin se laisse attraper : un clic sur lui (hors lien, bouton ou sélection de texte)
+    // mène aux abysses, c'est-à-dire à la page 404. Le curseur s'agrandit quand on le survole.
+    const html = document.documentElement;
+    const INTERACTIVE = 'a[href], button, input, textarea, select, label, summary, [role="button"], iframe';
+    const onShark = (event: PointerEvent | MouseEvent) =>
+      !!engine &&
+      !(event.target as Element).closest?.(INTERACTIVE) &&
+      engine.hitShark(event.clientX, event.clientY);
+    const onMove = (event: PointerEvent) => {
+      const over = event.pointerType === 'mouse' && onShark(event);
+      html.toggleAttribute('data-shark-hover', over);
+    };
+    const onClick = (event: MouseEvent) => {
+      if (!onShark(event) || !getSelection()?.isCollapsed) return;
+      location.assign(`/${html.lang}/abysses/`);
+    };
+    addEventListener('pointermove', onMove, { passive: true });
+    addEventListener('click', onClick);
+
     return () => {
       clearTimeout(timer);
       engine?.destroy();
       engine = null;
+      removeEventListener('pointermove', onMove);
+      removeEventListener('click', onClick);
+      html.removeAttribute('data-shark-hover');
     };
   });
 </script>

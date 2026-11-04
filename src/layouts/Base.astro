@@ -55,6 +55,8 @@ const person = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Le site a son propre thème sombre : Dark Reader fausserait les couleurs des canvas. -->
+    <meta name="darkreader-lock" />
     <meta name="google-site-verification" content="_YOwXn6Ifjhj_kEnAddJc_UjdSoupw9G3zk07rka1QI" />
     <title>{pageTitle}</title>
     <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
@@ -64,7 +66,7 @@ const person = {
     <link rel="canonical" href={urlFor(lang)} />
     {langs.map((code) => <link rel="alternate" hreflang={code} href={urlFor(code)} />)}
     {path === '' && <link rel="alternate" hreflang="x-default" href={new URL('/', site).href} />}
-    <link rel="icon" href="/assets/img/logo.webp" type="image/webp" />
+    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content="website" />
@@ -108,6 +110,7 @@ const person = {
     </script>
   </head>
   <body>
+    <div class="depth" aria-hidden="true"><div class="rays"></div></div>
     <Header lang={lang} path={path} />
     <main id="main">
       <slot />

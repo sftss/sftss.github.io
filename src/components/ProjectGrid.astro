@@ -122,11 +122,14 @@ const categories = Object.entries(copy.categories) as [Category, string][];
     overflow: hidden;
     transition:
       border-color var(--ease),
+      box-shadow var(--ease),
       transform var(--ease);
   }
 
+  /* Au survol, la carte s'éclaire comme un organisme bioluminescent. */
   .card:hover {
     border-color: var(--color-accent);
+    box-shadow: 0 0 28px -6px color-mix(in oklch, var(--color-glow) 55%, transparent);
     transform: translateY(-2px);
   }
 

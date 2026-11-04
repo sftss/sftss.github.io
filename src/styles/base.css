@@ -77,6 +77,121 @@ a {
   }
 }
 
+/* Plongée : sous le contenu, la lumière de surface s'éteint et l'eau s'assombrit à mesure
+   que l'on descend dans la page. Sans scroll() (Firefox), seule la lueur de surface reste. */
+.depth {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  /* Calque à part : il ne glisse pas avec la page pendant les transitions. */
+  view-transition-name: depth;
+}
+
+.depth::before,
+.depth::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.depth::before {
+  background: radial-gradient(120% 70% at 50% -10%, var(--color-sunlight), transparent 70%);
+}
+
+.depth::after {
+  background: var(--color-abyss);
+  opacity: 0;
+}
+
+/* Rayons de soleil : des bandes obliques floues qui se balancent lentement sous la surface. */
+.rays {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 95vh;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+}
+
+.rays::before {
+  content: '';
+  position: absolute;
+  inset: -10% -25%;
+  background:
+    repeating-linear-gradient(
+      105deg,
+      transparent 0 70px,
+      var(--color-ray) 70px 110px,
+      transparent 110px 190px,
+      var(--color-ray) 190px 205px,
+      transparent 205px 300px
+    ),
+    repeating-linear-gradient(
+      98deg,
+      transparent 0 130px,
+      var(--color-ray) 130px 150px,
+      transparent 150px 340px
+    );
+  filter: blur(10px);
+  transform-origin: 50% 0;
+  animation: rays-sway 16s ease-in-out infinite alternate;
+}
+
+@keyframes rays-sway {
+  from {
+    transform: translateX(-3%) skewX(-5deg);
+  }
+
+  to {
+    transform: translateX(3%) skewX(5deg);
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .depth::before {
+    animation: depth-sunlight linear both;
+  }
+
+  .depth::after {
+    animation: depth-abyss linear both;
+  }
+
+  .rays {
+    animation: depth-rays linear both;
+  }
+
+  /* Règles à part, plus spécifiques : le minifieur fusionnerait sinon la timeline dans le
+     raccourci animation, que Chrome refuse. */
+  .depth.depth::before,
+  .depth.depth::after,
+  .depth .rays.rays {
+    animation-timeline: scroll(root);
+  }
+}
+
+/* Les rayons ne descendent pas loin. */
+@keyframes depth-rays {
+  20%,
+  to {
+    opacity: 0;
+  }
+}
+
+/* La lumière ne passe que la première moitié de la descente. */
+@keyframes depth-sunlight {
+  45%,
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes depth-abyss {
+  to {
+    opacity: 1;
+  }
+}
+
 /* Safari ; Chrome et Firefox utilisent scrollbar-color ci-dessus. */
 ::-webkit-scrollbar {
   width: 10px;
