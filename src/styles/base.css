@@ -77,6 +77,64 @@ a {
   }
 }
 
+/* Plongée : sous le contenu, la lumière de surface s'éteint et l'eau s'assombrit à mesure
+   que l'on descend dans la page. Sans scroll() (Firefox), seule la lueur de surface reste. */
+.depth {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  /* Calque à part : il ne glisse pas avec la page pendant les transitions. */
+  view-transition-name: depth;
+}
+
+.depth::before,
+.depth::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.depth::before {
+  background: radial-gradient(120% 70% at 50% -10%, var(--color-sunlight), transparent 70%);
+}
+
+.depth::after {
+  background: var(--color-abyss);
+  opacity: 0;
+}
+
+@supports (animation-timeline: scroll()) {
+  .depth::before {
+    animation: depth-sunlight linear both;
+  }
+
+  .depth::after {
+    animation: depth-abyss linear both;
+  }
+
+  /* Règles à part, plus spécifiques : le minifieur fusionnerait sinon la timeline dans le
+     raccourci animation, que Chrome refuse. */
+  .depth.depth::before,
+  .depth.depth::after {
+    animation-timeline: scroll(root);
+  }
+}
+
+/* La lumière ne passe que la première moitié de la descente. */
+@keyframes depth-sunlight {
+  45%,
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes depth-abyss {
+  to {
+    opacity: 1;
+  }
+}
+
 /* Safari ; Chrome et Firefox utilisent scrollbar-color ci-dessus. */
 ::-webkit-scrollbar {
   width: 10px;

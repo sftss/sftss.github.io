@@ -17,6 +17,17 @@
   --color-logo-bg: oklch(0.97 0.005 250);
   --color-on-scrim: oklch(0.96 0.01 250);
 
+  /* Plongée : lumière de surface en haut de page, abysses en bas, bioluminescence au fond. */
+  --color-sunlight: light-dark(oklch(0.9 0.06 215 / 0.85), oklch(0.36 0.09 225 / 0.6));
+  --color-abyss: light-dark(oklch(0.9 0.035 245), oklch(0.105 0.025 268));
+  --color-glow: light-dark(oklch(0.55 0.12 210), oklch(0.86 0.13 190));
+
+  /* Poissons tropicaux de la surface, un peu adoucis pour rester du décor. */
+  --fish-blue: light-dark(oklch(0.55 0.15 250), oklch(0.72 0.13 240));
+  --fish-yellow: light-dark(oklch(0.7 0.14 80), oklch(0.86 0.13 95));
+  --fish-red: light-dark(oklch(0.55 0.18 25), oklch(0.67 0.17 25));
+  --fish-orange: light-dark(oklch(0.64 0.16 50), oklch(0.76 0.15 55));
+
   --font-sans: 'IBM Plex Sans Variable', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
