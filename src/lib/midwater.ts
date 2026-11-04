@@ -160,7 +160,7 @@ export class Midwater {
       f.x *= sx;
       f.y *= sy;
     }
-    const flakes = Math.round(Math.min(180, Math.max(50, (width * height) / 9000)));
+    const flakes = Math.round(Math.min(320, Math.max(90, (width * height) / 5000)));
     while (this.flakes.length < flakes) this.flakes.push(this.flake(Math.random() * height));
     this.flakes.length = flakes;
     this.layout();
@@ -192,10 +192,11 @@ export class Midwater {
     return {
       x: Math.random() * this.width,
       y,
-      size: 0.6 + Math.random() * 1.2,
-      speed: 5 + Math.random() * 10,
+      // Un flocon sur six est un agrégat : plus gros, plus lent, plus pâle.
+      ...(Math.random() < 1 / 6
+        ? { size: 2.6 + Math.random() * 1.6, speed: 3 + Math.random() * 5, alpha: 0.2 + Math.random() * 0.2 }
+        : { size: 1.2 + Math.random() * 1.4, speed: 5 + Math.random() * 10, alpha: 0.35 + Math.random() * 0.4 }),
       phase: Math.random() * Math.PI * 2,
-      alpha: 0.15 + Math.random() * 0.35,
     };
   }
 
@@ -287,8 +288,8 @@ export class Midwater {
         const d = Math.hypot(m.x - p.x, this.planktonTop + m.u * span - p.y);
         if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, (1 - d / GLOW_RADIUS) ** 1.5);
       }
-      // De temps en temps, un point s'allume tout seul.
-      if (Math.random() < dt * 0.02) m.glow = Math.max(m.glow, 0.6);
+      // Rarement, un point s'allume tout seul : l'essentiel de la lumière vient du curseur.
+      if (Math.random() < dt * 0.0025) m.glow = Math.max(m.glow, 0.6);
     }
 
     const band = this.jellyBottom - this.jellyTop;
@@ -315,14 +316,16 @@ export class Midwater {
 
     // Neige : absente en surface, puis plus discrète quand le plancton prend le relais.
     const snowAlpha =
-      smooth((centre - this.snowTop + H * 0.3) / (H * 0.6)) * (1 - 0.6 * smooth((centre - this.planktonTop) / H));
+      smooth((centre - this.snowTop + H * 0.3) / (H * 0.6)) * (1 - 0.4 * smooth((centre - this.planktonTop) / H));
     if (snowAlpha > 0.01) {
       ctx.fillStyle = this.colors.snow;
       const shift = scrollY * SNOW_PARALLAX;
       for (const f of this.flakes) {
         const y = (((f.y - shift) % H) + H) % H;
         ctx.globalAlpha = f.alpha * snowAlpha;
-        ctx.fillRect(f.x, y, f.size, f.size);
+        ctx.beginPath();
+        ctx.arc(f.x, y, f.size / 2, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
 
