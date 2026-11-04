@@ -1,6 +1,7 @@
 // Copied from ascii-sharks (https://github.com/stackedlol/ascii-sharks, commit a0074c1),
 // © 2026 drewdi, MIT licence: see LICENSE in this folder. Changes are marked "Adaptation:".
 import { AsciiRenderer, type RendererOptions } from "./renderer.ts";
+import type { Species } from "./species.ts";
 import { World, type Crossing, type SharkSpec } from "./world.ts";
 
 const STEP = 1 / 60;
@@ -13,6 +14,8 @@ export interface OceanOptions extends RendererOptions {
   crossing?: Crossing;
   /** Adaptation: false ignores the pointer (fish don't flee, clicks don't splash). */
   interactive?: boolean;
+  /** Adaptation: the fish species living in the world; the bait fish when absent. */
+  species?: Species[];
   onDone?: () => void;
 }
 
@@ -37,7 +40,7 @@ export class OceanEngine {
   constructor(canvas: HTMLCanvasElement, sharks?: SharkSpec[], options: OceanOptions = {}) {
     this.canvas = canvas;
     this.options = options;
-    this.world = new World(sharks, { fishCount: options.fishCount, crossing: options.crossing });
+    this.world = new World(sharks, { fishCount: options.fishCount, crossing: options.crossing, species: options.species });
     this.renderer = new AsciiRenderer(canvas, options);
     this.renderer.setFontFamily(getComputedStyle(canvas).fontFamily);
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -64,6 +67,12 @@ export class OceanEngine {
       if (!this.disposed && this.reducedMotion.matches) this.drawStill();
     });
     this.schedule();
+  }
+
+  /** Adaptation: recolour the fish (theme change); a still frame is redrawn at once. */
+  setFishColors(colors: string[]) {
+    this.renderer.setFishColors(colors);
+    if (this.reducedMotion.matches) this.renderer.render(this.world, STEP);
   }
 
   destroy() {

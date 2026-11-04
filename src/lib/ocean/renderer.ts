@@ -40,6 +40,16 @@ export interface RendererOptions {
   accents?: string[];
   /** Adaptation: bubble colour is injectable, to follow the site theme. */
   bubble?: string;
+  /** Adaptation: one colour per species of the world's pool, for species drawn with glyphs. */
+  fishColors?: string[];
+}
+
+/** Adaptation: a fish drawn with its species glyph and colour rather than a dash. */
+interface GlyphFish {
+  cell: number;
+  species: number;
+  right: boolean;
+  alpha: number;
 }
 
 // Sparse glyphs on bright skin, dense glyphs in shadow, so the texture
@@ -341,12 +351,17 @@ export class AsciiRenderer {
   /** Fish cells bucketed by brightness, so each bucket is one fillStyle. */
   private fishBuckets: number[][] = FISH_ALPHAS.map(() => []);
   private fishStyles = FISH_ALPHAS.map((a) => `rgba(230,238,255,${a})`);
+  /** Adaptation: fish whose species has glyphs, collected by markFish for drawFish. */
+  private glyphFish: GlyphFish[] = [];
+  private glyphs: ([string, string] | undefined)[] = [];
+  private fishColors: string[];
 
   constructor(private canvas: HTMLCanvasElement, options: RendererOptions = {}) {
     // Adaptation: options with the original defaults (opaque canvas, built-in colours).
     this.transparent = options.transparent ?? false;
     this.accents = options.accents ?? ACCENTS;
     this.bubble = options.bubble ?? BUBBLE;
+    this.fishColors = options.fishColors ?? [];
     // Adaptation: the canvas keeps an alpha channel only in transparent mode.
     const ctx = canvas.getContext("2d", { alpha: this.transparent });
     if (!ctx) throw new Error("2D canvas unavailable");
@@ -378,6 +393,11 @@ export class AsciiRenderer {
 
   setFontFamily(family: string) {
     if (family) this.fontFamily = family;
+  }
+
+  /** Adaptation: new fish colours after a theme change. */
+  setFishColors(colors: string[]) {
+    this.fishColors = colors;
   }
 
   resize(width: number, height: number, dpr: number) {
@@ -898,6 +918,8 @@ export class AsciiRenderer {
     const { fishStamp, fishBuckets, sharkFlag } = this;
     const frame = ++this.frameId;
     for (const bucket of fishBuckets) bucket.length = 0;
+    this.glyphFish.length = 0;
+    this.glyphs = world.species.map((sp) => sp.glyphs);
     for (let pass = 0; pass < 2; pass++) {
       for (const f of world.fish) {
         if (!f.alive || (f.depth > 0.78 ? 0 : 1) !== pass) continue;
@@ -906,6 +928,14 @@ export class AsciiRenderer {
         fishStamp[i] = frame;
         const glint = clamp(Math.abs(f.turn) / 3.5, 0, 1);
         const v = 0.3 + (0.4 * (f.depth - 0.55)) / 0.45 + 0.3 * Math.max(glint, f.alarm);
+        // Adaptation: a glyph fish covers its neighbours too, so the wake dots don't cross it.
+        if (this.glyphs[f.species]) {
+          const col = i % this.cols;
+          if (col > 0) fishStamp[i - 1] = frame;
+          if (col < this.cols - 1) fishStamp[i + 1] = frame;
+          this.glyphFish.push({ cell: i, species: f.species, right: f.vx >= 0, alpha: clamp(0.35 + 0.65 * v, 0.5, 1) });
+          continue;
+        }
         fishBuckets[clamp(Math.floor(v * FISH_ALPHAS.length), 0, FISH_ALPHAS.length - 1)].push(i);
       }
     }
@@ -921,6 +951,14 @@ export class AsciiRenderer {
         ctx.fillText("-", (i % cols) * cw + cw / 2, ((i / cols) | 0) * ch + ch / 2 + 1);
       }
     }
+    // Adaptation: glyph fish, each in its species colour and facing where it swims.
+    for (const g of this.glyphFish) {
+      const glyphs = this.glyphs[g.species]!;
+      ctx.fillStyle = this.fishColors[g.species] ?? this.fishStyles[FISH_ALPHAS.length - 1];
+      ctx.globalAlpha = g.alpha;
+      ctx.fillText(glyphs[g.right ? 0 : 1], (g.cell % cols) * cw + cw / 2, ((g.cell / cols) | 0) * ch + ch / 2 + 1);
+    }
+    ctx.globalAlpha = 1;
   }
 
   /** Adaptation: bubbles in one colour where a fish was eaten, instead of red splashes. */

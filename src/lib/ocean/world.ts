@@ -16,7 +16,7 @@
  * swimming in from the edges, which keeps the population steady.
  */
 import { angleDiff, clamp, current, rand, randInt, TAU } from "./math.ts";
-import { pickSpecies, SPECIES } from "./species.ts";
+import { pickSpecies, SPECIES, type Species } from "./species.ts";
 
 export const SHARK_NODES = 20;
 
@@ -41,6 +41,8 @@ export interface WorldOptions {
   /** Overrides the area-based population; 0 leaves the sharks alone. */
   fishCount?: number;
   crossing?: Crossing;
+  /** Adaptation: the fish species living in this world; the bait fish when absent. */
+  species?: Species[];
 }
 
 // The landing hero: four of the same shark at different depths.
@@ -134,12 +136,15 @@ export class World {
   private crossing?: Crossing;
   /** Adaptation: phase of the slow vertical meander a crossing shark follows. */
   private meander = rand(0, TAU);
+  /** Adaptation: species pool; Fish.species indexes into it. */
+  readonly species: Species[];
 
   // Adaptation: options object, and plain fields so Node can run the tests without a build.
   constructor(sharkSpecs: SharkSpec[] = DEFAULT_SHARKS, options: WorldOptions = {}) {
     this.sharkSpecs = sharkSpecs;
     this.fishCount = options.fishCount;
     this.crossing = options.crossing;
+    this.species = options.species ?? SPECIES;
   }
 
   /** Adaptation: true once a crossing shark has fully left the canvas. */
@@ -160,13 +165,14 @@ export class World {
     this.width = width;
     this.height = height;
     // Spacing is set in grid cells so every fish lands in its own cell.
-    this.sepX = SPECIES.map((sp) => sp.spacing[0] * cellW);
-    this.sepY = SPECIES.map((sp) => sp.spacing[1] * cellH);
+    this.sepX = this.species.map((sp) => sp.spacing[0] * cellW);
+    this.sepY = this.species.map((sp) => sp.spacing[1] * cellH);
     this.perception = Math.max(cellH * 3, cellW * 5.5);
     this.foreignSep = cellW * 3;
 
-    // Adaptation: with no fish at all, a resize must not reseed (it would restart a crossing).
-    if (first || this.sharks.length === 0) {
+    // Adaptation: reseed only an empty world. A crossing shark keeps its course, and fish
+    // without sharks (the reef) keep their place.
+    if (first || (this.sharks.length === 0 && this.fish.length === 0)) {
       this.seed();
       return;
     }
@@ -232,8 +238,8 @@ export class World {
     const total = this.fishCount ?? clamp(Math.round((W * H) / 4400), 85, 340);
     this.fish = [];
     while (this.fish.length < total) {
-      const species = pickSpecies();
-      const sp = SPECIES[species];
+      const species = pickSpecies(this.species);
+      const sp = this.species[species];
       const size = Math.min(randInt(sp.schoolSize[0], sp.schoolSize[1]), total - this.fish.length);
       const millDir: 1 | -1 = Math.random() < 0.5 ? 1 : -1;
       const cx = rand(W * 0.06, W * 0.94);
@@ -334,7 +340,7 @@ export class World {
     for (let i = 0; i < fish.length; i++) {
       const f = fish[i];
       if (!f.alive) continue;
-      const sp = SPECIES[f.species];
+      const sp = this.species[f.species];
       // Alarmed fish want more room: the school flashes apart around a
       // shark and closes back up once the threat fades.
       const spread = 1 + 1.8 * f.alarm;
@@ -710,8 +716,8 @@ export class World {
     const x = side === 0 ? -20 : side === 1 ? W + 20 : along * W;
     const y = side === 2 ? -20 : side === 3 ? H + 20 : along * H;
     const inward = Math.atan2(H / 2 - y, W / 2 - x) + rand(-0.5, 0.5);
-    const species = pickSpecies();
-    const sp = SPECIES[species];
+    const species = pickSpecies(this.species);
+    const sp = this.species[species];
     const millDir: 1 | -1 = Math.random() < 0.5 ? 1 : -1;
     for (const f of due.slice(0, sp.schoolSize[1])) {
       f.alive = true;

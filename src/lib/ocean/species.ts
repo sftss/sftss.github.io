@@ -20,6 +20,10 @@ export interface Species {
   mill: number;
   /** Damps vertical speed; real fish mostly cruise level. */
   verticalDrag: number;
+  /** Adaptation: glyphs facing right and left; a single dash when absent. */
+  glyphs?: [string, string];
+  /** Adaptation: CSS custom property holding the colour; the default pale white when absent. */
+  color?: string;
 }
 
 export const SPECIES: Species[] = [
@@ -55,12 +59,47 @@ export const SPECIES: Species[] = [
   },
 ];
 
-const TOTAL_WEIGHT = SPECIES.reduce((sum, s) => sum + s.weight, 0);
+/**
+ * Adaptation: reef fish for the surface of the home page. Small loose groups rather than
+ * bait balls, slower, and drawn as coloured `><>` instead of dashes.
+ */
+export const TROPICAL: Species[] = [
+  {
+    name: "tang",
+    cruise: 22, maxSpeed: 48, minSpeed: 10, weight: 2,
+    schoolSize: [4, 7], spacing: [4.2, 1.8],
+    align: 1.4, cohesion: 1, jitter: 30, mill: 0, verticalDrag: 1.2,
+    glyphs: ["><>", "<><"], color: "--fish-blue",
+  },
+  {
+    name: "butterflyfish",
+    cruise: 18, maxSpeed: 42, minSpeed: 8, weight: 2,
+    schoolSize: [3, 5], spacing: [4.2, 1.8],
+    align: 0.9, cohesion: 1.2, jitter: 45, mill: 0, verticalDrag: 0.9,
+    glyphs: ["><>", "<><"], color: "--fish-yellow",
+  },
+  {
+    name: "anthias",
+    cruise: 24, maxSpeed: 52, minSpeed: 10, weight: 2,
+    schoolSize: [5, 8], spacing: [4, 1.7],
+    align: 1.2, cohesion: 1.3, jitter: 40, mill: 0, verticalDrag: 0.8,
+    glyphs: ["><>", "<><"], color: "--fish-red",
+  },
+  {
+    name: "clownfish",
+    cruise: 16, maxSpeed: 40, minSpeed: 6, weight: 1,
+    schoolSize: [2, 3], spacing: [4.4, 1.9],
+    align: 0.6, cohesion: 1.6, jitter: 60, mill: 0, verticalDrag: 0.6,
+    glyphs: ["><>", "<><"], color: "--fish-orange",
+  },
+];
 
-export function pickSpecies() {
-  let r = Math.random() * TOTAL_WEIGHT;
-  for (let i = 0; i < SPECIES.length; i++) {
-    r -= SPECIES[i].weight;
+// Adaptation: the pool is a parameter, so a world can hold reef fish instead of bait fish.
+export function pickSpecies(pool: Species[] = SPECIES) {
+  const total = pool.reduce((sum, s) => sum + s.weight, 0);
+  let r = Math.random() * total;
+  for (let i = 0; i < pool.length; i++) {
+    r -= pool[i].weight;
     if (r <= 0) return i;
   }
   return 0;

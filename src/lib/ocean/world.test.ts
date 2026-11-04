@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { TROPICAL } from './species.ts';
 import { World } from './world.ts';
 
 const STEP = 1 / 60;
@@ -39,6 +40,25 @@ for (const dir of [1, -1] as const) {
     assert.ok(minY > 0 && maxY < 300, `tête entre ${minY.toFixed(0)} et ${maxY.toFixed(0)}`);
   });
 }
+
+test('un monde de récif ne contient que des poissons tropicaux, et pas de requin', () => {
+  const world = new World([], { fishCount: 30, species: TROPICAL });
+  world.resize(1200, 900, 10, 15);
+  for (let t = 0; t < 5; t += STEP) world.step(STEP);
+  assert.equal(world.sharks.length, 0);
+  assert.equal(world.fish.length, 30);
+  assert.ok(world.fish.every((f) => f.alive && TROPICAL[f.species]?.glyphs));
+  assert.equal(world.done, false);
+});
+
+test('un redimensionnement garde les poissons du récif à leur place', () => {
+  const world = new World([], { fishCount: 12, species: TROPICAL });
+  world.resize(1200, 900, 10, 15);
+  for (let t = 0; t < 1; t += STEP) world.step(STEP);
+  const before = world.fish.map((f) => [f.x, f.y]);
+  world.resize(1200, 920, 10, 15);
+  assert.deepEqual(world.fish.map((f) => [f.x, f.y]), before);
+});
 
 test('un redimensionnement ne relance pas la traversée', () => {
   const world = new World([{ kind: 'classic', size: 1 }], { fishCount: 0, crossing: { dir: 1, duration: 10 } });
