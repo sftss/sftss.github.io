@@ -3,7 +3,6 @@ import LangSwitch from './LangSwitch.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
 import CvLink from './CvLink.astro';
-import DepthGauge from './DepthGauge.astro';
 
 const { lang, path = '' } = Astro.props as { lang: Lang; path?: string };
 const t = useTranslations(lang);
@@ -27,7 +26,6 @@ const items = [
       </ul>
     </nav>
     <div class="tools">
-      <DepthGauge lang={lang} />
       <LangSwitch lang={lang} path={path} />
       <ThemeToggle lang={lang} />
     </div>

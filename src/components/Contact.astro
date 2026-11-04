@@ -7,38 +7,18 @@ const { lang } = Astro.props as { lang: Lang };
 const t = useTranslations(lang);
 ---
 
-<!-- Le fond de la page : du plancton bioluminescent s'allume au passage du curseur. -->
-<div class="abyss">
-  <canvas class="plankton" aria-hidden="true" data-plankton></canvas>
-  <section id="contact" class="section container">
-    <h2>{t('nav.contact')}</h2>
-    <p class="lead">{home[lang].contact.lead}</p>
-    <ul class="links">
-      <li><a class="btn btn-primary" href={`mailto:${links.email}`}>{links.email}</a></li>
-      <li><a class="btn" href={links.linkedin} rel="noopener noreferrer">LinkedIn</a></li>
-      <li><a class="btn" href={links.github} rel="noopener noreferrer">GitHub</a></li>
-      <li><CvLink class="btn" lang={lang} label={t('hero.cv')} /></li>
-    </ul>
-  </section>
-</div>
+<section id="contact" class="section container">
+  <h2>{t('nav.contact')}</h2>
+  <p class="lead">{home[lang].contact.lead}</p>
+  <ul class="links">
+    <li><a class="btn btn-primary" href={`mailto:${links.email}`}>{links.email}</a></li>
+    <li><a class="btn" href={links.linkedin} rel="noopener noreferrer">LinkedIn</a></li>
+    <li><a class="btn" href={links.github} rel="noopener noreferrer">GitHub</a></li>
+    <li><CvLink class="btn" lang={lang} label={t('hero.cv')} /></li>
+  </ul>
+</section>
 
 <style>
-  .abyss {
-    position: relative;
-    isolation: isolate;
-    padding-block-end: var(--space-xl);
-  }
-
-  .plankton {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    color: var(--color-glow);
-  }
-
   .links {
     display: flex;
     flex-wrap: wrap;
@@ -52,22 +32,3 @@ const t = useTranslations(lang);
     overflow-wrap: anywhere;
   }
 </style>
-
-<script>
-  import { onPage } from '../lib/lifecycle';
-  import { Plankton } from '../lib/plankton';
-
-  onPage(() => {
-    const canvas = document.querySelector<HTMLCanvasElement>('[data-plankton]');
-    if (!canvas) return;
-    const plankton = new Plankton(canvas);
-    const recolor = () => plankton.setColor(getComputedStyle(canvas).color);
-    recolor();
-    const themeWatcher = new MutationObserver(recolor);
-    themeWatcher.observe(document.documentElement, { attributeFilter: ['data-theme'] });
-    return () => {
-      themeWatcher.disconnect();
-      plankton.destroy();
-    };
-  });
-</script>
