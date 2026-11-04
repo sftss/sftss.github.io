@@ -55,6 +55,8 @@ const person = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Le site a son propre thème sombre : Dark Reader fausserait les couleurs des canvas. -->
+    <meta name="darkreader-lock" />
     <meta name="google-site-verification" content="_YOwXn6Ifjhj_kEnAddJc_UjdSoupw9G3zk07rka1QI" />
     <title>{pageTitle}</title>
     <link rel="preload" href={sansFont} as="font" type="font/woff2" crossorigin />
