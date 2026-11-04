@@ -1,14 +1,15 @@
 ---
-// Easter egg : de temps en temps, un requin ASCII traverse le bas de l'accueil, derrière le contenu.
+// Easter egg : de temps en temps, un requin ASCII traverse l'accueil, derrière le contenu. Il nage
+// dans la page, là où l'on se trouve à son arrivée : en défilant, on le laisse derrière soi.
 ---
 
 <canvas class="shark-pass" aria-hidden="true" data-shark-pass></canvas>
 
 <style>
   .shark-pass {
-    position: fixed;
+    position: absolute;
     inset-inline: 0;
-    bottom: 0;
+    top: 0;
     z-index: -1;
     width: 100%;
     height: 70vh;
@@ -46,6 +47,9 @@
       // Mouvement réduit activé depuis le dernier passage : on saute celui-ci.
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(30, 30);
       if (document.hidden) return later(30, 30);
+      // Le canvas se place dans la page, sur les 70 % bas de l'écran actuel, sans dépasser le bas.
+      const room = document.documentElement.scrollHeight - canvas.offsetHeight;
+      canvas.style.top = `${Math.max(0, Math.min(room, scrollY + innerHeight * 0.3))}px`;
       // « 404 » sur le dos : un indice pour qui cherche la page cachée.
       engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1, label: '404' }], {
         transparent: true,
@@ -53,6 +57,7 @@
         fishCount: 0,
         // Reflets discrets, dans le gris du texte secondaire, relu à chaque passage pour suivre le thème.
         accents: [getComputedStyle(canvas).color],
+        pauseOffscreen: false,
         crossing: { dir: Math.random() < 0.5 ? 1 : -1, duration: 10 + Math.random() * 4 },
         onDone: () => {
           engine?.destroy();

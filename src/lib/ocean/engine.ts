@@ -16,6 +16,8 @@ export interface OceanOptions extends RendererOptions {
   interactive?: boolean;
   /** Adaptation: the fish species living in the world; the bait fish when absent. */
   species?: Species[];
+  /** Adaptation: false keeps the loop running off-screen, so a crossing always ends. */
+  pauseOffscreen?: boolean;
   onDone?: () => void;
 }
 
@@ -48,7 +50,7 @@ export class OceanEngine {
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(canvas);
     this.intersectionObserver = new IntersectionObserver(([entry]) => {
-      this.visible = entry.isIntersecting;
+      this.visible = entry.isIntersecting || this.options.pauseOffscreen === false;
       this.schedule();
     });
     this.intersectionObserver.observe(canvas);
