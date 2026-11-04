@@ -1,0 +1,55 @@
+---
+// Surface de l'accueil : quelques bancs de poissons tropicaux derrière le hero. Ils fuient le
+// curseur et s'éloignent vers le haut quand on descend : plus bas, l'eau est aux requins.
+---
+
+<canvas class="reef" aria-hidden="true" data-reef></canvas>
+
+<style>
+  .reef {
+    position: absolute;
+    top: 0;
+    inset-inline: 0;
+    z-index: -1;
+    width: 100%;
+    height: 160svh;
+    opacity: 0.8;
+    pointer-events: none;
+    font-family: var(--font-mono);
+  }
+</style>
+
+<script>
+  import { onPage } from '../lib/lifecycle';
+  import { OceanEngine, TROPICAL } from '../lib/ocean';
+
+  /** Résout la couleur de chaque espèce dans le thème courant (light-dark → couleur calculée). */
+  const colorsFor = (canvas: HTMLCanvasElement) =>
+    TROPICAL.map((species) => {
+      canvas.style.color = `var(${species.color})`;
+      const color = getComputedStyle(canvas).color;
+      canvas.style.color = '';
+      return color;
+    });
+
+  onPage(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-reef]');
+    if (!canvas) return;
+
+    const { width, height } = canvas.getBoundingClientRect();
+    const engine = new OceanEngine(canvas, [], {
+      transparent: true,
+      species: TROPICAL,
+      fishCount: Math.round(Math.min(40, Math.max(16, (width * height) / 45000))),
+      fishColors: colorsFor(canvas),
+    });
+
+    const themeWatcher = new MutationObserver(() => engine.setFishColors(colorsFor(canvas)));
+    themeWatcher.observe(document.documentElement, { attributeFilter: ['data-theme'] });
+
+    return () => {
+      themeWatcher.disconnect();
+      engine.destroy();
+    };
+  });
+</script>
