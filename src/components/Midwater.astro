@@ -1,0 +1,57 @@
+---
+// Accueil, sous la surface : neige marine dès les compétences, méduses dans les marges des
+// sections du milieu, plancton bioluminescent à partir de l'expérience. Un seul canvas fixe.
+---
+
+<canvas class="midwater" aria-hidden="true" data-midwater></canvas>
+
+<style>
+  .midwater {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    font-family: var(--font-mono);
+  }
+</style>
+
+<script>
+  import { onPage } from '../lib/lifecycle';
+  import { Midwater } from '../lib/midwater';
+
+  /** Résout une variable de thème (light-dark) en couleur calculée. */
+  const resolve = (el: HTMLElement, name: string) => {
+    el.style.color = `var(${name})`;
+    const color = getComputedStyle(el).color;
+    el.style.color = '';
+    return color;
+  };
+
+  onPage(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>('[data-midwater]');
+    const byId = (id: string) => document.getElementById(id);
+    const snow = byId('skills');
+    const jellyFrom = byId('projects');
+    const jellyTo = byId('about');
+    const plankton = byId('experience');
+    if (!canvas || !snow || !jellyFrom || !jellyTo || !plankton) return;
+
+    const water = new Midwater(canvas, { snow, jellyFrom, jellyTo, plankton });
+    const recolor = () =>
+      water.setColors({
+        snow: resolve(canvas, '--color-muted'),
+        jelly: resolve(canvas, '--color-jelly'),
+        glow: resolve(canvas, '--color-glow'),
+      });
+    recolor();
+    const themeWatcher = new MutationObserver(recolor);
+    themeWatcher.observe(document.documentElement, { attributeFilter: ['data-theme'] });
+
+    return () => {
+      themeWatcher.disconnect();
+      water.destroy();
+    };
+  });
+</script>

@@ -1,6 +1,7 @@
 ---
 import HeroAscii from '../../components/HeroAscii.astro';
 import HomeSections from '../../components/HomeSections.astro';
+import Midwater from '../../components/Midwater.astro';
 import ReefSchool from '../../components/ReefSchool.astro';
 import SharkPass from '../../components/SharkPass.astro';
 import { langs, type Lang } from '../../i18n/ui';
@@ -15,5 +16,6 @@ const lang = Astro.params.lang as Lang;
   <ReefSchool />
   <HeroAscii lang={lang} />
   <HomeSections lang={lang} />
+  <Midwater />
   <SharkPass />
 </Base>
