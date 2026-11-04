@@ -2,7 +2,7 @@
 // © 2026 drewdi, MIT licence: see LICENSE in this folder. Changes are marked "Adaptation:".
 import { AsciiRenderer, type RendererOptions } from "./renderer.ts";
 import type { Species } from "./species.ts";
-import { World, type Crossing, type SharkSpec } from "./world.ts";
+import { World, type Crossing, type Obstacle, type SharkSpec } from "./world.ts";
 
 const STEP = 1 / 60;
 const MAX_STEPS = 4;
@@ -67,6 +67,11 @@ export class OceanEngine {
       if (!this.disposed && this.reducedMotion.matches) this.drawStill();
     });
     this.schedule();
+  }
+
+  /** Adaptation: areas (canvas px) the fish swim around. */
+  setObstacles(obstacles: Obstacle[]) {
+    this.world.obstacles = obstacles;
   }
 
   /** Adaptation: whether a viewport point (clientX, clientY) is on a shark. */

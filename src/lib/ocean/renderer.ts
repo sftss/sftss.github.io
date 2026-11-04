@@ -936,6 +936,12 @@ export class AsciiRenderer {
         const v = 0.3 + (0.4 * (f.depth - 0.55)) / 0.45 + 0.3 * Math.max(glint, f.alarm);
         // Adaptation: a glyph fish covers its neighbours too, so the wake dots don't cross it.
         if (this.glyphs[f.species]) {
+          // Adaptation: never draw a glyph fish over an obstacle, even while it is pushed out.
+          const half = this.cw * 1.5;
+          if (world.obstacles.some((o) => f.x + half > o.x && f.x - half < o.x + o.w && f.y + this.ch / 2 > o.y && f.y - this.ch / 2 < o.y + o.h)) {
+            fishStamp[i] = 0;
+            continue;
+          }
           const col = i % this.cols;
           if (col > 0) fishStamp[i - 1] = frame;
           if (col < this.cols - 1) fishStamp[i + 1] = frame;

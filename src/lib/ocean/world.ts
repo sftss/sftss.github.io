@@ -37,6 +37,17 @@ export interface Crossing {
   duration: number;
 }
 
+/** Adaptation: an area fish keep out of. */
+export interface Obstacle {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/** Adaptation: room kept around an obstacle, in px. */
+export const OBSTACLE_MARGIN = 28;
+
 export interface WorldOptions {
   /** Overrides the area-based population; 0 leaves the sharks alone. */
   fishCount?: number;
@@ -116,6 +127,8 @@ export class World {
   sharks: Shark[] = [];
   events: WorldEvent[] = [];
   pointer = { x: 0, y: 0, active: false };
+  /** Adaptation: rectangles (canvas px) the fish swim around, such as the hero portrait. */
+  obstacles: Obstacle[] = [];
 
   /** Fish neighbourhood radius; the spatial hash bucket size matches it. */
   private perception = 60;
@@ -467,6 +480,24 @@ export class World {
           ay += (dy / d) * FISH_FLEE_K * w;
           fear = Math.max(fear, Math.sqrt(w) * 0.8);
         }
+      }
+
+      // Adaptation: obstacles. Inside the margin, a push toward the nearest edge, stronger
+      // the deeper the fish is; the fish also hurries a little to get out.
+      for (const o of this.obstacles) {
+        const m = OBSTACLE_MARGIN;
+        const left = f.x - (o.x - m);
+        const right = o.x + o.w + m - f.x;
+        const top = f.y - (o.y - m);
+        const bottom = o.y + o.h + m - f.y;
+        if (left <= 0 || right <= 0 || top <= 0 || bottom <= 0) continue;
+        const depth = Math.min(left, right, top, bottom);
+        const k = 900 + depth * 60;
+        if (depth === left) ax -= k;
+        else if (depth === right) ax += k;
+        else if (depth === top) ay -= k;
+        else ay += k;
+        fear = Math.max(fear, 0.35);
       }
 
       // Alarm: direct threat sets it, neighbours pass it along (slightly

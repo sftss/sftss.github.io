@@ -48,7 +48,22 @@
     const themeWatcher = new MutationObserver(() => engine.setFishColors(colorsFor(canvas)));
     themeWatcher.observe(document.documentElement, { attributeFilter: ['data-theme'] });
 
+    // Les poissons contournent le portrait ASCII. Le canvas et le portrait sont tous deux dans
+    // le hero figé : leur écart ne change qu'au redimensionnement.
+    const portrait = document.querySelector<HTMLElement>('[data-ascii]');
+    const fence = () => {
+      if (!portrait) return;
+      const box = canvas.getBoundingClientRect();
+      const p = portrait.getBoundingClientRect();
+      engine.setObstacles([{ x: p.left - box.left, y: p.top - box.top, w: p.width, h: p.height }]);
+    };
+    fence();
+    const sizes = new ResizeObserver(fence);
+    sizes.observe(canvas);
+    if (portrait) sizes.observe(portrait);
+
     return () => {
+      sizes.disconnect();
       themeWatcher.disconnect();
       engine.destroy();
     };
