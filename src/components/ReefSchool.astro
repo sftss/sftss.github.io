@@ -37,12 +37,15 @@
     if (!canvas) return;
 
     const { width, height } = canvas.getBoundingClientRect();
+    const portrait = document.querySelector<HTMLElement>('[data-ascii]');
     const engine = new OceanEngine(canvas, [], {
       transparent: true,
       species: TROPICAL,
       // Petit écran : deux ou trois petits bancs seulement, pour ne pas couvrir le texte.
       fishCount: width < 640 ? 8 : Math.round(Math.min(30, Math.max(14, (width * height) / 40000))),
       fishColors: colorsFor(canvas),
+      // Les poissons contournent le portrait ASCII au lieu de passer dessus.
+      avoid: portrait ? [portrait] : [],
     });
 
     const themeWatcher = new MutationObserver(() => engine.setFishColors(colorsFor(canvas)));
