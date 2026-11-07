@@ -16,6 +16,8 @@ export interface OceanOptions extends RendererOptions {
   interactive?: boolean;
   /** Adaptation: the fish species living in the world; the bait fish when absent. */
   species?: Species[];
+  /** Adaptation: elements the fish never swim over (the hero portrait). */
+  avoid?: HTMLElement[];
   onDone?: () => void;
 }
 
@@ -36,6 +38,7 @@ export class OceanEngine {
   private disposed = false;
   private canvas: HTMLCanvasElement;
   private options: OceanOptions;
+  private avoidChecked = 0;
 
   constructor(canvas: HTMLCanvasElement, sharks?: SharkSpec[], options: OceanOptions = {}) {
     this.canvas = canvas;
@@ -47,6 +50,7 @@ export class OceanEngine {
 
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(canvas);
+    for (const el of options.avoid ?? []) this.resizeObserver.observe(el);
     this.intersectionObserver = new IntersectionObserver(([entry]) => {
       this.visible = entry.isIntersecting;
       this.schedule();
@@ -93,9 +97,22 @@ export class OceanEngine {
     window.removeEventListener("blur", this.onPointerLeave);
   }
 
+  /** Adaptation: the avoided elements, in canvas pixels. */
+  private updateAvoid() {
+    if (!this.options.avoid?.length) return;
+    const c = this.canvas.getBoundingClientRect();
+    this.world.setAvoid(
+      this.options.avoid.map((el) => {
+        const r = el.getBoundingClientRect();
+        return { x: r.left - c.left, y: r.top - c.top, w: r.width, h: r.height };
+      }),
+    );
+  }
+
   private resize() {
     const rect = this.canvas.getBoundingClientRect();
     if (rect.width < 1 || rect.height < 1) return;
+    this.updateAvoid();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.renderer.resize(rect.width, rect.height, dpr);
     this.world.resize(rect.width, rect.height, this.renderer.cellWidth, this.renderer.cellHeight);
@@ -112,6 +129,11 @@ export class OceanEngine {
   private frame = (now: number) => {
     const dt = Math.min(0.1, (now - this.last) / 1000);
     this.last = now;
+    // Adaptation: a layout shift can move the portrait without resizing it.
+    if (now - this.avoidChecked > 250) {
+      this.avoidChecked = now;
+      this.updateAvoid();
+    }
     this.acc += dt;
     let steps = 0;
     while (this.acc >= STEP && steps < MAX_STEPS) {

@@ -3,4 +3,4 @@
 export { OceanEngine, type OceanOptions } from "./engine.ts";
 export { AsciiRenderer, paintGrid } from "./renderer.ts";
 export { TROPICAL, type Species } from "./species.ts";
-export { World, type Crossing, type SharkKind, type SharkSpec } from "./world.ts";
+export { World, type Crossing, type Rect, type SharkKind, type SharkSpec } from "./world.ts";
