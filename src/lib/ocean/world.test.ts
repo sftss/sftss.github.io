@@ -68,3 +68,16 @@ test('un redimensionnement ne relance pas la traversée', () => {
   world.resize(1400, 310, 11, 16);
   assert.equal(world.sharks[0].nodes[0], head);
 });
+
+test('les poissons ne traversent jamais une zone interdite', () => {
+  const world = new World([], { fishCount: 40, species: TROPICAL });
+  world.resize(1200, 800, 10, 15);
+  const zone = { x: 80, y: 60, w: 480, h: 680 };
+  world.setAvoid([zone]);
+  const inside = () =>
+    world.fish.filter((f) => f.x > zone.x && f.x < zone.x + zone.w && f.y > zone.y && f.y < zone.y + zone.h);
+  for (let t = 0; t < 60; t += STEP) {
+    world.step(STEP);
+    if (t > 1) assert.equal(inside().length, 0, `poisson dans la zone à t=${t.toFixed(1)} s`);
+  }
+});
