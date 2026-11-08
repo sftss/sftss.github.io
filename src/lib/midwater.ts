@@ -35,8 +35,8 @@ interface Flake {
 
 interface Mote {
   x: number;
-  /** Position dans la zone du plancton, de 0 (haut) à 1 (bas de page). */
-  u: number;
+  /** Position dans la page, en px : elle ne bouge pas quand la hauteur de la page change. */
+  y: number;
   phase: number;
   speed: number;
   size: number;
@@ -48,8 +48,8 @@ interface Jelly {
   /** Fraction de la largeur visée ; x est la position réelle, poussée par le curseur. */
   home: number;
   x: number;
-  /** Position dans la bande des méduses, de 0 à 1. */
-  u: number;
+  /** Position dans la page, en px : un filtre qui change la hauteur de la page ne la déplace pas. */
+  y: number;
   scale: number;
   phase: number;
   /** Écart horizontal causé par le curseur, qui se résorbe. */
@@ -86,6 +86,8 @@ export class Midwater {
   private snowTop = 0;
   private jellyTop = 0;
   private jellyBottom = 0;
+  /** Bas de la bande rattrapé en douceur : une méduse qui se retrouve dessous s'efface au lieu de disparaître d'un coup. */
+  private jellyEdge = 0;
   private planktonTop = 0;
   private pageBottom = 0;
   private containerWidth = 0;
@@ -178,12 +180,18 @@ export class Midwater {
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
     this.containerWidth = Math.min(this.width - 3 * rem, 68 * rem);
 
-    const area = this.width * (this.pageBottom - this.planktonTop);
-    const motes = Math.round(Math.min(1400, Math.max(80, area / 2600)));
-    while (this.motes.length < motes) this.motes.push(this.mote(Math.random()));
-    this.motes.length = motes;
+    // Le plancton garde sa place : seuls ceux qui tombent hors de la page s'en vont, et l'on
+    // complète au hasard dans la zone si elle s'est agrandie.
+    const span = this.pageBottom - this.planktonTop;
+    const motes = Math.round(Math.min(1400, Math.max(80, (this.width * span) / 2600)));
+    this.motes = this.motes.filter((m) => m.y <= this.pageBottom);
+    if (this.motes.length > motes) this.motes.length = motes;
+    while (this.motes.length < motes) this.motes.push(this.mote(this.planktonTop + Math.random() * span));
 
-    if (!this.jellies.length) this.seedJellies();
+    if (!this.jellies.length) {
+      this.jellyEdge = this.jellyBottom;
+      this.seedJellies();
+    }
     this.placeJellies();
     if (this.reduced.matches) this.draw();
   }
@@ -200,10 +208,10 @@ export class Midwater {
     };
   }
 
-  private mote(u: number): Mote {
+  private mote(y: number): Mote {
     return {
       x: Math.random() * this.width,
-      u,
+      y,
       phase: Math.random() * Math.PI * 2,
       speed: 4 + Math.random() * 8,
       size: 0.8 + Math.random() * 1.6,
@@ -215,11 +223,12 @@ export class Midwater {
   /** Quatre méduses réparties dans la bande, en alternant marge gauche et marge droite. */
   private seedJellies() {
     const count = 4;
+    const band = this.jellyBottom - this.jellyTop;
     for (let i = 0; i < count; i++) {
       this.jellies.push({
         home: i % 2 === 0 ? 0 : 1,
         x: 0,
-        u: (i + 0.3 + Math.random() * 0.4) / count,
+        y: this.jellyTop + ((i + 0.3 + Math.random() * 0.4) / count) * band,
         scale: 0.85 + Math.random() * 0.35,
         phase: Math.random() * Math.PI * 2,
         push: 0,
@@ -275,17 +284,16 @@ export class Midwater {
       if (f.y > H + 4) Object.assign(f, this.flake(-4));
     }
 
-    const span = this.pageBottom - this.planktonTop;
     const fade = Math.exp(-dt / GLOW_FADE);
     const p = this.pointer && { x: this.pointer.x, y: this.pointer.y + scrollY };
     for (const m of this.motes) {
       // Remontée lente et balancement, comme de la neige marine à l'envers.
-      m.u -= (m.speed * dt) / span;
+      m.y -= m.speed * dt;
       m.x += Math.sin(t * 0.6 + m.phase) * 6 * dt;
-      if (m.u < 0) Object.assign(m, this.mote(1));
+      if (m.y < this.planktonTop) Object.assign(m, this.mote(this.pageBottom));
       m.glow *= fade;
       if (p) {
-        const d = Math.hypot(m.x - p.x, this.planktonTop + m.u * span - p.y);
+        const d = Math.hypot(m.x - p.x, m.y - p.y);
         if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, 0.75 * (1 - d / GLOW_RADIUS) ** 2);
       }
       // Rarement, un point s'allume tout seul : l'essentiel de la lumière vient du curseur.
@@ -293,14 +301,15 @@ export class Midwater {
     }
 
     const band = this.jellyBottom - this.jellyTop;
+    this.jellyEdge += (this.jellyBottom - this.jellyEdge) * (1 - Math.exp(-dt * 1.5));
     for (const j of this.jellies) {
       j.phase += dt * 1.7;
       // Poussée pendant la contraction de la cloche, puis lente redescente.
       const thrust = Math.max(0, Math.sin(j.phase));
-      j.u -= ((4 + 26 * thrust * thrust) * dt) / band;
-      if (j.u < -0.05) j.u = 1.05;
+      j.y -= (4 + 26 * thrust * thrust) * dt;
+      if (j.y < this.jellyTop - 0.05 * band) j.y = this.jellyBottom + 0.05 * band;
       if (p) {
-        const jy = this.jellyTop + j.u * band;
+        const jy = j.y;
         const dx = j.x + j.push - p.x;
         const d = Math.hypot(dx, jy - p.y);
         if (d < 140 && d > 1) j.push += (dx / d) * (1 - d / 140) * 90 * dt;
@@ -336,11 +345,10 @@ export class Midwater {
 
   private drawPlankton() {
     const { ctx, height: H } = this;
-    const span = this.pageBottom - this.planktonTop;
     if (scrollY + H < this.planktonTop) return;
     ctx.fillStyle = this.colors.glow;
     for (const m of this.motes) {
-      const pageY = this.planktonTop + m.u * span;
+      const pageY = m.y;
       const y = pageY - scrollY;
       if (y < -20 || y > H + 20) continue;
       // Apparition progressive sur les 700 premiers pixels de la zone.
@@ -360,7 +368,7 @@ export class Midwater {
 
   private drawJellies() {
     const { ctx, height: H, time: t } = this;
-    const band = this.jellyBottom - this.jellyTop;
+    const band = Math.max(1, this.jellyEdge - this.jellyTop);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (const j of this.jellies) {
@@ -368,10 +376,11 @@ export class Midwater {
       const cw = size * 0.6;
       const ch = size * 1.05;
       const x0 = j.x + j.push + Math.sin(t * 0.3 + j.phase * 0.2) * 10;
-      const y0 = this.jellyTop + j.u * band - scrollY;
+      const y0 = j.y - scrollY;
       if (y0 < -ch * 14 || y0 > H + ch * 2) continue;
       // Les bords de la bande : la méduse apparaît et disparaît en fondu.
-      const edge = smooth(Math.min(j.u + 0.05, 1.05 - j.u) / 0.15);
+      const u = (j.y - this.jellyTop) / band;
+      const edge = smooth(Math.min(u + 0.05, 1.05 - u) / 0.15);
       const alpha = 0.75 * j.dim * edge;
       if (alpha < 0.01) continue;
       const squeeze = 1 - 0.12 * Math.max(0, Math.sin(j.phase));
