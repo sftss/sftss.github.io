@@ -53,8 +53,10 @@ interface Jelly {
   /** Fraction de la largeur visée ; x est la position réelle, poussée par le curseur. */
   home: number;
   x: number;
-  /** Position dans la page, en px : un filtre qui change la hauteur de la page ne la déplace pas. */
+  /** Position verticale en pixels de page : elle ne bouge pas quand la bande change de hauteur. */
   y: number;
+  /** Opacité d'apparition, qui rattrape sa cible en douceur (bords de la bande). */
+  fade: number;
   scale: number;
   phase: number;
   /** Écart horizontal causé par le curseur, qui se résorbe. */
@@ -94,8 +96,6 @@ export class Midwater {
   private snowTop = 0;
   private jellyTop = 0;
   private jellyBottom = 0;
-  /** Bas de la bande rattrapé en douceur : une méduse qui se retrouve dessous s'efface au lieu de disparaître d'un coup. */
-  private jellyEdge = 0;
   private planktonTop = 0;
   private pageBottom = 0;
   private containerWidth = 0;
@@ -199,11 +199,18 @@ export class Midwater {
     this.reef.resize(this.width);
 
     if (!this.jellies.length) {
-      this.jellyEdge = this.jellyBottom;
       this.seedJellies();
     }
     this.placeJellies();
-    if (this.reduced.matches) this.draw();
+    // Un filtre de projets change la hauteur de la bande : les méduses gardent leur place,
+    // et celles qui se retrouvent dehors s'effacent d'elles-mêmes (voir step).
+    if (this.reduced.matches) {
+      for (const j of this.jellies) {
+        j.y = this.wrapJelly(j.y);
+        j.fade = this.edgeFade(j.y);
+      }
+      this.draw();
+    }
   }
 
   private flake(y: number): Flake {
@@ -235,10 +242,13 @@ export class Midwater {
     const count = 4;
     const band = this.jellyBottom - this.jellyTop;
     for (let i = 0; i < count; i++) {
+      const u = (i + 0.3 + Math.random() * 0.4) / count;
+      const y = this.jellyTop + u * (this.jellyBottom - this.jellyTop);
       this.jellies.push({
         home: i % 2 === 0 ? 0 : 1,
         x: 0,
-        y: this.jellyTop + ((i + 0.3 + Math.random() * 0.4) / count) * band,
+        y,
+        fade: this.edgeFade(y),
         scale: 0.85 + Math.random() * 0.35,
         phase: Math.random() * Math.PI * 2,
         push: 0,
@@ -261,6 +271,19 @@ export class Midwater {
         j.dim = 0.4;
       }
     }
+  }
+
+  /** Opacité visée selon la place dans la bande : fondu aux deux bords. */
+  private edgeFade(y: number) {
+    const band = this.jellyBottom - this.jellyTop;
+    const u = (y - this.jellyTop) / band;
+    return smooth(Math.min(u + 0.05, 1.05 - u) / 0.15);
+  }
+
+  /** Ramène dans la bande une méduse qui en est sortie (mouvement réduit, image fixe). */
+  private wrapJelly(y: number) {
+    const band = this.jellyBottom - this.jellyTop;
+    return this.jellyTop + ((((y - this.jellyTop) % band) + band) % band);
   }
 
   // ── boucle ────────────────────────────────────────────────────────
@@ -312,13 +335,20 @@ export class Midwater {
     }
 
     const band = this.jellyBottom - this.jellyTop;
-    this.jellyEdge += (this.jellyBottom - this.jellyEdge) * (1 - Math.exp(-dt * 1.5));
     for (const j of this.jellies) {
       j.phase += dt * 1.7;
       // Poussée pendant la contraction de la cloche, puis lente redescente.
       const thrust = Math.max(0, Math.sin(j.phase));
       j.y -= (4 + 26 * thrust * thrust) * dt;
-      if (j.y < this.jellyTop - 0.05 * band) j.y = this.jellyBottom + 0.05 * band;
+      // Le fondu rejoint sa cible en douceur : une méduse laissée hors de la bande par un
+      // changement de hauteur s'éteint au lieu de disparaître d'un coup.
+      const target = this.edgeFade(j.y);
+      j.fade += (target - j.fade) * Math.min(1, dt * 4);
+      // Sortie par le haut, ou par le bas une fois éteinte : elle renaît en bas de la bande, invisible.
+      if (j.y < this.jellyTop - 0.05 * band || (j.y > this.jellyBottom + 0.05 * band && j.fade < 0.01)) {
+        j.y = this.jellyBottom + 0.05 * band;
+        j.fade = 0;
+      }
       if (p) {
         const jy = j.y;
         const dx = j.x + j.push - p.x;
@@ -391,7 +421,6 @@ export class Midwater {
 
   private drawJellies() {
     const { ctx, height: H, time: t } = this;
-    const band = Math.max(1, this.jellyEdge - this.jellyTop);
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     for (const j of this.jellies) {
@@ -402,9 +431,7 @@ export class Midwater {
       const y0 = j.y - scrollY;
       if (y0 < -ch * 14 || y0 > H + ch * 2) continue;
       // Les bords de la bande : la méduse apparaît et disparaît en fondu.
-      const u = (j.y - this.jellyTop) / band;
-      const edge = smooth(Math.min(u + 0.05, 1.05 - u) / 0.15);
-      const alpha = 0.75 * j.dim * edge;
+      const alpha = 0.75 * j.dim * j.fade;
       if (alpha < 0.01) continue;
       const squeeze = 1 - 0.12 * Math.max(0, Math.sin(j.phase));
       ctx.font = `${Math.round(size)}px ${this.font}`;

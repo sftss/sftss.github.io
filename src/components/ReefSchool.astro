@@ -37,33 +37,21 @@
     if (!canvas) return;
 
     const { width, height } = canvas.getBoundingClientRect();
+    const portrait = document.querySelector<HTMLElement>('[data-ascii]');
     const engine = new OceanEngine(canvas, [], {
       transparent: true,
       species: TROPICAL,
       // Petit écran : deux ou trois petits bancs seulement, pour ne pas couvrir le texte.
       fishCount: width < 640 ? 8 : Math.round(Math.min(30, Math.max(14, (width * height) / 40000))),
       fishColors: colorsFor(canvas),
+      // Les poissons contournent le portrait ASCII au lieu de passer dessus.
+      avoid: portrait ? [portrait] : [],
     });
 
     const themeWatcher = new MutationObserver(() => engine.setFishColors(colorsFor(canvas)));
     themeWatcher.observe(document.documentElement, { attributeFilter: ['data-theme'] });
 
-    // Les poissons contournent le portrait ASCII. Le canvas et le portrait sont tous deux dans
-    // le hero figé : leur écart ne change qu'au redimensionnement.
-    const portrait = document.querySelector<HTMLElement>('[data-ascii]');
-    const fence = () => {
-      if (!portrait) return;
-      const box = canvas.getBoundingClientRect();
-      const p = portrait.getBoundingClientRect();
-      engine.setObstacles([{ x: p.left - box.left, y: p.top - box.top, w: p.width, h: p.height }]);
-    };
-    fence();
-    const sizes = new ResizeObserver(fence);
-    sizes.observe(canvas);
-    if (portrait) sizes.observe(portrait);
-
     return () => {
-      sizes.disconnect();
       themeWatcher.disconnect();
       engine.destroy();
     };

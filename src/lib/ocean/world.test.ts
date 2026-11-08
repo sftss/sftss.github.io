@@ -60,22 +60,6 @@ test('un redimensionnement garde les poissons du récif à leur place', () => {
   assert.deepEqual(world.fish.map((f) => [f.x, f.y]), before);
 });
 
-test('les poissons du récif sortent d’un obstacle et n’y reviennent pas', () => {
-  const world = new World([], { fishCount: 30, species: TROPICAL });
-  world.resize(1200, 800, 10, 15);
-  const o = { x: 650, y: 150, w: 400, h: 500 };
-  world.obstacles = [o];
-  const inside = () => world.fish.filter((f) => f.x > o.x && f.x < o.x + o.w && f.y > o.y && f.y < o.y + o.h).length;
-  // Laisser le temps à ceux semés dedans d'en sortir, puis vérifier sur la durée.
-  for (let t = 0; t < 6; t += STEP) world.step(STEP);
-  let worst = 0;
-  for (let t = 0; t < 20; t += STEP) {
-    world.step(STEP);
-    worst = Math.max(worst, inside());
-  }
-  assert.equal(worst, 0);
-});
-
 test('un redimensionnement ne relance pas la traversée', () => {
   const world = new World([{ kind: 'classic', size: 1 }], { fishCount: 0, crossing: { dir: 1, duration: 10 } });
   world.resize(1400, 300, 11, 16);
@@ -83,4 +67,17 @@ test('un redimensionnement ne relance pas la traversée', () => {
   const head = world.sharks[0].nodes[0];
   world.resize(1400, 310, 11, 16);
   assert.equal(world.sharks[0].nodes[0], head);
+});
+
+test('les poissons ne traversent jamais une zone interdite', () => {
+  const world = new World([], { fishCount: 40, species: TROPICAL });
+  world.resize(1200, 800, 10, 15);
+  const zone = { x: 80, y: 60, w: 480, h: 680 };
+  world.setAvoid([zone]);
+  const inside = () =>
+    world.fish.filter((f) => f.x > zone.x && f.x < zone.x + zone.w && f.y > zone.y && f.y < zone.y + zone.h);
+  for (let t = 0; t < 60; t += STEP) {
+    world.step(STEP);
+    if (t > 1) assert.equal(inside().length, 0, `poisson dans la zone à t=${t.toFixed(1)} s`);
+  }
 });

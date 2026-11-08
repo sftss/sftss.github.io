@@ -37,16 +37,13 @@ export interface Crossing {
   duration: number;
 }
 
-/** Adaptation: an area fish keep out of. */
-export interface Obstacle {
+/** Adaptation: a rectangle in canvas pixels that the fish keep out of. */
+export interface Rect {
   x: number;
   y: number;
   w: number;
   h: number;
 }
-
-/** Adaptation: room kept around an obstacle, in px. */
-export const OBSTACLE_MARGIN = 28;
 
 export interface WorldOptions {
   /** Overrides the area-based population; 0 leaves the sharks alone. */
@@ -117,6 +114,9 @@ const FISH_SEPARATION_K = 420;
 const FISH_ALIGN_K = 1.4;
 const FISH_COHESION_K = 1;
 const FISH_FLEE_K = 1100;
+const FISH_AVOID_K = 900;
+/** Adaptation: how far from a forbidden rectangle fish start to veer away, in px. */
+const AVOID_RANGE = 70;
 const BLIND_COS = -0.6; // ~127° either side of the heading is visible
 
 export class World {
@@ -127,8 +127,6 @@ export class World {
   sharks: Shark[] = [];
   events: WorldEvent[] = [];
   pointer = { x: 0, y: 0, active: false };
-  /** Adaptation: rectangles (canvas px) the fish swim around, such as the hero portrait. */
-  obstacles: Obstacle[] = [];
 
   /** Fish neighbourhood radius; the spatial hash bucket size matches it. */
   private perception = 60;
@@ -136,6 +134,9 @@ export class World {
   private sepX: number[] = [];
   private sepY: number[] = [];
   private foreignSep = 40;
+  /** Adaptation: rectangles the fish never enter (the hero portrait). */
+  private avoid: Rect[] = [];
+  private avoidPad = 20;
   private bucketCols = 0;
   private bucketRows = 0;
   private bucketHead = new Int32Array(0);
@@ -173,6 +174,11 @@ export class World {
     });
   }
 
+  /** Adaptation: forbidden rectangles, in canvas pixels. Fish already inside are pushed out. */
+  setAvoid(rects: Rect[]) {
+    this.avoid = rects;
+  }
+
   resize(width: number, height: number, cellW: number, cellH: number) {
     const first = this.width === 0;
     this.width = width;
@@ -182,6 +188,7 @@ export class World {
     this.sepY = this.species.map((sp) => sp.spacing[1] * cellH);
     this.perception = Math.max(cellH * 3, cellW * 5.5);
     this.foreignSep = cellW * 3;
+    this.avoidPad = cellW * 3;
 
     // Adaptation: reseed only an empty world. A crossing shark keeps its course, and fish
     // without sharks (the reef) keep their place.
@@ -482,22 +489,24 @@ export class World {
         }
       }
 
-      // Adaptation: obstacles. Inside the margin, a push toward the nearest edge, stronger
-      // the deeper the fish is; the fish also hurries a little to get out.
-      for (const o of this.obstacles) {
-        const m = OBSTACLE_MARGIN;
-        const left = f.x - (o.x - m);
-        const right = o.x + o.w + m - f.x;
-        const top = f.y - (o.y - m);
-        const bottom = o.y + o.h + m - f.y;
-        if (left <= 0 || right <= 0 || top <= 0 || bottom <= 0) continue;
-        const depth = Math.min(left, right, top, bottom);
-        const k = 900 + depth * 60;
-        if (depth === left) ax -= k;
-        else if (depth === right) ax += k;
-        else if (depth === top) ay -= k;
-        else ay += k;
-        fear = Math.max(fear, 0.35);
+      // Adaptation: keep clear of the forbidden rectangles, veering away well before the edge.
+      for (const r of this.avoid) {
+        const nearX = clamp(f.x, r.x, r.x + r.w);
+        const nearY = clamp(f.y, r.y, r.y + r.h);
+        const ox = f.x - nearX;
+        const oy = f.y - nearY;
+        const d = Math.hypot(ox, oy);
+        if (d >= AVOID_RANGE) continue;
+        const w = 1 - d / AVOID_RANGE;
+        if (d > 1e-3) {
+          ax += (ox / d) * FISH_AVOID_K * w;
+          ay += (oy / d) * FISH_AVOID_K * w;
+        } else {
+          // Inside: head for the nearest side.
+          const [nx, ny] = this.exitDirection(r, f.x, f.y);
+          ax += nx * FISH_AVOID_K;
+          ay += ny * FISH_AVOID_K;
+        }
       }
 
       // Alarm: direct threat sets it, neighbours pass it along (slightly
@@ -542,6 +551,43 @@ export class World {
       f.phase += dt * (7 + Math.hypot(f.vx, f.vy) * 0.12);
       f.x = clamp(f.x + f.vx * dt, -60, W + 60);
       f.y = clamp(f.y + f.vy * dt, -60, H + 60);
+      this.keepOut(f);
+    }
+  }
+
+  /** Adaptation: unit vector from a point inside `r` to its nearest side. */
+  private exitDirection(r: Rect, x: number, y: number): [number, number] {
+    const left = x - r.x;
+    const right = r.x + r.w - x;
+    const top = y - r.y;
+    const bottom = r.y + r.h - y;
+    const m = Math.min(left, right, top, bottom);
+    if (m === left) return [-1, 0];
+    if (m === right) return [1, 0];
+    if (m === top) return [0, -1];
+    return [0, 1];
+  }
+
+  /** Adaptation: hard backstop. A fish that reaches a forbidden rectangle is put back on its edge. */
+  private keepOut(f: Fish) {
+    const pad = this.avoidPad;
+    for (const r of this.avoid) {
+      const x0 = r.x - pad;
+      const y0 = r.y - pad;
+      const x1 = r.x + r.w + pad;
+      const y1 = r.y + r.h + pad;
+      if (f.x <= x0 || f.x >= x1 || f.y <= y0 || f.y >= y1) continue;
+      const [nx, ny] = this.exitDirection({ x: x0, y: y0, w: x1 - x0, h: y1 - y0 }, f.x, f.y);
+      if (nx < 0) f.x = x0;
+      else if (nx > 0) f.x = x1;
+      else if (ny < 0) f.y = y0;
+      else f.y = y1;
+      // Drop the velocity component that points into the rectangle.
+      const into = -(f.vx * nx + f.vy * ny);
+      if (into > 0) {
+        f.vx += nx * into;
+        f.vy += ny * into;
+      }
     }
   }
 
