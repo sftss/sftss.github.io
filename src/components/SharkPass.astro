@@ -1,14 +1,15 @@
 ---
-// Easter egg : de temps en temps, un requin ASCII traverse le bas de l'accueil, derrière le contenu.
+// Easter egg : de temps en temps, un requin ASCII traverse l'accueil, derrière le contenu. Il nage
+// dans la page, là où l'on se trouve à son arrivée : en défilant, on le laisse derrière soi.
 ---
 
 <canvas class="shark-pass" aria-hidden="true" data-shark-pass></canvas>
 
 <style>
   .shark-pass {
-    position: fixed;
+    position: absolute;
     inset-inline: 0;
-    bottom: 0;
+    top: 0;
     z-index: -1;
     width: 100%;
     height: 70vh;
@@ -37,6 +38,13 @@
     let timer = 0;
     let engine: OceanEngine | null = null;
 
+    // Le canvas vit dans <main>, d'où il se place dans la page ; s'il arrive pendant que l'accueil
+    // est épinglé à l'écran, il se glisse dans ce bloc épinglé pour en suivre le mouvement.
+    const home = { parent: canvas.parentNode!, next: canvas.nextSibling };
+    const release = () => {
+      if (canvas.parentNode !== home.parent) home.parent.insertBefore(canvas, home.next);
+    };
+
     const later = (min: number, max: number) => {
       timer = window.setTimeout(pass, between(min, max));
     };
@@ -44,8 +52,19 @@
     // Le moteur n'existe que le temps d'une traversée : rien ne tourne entre deux passages.
     const pass = () => {
       // Mouvement réduit activé depuis le dernier passage : on saute celui-ci.
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(30, 30);
-      if (document.hidden) return later(30, 30);
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return later(20, 20);
+      if (document.hidden) return later(20, 20);
+      // Le canvas se place sur les 70 % bas de l'écran actuel, sans dépasser le bas de son support :
+      // le bloc épinglé de l'accueil s'il est à l'écran, sinon la page.
+      const pin = document.querySelector<HTMLElement>('[data-hero] .pin');
+      const pinBox = pin?.getBoundingClientRect();
+      const inPin = !!pin && !!pinBox && pinBox.top <= innerHeight * 0.3 && pinBox.bottom >= innerHeight * 0.7;
+      release();
+      if (inPin) pin.append(canvas);
+      const band = innerHeight * 0.3;
+      const room = (inPin ? pin.offsetHeight : document.documentElement.scrollHeight) - canvas.offsetHeight;
+      const top = inPin ? band - pinBox.top : scrollY + band;
+      canvas.style.top = `${Math.max(0, Math.min(room, top))}px`;
       // « 404 » sur le dos : un indice pour qui cherche la page cachée.
       engine = new OceanEngine(canvas, [{ kind: 'classic', size: 1, label: '404' }], {
         transparent: true,
@@ -53,12 +72,14 @@
         fishCount: 0,
         // Reflets discrets, dans le gris du texte secondaire, relu à chaque passage pour suivre le thème.
         accents: [getComputedStyle(canvas).color],
+        pauseOffscreen: false,
         crossing: { dir: Math.random() < 0.5 ? 1 : -1, duration: 10 + Math.random() * 4 },
         onDone: () => {
           engine?.destroy();
           engine = null;
+          release();
           document.documentElement.removeAttribute('data-shark-hover');
-          later(30, 30);
+          later(20, 20);
         },
       });
     };
@@ -88,6 +109,7 @@
       clearTimeout(timer);
       engine?.destroy();
       engine = null;
+      release();
       removeEventListener('pointermove', onMove);
       removeEventListener('click', onClick);
       html.removeAttribute('data-shark-hover');

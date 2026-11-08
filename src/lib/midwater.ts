@@ -2,11 +2,14 @@
  * Eau du milieu et du fond de l'accueil, dans un seul canvas fixe :
  *  - neige marine : des particules qui descendent, en parallaxe avec le défilement ;
  *  - méduses ASCII : elles dérivent dans les marges des sections du milieu ;
+ *  - coraux : un récif au bas de la page, qui ondule et dont les polypes s'allument au curseur ;
  *  - plancton bioluminescent : il apparaît progressivement à partir d'une section
  *    et s'allume au passage du curseur (ou d'un doigt), en laissant une traînée.
  * Les méduses et le plancton vivent en coordonnées de page : on passe devant en défilant.
  * En mouvement réduit, une image fixe redessinée au défilement.
  */
+
+import { Reef } from './reef';
 
 export interface MidwaterAnchors {
   /** La neige apparaît en arrivant sur cet élément. */
@@ -22,6 +25,8 @@ export interface MidwaterColors {
   snow: string;
   jelly: string;
   glow: string;
+  /** Teintes des coraux, dans l'ordre de CORAL. */
+  coral: string[];
 }
 
 interface Flake {
@@ -35,8 +40,8 @@ interface Flake {
 
 interface Mote {
   x: number;
-  /** Position dans la zone du plancton, de 0 (haut) à 1 (bas de page). */
-  u: number;
+  /** Position dans la page, en px : elle ne bouge pas quand la hauteur de la page change. */
+  y: number;
   phase: number;
   speed: number;
   size: number;
@@ -85,13 +90,16 @@ export class Midwater {
   private flakes: Flake[] = [];
   private motes: Mote[] = [];
   private jellies: Jelly[] = [];
+  private reef = new Reef();
+  /** Durée de la dernière image, en secondes. */
+  private dt = 0;
   private snowTop = 0;
   private jellyTop = 0;
   private jellyBottom = 0;
   private planktonTop = 0;
   private pageBottom = 0;
   private containerWidth = 0;
-  private colors: MidwaterColors = { snow: '#9aa', jelly: '#c9b', glow: '#7ee' };
+  private colors: MidwaterColors = { snow: '#9aa', jelly: '#c9b', glow: '#7ee', coral: ['#ee7', '#e97', '#e66', '#b9e', '#7c9', '#79e'] };
   private font = 'ui-monospace, monospace';
   /** Position du pointeur à l'écran : la page défile dessous, on convertit à chaque image. */
   private pointer: { x: number; y: number } | null = null;
@@ -180,12 +188,19 @@ export class Midwater {
     const rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
     this.containerWidth = Math.min(this.width - 3 * rem, 68 * rem);
 
-    const area = this.width * (this.pageBottom - this.planktonTop);
-    const motes = Math.round(Math.min(1400, Math.max(80, area / 2600)));
-    while (this.motes.length < motes) this.motes.push(this.mote(Math.random()));
-    this.motes.length = motes;
+    // Le plancton garde sa place : seuls ceux qui tombent hors de la page s'en vont, et l'on
+    // complète au hasard dans la zone si elle s'est agrandie.
+    const span = this.pageBottom - this.planktonTop;
+    const motes = Math.round(Math.min(1400, Math.max(80, (this.width * span) / 2600)));
+    this.motes = this.motes.filter((m) => m.y <= this.pageBottom);
+    if (this.motes.length > motes) this.motes.length = motes;
+    while (this.motes.length < motes) this.motes.push(this.mote(this.planktonTop + Math.random() * span));
 
-    if (!this.jellies.length) this.seedJellies();
+    this.reef.resize(this.width);
+
+    if (!this.jellies.length) {
+      this.seedJellies();
+    }
     this.placeJellies();
     // Un filtre de projets change la hauteur de la bande : les méduses gardent leur place,
     // et celles qui se retrouvent dehors s'effacent d'elles-mêmes (voir step).
@@ -210,10 +225,10 @@ export class Midwater {
     };
   }
 
-  private mote(u: number): Mote {
+  private mote(y: number): Mote {
     return {
       x: Math.random() * this.width,
-      u,
+      y,
       phase: Math.random() * Math.PI * 2,
       speed: 4 + Math.random() * 8,
       size: 0.8 + Math.random() * 1.6,
@@ -225,6 +240,7 @@ export class Midwater {
   /** Quatre méduses réparties dans la bande, en alternant marge gauche et marge droite. */
   private seedJellies() {
     const count = 4;
+    const band = this.jellyBottom - this.jellyTop;
     for (let i = 0; i < count; i++) {
       const u = (i + 0.3 + Math.random() * 0.4) / count;
       const y = this.jellyTop + u * (this.jellyBottom - this.jellyTop);
@@ -288,6 +304,7 @@ export class Midwater {
     const dt = Math.min(0.1, (now - this.last) / 1000);
     this.last = now;
     this.time += dt;
+    this.dt = dt;
     this.step(dt);
     this.draw();
     this.raf = requestAnimationFrame(this.frame);
@@ -301,17 +318,16 @@ export class Midwater {
       if (f.y > H + 4) Object.assign(f, this.flake(-4));
     }
 
-    const span = this.pageBottom - this.planktonTop;
     const fade = Math.exp(-dt / GLOW_FADE);
     const p = this.pointer && { x: this.pointer.x, y: this.pointer.y + scrollY };
     for (const m of this.motes) {
       // Remontée lente et balancement, comme de la neige marine à l'envers.
-      m.u -= (m.speed * dt) / span;
+      m.y -= m.speed * dt;
       m.x += Math.sin(t * 0.6 + m.phase) * 6 * dt;
-      if (m.u < 0) Object.assign(m, this.mote(1));
+      if (m.y < this.planktonTop) Object.assign(m, this.mote(this.pageBottom));
       m.glow *= fade;
       if (p) {
-        const d = Math.hypot(m.x - p.x, this.planktonTop + m.u * span - p.y);
+        const d = Math.hypot(m.x - p.x, m.y - p.y);
         if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, 0.75 * (1 - d / GLOW_RADIUS) ** 2);
       }
       // Rarement, un point s'allume tout seul : l'essentiel de la lumière vient du curseur.
@@ -365,16 +381,16 @@ export class Midwater {
 
     this.drawJellies();
     this.drawPlankton();
+    this.drawReef();
     ctx.globalAlpha = 1;
   }
 
   private drawPlankton() {
     const { ctx, height: H } = this;
-    const span = this.pageBottom - this.planktonTop;
     if (scrollY + H < this.planktonTop) return;
     ctx.fillStyle = this.colors.glow;
     for (const m of this.motes) {
-      const pageY = this.planktonTop + m.u * span;
+      const pageY = m.y;
       const y = pageY - scrollY;
       if (y < -20 || y > H + 20) continue;
       // Apparition progressive sur les 700 premiers pixels de la zone.
@@ -390,6 +406,17 @@ export class Midwater {
       ctx.arc(m.x, y, m.size * (1 + m.glow), 0, Math.PI * 2);
       ctx.fill();
     }
+  }
+
+  private drawReef() {
+    this.reef.draw(this.ctx, {
+      base: this.pageBottom - scrollY,
+      viewHeight: this.height,
+      time: this.time,
+      dt: this.dt,
+      pointer: this.pointer,
+      palette: this.colors.coral,
+    });
   }
 
   private drawJellies() {

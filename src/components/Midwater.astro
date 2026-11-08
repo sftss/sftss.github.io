@@ -39,11 +39,14 @@
     if (!canvas || !snow || !jellyFrom || !jellyTo || !plankton) return;
 
     const water = new Midwater(canvas, { snow, jellyFrom, jellyTo, plankton });
+    // Le récif occupe le bas de la page : le footer lui laisse de la place sous ses liens.
+    document.documentElement.style.setProperty('--reef-room', '6rem');
     const recolor = () =>
       water.setColors({
         snow: resolve(canvas, '--color-text'),
         jelly: resolve(canvas, '--color-jelly'),
         glow: resolve(canvas, '--color-glow'),
+        coral: ['--fish-yellow', '--fish-orange', '--fish-red', '--coral-lilac', '--coral-green', '--fish-blue'].map((name) => resolve(canvas, name)),
       });
     recolor();
     const themeWatcher = new MutationObserver(recolor);
@@ -51,6 +54,7 @@
 
     return () => {
       themeWatcher.disconnect();
+      document.documentElement.style.removeProperty('--reef-room');
       water.destroy();
     };
   });

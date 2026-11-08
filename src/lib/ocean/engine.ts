@@ -18,6 +18,8 @@ export interface OceanOptions extends RendererOptions {
   species?: Species[];
   /** Adaptation: elements the fish never swim over (the hero portrait). */
   avoid?: HTMLElement[];
+  /** Adaptation: false keeps the loop running off-screen, so a crossing always ends. */
+  pauseOffscreen?: boolean;
   onDone?: () => void;
 }
 
@@ -52,7 +54,7 @@ export class OceanEngine {
     this.resizeObserver.observe(canvas);
     for (const el of options.avoid ?? []) this.resizeObserver.observe(el);
     this.intersectionObserver = new IntersectionObserver(([entry]) => {
-      this.visible = entry.isIntersecting;
+      this.visible = entry.isIntersecting || this.options.pauseOffscreen === false;
       this.schedule();
     });
     this.intersectionObserver.observe(canvas);

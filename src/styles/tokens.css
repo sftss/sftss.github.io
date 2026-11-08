@@ -30,6 +30,8 @@
   --fish-yellow: light-dark(oklch(0.7 0.14 80), oklch(0.86 0.13 95));
   --fish-red: light-dark(oklch(0.55 0.18 25), oklch(0.67 0.17 25));
   --fish-orange: light-dark(oklch(0.64 0.16 50), oklch(0.76 0.15 55));
+  --coral-lilac: light-dark(oklch(0.55 0.13 300), oklch(0.8 0.1 300));
+  --coral-green: light-dark(oklch(0.5 0.12 160), oklch(0.72 0.13 165));
 
   --font-sans: 'IBM Plex Sans Variable', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;

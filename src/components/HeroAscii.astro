@@ -89,12 +89,15 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     -webkit-user-select: none;
   }
 
-  /* Le script dessine le portrait dans un canvas posé exactement sur le texte. */
+  /* Le script dessine le portrait dans un canvas posé sur le texte, débordant d'une large marge
+     (--bleed) : les caractères qui s'envolent s'y effacent en fondu, calculé caractère par caractère
+     (voir `fade`), pour qu'on ne devine aucun bord. */
   .frame :global(canvas) {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: calc(-1 * var(--bleed, 0px));
+    width: calc(100% + 2 * var(--bleed, 0px));
+    height: calc(100% + 2 * var(--bleed, 0px));
+    pointer-events: none;
   }
 
   .cue {
@@ -129,6 +132,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     revealAt: number;
     sx: number;
     sy: number;
+    /** Opacité due à l'éloignement du portrait : 1 au repos, 0 au bord de la marge. */
+    fade: number;
     /** Place du caractère dans le réseau de neurones, si ce caractère y participe. */
     target: { col: number; row: number; ch: string } | null;
   }
@@ -159,13 +164,14 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
       [...line].forEach((ch, col) => {
         if (ch === ' ') return;
         const angle = -Math.PI / 2 + (Math.random() - 0.5) * Math.PI * 1.4;
-        const distance = 220 + Math.random() * 520;
+        const distance = 90 + Math.random() * 240;
         particles.push({
           ch, col, row, x: 0, y: 0, vx: 0, vy: 0, heat: 0,
           tint: Math.floor(Math.random() * 4),
           revealAt: Math.random() * 1200,
           sx: Math.cos(angle) * distance,
           sy: Math.sin(angle) * distance,
+          fade: 1,
           target: null,
         });
       }),
@@ -184,6 +190,11 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     let font = '';
     let width = 0;
     let height = 0;
+    /** Marge du canvas autour du portrait, en px CSS. */
+    let bleed = 0;
+    /** Rayons (px) de l'ellipse où le fondu commence et finit, centrée sur le portrait. */
+    let fadeFrom = 0;
+    let fadeTo = 0;
     let placed = false;
     let pointer: { x: number; y: number } | null = null;
     let scatter = 0;
@@ -201,11 +212,19 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
       const style = getComputedStyle(pre);
       const size = parseFloat(style.fontSize);
       const ratio = devicePixelRatio || 1;
+      bleed = Math.round(pre.clientWidth * 0.5);
+      canvas.style.setProperty('--bleed', `${bleed}px`);
       width = pre.clientWidth;
       height = pre.clientHeight;
-      canvas.width = Math.round(width * ratio);
-      canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      canvas.width = Math.round((width + 2 * bleed) * ratio);
+      canvas.height = Math.round((height + 2 * bleed) * ratio);
+      // Origine décalée de la marge : les coordonnées restent celles du portrait.
+      ctx.setTransform(ratio, 0, 0, ratio, bleed * ratio, bleed * ratio);
+      // Fondu elliptique inscrit dans le canvas, qui commence juste au-delà des coins du portrait.
+      const rx = width / 2 + bleed;
+      const ry = height / 2 + bleed;
+      fadeFrom = Math.hypot(width / 2 / rx, height / 2 / ry) * 1.04;
+      fadeTo = 1;
       font = `${size}px ${style.fontFamily}`;
       ctx.font = font;
       charWidth = ctx.measureText('M').width;
@@ -255,6 +274,8 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
         p.vy = (p.vy + fy) * 0.8;
         p.x += p.vx;
         p.y += p.vy;
+        const r = Math.hypot((p.x - width / 2) / (width / 2 + bleed), (p.y - height / 2) / (height / 2 + bleed));
+        p.fade = 1 - smooth((r - fadeFrom) / (fadeTo - fadeFrom));
         if (!busy && (Math.abs(p.vx) + Math.abs(p.vy) > 0.03 || p.heat > 0.03)) busy = true;
       }
       return { busy, m };
@@ -263,14 +284,14 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     const draw = (now: number, m: number) => {
       const palette = palettes[document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'];
       const base = getComputedStyle(pre).color;
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(-bleed, -bleed, width + 2 * bleed, height + 2 * bleed);
       ctx.font = font;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       // Les caractères sans place dans le réseau s'effacent pendant la transformation.
       for (const mapped of [true, false]) {
-        ctx.globalAlpha = (1 - scatter * 0.85) * (mapped ? 1 : 1 - m);
-        if (ctx.globalAlpha <= 0.01) continue;
+        const alpha = (1 - scatter * 0.85) * (mapped ? 1 : 1 - m);
+        if (alpha <= 0.01) continue;
         // Couleur de base d'abord, puis une passe par couleur : peu de changements de style par image.
         for (let pass = -1; pass < palette.length; pass++) {
           ctx.fillStyle = pass === -1 ? base : palette[pass];
@@ -279,6 +300,9 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
             const hidden = now - start < p.revealAt;
             const colored = hidden || p.heat > 0.12;
             if (pass === -1 ? colored : !colored || p.tint !== pass) continue;
+            const opacity = alpha * p.fade;
+            if (opacity <= 0.02) continue;
+            ctx.globalAlpha = opacity;
             const settled = m > 0.5 && p.target ? p.target.ch : p.ch;
             ctx.fillText(hidden || p.heat > 0.6 ? glyphs[(Math.random() * glyphs.length) | 0] : settled, p.x, p.y);
           }
@@ -305,12 +329,14 @@ const cue = lang === 'fr' ? 'Défiler' : 'Scroll';
     });
     resizer.observe(pre);
 
-    canvas.addEventListener('pointermove', (event) => {
-      const box = canvas.getBoundingClientRect();
+    // Le canvas déborde sur le texte et laisse passer la souris : on écoute le cadre du portrait.
+    const frameEl = pre.parentElement!;
+    frameEl.addEventListener('pointermove', (event) => {
+      const box = pre.getBoundingClientRect();
       pointer = { x: event.clientX - box.left, y: event.clientY - box.top };
       wake();
     });
-    canvas.addEventListener('pointerleave', () => {
+    frameEl.addEventListener('pointerleave', () => {
       pointer = null;
     });
 
