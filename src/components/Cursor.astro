@@ -1,5 +1,5 @@
 ---
-// Point collé à la souris, anneau qui le suit et traînée de bulles ASCII. Le curseur
+// Point collé à la souris, anneau qui le suit et ondulations d'eau dans son sillage. Le curseur
 // natif n'est masqué qu'une fois le script lancé : sans JS, rien ne change.
 ---
 
@@ -107,6 +107,8 @@
 </style>
 
 <script>
+  import { rippleAt } from '../lib/wave';
+
   const root = document.querySelector<HTMLElement>('[data-cursor]');
 
   if (root && matchMedia('(pointer: fine)').matches && matchMedia('(forced-colors: none)').matches) {
@@ -124,28 +126,31 @@
       event.newDocument.documentElement.classList.add('has-cursor');
     });
 
-    // Traînée : une bulle tous les STEP px sur le trajet réel, pour que la trace reste continue
-    // même à grande vitesse. Elle vieillit sur place : O, o, °, puis ·, en s'effaçant.
+    // Ondulations : un cercle tous les RIPPLE_EVERY × STEP px sur le trajet réel, pour que la trace
+    // reste continue même à grande vitesse. Chaque cercle s'élargit en s'effaçant.
     const canvas = root.querySelector<HTMLCanvasElement>('.trail')!;
     const paint = canvas.getContext('2d')!;
     const STEP = 15;
-    const MAX_BUBBLES = 120;
-    const bubbles: { x: number; y: number; vx: number; vy: number; born: number; life: number; size: number }[] = [];
+    const RIPPLE_EVERY = 3;
+    const MAX_RIPPLES = 24;
+    const ripples: { x: number; y: number; born: number; life: number; max: number }[] = [];
+    let steps = 0;
     let trailX = NaN;
     let trailY = NaN;
     let color = '';
-    let font = '';
 
     const fit = () => {
       const dpr = devicePixelRatio || 1;
       canvas.width = Math.round(innerWidth * dpr);
       canvas.height = Math.round(innerHeight * dpr);
       paint.setTransform(dpr, 0, 0, dpr, 0, 0);
-      paint.textAlign = 'center';
-      paint.textBaseline = 'middle';
     };
     fit();
     addEventListener('resize', fit);
+
+    const ripple = (rx: number, ry: number, max: number, life: number) => {
+      ripples.push({ x: rx, y: ry, max, life, born: performance.now() });
+    };
 
     const lay = (px: number, py: number) => {
       if (reduced.matches) return;
@@ -156,42 +161,40 @@
       }
       let dist = Math.hypot(px - trailX, py - trailY);
       while (dist >= STEP) {
-        const k = STEP / dist;
-        trailX += (px - trailX) * k;
-        trailY += (py - trailY) * k;
+        trailX += ((px - trailX) / dist) * STEP;
+        trailY += ((py - trailY) / dist) * STEP;
         dist = Math.hypot(px - trailX, py - trailY);
-        bubbles.push({
-          x: trailX + (Math.random() - 0.5) * 8,
-          y: trailY + (Math.random() - 0.5) * 8,
-          vx: (Math.random() - 0.5) * 0.2,
-          vy: -(0.2 + Math.random() * 0.3),
-          born: performance.now(),
-          life: 850 + Math.random() * 250,
-          size: 11 + Math.random() * 5,
-        });
+        steps++;
+        if (steps % RIPPLE_EVERY === 0) ripple(trailX, trailY, 36, 900 + Math.random() * 200);
       }
-      if (bubbles.length > MAX_BUBBLES) bubbles.splice(0, bubbles.length - MAX_BUBBLES);
+      if (ripples.length > MAX_RIPPLES) ripples.splice(0, ripples.length - MAX_RIPPLES);
     };
 
     const drawTrail = (now: number) => {
       paint.clearRect(0, 0, innerWidth, innerHeight);
-      if (!bubbles.length) return;
-      // Couleur et police relues à chaque image : elles suivent le thème.
+      if (!ripples.length) return;
+      // Couleur relue à chaque image : elle suit le thème.
       color = getComputedStyle(dot).backgroundColor;
-      font = getComputedStyle(document.body).getPropertyValue('--font-mono') || 'ui-monospace, monospace';
-      paint.fillStyle = color;
-      for (let i = bubbles.length - 1; i >= 0; i--) {
-        const bubble = bubbles[i];
-        const age = (now - bubble.born) / bubble.life;
+      paint.strokeStyle = color;
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const wave = ripples[i];
+        const age = (now - wave.born) / wave.life;
         if (age >= 1) {
-          bubbles.splice(i, 1);
+          ripples.splice(i, 1);
           continue;
         }
-        bubble.x += bubble.vx;
-        bubble.y += bubble.vy;
-        paint.globalAlpha = (1 - age) * 0.9;
-        paint.font = `${bubble.size}px ${font}`;
-        paint.fillText(age < 0.25 ? 'O' : age < 0.5 ? 'o' : age < 0.75 ? '°' : '·', bubble.x, bubble.y);
+        // Un anneau principal, et un second plus petit et plus pâle à l'intérieur.
+        for (const [scale, fade] of [
+          [1, 1],
+          [0.6, 0.5],
+        ]) {
+          const { radius, alpha, width } = rippleAt(age, wave.max * scale);
+          paint.globalAlpha = alpha * fade;
+          paint.lineWidth = width;
+          paint.beginPath();
+          paint.arc(wave.x, wave.y, radius, 0, Math.PI * 2);
+          paint.stroke();
+        }
       }
       paint.globalAlpha = 1;
     };
@@ -202,7 +205,7 @@
     let ringY = 0;
     let frame = 0;
 
-    // La boucle ne tourne que tant que l'anneau n'a pas rejoint le point ou qu'il reste des bulles.
+    // La boucle ne tourne que tant que l'anneau n'a pas rejoint le point ou qu'il reste des ondulations.
     const render = (now: number) => {
       const follow = reduced.matches ? 1 : 0.2;
       ringX += (x - ringX) * follow;
@@ -210,7 +213,7 @@
       dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
       drawTrail(now);
-      frame = Math.abs(x - ringX) + Math.abs(y - ringY) > 0.1 || bubbles.length ? requestAnimationFrame(render) : 0;
+      frame = Math.abs(x - ringX) + Math.abs(y - ringY) > 0.1 || ripples.length ? requestAnimationFrame(render) : 0;
     };
 
     addEventListener(
@@ -233,6 +236,19 @@
         // data-shark-hover : posé par le requin de l'accueil, qui se laisse cliquer.
         root.toggleAttribute('data-hover', !!target.closest?.(CLICKABLE) || html.hasAttribute('data-shark-hover'));
         lay(x, y);
+        if (!frame) frame = requestAnimationFrame(render);
+      },
+      { passive: true },
+    );
+
+    // Au clic, une ondulation plus large.
+    addEventListener(
+      'pointerdown',
+      (event) => {
+        if (reduced.matches) return;
+        if (event.pointerType !== 'mouse' && event.pointerType !== 'pen') return;
+        if ((event.target as Element).closest?.(NATIVE)) return;
+        ripple(event.clientX, event.clientY, 72, 1100);
         if (!frame) frame = requestAnimationFrame(render);
       },
       { passive: true },
