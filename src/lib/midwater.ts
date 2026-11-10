@@ -67,6 +67,13 @@ interface Jelly {
 
 const GLOW_RADIUS = 70;
 const GLOW_FADE = 1.3;
+/** Étincelles spontanées : probabilité par point et par seconde, et intensité tirée entre ces bornes. */
+const SPARK_RATE = 0.012;
+const SPARK_MIN = 0.35;
+const SPARK_MAX = 0.9;
+/** Éclosion : un groupe de points s'allume d'un coup, toutes les BURST_EVERY secondes (tirage dans l'intervalle). */
+const BURST_EVERY: [number, number] = [2, 6];
+const BURST_RADIUS = 90;
 const SNOW_PARALLAX = 0.35;
 /** Cloche de la méduse : une ligne par rangée, centrée. */
 const BELL = ['.-~~~-.', "/ '   ' \\", '( .   . )', "'~^~^~^~'"];
@@ -97,6 +104,8 @@ export class Midwater {
   private jellyTop = 0;
   private jellyBottom = 0;
   private planktonTop = 0;
+  /** Instant (en s) de la prochaine éclosion de plancton. */
+  private nextBurst = 0;
   private pageBottom = 0;
   private containerWidth = 0;
   private colors: MidwaterColors = { snow: '#9aa', jelly: '#c9b', glow: '#7ee', coral: ['#ee7', '#e97', '#e66', '#b9e', '#7c9', '#79e'] };
@@ -330,8 +339,22 @@ export class Midwater {
         const d = Math.hypot(m.x - p.x, m.y - p.y);
         if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, 0.75 * (1 - d / GLOW_RADIUS) ** 2);
       }
-      // Rarement, un point s'allume tout seul : l'essentiel de la lumière vient du curseur.
-      if (Math.random() < dt * 0.0025) m.glow = Math.max(m.glow, 0.6);
+      // Un point s'allume parfois tout seul, plus ou moins fort.
+      if (Math.random() < dt * SPARK_RATE) m.glow = Math.max(m.glow, SPARK_MIN + Math.random() * (SPARK_MAX - SPARK_MIN));
+    }
+
+    // De temps en temps, un groupe de points s'éclaire d'un coup, à un endroit tiré au hasard dans la vue.
+    if (t >= this.nextBurst) {
+      this.nextBurst = t + BURST_EVERY[0] + Math.random() * (BURST_EVERY[1] - BURST_EVERY[0]);
+      const bx = Math.random() * this.width;
+      const by = scrollY + Math.random() * H;
+      if (by > this.planktonTop) {
+        const strength = 0.5 + Math.random() * 0.4;
+        for (const m of this.motes) {
+          const d = Math.hypot(m.x - bx, m.y - by);
+          if (d < BURST_RADIUS) m.glow = Math.max(m.glow, strength * (1 - d / BURST_RADIUS));
+        }
+      }
     }
 
     const band = this.jellyBottom - this.jellyTop;
