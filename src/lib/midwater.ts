@@ -340,7 +340,9 @@ export class Midwater {
         if (d < GLOW_RADIUS) m.glow = Math.max(m.glow, 0.75 * (1 - d / GLOW_RADIUS) ** 2);
       }
       // Un point s'allume parfois tout seul, plus ou moins fort.
-      if (Math.random() < dt * SPARK_RATE) m.glow = Math.max(m.glow, SPARK_MIN + Math.random() * (SPARK_MAX - SPARK_MIN));
+      if (Math.random() < dt * SPARK_RATE) {
+        m.glow = Math.max(m.glow, SPARK_MIN + Math.random() * (SPARK_MAX - SPARK_MIN));
+      }
     }
 
     // De temps en temps, un groupe de points s'éclaire d'un coup, à un endroit tiré au hasard dans la vue.
@@ -349,7 +351,8 @@ export class Midwater {
       const bx = Math.random() * this.width;
       const by = scrollY + Math.random() * H;
       if (by > this.planktonTop) {
-        const strength = 0.5 + Math.random() * 0.4;
+        // Comme le plancton lui-même, les éclosions apparaissent progressivement sur les 700 premiers px.
+        const strength = (0.5 + Math.random() * 0.4) * (0.25 + 0.75 * smooth((by - this.planktonTop) / 700));
         for (const m of this.motes) {
           const d = Math.hypot(m.x - bx, m.y - by);
           if (d < BURST_RADIUS) m.glow = Math.max(m.glow, strength * (1 - d / BURST_RADIUS));

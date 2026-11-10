@@ -133,11 +133,15 @@
     const STEP = 15;
     const RIPPLE_EVERY = 3;
     const MAX_RIPPLES = 24;
+    // Chaque ondulation : un anneau principal, et un second plus petit et plus pâle à l'intérieur.
+    const RINGS = [
+      { scale: 1, fade: 1 },
+      { scale: 0.6, fade: 0.5 },
+    ];
     const ripples: { x: number; y: number; born: number; life: number; max: number }[] = [];
     let steps = 0;
     let trailX = NaN;
     let trailY = NaN;
-    let color = '';
 
     const fit = () => {
       const dpr = devicePixelRatio || 1;
@@ -174,8 +178,7 @@
       paint.clearRect(0, 0, innerWidth, innerHeight);
       if (!ripples.length) return;
       // Couleur relue à chaque image : elle suit le thème.
-      color = getComputedStyle(dot).backgroundColor;
-      paint.strokeStyle = color;
+      paint.strokeStyle = getComputedStyle(dot).backgroundColor;
       for (let i = ripples.length - 1; i >= 0; i--) {
         const wave = ripples[i];
         const age = (now - wave.born) / wave.life;
@@ -183,11 +186,7 @@
           ripples.splice(i, 1);
           continue;
         }
-        // Un anneau principal, et un second plus petit et plus pâle à l'intérieur.
-        for (const [scale, fade] of [
-          [1, 1],
-          [0.6, 0.5],
-        ]) {
+        for (const { scale, fade } of RINGS) {
           const { radius, alpha, width } = rippleAt(age, wave.max * scale);
           paint.globalAlpha = alpha * fade;
           paint.lineWidth = width;
